@@ -2,7 +2,7 @@ package testSpace;
 import basicInterface.INameable;
 import rClassInterface.IRReference;
 
-public class RReference implements IRReference,INameable {
+public class RReference implements IRReference {
 	//是否是Java包装类型的引用
 	public boolean isAtom;
 	//是否是基本数据类型
@@ -16,12 +16,6 @@ public class RReference implements IRReference,INameable {
 	//数据所属的RClass名称
 	public String dataClass;
 	
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean set(IRReference source) {

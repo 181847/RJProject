@@ -11,4 +11,14 @@ public class NameableWithString implements INameable
 		// TODO: Implement this method
 		return name;
 	}
+
+	@Override
+	public void setName(String newName)
+	{
+		// TODO: Implement this method
+		name = newName;
+	}
+
+	
+	
 }
