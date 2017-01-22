@@ -1,7 +1,7 @@
 package rClassInterface;
 /*
  * 本接口暂时被废弃，因为在程序中
- * 只需要有一个RClassLoader，因此将这个类的所有防范设为Static
+ * 只需要有一个RClassLoader，因此将这个类的所有方法设为Static
  * 直接通过类名访问，不需要在另外划分空间设置引用保存一个RClassLoader
  */
 
