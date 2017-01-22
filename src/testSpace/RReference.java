@@ -40,9 +40,4 @@ public class RReference implements IRReference,INameable {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	//测试信息，在AIDE编辑
-	//测试信息，在Eclipse编辑
-	//测试信息，第二次在Eclipse中编辑
-
 }
