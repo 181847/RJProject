@@ -1,4 +1,5 @@
 package runnerInterface;
+import functionInterface.IParameterList;
 
 public interface IRunner{
 	//Runner开始执行运行栈内的Excutee
@@ -8,4 +9,8 @@ public interface IRunner{
 	public void setExcutedableState(boolean isExcutedable);
 	//设置当前Runner是否处于反向遍历参数的状态
 	public void setRetraverseParameterState(boolean isRetraverseParameter);
+	//输入一个参数列表，
+	//向运行栈压入所有与这些参数链接的
+	//BaseCalculatorFunction的Excutee
+	void retraverseParameters(IParameterList parameterList)
 }
