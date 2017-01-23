@@ -2,12 +2,19 @@ package testSpace;
 import functionInterface.*;
 import runnerInterface.*;
 
-public class Excutee implements IExcutee
-{
+public class NormalExcutee extends NameableWithString implements IExcutee{
 	public boolean isReady;
 	public IFunction hostFunction;
 	public int paragraphToFire;
-	public int nextExcuterInRearSlot;
+	public IExcuter nextExcuter;
+	
+	public NormalExcutee(String excuteeName, IFunction hostFunction, int paragraphToFire){
+		setName(excuteeName);
+		this.hostFunction = hostFunction;
+		this.paragraphToFire = paragraphToFire;
+		isReady = false;
+		nextExcuter = null;
+	}
 
 	@Override
 	public void welcomeRunner(IRunner runner)
@@ -19,9 +26,9 @@ public class Excutee implements IExcutee
 			runner.setRetraverseParameterState(false);
 		}else{
 			//参数未遍历，不可执行
-			runner.setExcutedableState(true);
+			runner.setExcutedableState(false);
 			//打开参数遍历状态
-			runner.setRetraverseParameterState(false);
+			runner.setRetraverseParameterState(true);
 			//向运行栈压入与参数链接的
 			//BaseCalculator的Excutee
 			runner.retraverseParameters(hostFunction.getParameterList());
@@ -31,24 +38,15 @@ public class Excutee implements IExcutee
 	@Override
 	public void fire()
 	{
-		hostFunction.run(paragraphToFire);
+		nextExcuter = hostFunction.run(paragraphToFire);
 	}
 
 	@Override
 	public void sendRunner(IRunner runner)
 	{
-		// TODO: Implement this method
+		if (nextExcuter != null){
+			runner.pushExcutee(nextExcuter.getExcutee());
+			nextExcuter = null;
+		}
 	}
-
-	@Override
-	public IExcutee getNextExcutee()
-	{
-		// TODO: Implement this method
-		return null;
-	}
-
-
-
-
-	
 }
