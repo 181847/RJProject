@@ -3,47 +3,48 @@ package functionInterface;
 
 public interface IFunction{
 	//运行，执行Function的运算功能
-	void run(int paragraph);
+	public void run(int paragraph);
 	//对于CustomFunction才使用到的功能
 	//填充Function内部的其他Function
-	void fillContentGraph();
+	public void fillContentGraph();
 	//清空Function当中的临时数据、临时Function的引用
-	void clearGraph();
+	public void clearGraph();
 	
 	//是否需要参数
-	boolean needParameter();
+	public boolean needParameter();
 	
 	//添加Excutee，用int返回添加的结果，成功返回1
-	int addExcutee(String excuteeName, int paragraphToFire, int nextExcuterInRearSlot);
+	public int addExcutee(String excuteeName, int paragraphToFire, int nextExcuterInRearSlot);
 	//查找Excutee
-	IExcutee getExcutee(String excuteeName);
-	IExcutee getExcutee(int excuteeNumber);
+	public IExcutee getExcutee(String excuteeName);
+	public IExcutee getExcutee(int excuteeNumber);
 	//删除Excutee
-	int removeExcutee(String excuteeName);
+	public int removeExcutee(String excuteeName);
 	
 	//添加Excuter，用int返回添加的结果，成功返回1
-	int addExcuter(String excuterName);
+	public int addExcuter(String excuterName);
 	//查找Excuter
-	IExcuter getExcuter(String excuterName);
-	IExcuter getExcuter(int excuterNumber);
+	public IExcuter getExcuter(String excuterName);
+	public IExcuter getExcuter(int excuterNumber);
 	//删除Excuter
-	int removeExcuter(String excuterName);
+	public int removeExcuter(String excuterName);
 	
 	//添加Parameter，用int返回添加的结果，成功返回1
-	int addParameter(String ParameterName, String rClass);
+	public int addParameter(String ParameterName, String rClass);
 	//查找Parameter
-	IParameter getParameter(String parameterName);
-	IParameter getParameter(int parameterNumber);
+	public IParameter getParameter(String parameterName);
+	public IParameter getParameter(int parameterNumber);
 	//删除Parameter
-	int removeParameter(String parameterName);
+	public int removeParameter(String parameterName);
 	
 	//添加Returnval，用int返回添加的结果，成功返回1
-	int addReturnval(String returnvalName, String rClass);
+	public int addReturnval(String returnvalName, String rClass);
 	//查找Parameter
-	IReturnval getReturnval(String returnvalName);
-	IReturnval getReturnval(int returnvalNumber);
+	public IReturnval getReturnval(String returnvalName);
+	public IReturnval getReturnval(int returnvalNumber);
 	//删除Parameter
-	int removeReturnval(String returnvalName);
+	public int removeReturnval(String returnvalName);
 	
-
+	//得到Function的参数列表
+	public IParameterList getParameterList()
 }
