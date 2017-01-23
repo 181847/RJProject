@@ -8,4 +8,6 @@ public interface IExcutee{
 	void fire();
 	//为Runner指明下一个要运行的地方
 	void sendRunner(IRunner runner);
+	//得到下一个将要发动的Excutee
+	IExcutee getNextExcutee();
 }
