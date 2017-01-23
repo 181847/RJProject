@@ -4,13 +4,11 @@ import rClassInterface.IRClass;
 public class RClassLoader{
 
 	public static int loadRClass(String rClassPath) {
-		// TODO Auto-generated method stub
 		System.out.println("loadRClass() called: did nothing with " + "rClassPath");
 		return 0;
 	}
 
 	public static int checkRClassMatchType(String rClassA, String rClassB) {
-		// TODO Auto-generated method stub
 		if (rClassA.compareTo(rClassB) == 0)
 			return 1;
 		else
@@ -19,7 +17,6 @@ public class RClassLoader{
 
 	//获得RClass的一个引用
 	public static IRClass getRClass(String rClass) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
