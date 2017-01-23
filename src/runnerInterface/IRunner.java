@@ -1,5 +1,6 @@
 package runnerInterface;
 import functionInterface.IParameterList;
+import functionInterface.IExcutee;
 
 public interface IRunner{
 	//Runner开始执行运行栈内的Excutee
@@ -12,5 +13,7 @@ public interface IRunner{
 	//输入一个参数列表，
 	//向运行栈压入所有与这些参数链接的
 	//BaseCalculatorFunction的Excutee
-	void retraverseParameters(IParameterList parameterList)
+	public void retraverseParameters(IParameterList parameterList);
+	//将Excutee压入Runner的运行栈
+	public void pushExcutee(IExcutee excutee);
 }
