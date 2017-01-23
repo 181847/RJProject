@@ -1,7 +1,8 @@
 package functionInterface;
+import basicInterface.INameable;
 import runnerInterface.IRunner;
 
-public interface IExcutee{
+public interface IExcutee extends INameable{
 	//欢迎Runner的到来，检查参数是否遍历
 	public void welcomeRunner(IRunner runner);
 	//发动hostFunction的运算功能
