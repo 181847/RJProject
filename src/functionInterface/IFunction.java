@@ -3,7 +3,8 @@ package functionInterface;
 
 public interface IFunction{
 	//运行，执行Function的运算功能
-	public void run(int paragraph);
+	//并返回接下来要使用的Excuter
+	public IExcuter run(int paragraph);
 	//对于CustomFunction才使用到的功能
 	//填充Function内部的其他Function
 	public void fillContentGraph();
