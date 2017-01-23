@@ -14,7 +14,8 @@ public class RReference extends NameableWithString implements IRReference {
 	public String dataClass;
 	
 	//构造方法，传入部分参数进行设置，然后调用init()方法设置memberNum\dataClass\datas
-	public RReference(boolean isAtom, String referenceClass){
+	public RReference(String referenceName, boolean isAtom, String referenceClass){
+		setName(referenceName);
 		this.isAtom = isAtom;
 		this.referenceClass = referenceClass;
 		init();
@@ -96,16 +97,20 @@ public class RReference extends NameableWithString implements IRReference {
 		{
 		case 1://同一类型，基本数据类型
 			duplicateBasicData(source);
+			break;
 		case 2://同一类型，普通类型，包括原子非基本数据类型
 			datas = source.getObjects();
+			break;
 		case 3:
 			//不同类型，source为子类，
 			//如果到此，必定不是Java包装类，也不是基本数据类型
 			datas = source.getObjects();
 			dataClass = source.getDataClass();
+			break;
 		default:
 			return false;
 		}
+		return true;
 	}
 
 	@Override
