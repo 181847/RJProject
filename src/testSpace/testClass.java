@@ -6,7 +6,6 @@ import basicInterface.*;
 public class testClass {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		IRReference ref;
 		ref = new Parameter("firstInt", true, "Integer");
 		
@@ -36,11 +35,11 @@ public class testClass {
 		
 		System.out.println("Parameter: " + parameter.getName() + " LINK Returnval: " +parameter.getReturnval().getName());
 		
-		INamedItemList excuterList = new NamedItemList(3);
+		ExcuteeList excuteeList = new ExcuteeList(3);
 		
-		System.out.println(excuterList.insertItem(excuter));
-		System.out.println(excuterList.insertItem(new Excuter("secondExcuter")));
-		System.out.println(((IExcuter)(excuterList.getItem("firstExcuter"))).getExcutee().getName());
+		System.out.println(excuteeList.addExcutee(excutee));
+		System.out.println(excuteeList.addExcutee(new NormalExcutee("secondExcutee", null, 0)));
+		System.out.println(excuteeList.getExcutee("firstExcutee").getName());
 		
 		
 		
