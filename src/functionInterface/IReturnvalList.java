@@ -2,7 +2,7 @@ package functionInterface;
 
 public interface IReturnvalList {
 	//添加Returnval，用int返回添加的结果，成功返回1
-	public int insertReturnval(String returnvalName, String rClass);
+	public int insertReturnval(IReturnval returnval);
 	//查找Parameter
 	public IReturnval getReturnval(String returnvalName);
 	public IReturnval getReturnval(int returnvalNumber);
