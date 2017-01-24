@@ -1,6 +1,7 @@
 package testSpace;
 import rClassInterface.*;
 import functionInterface.*;
+import basicInterface.*;
 
 public class testClass {
 
@@ -34,6 +35,16 @@ public class testClass {
 		parameter.linkReturnval(returnval);
 		
 		System.out.println("Parameter: " + parameter.getName() + " LINK Returnval: " +parameter.getReturnval().getName());
+		
+		INamedItemList excuterList = new NamedItemList(3);
+		
+		System.out.println(excuterList.insertItem(excuter));
+		System.out.println(excuterList.insertItem(new Excuter("secondExcuter")));
+		System.out.println(((IExcuter)(excuterList.getItem("firstExcuter"))).getExcutee().getName());
+		
+		
+		
+		
 	}
 
 }
