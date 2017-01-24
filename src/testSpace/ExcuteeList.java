@@ -4,9 +4,15 @@ import basicInterface.*;
 
 public class ExcuteeList extends NamedItemList implements IExcuteeList
 {
+	
+	public ExcuteeList(){}
+	
+	public ExcuteeList(int space){
+		super(space);
+	}
 
 	@Override
-	public int addExcutee(IExcutee excutee)
+	public int insertExcutee(IExcutee excutee)
 	{
 		return insertItem(excutee);
 	}
