@@ -2,7 +2,7 @@ package functionInterface;
 
 public interface IExcuterList {
 	//添加Excuter，用int返回添加的结果，成功返回1
-	public int insertExcuter(String excuterName);
+	public int insertExcuter(IExcuter excuter);
 	//查找Excuter
 	public IExcuter getExcuter(String excuterName);
 	public IExcuter getExcuter(int excuterNumber);
