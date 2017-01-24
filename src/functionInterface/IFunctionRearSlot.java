@@ -1,5 +1,5 @@
 package functionInterface;
 
-public interface IFunctionRearSlot extends IExcuter, IReturnval{
+public interface IFunctionRearSlot extends IExcuterList, IReturnvalList{
 	
 }
