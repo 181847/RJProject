@@ -1,6 +1,6 @@
 package basicInterface;
 
-public interface INamedItemList{
+public interface INamedItemList extends ICountable{
 	//插入一个可命名对象，用int返回插入的结果
 	public int insertItem(INameable namedItem);
 	//得到一个可命名对象

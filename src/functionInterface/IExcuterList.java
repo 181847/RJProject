@@ -1,6 +1,7 @@
 package functionInterface;
+import basicInterface.ICountable;
 
-public interface IExcuterList {
+public interface IExcuterList extends ICountable{
 	//添加Excuter，用int返回添加的结果，成功返回1
 	public int insertExcuter(IExcuter excuter);
 	//查找Excuter

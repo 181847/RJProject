@@ -1,6 +1,7 @@
 package functionInterface;
+import basicInterface.ICountable;
 
-public interface IReturnvalList {
+public interface IReturnvalList extends ICountable{
 	//添加Returnval，用int返回添加的结果，成功返回1
 	public int insertReturnval(IReturnval returnval);
 	//查找Parameter
