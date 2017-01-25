@@ -76,7 +76,7 @@ public class NamedItemList implements INamedItemList{
 	//通过数组序号得到可命名项
 	@Override
 	public INameable getItem(int index){
-		if (index < 0 || index > itemNum)
+		if (index < 0 || index > itemNum - 1)
 			return null;
 		else
 			return buffer[index];
@@ -118,5 +118,6 @@ public class NamedItemList implements INamedItemList{
 		}
 		
 		buffer = tempBuffer;
+		tempBuffer = null;
 	}
 }
