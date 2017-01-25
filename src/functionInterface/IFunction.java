@@ -1,7 +1,7 @@
 package functionInterface;
+import basicInterface.INameable;
 
-
-public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot{
+public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable{
 	//运行，执行Function的运算功能
 	//并返回接下来要使用的
 	public IExcuter run(int paragraph);
