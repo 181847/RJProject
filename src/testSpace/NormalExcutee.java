@@ -8,9 +8,8 @@ public class NormalExcutee extends NameableWithString implements IExcutee{
 	public int paragraphToFire;
 	public IExcuter nextExcuter;
 	
-	public NormalExcutee(String excuteeName, IFunction hostFunction, int paragraphToFire){
+	public NormalExcutee(String excuteeName, int paragraphToFire){
 		setName(excuteeName);
-		this.hostFunction = hostFunction;
 		this.paragraphToFire = paragraphToFire;
 		isReady = false;
 		nextExcuter = null;
@@ -49,4 +48,11 @@ public class NormalExcutee extends NameableWithString implements IExcutee{
 			nextExcuter = null;
 		}
 	}
+
+	@Override
+	public void setHostFunction(IFunction hostFunction) {
+		this.hostFunction = hostFunction;
+	}
+	
+	
 }
