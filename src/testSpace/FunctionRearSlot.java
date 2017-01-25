@@ -74,4 +74,10 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	{
 		return returnvalList;
 	}
+	
+	//返回excuter和returnval的总数
+	@Override
+	public int getNum() {
+		return excuterList.getNum() + returnvalList.getNum();
+	}
 }

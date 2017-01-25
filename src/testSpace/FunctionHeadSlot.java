@@ -75,6 +75,13 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 		return parameterList;
 	}
 
+	
+	//返回excutee和parameter的总数
+	@Override
+	public int getNum() {
+		return excuteeList.getNum() + parameterList.getNum();
+	}
+
 
 	
 	

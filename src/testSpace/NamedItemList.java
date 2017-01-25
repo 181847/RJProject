@@ -11,6 +11,7 @@ public class NamedItemList implements INamedItemList{
 	}
 	
 	public NamedItemList(int space){
+		this();
 		init(space);
 	}
 	
@@ -108,6 +109,11 @@ public class NamedItemList implements INamedItemList{
 		
 	}
 	
+	@Override
+	public int getNum(){
+		return itemNum;
+	}
+	
 	public void doubleExpendList(){
 		if (buffer == null)
 			return;
@@ -120,4 +126,6 @@ public class NamedItemList implements INamedItemList{
 		buffer = tempBuffer;
 		tempBuffer = null;
 	}
+
+	
 }

@@ -1,9 +1,7 @@
 package testSpace;
 import functionInterface.*;
-import basicInterface.*;
 
-public class ParameterList extends NamedItemList implements IParameterList
-{
+public class ParameterList extends NamedItemList implements IParameterList{
 
 	public ParameterList(){
 		super();

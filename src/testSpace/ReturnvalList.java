@@ -1,6 +1,5 @@
 package testSpace;
 import functionInterface.*;
-import basicInterface.*;
 
 public class ReturnvalList extends NamedItemList implements IReturnvalList
 {
