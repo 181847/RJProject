@@ -80,6 +80,8 @@ public class testClass {
 		IFunction function = new OriginalFunction();
 		IExcutee excuteeForFire = function.getExcutee("fire");
 		excuteeForFire.fire();
+		excuteeForFire = function.getExcutee("fireSlot2");
+		excuteeForFire.fire();
 	}
 
 }
