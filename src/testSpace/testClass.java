@@ -17,7 +17,7 @@ public class testClass {
 		IExcutee excutee;
 		IExcuter excuter;
 		
-		excutee = new NormalExcutee("firstExcutee", null, 0);
+		excutee = new NormalExcutee("firstExcutee", 0);
 		excuter = new Excuter("firstExcuter");
 		
 		excuter.linkExcutee(excutee);
@@ -37,7 +37,7 @@ public class testClass {
 		IExcuteeList excuteeList = new ExcuteeList(3);
 		
 		System.out.println(excuteeList.insertExcutee(excutee));
-		System.out.println(excuteeList.insertExcutee(new NormalExcutee("secondExcutee", null, 0)));
+		System.out.println(excuteeList.insertExcutee(new NormalExcutee("secondExcutee", 0)));
 		System.out.println(excuteeList.getExcutee("firstExcutee").getName());
 		
 		IExcuterList excuterList = new ExcuterList(3);
@@ -61,7 +61,7 @@ public class testClass {
 		IFunctionHeadSlot headSlot = new FunctionHeadSlot(3,3);
 		
 		System.out.println(headSlot.insertExcutee(excutee));
-		System.out.println(headSlot.insertExcutee(new NormalExcutee("thirdExcutee", null, 0)));
+		System.out.println(headSlot.insertExcutee(new NormalExcutee("thirdExcutee", 0)));
 		System.out.println(headSlot.getExcutee("firstExcutee").getName());
 		System.out.println(headSlot.insertParameter(parameter));
 		System.out.println(headSlot.insertParameter(new Parameter("thirdParameter", true, "Integer")));
@@ -76,6 +76,10 @@ public class testClass {
 		System.out.println(rearSlot.insertReturnval(new Returnval("thirdReturnval", true, "Integer")));
 		System.out.println(rearSlot.getReturnval("firstReturnval").getName());
 		
+		
+		IFunction function = new OriginalFunction();
+		IExcutee excuteeForFire = function.getExcutee("fire");
+		excuteeForFire.fire();
 	}
 
 }
