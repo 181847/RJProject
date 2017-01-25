@@ -34,4 +34,11 @@ public class ParameterList extends NamedItemList implements IParameterList{
 	{
 		return deleteItem(parameterName);
 	}
+
+	@Override
+	public void prepareParameters() {
+		for (int i = 0; i < itemNum; ++i){
+			((IParameter)buffer[i]).extractParameter();
+		}
+	}
 }
