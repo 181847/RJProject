@@ -62,4 +62,20 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	{
 		return parameterList.deleteParameter(parameterName);
 	}
+
+	@Override
+	public IExcuteeList getExcuteeList()
+	{
+		return excuteeList;
+	}
+
+	@Override
+	public IParameterList getParameterList()
+	{
+		return parameterList;
+	}
+
+
+	
+	
 }
