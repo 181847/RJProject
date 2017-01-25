@@ -9,4 +9,6 @@ public interface IExcutee extends INameable{
 	public void fire();
 	//为Runner指明下一个要运行的地方
 	public void sendRunner(IRunner runner);
+	//设定Excutee所从属的Function
+	public void setHostFunction(IFunction hostFunction);
 }
