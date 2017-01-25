@@ -82,6 +82,11 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 		return excuteeList.getNum() + parameterList.getNum();
 	}
 
+	@Override
+	public void prepareParameters() {
+		parameterList.prepareParameters();
+	}
+
 
 	
 	
