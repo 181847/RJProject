@@ -62,4 +62,16 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	{
 		return returnvalList.deleteReturnval(returnvalName);
 	}
+
+	@Override
+	public IExcuterList getExcuterList()
+	{
+		return excuterList;
+	}
+
+	@Override
+	public IReturnvalList getReturnvalList()
+	{
+		return returnvalList;
+	}
 }
