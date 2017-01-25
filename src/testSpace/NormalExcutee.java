@@ -37,7 +37,7 @@ public class NormalExcutee extends NameableWithString implements IExcutee{
 	@Override
 	public void fire()
 	{
-		nextExcuter = hostFunction.run(paragraphToFire);
+		nextExcuter = hostFunction.invoke(paragraphToFire);
 	}
 
 	@Override
