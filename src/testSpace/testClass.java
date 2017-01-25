@@ -1,7 +1,6 @@
 package testSpace;
 import rClassInterface.*;
 import functionInterface.*;
-import basicInterface.*;
 
 public class testClass {
 

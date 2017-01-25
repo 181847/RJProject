@@ -47,5 +47,5 @@ public interface IFunction{
 	public int removeReturnval(String returnvalName);
 	
 	//得到Function的参数列表
-	public IParameterList getParameterList()
+	public IParameterList getParameterList();
 }

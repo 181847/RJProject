@@ -8,14 +8,12 @@ public class NameableWithString implements INameable
 	@Override
 	public String getName()
 	{
-		// TODO: Implement this method
 		return name;
 	}
 
 	@Override
 	public void setName(String newName)
 	{
-		// TODO: Implement this method
 		name = newName;
 	}
 
