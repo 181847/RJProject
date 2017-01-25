@@ -10,4 +10,5 @@ public interface IParameterList extends ICountable{
 	public IParameter getParameter(int parameterNumber);
 	//删除Parameter
 	public int deleteParameter(String parameterName);
+	public void prepareParameters();
 }

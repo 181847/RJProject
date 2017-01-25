@@ -2,6 +2,9 @@ package functionInterface;
 import basicInterface.INameable;
 
 public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable{
+	//开始function的参数处理，以及运算功能的发动
+	//在invoke内部会发动run方法
+	public IExcuter invoke(int paragraph);
 	//运行，执行Function的运算功能
 	//并返回接下来要使用的
 	public IExcuter run(int paragraph);
