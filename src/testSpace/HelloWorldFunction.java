@@ -1,11 +1,11 @@
 package testSpace;
 import functionInterface.IExcuter;
 
-public class OriginalFunction extends AbstractFunction {
-	public OriginalFunction(){
+public class HelloWorldFunction extends AbstractFunction {
+	public HelloWorldFunction(){
 		super(2, 0, 0, 0);
-		insertExcutee(new NormalExcutee("fire", 1));
-		insertExcutee(new NormalExcutee("fireSlot2", 2));
+		insertExcutee(new LinerExcutee("fire", 1));
+		insertExcutee(new LinerExcutee("fireSlot2", 2));
 		setName("Hello World Function");
 	}
 
