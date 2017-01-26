@@ -97,9 +97,7 @@ public class RReference extends NameableWithString implements IRReference {
 			return 0;
 		switch(RClassLoader.checkRClassMatchType(referenceClass, source.getDataClass()))
 		{
-		case 1://同一类型，基本数据类型
-			duplicateBasicData(source);
-			break;
+		case 1:
 		case 2://同一类型，普通类型，包括原子非基本数据类型
 			datas = source.getObjects();
 			break;
@@ -115,6 +113,7 @@ public class RReference extends NameableWithString implements IRReference {
 		return 1;
 	}
 
+	/*
 	@Override
 	public void duplicateBasicData(IRReference source) {
 		switch(referenceClass.charAt(0))
@@ -123,12 +122,12 @@ public class RReference extends NameableWithString implements IRReference {
 				switch(referenceClass.charAt(1)){
 					case 'y':
 						//对应Byte类型
-						datas[0] = new Byte(source.getObjects()[0]);
+						datas[0] = source.getObjects()[0];
 						break;
 
 					case 'o':
 						//对应Boolean类型
-						datas[0] = new Boolean(source.getObjects()[0]);
+						datas[0] = source.getObjects()[0];
 						break;
 				}
 				break;
@@ -164,7 +163,9 @@ public class RReference extends NameableWithString implements IRReference {
 				break;
 		}
 	}
-
+	*/
+	
+	
 	@Override
 	public Object[] getObjects() {
 		return datas;
