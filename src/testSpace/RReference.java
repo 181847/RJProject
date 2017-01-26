@@ -92,7 +92,9 @@ public class RReference extends NameableWithString implements IRReference {
 	//其他类型按引用设置
 	//现阶段只考虑相同类型的基本数据类型之间进行设置
 	@Override
-	public boolean set(IRReference source) {
+	public int set(IRReference source) {
+		if (source == null)
+			return 0;
 		switch(RClassLoader.checkRClassMatchType(referenceClass, source.getDataClass()))
 		{
 		case 1://同一类型，基本数据类型
@@ -108,15 +110,59 @@ public class RReference extends NameableWithString implements IRReference {
 			dataClass = source.getDataClass();
 			break;
 		default:
-			return false;
+			return 0;
 		}
-		return true;
+		return 1;
 	}
 
 	@Override
 	public void duplicateBasicData(IRReference source) {
-		// TODO Auto-generated method stub
+		switch(referenceClass.charAt(0))
+		{
+			case 'B': 
+				switch(referenceClass.charAt(1)){
+					case 'y':
+						//对应Byte类型
+						datas[0] = new Byte(source.getObjects()[0]);
+						break;
 
+					case 'o':
+						//对应Boolean类型
+						datas[0] = new Boolean(source.getObjects()[0]);
+						break;
+				}
+				break;
+
+			case 'S':
+				//对应Short类型
+				datas[0] = new Short(source.getObjects()[0]);
+				break;
+
+			case 'I':
+				//对应Integer类型
+				datas[0] = new Integer(source.getObjects()[0]);
+				break;
+
+			case 'L':
+				//对应Long类型
+				datas[0] = new Long(source.getObjects()[0]);
+				break;
+
+			case 'F':
+				//对应Float类型
+				datas[0] = new Float(source.getObjects()[0]);
+				break;
+
+			case 'D':
+				//对应Double类型
+				datas[0] = new Double(source.getObjects()[0]);
+				break;
+
+			case 'C':
+				//对应Character类型
+				datas[0] = new Character(source.getObjects()[0]);
+				break;
+		}
 	}
 
 	@Override
