@@ -2,19 +2,25 @@ package testSpace;
 import functionInterface.*;
 import runnerInterface.*;
 
-public class NormalExcutee extends NameableWithString implements IExcutee{
+public abstract class AbstractExcutee extends NameableWithString implements IExcutee{
 	public boolean isReady;
 	public IFunction hostFunction;
 	public int paragraphToFire;
 	public IExcuter nextExcuter;
 	
-	public NormalExcutee(String excuteeName, int paragraphToFire){
+	public AbstractExcutee(String excuteeName, int paragraphToFire){
 		setName(excuteeName);
 		this.paragraphToFire = paragraphToFire;
 		isReady = false;
 		nextExcuter = null;
 	}
+	
+	public abstract void sendRunner(IRunner runner);
 
+	
+	
+	//设定Runner的相关运行权限
+	//以及遍历参数来源的基本运算节点
 	@Override
 	public void welcomeRunner(IRunner runner)
 	{
@@ -34,20 +40,15 @@ public class NormalExcutee extends NameableWithString implements IExcutee{
 		}
 	}
 
+	
+	//发动hostFunction的函数功能
 	@Override
 	public void fire()
 	{
 		nextExcuter = hostFunction.invoke(paragraphToFire);
 	}
 
-	@Override
-	public void sendRunner(IRunner runner)
-	{
-		if (nextExcuter != null){
-			runner.pushExcutee(nextExcuter.getExcutee());
-			nextExcuter = null;
-		}
-	}
+	
 
 	@Override
 	public void setHostFunction(IFunction hostFunction) {
