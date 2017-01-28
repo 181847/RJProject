@@ -18,7 +18,7 @@ public class ExcuterList extends NamedItemList implements IExcuterList
 	}
 
 	@Override
-	public IExcuter getExcuter(String excuterName)
+	public IExcuter Excuter(String excuterName)
 	{
 		return (IExcuter)getItem(excuterName);
 	}

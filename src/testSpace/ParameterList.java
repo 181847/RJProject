@@ -18,7 +18,7 @@ public class ParameterList extends NamedItemList implements IParameterList{
 	}
 
 	@Override
-	public IParameter getParameter(String parameterName)
+	public IParameter Parameter(String parameterName)
 	{
 		return (IParameter)getItem(parameterName);
 	}

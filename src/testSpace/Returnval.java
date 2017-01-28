@@ -3,8 +3,8 @@ import functionInterface.*;
 
 public class Returnval extends RReference implements IReturnval{
 	IExcutee excutee;
-	public Returnval(String returnvalName, boolean isAtom, String referenceClass){
-		super(returnvalName, isAtom, referenceClass);
+	public Returnval(String returnvalName, String referenceClass){
+		super(returnvalName, referenceClass);
 	}
 
 	@Override

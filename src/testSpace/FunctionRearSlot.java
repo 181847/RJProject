@@ -22,9 +22,9 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	}
 
 	@Override
-	public IExcuter getExcuter(String excuterName)
+	public IExcuter Excuter(String excuterName)
 	{
-		return excuterList.getExcuter(excuterName);
+		return excuterList.Excuter(excuterName);
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	}
 
 	@Override
-	public IReturnval getReturnval(String returnvalName)
+	public IReturnval Returnval(String returnvalName)
 	{
-		return returnvalList.getReturnval(returnvalName);
+		return returnvalList.Returnval(returnvalName);
 	}
 
 	@Override

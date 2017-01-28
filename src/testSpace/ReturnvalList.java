@@ -19,7 +19,7 @@ public class ReturnvalList extends NamedItemList implements IReturnvalList
 	}
 
 	@Override
-	public IReturnval getReturnval(String returnvalName)
+	public IReturnval Returnval(String returnvalName)
 	{
 		return (IReturnval)getItem(returnvalName);
 	}

@@ -61,8 +61,8 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	}
 
 	@Override
-	public IExcutee getExcutee(String excuteeName) {
-		return functionHeadSlot.getExcutee(excuteeName);
+	public IExcutee Excutee(String excuteeName) {
+		return functionHeadSlot.Excutee(excuteeName);
 	}
 
 	@Override
@@ -83,8 +83,8 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	}
 
 	@Override
-	public IParameter getParameter(String parameterName) {
-		return functionHeadSlot.getParameter(parameterName);
+	public IParameter Parameter(String parameterName) {
+		return functionHeadSlot.Parameter(parameterName);
 	}
 
 	@Override
@@ -107,8 +107,8 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	}
 
 	@Override
-	public IExcuter getExcuter(String excuterName) {
-		return functionRearSlot.getExcuter(excuterName);
+	public IExcuter Excuter(String excuterName) {
+		return functionRearSlot.Excuter(excuterName);
 	}
 
 	@Override
@@ -131,8 +131,8 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	}
 
 	@Override
-	public IReturnval getReturnval(String returnvalName) {
-		return functionRearSlot.getReturnval(returnvalName);
+	public IReturnval Returnval(String returnvalName) {
+		return functionRearSlot.Returnval(returnvalName);
 	}
 
 	@Override

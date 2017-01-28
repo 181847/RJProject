@@ -22,9 +22,9 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	}
 
 	@Override
-	public IExcutee getExcutee(String excuteeName)
+	public IExcutee Excutee(String excuteeName)
 	{
-		return excuteeList.getExcutee(excuteeName);
+		return excuteeList.Excutee(excuteeName);
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	}
 
 	@Override
-	public IParameter getParameter(String parameterName)
+	public IParameter Parameter(String parameterName)
 	{
-		return parameterList.getParameter(parameterName);
+		return parameterList.Parameter(parameterName);
 	}
 
 	@Override
@@ -82,12 +82,11 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 		return excuteeList.getNum() + parameterList.getNum();
 	}
 
+	//参数准备
 	@Override
 	public void prepareParameters() {
 		parameterList.prepareParameters();
 	}
 
 
-	
-	
 }

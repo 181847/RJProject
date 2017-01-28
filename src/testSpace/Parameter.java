@@ -4,8 +4,8 @@ import functionInterface.*;
 public class Parameter extends RReference implements IParameter{
 	IReturnval returnvalSource;
 	
-	public Parameter(String parameterName, boolean isAtom, String referenceClass){
-		super(parameterName, isAtom, referenceClass);
+	public Parameter(String parameterName, String referenceClass){
+		super(parameterName, referenceClass);
 		returnvalSource = null;
 	}
 

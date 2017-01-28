@@ -1,6 +1,5 @@
 package testSpace;
 import functionInterface.*;
-import basicInterface.*;
 
 public class ExcuteeList extends NamedItemList implements IExcuteeList
 {
@@ -18,7 +17,7 @@ public class ExcuteeList extends NamedItemList implements IExcuteeList
 	}
 
 	@Override
-	public IExcutee getExcutee(String excuteeName)
+	public IExcutee Excutee(String excuteeName)
 	{
 		return (IExcutee)getItem(excuteeName);
 	}
