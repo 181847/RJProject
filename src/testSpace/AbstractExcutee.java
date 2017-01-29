@@ -48,12 +48,9 @@ public abstract class AbstractExcutee extends NameableWithString implements IExc
 		nextExcuter = hostFunction.invoke(paragraphToFire);
 	}
 
-	
-
 	@Override
 	public void setHostFunction(IFunction hostFunction) {
 		this.hostFunction = hostFunction;
 	}
-	
-	
+
 }

@@ -18,5 +18,7 @@ public class NameableWithString implements INameable
 	}
 
 	
-	
+	public String toString(){
+		return name;
+	}
 }

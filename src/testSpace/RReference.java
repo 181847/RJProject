@@ -2,8 +2,12 @@ package testSpace;
 import rClassInterface.IRReference;
 
 public class RReference extends NameableWithString implements IRReference {
-	//是否是Java包装类型的引用
-	public boolean isAtom;
+	//粗略类型标识
+	//1代表基本数据类型
+	//2代表Java包装的RClass
+	//3代表完全自定义的RClass
+	//这一项在init()当中从RClassLoader中获取，且只与referenceClass有关
+	public int roughType;
 	//数据域
 	public Object[] datas;
 	//成员数量
@@ -14,17 +18,16 @@ public class RReference extends NameableWithString implements IRReference {
 	public String dataClass;
 	
 	//构造方法，传入部分参数进行设置，然后调用init()方法设置memberNum\dataClass\datas
-	public RReference(String referenceName, boolean isAtom, String referenceClass){
+	public RReference(String referenceName, String referenceClass){
 		setName(referenceName);
-		this.isAtom = isAtom;
 		this.referenceClass = referenceClass;
 		init();
 	}
 	
-	//初始化方法，根据isAtom\referenceClass
+	//初始化方法，根据rough\referenceClass
 	//对这个RReference实例进行初始化设置
 	public void init(){
-		if (RClassLoader.getTypeOf(referenceClass)==0){
+		if ((roughType = RClassLoader.getRoughTypeOf(referenceClass)) ==1){
 			dataClass = referenceClass;
 			datas = new Object[1];
 			memberNum = 1;
@@ -87,84 +90,35 @@ public class RReference extends NameableWithString implements IRReference {
 	}
 	
 	
+	public int getMemberNum(){
+		return memberNum;
+	}
+	
 	//用另一个RReference来对本RReference进行设置
-	//基本数据类型按值设置
-	//其他类型按引用设置
 	//现阶段只考虑相同类型的基本数据类型之间进行设置
+	//这里假设RReference的类型是匹配的，或者source为子类
 	@Override
 	public int set(IRReference source) {
 		if (source == null)
 			return 0;
-		switch(RClassLoader.checkRClassMatchType(referenceClass, source.getDataClass()))
-		{
-		case 1:
-		case 2://同一类型，普通类型，包括原子非基本数据类型
-			datas = source.getObjects();
-			break;
+		
+		datas = source.getObjects();
+		
+		switch(roughType){
+		//除非本RReference是基本数据类型
+		//否则dataClass以及memberNum都要重新指定
+		case 2:
 		case 3:
-			//不同类型，source为子类，
-			//如果到此，必定不是Java包装类，也不是基本数据类型
-			datas = source.getObjects();
 			dataClass = source.getDataClass();
+			memberNum = source.getMemberNum();
 			break;
 		default:
-			return 0;
+			return 0;	
 		}
 		return 1;
 	}
 
-	/*
-	@Override
-	public void duplicateBasicData(IRReference source) {
-		switch(referenceClass.charAt(0))
-		{
-			case 'B': 
-				switch(referenceClass.charAt(1)){
-					case 'y':
-						//对应Byte类型
-						datas[0] = source.getObjects()[0];
-						break;
-
-					case 'o':
-						//对应Boolean类型
-						datas[0] = source.getObjects()[0];
-						break;
-				}
-				break;
-
-			case 'S':
-				//对应Short类型
-				datas[0] = new Short(source.getObjects()[0]);
-				break;
-
-			case 'I':
-				//对应Integer类型
-				datas[0] = new Integer(source.getObjects()[0]);
-				break;
-
-			case 'L':
-				//对应Long类型
-				datas[0] = new Long(source.getObjects()[0]);
-				break;
-
-			case 'F':
-				//对应Float类型
-				datas[0] = new Float(source.getObjects()[0]);
-				break;
-
-			case 'D':
-				//对应Double类型
-				datas[0] = new Double(source.getObjects()[0]);
-				break;
-
-			case 'C':
-				//对应Character类型
-				datas[0] = new Character(source.getObjects()[0]);
-				break;
-		}
-	}
-	*/
-	
+		
 	
 	@Override
 	public Object[] getObjects() {
@@ -180,4 +134,117 @@ public class RReference extends NameableWithString implements IRReference {
 	public String getDataClass() {
 		return dataClass;
 	}
+
+	//读取出第0号单元位置的Object
+	@Override
+	public Object readObject() {
+		//如果这个RReference属于完全自定义的RReference
+		//则它的datas数组存储的都是RReference类型的对象
+		//不允许用户像这样读取RReference的对象
+		//这个方法的返回值一定是一个用户可以直接操作的Java对象
+		//roughType
+		//1代表基本数据类型
+		//2代表Java包装的RClass
+		//3代表完全自定义的RClass
+		if (roughType > 2 || datas == null)
+			return null;
+		return datas[0];
+	}
+
+	@Override
+	public IRReference Member(String memberName) {
+		if (roughType <= 2 || datas == null)
+			return null;
+		
+		for (int i = 0; i < datas.length; ++i){
+			//这里的toString()函数在NameableWithString类当中重载
+			//返回的是这个可命名实例的名字
+			if (datas[i].toString().compareTo(memberName) == 0)
+				return (IRReference)datas[i];
+		}
+		
+		return null;
+	}
+
+	@Override
+	public int locateRReferenceOf(String memberName) {
+		if (roughType <= 2 || datas == null)
+			return -1;
+		
+		for (int i = 0; i < datas.length; ++i){
+			if (datas[i].toString().compareTo(memberName) == 0)
+				return i;
+		}
+		return -1;
+	}
+	
+	@Override
+	public IRReference getRReferenceInLocation(int location) {
+		//返回不成功的条件有
+		//引用类型不是完全自定义的RClass
+		//引用未能获得实例，datas仍然指向null
+		//数组序号越界
+		if (roughType <= 2 || datas == null || location < 0 || location >= datas.length)
+			return null;
+		return (IRReference)datas[location];
+	}
+
+	
+	//注意：这个方法不应该在运行过程当中调用
+	//它只在定义RClass类型当中的成员变量时会使用到
+	//用于调整成员变量的顺序
+	//无需顾虑效率
+	@Override
+	public int moveRReferenceOf(String memberName, int step) {
+		int location = locateRReferenceOf(memberName);
+		
+		//没有找到可以移动的RReference
+		if (location < 0 || step == 0)
+			return 0;
+		
+		Object temp = datas[location];
+		
+		if (step > 0){
+			while(step != 0 && location < datas.length){
+				datas[location] = datas[location + 1];
+				++location;
+				--step;
+			}
+		}else{
+			while(step != 0 && location > 0){
+				datas[location] = datas[location - 1];
+				--location;
+				++step;
+			}
+		}
+		
+		datas[location] = temp;
+		
+		return location;
+	}
+
+	@Override
+	public int getRoughType() {
+		return roughType;
+	}
+
+	@Override
+	public int writeObject(Object data, String dataClass) {
+		//引用类型不是基本数据类型或者Java包装类
+		//又或者dataClass与referenceClass不相等
+		if (roughType > 2 || RClassLoader.checkRClassMatchType(referenceClass, dataClass) > 2)
+			return 0;
+		
+		datas = new Object[1];
+		datas[0] = data;
+		return 1;
+	}
+
+	@Override
+	public int writeRReference(Object[] rReferenceList, String dataClass) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }
