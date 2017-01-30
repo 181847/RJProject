@@ -57,4 +57,16 @@ public interface IRReference extends INameable{
 	//移动名为memberName的RReference在datas[]数组当中的位置，
 	//向前，或向后移动几位，返回最终移动的步数
 	public int moveRReferenceOf(String memberName, int step);
+	
+	
+	/**
+	 *为引用申请指定长度的Object[]数组
+	 *如果分配失败就返回0
+	 */
+	public int mallocSpace(int space);
+	 
+	/**
+	 *将datas数组当中的所有单元设为null
+	 */
+	public int freeSpace();
 }
