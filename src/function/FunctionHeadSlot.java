@@ -1,4 +1,4 @@
-package testSpace;
+package function;
 import functionInterface.*;
 
 public class FunctionHeadSlot implements IFunctionHeadSlot{

@@ -1,4 +1,4 @@
-package testSpace;
+package function;
 import runnerInterface.*;
 
 public class LinerExcutee extends AbstractExcutee{

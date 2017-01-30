@@ -1,4 +1,4 @@
-package testSpace;
+package function;
 import functionInterface.*;
 
 public class FunctionRearSlot implements IFunctionRearSlot{

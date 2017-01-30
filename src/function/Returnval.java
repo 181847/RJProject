@@ -1,9 +1,9 @@
-package testSpace;
+package function;
 import functionInterface.*;
 
 public class Returnval extends RReference implements IReturnval{
 	IExcutee excutee;
-	public Returnval(String returnvalName, String referenceClass){
+	public Returnval(String referenceClass, String returnvalName){
 		super(returnvalName, referenceClass);
 	}
 
