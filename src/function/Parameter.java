@@ -1,11 +1,12 @@
 package function;
 import functionInterface.*;
+import rClass.RReference;
 
 public class Parameter extends RReference implements IParameter{
 	IReturnval returnvalSource;
 	
-	public Parameter(String parameterName, String referenceClass){
-		super(parameterName, referenceClass);
+	public Parameter(String referenceClass, String parameterName){
+		super(referenceClass, parameterName);
 		returnvalSource = null;
 	}
 

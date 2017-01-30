@@ -1,10 +1,11 @@
 package function;
 import functionInterface.*;
+import rClass.RReference;
 
 public class Returnval extends RReference implements IReturnval{
 	IExcutee excutee;
 	public Returnval(String referenceClass, String returnvalName){
-		super(returnvalName, referenceClass);
+		super(referenceClass, returnvalName);
 	}
 
 	@Override
