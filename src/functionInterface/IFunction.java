@@ -1,49 +1,25 @@
 package functionInterface;
+import basicInterface.INameable;
 
-
-public interface IFunction{
+public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable{
+	//开始function的参数处理，以及运算功能的发动
+	//在invoke内部会发动run方法
+	public IExcuter invoke(int paragraph);
 	//运行，执行Function的运算功能
-	void run(int paragraph);
+	//并返回接下来要使用的
+	public IExcuter run(int paragraph);
 	//对于CustomFunction才使用到的功能
 	//填充Function内部的其他Function
-	void fillContentGraph();
+	public void fillContentGraph();
 	//清空Function当中的临时数据、临时Function的引用
-	void clearGraph();
+	public void clearGraph();
 	
 	//是否需要参数
-	boolean needParameter();
+	public boolean needParameter();
 	
-	//添加Excutee，用int返回添加的结果，成功返回1
-	int addExcutee(String excuteeName, int paragraphToFire, int nextExcuterInRearSlot);
-	//查找Excutee
-	IExcutee getExcutee(String excuteeName);
-	IExcutee getExcutee(int excuteeNumber);
-	//删除Excutee
-	int removeExcutee(String excuteeName);
 	
-	//添加Excuter，用int返回添加的结果，成功返回1
-	int addExcuter(String excuterName);
-	//查找Excuter
-	IExcuter getExcuter(String excuterName);
-	IExcuter getExcuter(int excuterNumber);
-	//删除Excuter
-	int removeExcuter(String excuterName);
-	
-	//添加Parameter，用int返回添加的结果，成功返回1
-	int addParameter(String ParameterName, String rClass);
-	//查找Parameter
-	IParameter getParameter(String parameterName);
-	IParameter getParameter(int parameterNumber);
-	//删除Parameter
-	int removeParameter(String parameterName);
-	
-	//添加Returnval，用int返回添加的结果，成功返回1
-	int addReturnval(String returnvalName, String rClass);
-	//查找Parameter
-	IReturnval getReturnval(String returnvalName);
-	IReturnval getReturnval(int returnvalNumber);
-	//删除Parameter
-	int removeReturnval(String returnvalName);
-	
-
+	//得到节点前方插口引用
+	public IFunctionHeadSlot getHeadSlot();
+	//得到节点后方插口引用
+	public IFunctionRearSlot getRearSlot();
 }

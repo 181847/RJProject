@@ -1,11 +1,12 @@
 package functionInterface;
+import basicInterface.ICountable;
 
-public interface IReturnvalList {
+public interface IReturnvalList extends ICountable{
 	//添加Returnval，用int返回添加的结果，成功返回1
-	int addReturnval(String returnvalName, String rClass);
+	public int insertReturnval(IReturnval returnval);
 	//查找Parameter
-	IReturnval getReturnval(String returnvalName);
-	IReturnval getReturnval(int returnvalNumber);
+	public IReturnval Returnval(String returnvalName);
+	public IReturnval getReturnval(int returnvalNumber);
 	//删除Parameter
-	int removeReturnval(String returnvalName);
+	public int deleteReturnval(String returnvalName);
 }

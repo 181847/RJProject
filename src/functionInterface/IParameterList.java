@@ -1,11 +1,14 @@
 package functionInterface;
 
-public interface IParameterList {
+import basicInterface.ICountable;
+
+public interface IParameterList extends ICountable{
 	//添加Parameter，用int返回添加的结果，成功返回1
-	int addParameter(String ParameterName, String rClass);
+	public int insertParameter(IParameter parameter);
 	//查找Parameter
-	IParameter getParameter(String parameterName);
-	IParameter getParameter(int parameterNumber);
+	public IParameter Parameter(String parameterName);
+	public IParameter getParameter(int parameterNumber);
 	//删除Parameter
-	int removeParameter(String parameterName);
+	public int deleteParameter(String parameterName);
+	public void prepareParameters();
 }

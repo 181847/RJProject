@@ -1,20 +1,19 @@
 package testSpace;
-import rClassInterface.*;
+import functionInterface.*;
 
 public class testClass {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		IRReference ref;
-		ref = new RReference(true, "Integer");
+		IFunction function = new HelloWorldFunction();
 		
-		ref.setName("firstInt");
+		function.Parameter("n").writeObject(new Integer(45), "Integer");
+		function.Parameter("ch").writeObject(new Character('@'), "Character");
 		
-		Object[] a = ref.getObjects();
+		function.Excutee("fire").fire();
+		function.Excutee("fireSlot2").fire();
+		function.Excutee("tryPara&Retu").fire();
 		
-		a[0] = new Integer(78);
-		
-		System.out.println(((Integer)(ref.getObjects()[0])).toString() );
+		System.out.println((Integer)function.Returnval("return").readObject());
 	}
 
 }

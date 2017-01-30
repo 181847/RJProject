@@ -1,4 +1,4 @@
-package testSpace;
+package basicTool;
 import basicInterface.INameable;
 
 public class NameableWithString implements INameable
@@ -8,17 +8,17 @@ public class NameableWithString implements INameable
 	@Override
 	public String getName()
 	{
-		// TODO: Implement this method
 		return name;
 	}
 
 	@Override
 	public void setName(String newName)
 	{
-		// TODO: Implement this method
 		name = newName;
 	}
 
 	
-	
+	public String toString(){
+		return name;
+	}
 }
