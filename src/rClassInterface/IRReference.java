@@ -37,6 +37,8 @@ public interface IRReference extends INameable{
 	//注意这个方法的使用者一定是一个基本数据类型，或者Java包装类
 	//datas数组长度只有一位，写入Object时会重新申请一个长度为一的数组
 	//然后将datas指向这个新的数组，以及将传入的参数data放进新数组的第0号单元
+	//由于只适用于基本数据类型和Java包装类
+	//要求dataClass必须和reference相同，否则返回0
 	public int writeObject(Object data, String dataClass);
 	
 	//用一个Object数组存储一系列RReference
@@ -55,6 +57,6 @@ public interface IRReference extends INameable{
 	public int locateRReferenceOf(String memberName);
 	
 	//移动名为memberName的RReference在datas[]数组当中的位置，
-	//向前，或向后移动几位，返回最终移动的步数
+	//向前，或向后移动几位，返回最终移动到的位置
 	public int moveRReferenceOf(String memberName, int step);
 }
