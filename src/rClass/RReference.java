@@ -1,5 +1,7 @@
-package testSpace;
+package rClass;
+import basicTool.NameableWithString;
 import rClassInterface.IRReference;
+import testSpace.RClassLoader;
 
 public class RReference extends NameableWithString implements IRReference {
 	//粗略类型标识
@@ -18,7 +20,7 @@ public class RReference extends NameableWithString implements IRReference {
 	public String dataClass;
 	
 	//构造方法，传入部分参数进行设置，然后调用init()方法设置memberNum\dataClass\datas
-	public RReference(String referenceName, String referenceClass){
+	public RReference(String referenceClass, String referenceName){
 		setName(referenceName);
 		this.referenceClass = referenceClass;
 		init();
@@ -235,7 +237,6 @@ public class RReference extends NameableWithString implements IRReference {
 		if (roughType > 2 || RClassLoader.checkRClassMatchType(referenceClass, dataClass) > 2)
 			return 0;
 		
-		datas = new Object[1];
 		datas[0] = data;
 		return 1;
 	}
