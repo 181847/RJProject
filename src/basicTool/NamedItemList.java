@@ -1,9 +1,9 @@
-package testSpace;
+package basicTool;
 import basicInterface.*;
 
 public class NamedItemList implements INamedItemList{
 	public INameable[] buffer;
-	int itemNum;
+	public int itemNum;
 	
 	public NamedItemList(){
 		buffer = null;

@@ -1,4 +1,4 @@
-package testSpace;
+package basicTool;
 import basicInterface.INameable;
 
 public class NameableWithString implements INameable
