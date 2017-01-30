@@ -19,8 +19,10 @@ public class NamedItemList implements INamedItemList{
 	public int init(int space){
 		if (space < 1)
 			return 0;
+		
 		buffer = new INameable[space];
 		itemNum = 0;
+		
 		for(int i = 0; i < space; ++i){
 			buffer[i] = null;
 		}
@@ -47,9 +49,11 @@ public class NamedItemList implements INamedItemList{
 				return 0;
 		}
 		
+		/**
+		 * 如果检查的结果大于buffer的长度
+		 * 要增加bufffer的长度
+		 */
 		if (i >= buffer.length)
-			//如果检查的结果大于buffer的长度
-			//要增加bufffer的长度
 			doubleExpendList();
 			
 		buffer[i] = namedItem;
