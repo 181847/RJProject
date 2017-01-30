@@ -246,6 +246,11 @@ public class RReference extends NameableWithString implements IRReference {
 		return 0;
 	}
 
+	
+	/**
+	 *为引用申请指定长度的Object[]数组
+	 *如果分配失败就返回0
+	 */
 	@Override
 	public int mallocSpace(int space)
 	{
@@ -253,6 +258,11 @@ public class RReference extends NameableWithString implements IRReference {
 		return 1;
 	}
 
+	
+	/**
+	 *将datas数组当中的所有单元设为null
+	 *以及datas设为null
+	 */
 	@Override
 	public int freeSpace()
 	{

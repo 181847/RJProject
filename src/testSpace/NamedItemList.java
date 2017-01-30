@@ -36,23 +36,20 @@ public class NamedItemList implements INamedItemList{
 	public int insertItem(INameable namedItem){
 		if (namedItem == null)
 			return 0;
-		if (buffer == null){
+		if (buffer == null)
 			init(5);
-		}
 		
 		int i;
 		
+		//如果存在名字相同的项
+		//直接返回0，表示插入失败
 		for (i = 0; i < itemNum; ++i){
-			//如果存在名字相同的项
-			//直接返回0，表示插入失败
 			if (namedItem.getName().compareTo(buffer[i].getName()) == 0)
 				return 0;
 		}
 		
-		/**
-		 * 如果检查的结果大于buffer的长度
-		 * 要增加bufffer的长度
-		 */
+		//如果检查的结果大于buffer的长度
+		//要增加bufffer的长度
 		if (i >= buffer.length)
 			doubleExpendList();
 			
@@ -63,7 +60,9 @@ public class NamedItemList implements INamedItemList{
 	}
 
 	
-	//通过名字得到可命名项
+	/**
+	 * 通过名字得到可命名项
+	 */
 	@Override
 	public INameable getItem(String name){
 		int i;
@@ -78,7 +77,9 @@ public class NamedItemList implements INamedItemList{
 		return null;
 	}
 	
-	//通过数组序号得到可命名项
+	/**
+	 * 通过数组序号得到可命名项
+	 */
 	@Override
 	public INameable getItem(int index){
 		if (index < 0 || index > itemNum - 1)
@@ -87,7 +88,9 @@ public class NamedItemList implements INamedItemList{
 			return buffer[index];
 	}
 
-	//删除指定名字的可命名项
+	/**
+	 * 删除指定名字的可命名项
+	 */
 	@Override
 	public int deleteItem(String name){
 		int i;
@@ -113,11 +116,17 @@ public class NamedItemList implements INamedItemList{
 		
 	}
 	
+	/**
+	 * 可命名元素的数量
+	 */
 	@Override
 	public int getNum(){
 		return itemNum;
 	}
 	
+	/**
+	 * 将命名列表的总长度增加到原来的两倍
+	 */
 	public void doubleExpendList(){
 		if (buffer == null)
 			return;
