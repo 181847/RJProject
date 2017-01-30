@@ -28,9 +28,9 @@ public class RReference extends NameableWithString implements IRReference {
 	//对这个RReference实例进行初始化设置
 	public void init(){
 		if ((roughType = RClassLoader.getRoughTypeOf(referenceClass)) ==1){
-			dataClass = referenceClass;
-			datas = new Object[1];
 			memberNum = 1;
+			mallocSpace(1);
+			
 			try{
 				switch(referenceClass.charAt(0))
 				{
@@ -38,7 +38,7 @@ public class RReference extends NameableWithString implements IRReference {
 					switch(referenceClass.charAt(1)){
 					case 'y':
 						//对应Byte类型
-						datas[0] = new Byte("0");
+						writeObject((Object)new Byte("0"), referenceClass);
 						break;
 						
 					case 'o':
@@ -77,11 +77,11 @@ public class RReference extends NameableWithString implements IRReference {
 					//对应Character类型
 					datas[0] = new Character('\0');
 					break;
-				}
+				}//switch
 			}catch(Exception e){
 				e.printStackTrace();
-			}
-		}
+			}//try
+		}//if
 		else{
 			datas = null;
 			dataClass = "";
@@ -245,6 +245,26 @@ public class RReference extends NameableWithString implements IRReference {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int mallocSpace(int space)
+	{
+		datas = new Object[space];
+		return 1;
+	}
+
+	@Override
+	public int freeSpace()
+	{
+		if (datas == null)
+			return 0;
+		for (int i = 0; i < datas.length; ++i)
+			datas[i] = null;
+		datas = null;
+		return 1;
+	}
+
+
 
 	
 }
