@@ -5,9 +5,18 @@ import testSpace.RClassLoader;
 
 public class RReference extends NameableWithString implements IRReference {
 	//粗略类型标识
-	//1代表基本数据类型
-	//2代表Java包装的RClass
-	//3代表完全自定义的RClass
+	//1至9代表基本数据类型
+	//1-Byte
+	//2-Boolean
+	//3-Short
+	//4-Integer
+	//5-Long
+	//6-Float
+	//7-Double
+	//8-Character
+	//9-String
+	//10以及10以上以上代表Java包装的RClass
+	//负无穷到-1代表完全自定义的RClass
 	//这一项在init()当中从RClassLoader中获取，且只与referenceClass有关
 	public int roughType;
 	//数据域
@@ -29,60 +38,38 @@ public class RReference extends NameableWithString implements IRReference {
 	//初始化方法，根据rough\referenceClass
 	//对这个RReference实例进行初始化设置
 	public void init(){
-		if ((roughType = RClassLoader.getRoughTypeOf(referenceClass)) ==1){
+		if ((roughType = RClassLoader.getRoughTypeOf(referenceClass)) >= 1 && roughType <= 9){
 			memberNum = 1;
 			mallocSpace(1);
-			
-			try{
-				switch(referenceClass.charAt(0))
-				{
-				case 'B': 
-					switch(referenceClass.charAt(1)){
-					case 'y':
-						//对应Byte类型
-						writeObject((Object)new Byte("0"), referenceClass);
-						break;
-						
-					case 'o':
-						//对应Boolean类型
-						datas[0] = new Boolean(false);
-						break;
-					}
-					break;
-					
-				case 'S':
-					//对应Short类型
-					datas[0] = new Short((short)0);
-					break;
-					
-				case 'I':
-					//对应Integer类型
-					datas[0] = new Integer(0);
-					break;
-				
-				case 'L':
-					//对应Long类型
-					datas[0] = new Long(0);
-					break;
-					
-				case 'F':
-					//对应Float类型
-					datas[0] = new Float(0);
-					break;
-					
-				case 'D':
-					//对应Double类型
-					datas[0] = new Double(0);
-					break;
-					
-				case 'C':
-					//对应Character类型
-					datas[0] = new Character('\0');
-					break;
-				}//switch
-			}catch(Exception e){
-				e.printStackTrace();
-			}//try
+			switch(roughType){
+			case 1:
+				writeObject(new Byte("0"), referenceClass);
+				break;
+			case 2:
+				writeObject(new Boolean(false), referenceClass);
+				break;
+			case 3:
+				writeObject(new Short((short)0), referenceClass);
+				break;
+			case 4:
+				writeObject(new Integer(0), referenceClass);
+				break;
+			case 5:
+				writeObject(new Long(0), referenceClass);
+				break;
+			case 6:
+				writeObject(new Float(0), referenceClass);
+				break;
+			case 7:
+				writeObject(new Double(0), referenceClass);
+				break;
+			case 8:
+				writeObject(new Character('\0'), referenceClass);
+				break;
+			case 9:
+				writeObject(new String(""), referenceClass);
+				break;
+			}
 		}//if
 		else{
 			datas = null;
@@ -148,14 +135,14 @@ public class RReference extends NameableWithString implements IRReference {
 		//1代表基本数据类型
 		//2代表Java包装的RClass
 		//3代表完全自定义的RClass
-		if (roughType > 2 || datas == null)
+		if (roughType < 0 || datas == null)
 			return null;
 		return datas[0];
 	}
 
 	@Override
 	public IRReference Member(String memberName) {
-		if (roughType <= 2 || datas == null)
+		if (roughType >= 0 || datas == null)
 			return null;
 		
 		for (int i = 0; i < datas.length; ++i){
@@ -170,7 +157,7 @@ public class RReference extends NameableWithString implements IRReference {
 
 	@Override
 	public int locateRReferenceOf(String memberName) {
-		if (roughType <= 2 || datas == null)
+		if (roughType >=  0 || datas == null)
 			return -1;
 		
 		for (int i = 0; i < datas.length; ++i){
@@ -186,7 +173,7 @@ public class RReference extends NameableWithString implements IRReference {
 		//引用类型不是完全自定义的RClass
 		//引用未能获得实例，datas仍然指向null
 		//数组序号越界
-		if (roughType <= 2 || datas == null || location < 0 || location >= datas.length)
+		if (roughType >= 0 || datas == null || location < 0 || location >= datas.length)
 			return null;
 		return (IRReference)datas[location];
 	}
@@ -234,9 +221,10 @@ public class RReference extends NameableWithString implements IRReference {
 	public int writeObject(Object data, String dataClass) {
 		//引用类型不是基本数据类型或者Java包装类
 		//又或者dataClass与referenceClass不相等
-		if (roughType > 2 || RClassLoader.checkRClassMatchType(referenceClass, dataClass) > 2)
+		if (roughType <0 || RClassLoader.checkRClassMatchType(referenceClass, dataClass) > 2)
 			return 0;
 		
+		this.dataClass = dataClass;
 		datas[0] = data;
 		return 1;
 	}
