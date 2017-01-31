@@ -23,10 +23,42 @@ public class RClassLoader{
 	
 	//查看这个RClass的类型，0代表基本数据类型
 	public static int getRoughTypeOf(String rClass){
-		if (rClass.compareTo("Byte")==0 || rClass.compareTo("Short")==0 || rClass.compareTo("Integer")==0 || rClass.compareTo("Long")==0 || rClass.compareTo("Float")==0 || rClass.compareTo("Double")==0 || rClass.compareTo("Character")==0 || rClass.compareTo("Boolean")==0)
-			return 1;
-		else
-			return -1;
+		switch(rClass.charAt(0)){
+		case 'B':
+			if (rClass.compareTo("Byte") == 0)
+				return 1;
+			if (rClass.compareTo("Boolean") == 0)
+				return 2;
+			break;
+		case 'C':
+			if (rClass.compareTo("Character") == 0)
+				return 8;
+			break;
+		case 'D':
+			if (rClass.compareTo("Double") == 0)
+				return 7;
+			break;
+		case 'F':
+			if (rClass.compareTo("Float") == 0)
+				return 6;
+			break;
+		case 'L':
+			if (rClass.compareTo("Long") == 0)
+				return 5;
+			break;
+		case 'I':
+			if (rClass.compareTo("Integer") == 0)
+				return 4;
+			break;
+		case 'S':
+			if (rClass.compareTo("Short") == 0)
+				return 3;
+			if (rClass.compareTo("String") == 0)
+				return 9;
+			break;
+		}
+		
+		return 0;
 	}
 
 }
