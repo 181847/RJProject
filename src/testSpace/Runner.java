@@ -6,6 +6,7 @@ import basicInterface.*;
 
 public class Runner extends NameableWithString implements IRunner,INameable{
 	public IExcuteeStack excuteeStack;
+	public IExcutee excutee;
 	public boolean isRetraverseParameter;
 	public boolean isExcutedable;
 	public boolean isRunable;
@@ -16,7 +17,10 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	@Override
 	public void run()
 	{
-		// TODO: Implement this method
+		while(isRunable){
+			excutee = excuteeStack.getTopExcutee();
+			
+		}
 	}
 	
 	/**
@@ -93,11 +97,4 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	{
 		return excuteeStack.getMark();
 	}
-
-
-
-
-	
-	
-	
 }
