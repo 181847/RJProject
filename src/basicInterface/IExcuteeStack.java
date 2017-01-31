@@ -9,17 +9,17 @@ public interface IExcuteeStack{
 	/**
 	 *压入Excutee
 	 */
-	public int push(IExcutee excutee);
+	public int pushExcutee(IExcutee excutee);
 	
 	/**
 	 *获取顶部的Excutee
 	 */
-	public IExcutee getTop();
+	public IExcutee getTopExcutee();
 	
 	/**
 	 *将顶部的Excutee弹出栈来
 	 */
-	public IExcutee pop();
+	public IExcutee popExcutee();
 	
 	/**
 	 *将当前的栈空间清理到指定的标记处
