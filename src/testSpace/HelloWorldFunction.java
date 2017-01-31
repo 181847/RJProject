@@ -8,7 +8,7 @@ import function.Returnval;
 
 public class HelloWorldFunction extends AbstractFunction {
 	public HelloWorldFunction(){
-		super(2, 0, 0, 0);
+		super(3, 2, 1, 1);
 		//创建Excutee
 		insertExcutee(new LinerExcutee("fire", 1));
 		insertExcutee(new LinerExcutee("fireSlot2", 2));
