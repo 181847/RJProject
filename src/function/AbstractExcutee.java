@@ -54,4 +54,13 @@ public abstract class AbstractExcutee extends NameableWithString implements IExc
 		this.hostFunction = hostFunction;
 	}
 
+	@Override
+	public IExcuter getExcuter()
+	{
+		return nextExcuter;
+	}
+
+
+	
+	
 }

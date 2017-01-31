@@ -11,4 +11,6 @@ public interface IExcutee extends INameable{
 	public void sendRunner(IRunner runner);
 	//设定Excutee所从属的Function
 	public void setHostFunction(IFunction hostFunction);
+	//获得Excuter
+	public IExcuter getExcuter();
 }
