@@ -8,7 +8,10 @@ public class RClassLoader{
 		return 0;
 	}
 
-	//现阶段只考虑基本数据类型相等的情况
+	/**
+	 *检查两个RClass的相互关系是怎样的
+	 *现阶段只考虑基本数据类型相等的情况
+	 */
 	public static int checkRClassMatchType(String rClassA, String rClassB) {
 		if (rClassA.compareTo(rClassB) == 0)
 			return 1;
@@ -16,12 +19,20 @@ public class RClassLoader{
 		return Integer.MAX_VALUE;
 	}
 
-	//获得RClass的一个引用
+	/**
+	 *获得一个RClass引用
+	 */
 	public static IRClass getRClass(String rClass) {
 		return null;
 	}
 	
-	//查看这个RClass的类型，0代表基本数据类型
+	/**
+	 *查看这个RClass的类型，1至9代表基本数据类型
+	 *10以及10以上的是Java包装类
+	 *负数代表完全自定义RClass
+	 *0代表空类型
+	 *当前只考虑9种基本数据类型
+	 */
 	public static int getRoughTypeOf(String rClass){
 		switch(rClass.charAt(0)){
 		case 'B':
