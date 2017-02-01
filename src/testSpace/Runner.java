@@ -19,7 +19,12 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	{
 		while(isRunable){
 			excutee = excuteeStack.getTopExcutee();
-			
+			excutee.welcomeRunner(this);
+			if (isExcutedable){
+				excuteeStack.popExcutee();
+				excutee.fire();
+				excutee.sendRunner(this);
+			}
 		}
 	}
 	
