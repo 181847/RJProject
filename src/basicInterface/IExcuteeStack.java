@@ -2,10 +2,18 @@ package basicInterface;
 import functionInterface.IExcutee;
 
 
-//这里面要用到的IMarkInExcuteeStack的实现类
-//必须和IExcuteeStack的实现类相一致
-//不是实现了接口就可以任意改变实际对象的类型
+/**
+ * 这里面要用到的IMarkInExcuteeStack的实现类
+ * 必须和IExcuteeStack的实现类相一致
+ * 不是实现了接口就可以任意改变实际对象的类型
+ */
 public interface IExcuteeStack{
+	
+	/**
+	 * 栈是否为空
+	 */
+	public boolean isEmpty();
+	
 	/**
 	 *压入Excutee
 	 */
@@ -30,4 +38,9 @@ public interface IExcuteeStack{
 	 *获取当前栈顶的标记
 	 */
 	public IMarkInExcuteeStack getMark();
+	
+	/**
+	 * 检查当前excuteeStack与指定IMarkInExcuteeStack的实例对象的相容性
+	 */
+	public boolean checkMark(IMarkInExcuteeStack mark);
 }
