@@ -27,4 +27,8 @@ public interface IRunner extends IExcuteeStack{
 	 */
 	public void setExcutedableState(boolean isExcutedable);
 	
+	/**
+	 * 设置Runner是否能够执行功能
+	 */
+	public void setRunable(boolean isRunable);
 }
