@@ -22,7 +22,8 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	@Override
 	public void run()
 	{
-		while(isRunable && !excuteeStack.isEmpty()){
+		int tempLimit = 0;
+		while(isRunable && !excuteeStack.isEmpty() && tempLimit++ < 10000000){
 			excuteeStack.getTopExcutee().welcomeRunner(this);
 			if (isExcutedable){
 				excuteeStack.popExcutee().fire().sendRunner(this);
