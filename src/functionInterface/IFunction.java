@@ -15,7 +15,7 @@ public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable
 	public void clearGraph();
 	
 	//是否需要参数
-	public boolean needParameter();
+	public boolean needParameters();
 	
 	
 	//得到节点前方插口引用
