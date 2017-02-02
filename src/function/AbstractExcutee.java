@@ -54,6 +54,7 @@ public abstract class AbstractExcutee extends NameableWithString implements IExc
 	@Override
 	public void setHostFunction(IFunction hostFunction) {
 		this.hostFunction = hostFunction;
+		isReady = !hostFunction.needParameters();
 	}
 
 	@Override
