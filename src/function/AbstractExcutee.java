@@ -10,7 +10,7 @@ public abstract class AbstractExcutee extends NameableWithString implements IExc
 	public IExcuter nextExcuter;
 	
 	public AbstractExcutee(String excuteeName, int paragraphToFire){
-		setName(excuteeName);
+		super(excuteeName);
 		this.paragraphToFire = paragraphToFire;
 		isReady = false;
 		nextExcuter = null;
@@ -38,15 +38,17 @@ public abstract class AbstractExcutee extends NameableWithString implements IExc
 			//向运行栈压入与参数链接的
 			//BaseCalculator的Excutee
 			runner.retraverseParameters(hostFunction.getParameterList());
+			isReady = true;
 		}
 	}
 
 	
 	//发动hostFunction的函数功能
 	@Override
-	public void fire()
+	public IExcutee fire()
 	{
 		nextExcuter = hostFunction.invoke(paragraphToFire);
+		return this;
 	}
 
 	@Override
