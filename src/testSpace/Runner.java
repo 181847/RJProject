@@ -11,19 +11,21 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	public boolean isExcutedable;
 	public boolean isRunable;
 	
+	public Runner(String name){
+		super(name);
+		excuteeStack = new StaticExcuteeStack(200);
+	}
+	
 	/**
 	 *Runner开始执行运行栈内的Excutee
 	 */
 	@Override
 	public void run()
 	{
-		while(isRunable){
-			excutee = excuteeStack.getTopExcutee();
-			excutee.welcomeRunner(this);
+		while(isRunable && !excuteeStack.isEmpty()){
+			excuteeStack.getTopExcutee().welcomeRunner(this);
 			if (isExcutedable){
-				excuteeStack.popExcutee();
-				excutee.fire();
-				excutee.sendRunner(this);
+				excuteeStack.popExcutee().fire().sendRunner(this);
 			}
 		}
 	}
@@ -32,11 +34,18 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	 *输入一个参数列表，
 	 *向运行栈压入所有与这些参数链接的
 	 *BaseCalculatorFunction的Excutee
+	 *先不考虑剔除重复调用的节点
 	 */
 	@Override
 	public void retraverseParameters(IParameterList parameterList)
 	{
-		// TODO: Implement this method
+		IReturnval tempReturnval;
+		for (int i = parameterList.getNum() - 1; i > 0; --i){
+			tempReturnval = parameterList.getParameter(i).getReturnval();
+			if (tempReturnval != null){
+				excuteeStack.pushExcutee(tempReturnval.getExcutee());
+			}
+		}
 	}
 	
 	/**
@@ -102,4 +111,26 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	{
 		return excuteeStack.getMark();
 	}
+
+	/**
+	 * 检查当前excuteeStack与指定IMarkInExcuteeStack的实例对象的相容性
+	 */
+	@Override
+	public boolean checkMark(IMarkInExcuteeStack mark) {
+		return excuteeStack.checkMark(mark);
+	}
+
+	/**
+	 * 栈是否为空
+	 */
+	@Override
+	public boolean isEmpty() {
+		return excuteeStack.isEmpty();
+	}
+
+	@Override
+	public void setRunable(boolean isRunable) {
+		this.isRunable = isRunable;
+	}
+
 }
