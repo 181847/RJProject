@@ -1,12 +1,13 @@
 package testSpace;
-import function.AbstractFunction;
 import functionInterface.IExcuter;
 import function.LinerExcutee;
 import function.Parameter;
 import function.Excuter;
+import function.FunctionNeedParameters;
 import function.Returnval;
 
-public class HelloWorldFunction extends AbstractFunction {
+public class HelloWorldFunction extends FunctionNeedParameters {
+	
 	public HelloWorldFunction(){
 		super(3, 2, 1, 1);
 		//创建Excutee
@@ -62,5 +63,4 @@ public class HelloWorldFunction extends AbstractFunction {
 	public void clearGraph() {
 		//Empty body
 	}
-
 }
