@@ -14,9 +14,15 @@ import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
 
 public abstract class AbstractFunction extends NameableWithString implements IFunction {
-
-	
+	/**
+	 * Function的前方插槽
+	 * 存储Excutee和参数
+	 */
 	public IFunctionHeadSlot functionHeadSlot;
+	/**
+	 * Function的后方插插槽
+	 * 存储Excuter和返回值
+	 */
 	public IFunctionRearSlot functionRearSlot;
 	
 	public AbstractFunction(){
@@ -35,15 +41,21 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	public abstract IExcuter run(int paragraph);
 	public abstract void fillContentGraph();
 	public abstract void clearGraph();
+	/**
+	 * 是否需要参数由程序员手动重载这个方法
+	 * 表明这个Function是否需要参数
+	 * 例如你将要创建的Function需要参数
+	 * 只需要重载这个方法为
+	 * public boolean needParameters(){
+	 *     return true;
+	 * }
+	 */
+	public abstract boolean needParameters();
 	
 	
 	public IExcuter invoke(int paragraph){
 		prepareParameters();
 		return run(paragraph);
-	}
-	
-	public boolean needParameter() {
-		return (functionHeadSlot.getParameterList().getNum()) == 0;
 	}
 	
 	public void prepareParameters(){
