@@ -4,6 +4,14 @@ import basicInterface.INameable;
 public class NameableWithString implements INameable
 {
 	String name;
+	
+	public NameableWithString(){
+		name = "Unknown";
+	}
+	
+	public NameableWithString(String name){
+		this.name = name;
+	}
 
 	@Override
 	public String getName()
