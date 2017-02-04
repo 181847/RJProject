@@ -1,4 +1,4 @@
-package testSpace;
+package testSpace.testTool;
 import functionInterface.*;
 
 public class FunctionTester{
