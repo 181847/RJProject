@@ -1,9 +1,11 @@
 package testSpace;
-import functionInterface.*;
+
+import functionInterface.IFunction;
 import runnerInterface.IRunner;
+import unfinishedClass.HelloWorldFunction;
+import unfinishedClass.Runner;
 
-public class testClass {
-
+public class TestRunner {
 	public static void main(String[] args) {
 		IFunction function = new HelloWorldFunction();
 		IFunction function2 = new HelloWorldFunction();
@@ -14,11 +16,10 @@ public class testClass {
 		
 		function.Excuter("endTry").linkExcutee(function2.Excutee("tryPara&Retu"));
 		function2.Parameter("n").linkReturnval(function.Returnval("return"));
-		//循环测试
-		//
+		//循环链接两个Function的执行节点以及参数
 		function2.Excuter("endTry").linkExcutee(function.Excutee("tryPara&Retu"));
-		function.Parameter("n").linkReturnval(function2.Returnval("return"));
 		
+		//创建新Runner
 		IRunner runner = new Runner("LiuXiang");
 		runner.pushExcutee(function.Excutee("tryPara&Retu"));
 		
@@ -30,8 +31,10 @@ public class testClass {
 		
 		
 		long startMili2 = System.currentTimeMillis();
-		for (int i = 0; i < 5000000; ++i){
+		int costNum = 0;
+		for (int i = 0; i < 500; ++i){
 			System.out.println(i);
+			costNum += costNum += 45;
 		}
 		long endMili2 = System.currentTimeMillis();
 		
@@ -39,5 +42,4 @@ public class testClass {
 		System.out.println("timeCost2:" + (endMili2 - startMili2));
 		
 	}
-
 }
