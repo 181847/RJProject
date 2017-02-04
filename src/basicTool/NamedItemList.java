@@ -1,13 +1,15 @@
 package basicTool;
 import basicInterface.*;
-
+/**
+ * 无参构造方法自动申请五个元素空间
+ * 这种列表会在空间不够时自动重新申请两倍的空间
+ */
 public class NamedItemList implements INamedItemList{
 	public INameable[] buffer;
 	public int itemNum;
 	
 	public NamedItemList(){
-		buffer = null;
-		itemNum = 0;
+		init(5);
 	}
 	
 	public NamedItemList(int space){
@@ -36,8 +38,6 @@ public class NamedItemList implements INamedItemList{
 	public int insertItem(INameable namedItem){
 		if (namedItem == null)
 			return 0;
-		if (buffer == null)
-			init(5);
 		
 		int i;
 		
@@ -90,6 +90,8 @@ public class NamedItemList implements INamedItemList{
 
 	/**
 	 * 删除指定名字的可命名项
+	 * 未找到指定项返回0
+	 * 成功返回1
 	 */
 	@Override
 	public int deleteItem(String name){
@@ -138,6 +140,25 @@ public class NamedItemList implements INamedItemList{
 		
 		buffer = tempBuffer;
 		tempBuffer = null;
+	}
+
+	/**
+	 * 返回指定可命名对象的序号
+	 * 成功返回大于等于0的数字
+	 * 失败返回-1
+	 */
+	@Override
+	public int getIndexOf(String name) {
+		int i;
+
+		for (i = 0; i < itemNum; ++i){
+			//如果存在名字相同的项
+			//直接返回0，表示插入失败
+			if (name.compareTo(buffer[i].getName()) == 0)
+				return i;
+		}
+		
+		return -1;
 	}
 
 	
