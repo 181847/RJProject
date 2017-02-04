@@ -1,4 +1,4 @@
-package testSpace;
+package unfinishedClass;
 import functionInterface.IExcuter;
 import function.LinerExcutee;
 import function.Parameter;

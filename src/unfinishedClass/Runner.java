@@ -1,4 +1,4 @@
-package testSpace;
+package unfinishedClass;
 import runnerInterface.*;
 import functionInterface.*;
 import basicTool.*;
@@ -23,7 +23,7 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	public void run()
 	{
 		int tempLimit = 0;
-		while(isRunable && !excuteeStack.isEmpty() && tempLimit++ < 10000000){
+		while(isRunable && !excuteeStack.isEmpty() && tempLimit++ < 1000){
 			excuteeStack.getTopExcutee().welcomeRunner(this);
 			if (isExcutedable){
 				excuteeStack.popExcutee().fire().sendRunner(this);
