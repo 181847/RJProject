@@ -1,6 +1,7 @@
 package testSpace;
 
 import functionInterface.IFunction;
+import testSpace.testTool.FunctionTester;
 import unfinishedClass.HelloWorldFunction;
 
 public class TestFunction {
