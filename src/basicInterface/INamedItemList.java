@@ -10,4 +10,8 @@ public interface INamedItemList extends ICountable{
 	public INameable getItem(int index);
 	//删除一个可命名对象
 	public int deleteItem(String name);
+	//返回指定可命名对象的序号
+	//成功返回大于等于0的数字
+	//失败返回-1
+	public int getIndexOf(String name);
 }
