@@ -28,6 +28,30 @@ public class RReference extends NameableWithString implements IRReference {
 	//数据所属的RClass名称
 	public String dataClass;
 	
+	/**
+	 * 完全空白的RReference
+	 */
+	public RReference(){
+		//Empty Body
+	}
+	
+	/**
+	 * 通常在代码级别创建Java包装类的实例RReference的时候进行调用，
+	 * 由程序猿完全掌控其中的内容，
+	 * 自动申请一个一维数组，
+	 * 并写入指定的Ojbect到这个一维数组的第0号单元
+	 */
+	public RReference(int roughType, Object data, 
+						int memberNum, String referenceClass, 
+						String dataClass){
+		this.roughType = roughType;
+		datas = new Object[1];
+		datas[0] = data;
+		this.memberNum = memberNum;
+		this.referenceClass = referenceClass;
+		this.dataClass = dataClass;
+	}
+	
 	//构造方法，传入部分参数进行设置，然后调用init()方法设置memberNum\dataClass\datas
 	public RReference(String referenceClass, String referenceName){
 		setName(referenceName);
