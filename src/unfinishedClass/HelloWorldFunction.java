@@ -22,7 +22,7 @@ public class HelloWorldFunction extends FunctionNeedParameters {
 		//创建Returnval
 		insertReturnval(new Returnval("Integer", "return"));
 		//设置Function的名字
-		setName("Hello World Function");
+		setName("HelloWorldFunction");
 	}
 
 	@Override
