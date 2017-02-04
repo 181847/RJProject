@@ -5,7 +5,10 @@ import functionInterface.*;
 public class ExcuteeList extends NamedItemList implements IExcuteeList
 {
 	
-	public ExcuteeList(){}
+	public ExcuteeList(){
+		//按照父类NameItemList的无参构造方法
+		//自动申请五个元素空间
+	}
 	
 	public ExcuteeList(int space){
 		super(space);
