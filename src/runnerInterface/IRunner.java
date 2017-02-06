@@ -1,6 +1,6 @@
 package runnerInterface;
+import functionInterface.IExcuteeStack;
 import functionInterface.IParameterList;
-import basicInterface.IExcuteeStack;
 
 public interface IRunner extends IExcuteeStack{
 	/**

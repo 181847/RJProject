@@ -1,6 +1,4 @@
-package basicInterface;
-import functionInterface.IExcutee;
-
+package functionInterface;
 
 /**
  * 这里面要用到的IMarkInExcuteeStack的实现类，

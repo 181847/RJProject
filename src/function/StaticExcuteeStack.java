@@ -1,8 +1,8 @@
-package unfinishedClass;
+package function;
 
-import basicInterface.IExcuteeStack;
-import basicInterface.IMarkInExcuteeStack;
 import functionInterface.IExcutee;
+import functionInterface.IExcuteeStack;
+import functionInterface.IMarkInExcuteeStack;
 
 //StaticExcuteeStack不允许有null元素压入栈内
 public class StaticExcuteeStack implements IExcuteeStack {

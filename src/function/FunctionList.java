@@ -1,4 +1,4 @@
-package unfinishedClass;
+package function;
 
 import basicTool.NamedItemList;
 import functionInterface.IFunction;
