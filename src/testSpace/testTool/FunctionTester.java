@@ -10,11 +10,12 @@ public class FunctionTester{
 	
 	/**
 	 *循环测试每个Excutee，遇到null就立即返回
+	 *@return 测试的Excutee的个数
 	 */
 	public int test(){
-		IExcutee testExcutee = testFunctionObject.getExcutee(0);
-		IExcuter testExcuter;
 		int i = 0;
+		IExcutee testExcutee = testFunctionObject.getExcutee(i);
+		IExcuter testExcuter;
 		
 		while(testExcutee != null){
 			//单次发动分界线
@@ -46,56 +47,50 @@ public class FunctionTester{
 	
 	
 	/**
-	 *显示当前testFunctionObject的所有返回值
+	 * 显示当前testFunctionObject的所有返回值
 	 */
 	public void showParameters(){
-		IParameter testParameter = testFunctionObject.getParameter(0);
-		int i = 0;
 		Object data;
-		
-		//显示参数分界线
+		int i = 0;
+		IParameter testParameter = testFunctionObject.getParameter(i);
 		System.out.println("(*********Para**********");
+		
 		while (testParameter != null){
 			//参数类型+名字
 			System.out.print(testParameter.getReferenceClass() 
 					+ " " + testParameter.toString() + ":");
+			
 			data = testParameter.readObject();
 			
-			//如果数据不为空，输出数据
-			if (data != null)
+			if (data != null){
 				System.out.println(data.toString());
-				
+			}
 			testParameter = testFunctionObject.getParameter(++i);
 		}
-		
-		//显示参数结束分界线
 		System.out.println("**********ParaEnd******)");
 	}
 	
 	/**
-	 *显示当前testFunctionObject的所有参数
+	 * 显示当前testFunctionObject的所有参数
 	 */
 	public void showReturnvals(){
-		IReturnval testReturnval = testFunctionObject.getReturnval(0);
-		int i = 0;
 		Object data;
-		
-		//显示返回值分界线
+		int i = 0;
+		IReturnval testReturnval = testFunctionObject.getReturnval(i);
 		System.out.println("[*********Retu**********");
+		
 		while (testReturnval != null){
 			//返回值类型+返回值名称
 			System.out.print(testReturnval.getReferenceClass() 
 							  + " " + testReturnval.toString() + ":");
+			
 			data = testReturnval.readObject();
 			
-			//如果读取的数据不为空，就输出数据
-			if (data != null)
+			if (data != null){
 				System.out.println(data.toString());
-				
+			}
 			testReturnval = testFunctionObject.getReturnval(++i);
 		}
-		
-		//显示返回值结束分界线
 		System.out.println("**********RetuEnd*******]");
 	}
 }

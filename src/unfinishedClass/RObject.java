@@ -13,6 +13,9 @@ public class RObject extends AbstractRClassWithFunctionList implements IRClass {
 	
 	@Override
 	public IRReference getNewInstance() {
-		return new RReference(10, new Integer(0), 1, "RObject", "RObject");
+		IRReference newInstance = new RReference();
+		newInstance.mallocSpace(1);
+		newInstance.writeObject(new Integer(0), "RObject");
+		return newInstance;
 	}
 }

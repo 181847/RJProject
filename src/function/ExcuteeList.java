@@ -13,7 +13,7 @@ public class ExcuteeList extends NamedItemList implements IExcuteeList
 	public ExcuteeList(int space){
 		super(space);
 	}
-
+	
 	@Override
 	public int insertExcutee(IExcutee excutee)
 	{

@@ -14,7 +14,6 @@ public class TestRClassOfRObject {
 			function = rclass.Function("HelloWorldFunction");
 			new FunctionTester(function).test();
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

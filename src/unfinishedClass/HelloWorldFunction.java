@@ -47,7 +47,6 @@ public class HelloWorldFunction extends FunctionNeedParameters {
 		char ch = (Character)Parameter("ch").readObject();
 		
 		System.out.println("参数n：" + n + " 参数ch：" + ch);
-		
 		Returnval("return").writeObject(new Integer(n + 1), "Integer");
 		
 		return Excuter("endTry");

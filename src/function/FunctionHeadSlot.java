@@ -14,6 +14,15 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 		excuteeList = new ExcuteeList(excuteeListSpace);
 		parameterList = new ParameterList(parameterListSpace);
 	}
+	
+	/**
+	 * 返回excutee和parameter的总数
+	 * @return excutee和parameter的总数
+	 */
+	@Override
+	public int getNum() {
+		return excuteeList.getNum() + parameterList.getNum();
+	}
 
 	@Override
 	public int insertExcutee(IExcutee excutee)
@@ -26,13 +35,13 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	{
 		return excuteeList.Excutee(excuteeName);
 	}
-
+	
 	@Override
 	public IExcutee getExcutee(int excuteeNumber)
 	{
 		return excuteeList.getExcutee(excuteeNumber);
 	}
-
+	
 	@Override
 	public int deleteExcutee(String excuteeName)
 	{
@@ -74,19 +83,9 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	{
 		return parameterList;
 	}
-
 	
-	//返回excutee和parameter的总数
-	@Override
-	public int getNum() {
-		return excuteeList.getNum() + parameterList.getNum();
-	}
-
-	//参数准备
 	@Override
 	public void prepareParameters() {
 		parameterList.prepareParameters();
 	}
-
-
 }

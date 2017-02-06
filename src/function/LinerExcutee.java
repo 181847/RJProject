@@ -9,8 +9,9 @@ public class LinerExcutee extends AbstractExcutee{
 	@Override
 	public void sendRunner(IRunner runner)
 	{
-		if (nextExcuter != null)
+		if (nextExcuter != null){
 			runner.pushExcutee(nextExcuter.getExcutee());
+		}
 		nextExcuter = null;
 		isReady = !hostFunction.needParameters();
 	}

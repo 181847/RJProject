@@ -18,13 +18,14 @@ public abstract class FunctionNeedParameters extends AbstractFunction {
 		super(excuteeList, parameterList, excuterList, returnvalList);
 	}
 	
+	/**
+	 * 所有继承这个抽象类的Function类都是需要参数的
+	 */
 	public boolean needParameters() {
 		return true;
 	}
 
 	public abstract IExcuter run(int paragraph);
-
 	public abstract void fillContentGraph();
-
 	public abstract void clearGraph();
 }

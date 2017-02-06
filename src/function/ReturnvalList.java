@@ -4,7 +4,6 @@ import functionInterface.*;
 
 public class ReturnvalList extends NamedItemList implements IReturnvalList
 {
-
 	public ReturnvalList(){
 		super();
 	}
