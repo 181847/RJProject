@@ -4,6 +4,12 @@ import basicInterface.IExcuteeStack;
 
 public interface IRunner extends IExcuteeStack{
 	/**
+	 * 设置Runner是否能够开始run循环。
+	 * @param isRunable RunnerRunner是否能够开始run循环。
+	 */
+	public void setRunable(boolean isRunable);
+	
+	/**
 	 * run循环开始，
 	 * Runner开始不断弹栈运行Excutee，
 	 * 以及压栈Excutee，
@@ -30,10 +36,4 @@ public interface IRunner extends IExcuteeStack{
 	 * @param isExcutedable 是否执行Excutee的运算功能。
 	 */
 	public void setExcutedableState(boolean isExcutedable);
-	
-	/**
-	 * 设置Runner是否能够开始run循环。
-	 * @param isRunable RunnerRunner是否能够开始run循环。
-	 */
-	public void setRunable(boolean isRunable);
 }
