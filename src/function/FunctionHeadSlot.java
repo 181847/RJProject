@@ -47,6 +47,11 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	{
 		return excuteeList.deleteExcutee(excuteeName);
 	}
+	
+	@Override
+	public int getExcuteeIndexOf(String excuteeName) {
+		return excuteeList.getExcuteeIndexOf(excuteeName);
+	}
 
 	@Override
 	public int insertParameter(IParameter parameter)
@@ -82,6 +87,11 @@ public class FunctionHeadSlot implements IFunctionHeadSlot{
 	public IParameterList getParameterList()
 	{
 		return parameterList;
+	}
+	
+	@Override
+	public int getParameterIndexOf(String parameterName) {
+		return parameterList.getParameterIndexOf(parameterName);
 	}
 	
 	@Override

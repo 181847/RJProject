@@ -37,4 +37,9 @@ public class ExcuteeList extends NamedItemList implements IExcuteeList
 	{
 		return deleteItem(excuteeName);
 	}
+
+	@Override
+	public int getExcuteeIndexOf(String excuteeName) {
+		return getIndexOf(excuteeName);
+	}
 }

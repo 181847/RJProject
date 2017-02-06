@@ -35,4 +35,9 @@ public class ReturnvalList extends NamedItemList implements IReturnvalList
 	{
 		return deleteItem(returnvalName);
 	}
+
+	@Override
+	public int getReturnvalIndexOf(String returnvalName) {
+		return getIndexOf(returnvalName);
+	}
 }

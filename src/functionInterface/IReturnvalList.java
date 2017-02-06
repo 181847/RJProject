@@ -34,4 +34,11 @@ public interface IReturnvalList extends ICountable{
 	 * 成功则返回1。
 	 */
 	public int deleteReturnval(String returnvalName);
+	
+	/**
+	 * 获取指定名字的Returnval的序号。
+	 * @param returnvalName 目标Returnval。
+	 * @return Returnval的序号，如果不存在就返回-1。
+	 */
+	public int getReturnvalIndexOf(String returnvalName);
 }

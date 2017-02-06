@@ -37,6 +37,13 @@ public interface IParameterList extends ICountable{
 	public int deleteParameter(String parameterName);
 	
 	/**
+	 * 获取指定名字的Parameter的序号。
+	 * @param parameterName 目标Parameter。
+	 * @return Parameter的序号，如果不存在就返回-1。
+	 */
+	public int getParameterIndexOf(String parameterName);
+	
+	/**
 	 * 对当前列表中的所有Parameter调用extractParameter()方法
 	 */
 	public void prepareParameters();

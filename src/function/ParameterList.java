@@ -37,6 +37,11 @@ public class ParameterList extends NamedItemList implements IParameterList{
 	}
 
 	@Override
+	public int getParameterIndexOf(String parameterName) {
+		return getIndexOf(parameterName);
+	}
+
+	@Override
 	public void prepareParameters() {
 		for (int i = 0; i < itemNum; ++i){
 			((IParameter)buffer[i]).extractParameter();

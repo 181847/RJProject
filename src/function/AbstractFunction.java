@@ -104,6 +104,11 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	public int deleteExcutee(String excuteeName) {
 		return functionHeadSlot.deleteExcutee(excuteeName);
 	}
+	
+	@Override
+	public int getExcuteeIndexOf(String excuteeName) {
+		return functionHeadSlot.getExcuteeIndexOf(excuteeName);
+	}
 
 	
 	//********************************************** ABOUT PARAMETER *************************************************************
@@ -150,6 +155,11 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	@Override
 	public int deleteParameter(String parameterName) {
 		return functionHeadSlot.deleteParameter(parameterName);
+	}
+	
+	@Override
+	public int getParameterIndexOf(String parameterName) {
+		return functionHeadSlot.getParameterIndexOf(parameterName);
 	}
 
 	/**
@@ -204,8 +214,10 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 		return functionRearSlot.deleteExcuter(excuterName);
 	}
 
-	
-	
+	@Override
+	public int getExcuterIndexOf(String excuterName) {
+		return functionRearSlot.getExcuterIndexOf(excuterName);
+	}
 	
 	//********************************************** ABOUT RETURNVAL *************************************************************
 	/**
@@ -253,8 +265,10 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 		return functionRearSlot.deleteReturnval(returnvalName);
 	}
 	
-	
-	
+	@Override
+	public int getReturnvalIndexOf(String returnvalName) {
+		return functionRearSlot.getReturnvalIndexOf(returnvalName);
+	}
 	
 	//********************************************** ABOUT GET LIST *************************************************************
 	/**

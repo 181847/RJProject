@@ -34,4 +34,11 @@ public interface IExcuteeList extends ICountable{
 	 * 成功则返回1。
 	 */
 	public int deleteExcutee(String excuteeName);
+	
+	/**
+	 * 获取指定名字的Excutee的序号。
+	 * @param excuteeName 目标Excutee。
+	 * @return Excutee的序号，如果不存在就返回-1。
+	 */
+	public int getExcuteeIndexOf(String excuteeName);
 }

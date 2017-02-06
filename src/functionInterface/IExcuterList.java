@@ -34,4 +34,11 @@ public interface IExcuterList extends ICountable{
 	 * 成功则返回1。
 	 */
 	public int deleteExcuter(String excuterName);
+	
+	/**
+	 * 获取指定名字的Excuter的序号。
+	 * @param excuterName 目标Excuter。
+	 * @return Excuter的序号，如果不存在就返回-1。
+	 */
+	public int getExcuterIndexOf(String excuterName);
 }

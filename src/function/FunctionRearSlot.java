@@ -47,6 +47,11 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	{
 		return excuterList.deleteExcuter(excuterName);
 	}
+	
+	@Override
+	public int getExcuterIndexOf(String excuterName) {
+		return excuterList.getExcuterIndexOf(excuterName);
+	}
 
 	@Override
 	public int insertReturnval(IReturnval returnval)
@@ -82,5 +87,10 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	public IReturnvalList getReturnvalList()
 	{
 		return returnvalList;
+	}
+
+	@Override
+	public int getReturnvalIndexOf(String returnvalName) {
+		return returnvalList.getReturnvalIndexOf(returnvalName);
 	}
 }
