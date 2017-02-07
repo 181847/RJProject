@@ -1,5 +1,5 @@
-package unfinishedClass;
-
+package testSpace.testRClass;
+import rClass.AbstractRClassWithFunctionList;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;

@@ -2,8 +2,8 @@ package testSpace;
 
 import functionInterface.IFunction;
 import rClassInterface.IRClass;
+import testSpace.testRClass.RObject;
 import testSpace.testTool.FunctionTester;
-import unfinishedClass.RObject;
 
 public class TestRClassOfRObject {
 	public static void main(String[] args){

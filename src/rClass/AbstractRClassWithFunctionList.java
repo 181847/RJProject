@@ -1,4 +1,4 @@
-package unfinishedClass;
+package rClass;
 
 import basicTool.NameableWithString;
 import function.FunctionList;

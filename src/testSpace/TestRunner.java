@@ -1,9 +1,9 @@
 package testSpace;
 
 import functionInterface.IFunction;
+import runner.Runner;
 import runnerInterface.IRunner;
-import unfinishedClass.HelloWorldFunction;
-import unfinishedClass.Runner;
+import testSpace.testRClass.HelloWorldFunction;
 
 public class TestRunner {
 	public static void main(String[] args) {
@@ -28,7 +28,6 @@ public class TestRunner {
 		long startMili1 = System.currentTimeMillis();
 		runner.run();
 		long endMili1 = System.currentTimeMillis();
-		
 		
 		long startMili2 = System.currentTimeMillis();
 		int costNum = 0;
