@@ -31,7 +31,7 @@ public interface IRReference extends INameable{
 	 * 负无穷到-1代表完全自定义的RClass；
 	 * @return 一个表示粗略类型的数字。
 	 */
-	public int getRoughType();
+	public int getReferenceClassID();
 	
 	/**
 	 * 返回成员数量

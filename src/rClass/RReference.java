@@ -1,7 +1,7 @@
 package rClass;
 import basicTool.NameableWithString;
 import rClassInterface.IRReference;
-import unfinishedClass.RClassLoader;
+import unfinishedClass.RClassLoaderManager;
 
 public class RReference extends NameableWithString implements IRReference {
 	/**
@@ -20,7 +20,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 负无穷到-1代表完全自定义的RClass；
 	 * 这一项在init()当中从RClassLoader中获取，且只与referenceClass有关。
 	 */
-	public int roughType;
+	public int referenceClassID;
 	
 	/**
 	 * 实际的数据域。
@@ -54,10 +54,10 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 自动申请一个一维数组，
 	 * 并写入指定的Ojbect到这个一维数组的第0号单元。
 	 */
-	public RReference(int roughType, Object data, 
+	public RReference(int referenceClassID, Object data, 
 						int memberNum, String referenceClass, 
 						String dataClass){
-		this.roughType = roughType;
+		this.referenceClassID = referenceClassID;
 		datas = new Object[1];
 		datas[0] = data;
 		this.memberNum = memberNum;
@@ -77,15 +77,15 @@ public class RReference extends NameableWithString implements IRReference {
 	}
 	
 	/**
-	 * 初始化方法，根据rough\referenceClass
+	 * 初始化方法，根据referenceClass
 	 * 对这个RReference实例进行初始化设置
 	 */
 	public void init(){
-		if ((roughType = RClassLoader.getRoughTypeOf(referenceClass)) >= 1 && roughType <= 9){
+		if ((referenceClassID = RClassLoaderManager.getRClassLoader().getRClassIDOf(referenceClass)) >= 1 && referenceClassID <= 9){
 			memberNum = 1;
 			mallocSpace(1);
 			
-			switch(roughType){
+			switch(referenceClassID){
 			case 1:
 				writeObject(new Byte("0"), referenceClass);
 				break;
@@ -137,8 +137,8 @@ public class RReference extends NameableWithString implements IRReference {
 		datas = source.getObjects();
 		
 		//除非本RReference是基本数据类型
-		//否则dataClass以及memberNum都要重新指定
-		if (roughType <= -1 || roughType >= 10){
+		//否则dataClass以及smemberNum都要重新指定
+		if (referenceClassID <= -1 || referenceClassID >= 10){
 			dataClass = source.getDataClass();
 			memberNum = source.getMemberNum();
 		}
@@ -146,8 +146,8 @@ public class RReference extends NameableWithString implements IRReference {
 	}
 	
 	@Override
-	public int getRoughType() {
-		return roughType;
+	public int getReferenceClassID() {
+		return referenceClassID;
 	}
 	
 	/**
@@ -194,7 +194,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 */
 	@Override
 	public Object readObject() {
-		if (roughType <= -1 || datas == null){
+		if (referenceClassID <= -1 || datas == null){
 			return null;
 		}
 		return datas[0];
@@ -216,8 +216,8 @@ public class RReference extends NameableWithString implements IRReference {
 	public int writeObject(Object data, String dataClass) {
 		//引用类型不是基本数据类型或者Java包装类
 		//又或者dataClass与referenceClass不相等
-		if (roughType <0 ||
-				RClassLoader.checkRClassMatchType(referenceClass, dataClass) > 2){
+		if (referenceClassID <0 ||
+				RClassLoaderManager.getRClassLoader().checkRClassMatchType(referenceClass, dataClass) > 2){
 			return 0;
 		}
 		this.dataClass = dataClass;
@@ -242,7 +242,7 @@ public class RReference extends NameableWithString implements IRReference {
 
 	@Override
 	public IRReference Member(String memberName) {
-		if (roughType >= 0 || datas == null){
+		if (referenceClassID >= 0 || datas == null){
 			return null;
 		}
 		
@@ -264,7 +264,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 */
 	@Override
 	public IRReference getMemberInLocation(int location) {
-		if (roughType >= 0 || datas == null || 
+		if (referenceClassID >= 0 || datas == null || 
 				location < 0 || location >= datas.length){
 			return null;
 		}
@@ -278,7 +278,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 */	
 	@Override
 	public int locateMemberOf(String memberName) {
-		if (roughType >=  0 || datas == null){
+		if (referenceClassID >=  0 || datas == null){
 			return -1;
 		}
 		
