@@ -7,7 +7,7 @@ import rClassInterface.IRReference;
 public class RObject extends AbstractRClassWithFunctionList implements IRClass {
 	
 	public RObject(){
-		super("ROjbect");
+		super("RObject");
 		insertFunction(new HelloWorldFunction());
 	}
 	
@@ -15,7 +15,7 @@ public class RObject extends AbstractRClassWithFunctionList implements IRClass {
 	public IRReference getNewInstance() {
 		IRReference newInstance = new RReference();
 		newInstance.mallocSpace(1);
-		newInstance.writeObject(new Integer(0), "RObject");
+		newInstance.writeObject(new Object(), getName());
 		return newInstance;
 	}
 }
