@@ -41,6 +41,12 @@ public abstract class AbstractRClassWithFunctionList extends NameableWithString 
 	 */
 	public abstract IRReference getNewInstance();
 	
+	@Override
+	public IFunction ConstructFunction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	/**
 	 * 通过名字获取新的Function实例，
 	 * 先找到之前添加进来的Function实例对象，
@@ -56,7 +62,7 @@ public abstract class AbstractRClassWithFunctionList extends NameableWithString 
 			throws InstantiationException, IllegalAccessException{
 		IFunction tempFunction = null;
 		try {
-			tempFunction = functionList.Function(functionName);
+			tempFunction = functionList.getFunction(functionName);
 			if (tempFunction != null){
 				tempFunction = tempFunction.getClass().newInstance();
 			}
