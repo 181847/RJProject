@@ -53,6 +53,7 @@ public class RClassLoader implements IRClassLoader{
 		System.out.println("装载成功");
 		
 		nameToID.put(rClassToLoad.getName(), ID);
+		rClassToLoad.setRClassID(ID);
 		return ID;
 	}
 	
