@@ -15,7 +15,7 @@ public interface IFunctionList extends INamedItemList {
 	 * @param functionName 要查找的function的名字。
 	 * @return 失败返回null。
 	 */
-	public IFunction Function(String functionName);
+	public IFunction getFunction(String functionName);
 	
 	/**
 	 * 通过序号查找Function。

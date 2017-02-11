@@ -35,7 +35,7 @@ public class FunctionList extends NamedItemList implements IFunctionList {
 	 * 失败返回null。
 	 */
 	@Override
-	public IFunction Function(String functionName) {
+	public IFunction getFunction(String functionName) {
 		return (IFunction) getItem(functionName);
 	}
 
