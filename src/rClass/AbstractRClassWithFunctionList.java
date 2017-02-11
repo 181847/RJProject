@@ -1,6 +1,5 @@
 package rClass;
 
-import basicTool.NameableWithString;
 import function.FunctionList;
 import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
@@ -8,6 +7,7 @@ import functionInterface.IFunctionList;
 import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
+import unfinishedClass.AbstractRClass;
 
 /**
  * 基本数据类型RClass和Java包装类RClass的父类抽象类，
@@ -18,7 +18,7 @@ import rClassInterface.IRReference;
  * 然后通过这个实例对象用getClass()方法得到对应Function的Class，
  * 然后发动newInstance()方法得到一个新的Function对象，并返回。
  */
-public abstract class AbstractRClassWithFunctionList extends NameableWithString implements IRClass{
+public abstract class AbstractRClassWithFunctionList extends AbstractRClass implements IRClass{
 	/**
 	 * 用于记录本RClass类的成员Function
 	 */
@@ -58,8 +58,7 @@ public abstract class AbstractRClassWithFunctionList extends NameableWithString 
 	 * @throws InstantiationException 
 	 * @throws IllegalAccessException
 	 */
-	public IFunction Function(String functionName) 
-			throws InstantiationException, IllegalAccessException{
+	public IFunction Function(String functionName){
 		IFunction tempFunction = null;
 		try {
 			tempFunction = functionList.getFunction(functionName);
@@ -72,12 +71,9 @@ public abstract class AbstractRClassWithFunctionList extends NameableWithString 
 					+ "抽象类，接口类，数组类，原始数据类，空类型，"
 					+ "或者该类型没有无参构造方法。");
 			e.printStackTrace();
-			throw e;
-			
 		} catch (IllegalAccessException e) {
 			System.out.println("getClass()无法得到类对象，newInstance()无法调用。");
 			e.printStackTrace();
-			throw e;
 		}
 		return tempFunction;
 	}
@@ -94,8 +90,7 @@ public abstract class AbstractRClassWithFunctionList extends NameableWithString 
 	 * @throws IllegalAccessException
 	 */
 	@Override
-	public IFunction getFunction(int functionIndex) 
-			throws InstantiationException, IllegalAccessException{
+	public IFunction getFunction(int functionIndex){
 		IFunction tempFunction = null;
 		try {
 			tempFunction = functionList.getFunction(functionIndex);
@@ -107,13 +102,10 @@ public abstract class AbstractRClassWithFunctionList extends NameableWithString 
 			System.out.println("无法获得新的Function实例：指定对象可能为："
 					+ "抽象类，接口类，数组类，原始数据类，空类型，"
 					+ "或者该类型没有无参构造方法。");
-			e.printStackTrace();
-			throw e;
-			
+			e.printStackTrace();			
 		} catch (IllegalAccessException e) {
 			System.out.println("getClass()无法得到类对象，newInstance()无法调用。");
 			e.printStackTrace();
-			throw e;
 		}
 		return tempFunction;
 	}

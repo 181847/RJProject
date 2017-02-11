@@ -1,10 +1,11 @@
 package rClassInterface;
+import basicInterface.IHoldRClassID;
 import basicInterface.INameable;
 import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionRearSlot;
 
-public interface IRClass extends INameable{
+public interface IRClass extends INameable,IHoldRClassID{
 	/**
 	 * 从RClass中创建一个RReference，
 	 * 这个RReference的datas数组一定是有实例对象的，
@@ -21,11 +22,11 @@ public interface IRClass extends INameable{
 	public IRReference getNewInstance();
 	
 	/**
-	 * 得到指定名字Function的序号。
-	 * @param 想要获取的Function的名字。
-	 * @return 一个指定名字的function在RClass当中的序号。
+	 * 获得IRClass的唯一的一个构造Function，
+	 * 这个Function用来创建一个RClass的对象实例。
+	 * @return 构造Function
 	 */
-	public int getFunctionIndexOf(String functionName);
+	public IFunction ConstructFunction();
 	
 	/**
 	 * 通过名字获取一个RClass当中指定的Function实例。
@@ -34,8 +35,7 @@ public interface IRClass extends INameable{
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public IFunction Function(String functionName)
-			throws InstantiationException, IllegalAccessException;
+	public IFunction Function(String functionName);
 	
 	/**
 	 * 通过数组下标获取一个RClass当中指定的Function的新实例，
@@ -45,8 +45,14 @@ public interface IRClass extends INameable{
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public IFunction getFunction(int functionNumber)
-			throws InstantiationException, IllegalAccessException;
+	public IFunction getFunction(int functionIndex);
+	
+	/**
+	 * 得到指定名字Function的序号。
+	 * @param 想要获取的Function的名字。
+	 * @return 一个指定名字的function在RClass当中的序号。
+	 */
+	public int getFunctionIndexOf(String functionName);
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过名字读取相应的function描述文件，
