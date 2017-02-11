@@ -26,6 +26,8 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	 */
 	public IFunctionRearSlot functionRearSlot;
 	
+	int rClassID;
+	
 	public AbstractFunction(){
 		functionHeadSlot = new FunctionHeadSlot();
 		functionRearSlot = new FunctionRearSlot();
@@ -52,6 +54,14 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	public IExcuter invoke(int paragraph){
 		prepareParameters();
 		return run(paragraph);
+	}
+	
+	public int getRClassID(){
+		return rClassID;
+	}
+	
+	public void setRClassID(int rClassID){
+		this.rClassID = rClassID;
 	}
 	
 	//********************************************** ABOUT EXCUTEE *************************************************************

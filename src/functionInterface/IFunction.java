@@ -1,7 +1,9 @@
 package functionInterface;
+import basicInterface.IHoldRClassID;
 import basicInterface.INameable;
 
-public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable{
+public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable,IHoldRClassID{
+	
 	/**
 	 * 开始function的参数处理，以及发动run方法。
 	 * @param paragraph 用于区分不同运算功能的数字。
