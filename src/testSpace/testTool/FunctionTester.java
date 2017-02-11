@@ -57,7 +57,7 @@ public class FunctionTester{
 		
 		while (testParameter != null){
 			//参数类型+名字
-			System.out.print(testParameter.getReferenceClass() 
+			System.out.print(testParameter.getReferenceRClass() 
 					+ " " + testParameter.toString() + ":");
 			
 			data = testParameter.readObject();
@@ -81,7 +81,7 @@ public class FunctionTester{
 		
 		while (testReturnval != null){
 			//返回值类型+返回值名称
-			System.out.print(testReturnval.getReferenceClass() 
+			System.out.print(testReturnval.getReferenceRClass() 
 							  + " " + testReturnval.toString() + ":");
 			
 			data = testReturnval.readObject();
