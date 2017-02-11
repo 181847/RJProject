@@ -1,5 +1,6 @@
 package testSpace;
 
+import functionInterface.IFunction;
 import rClassInterface.IRClass;
 import testSpace.testTool.FunctionTester;
 import unfinishedClass.RClassLoaderManager;
@@ -14,12 +15,10 @@ public class TestRClassLoader {
 		IRClass rClass = RClassLoaderManager.getRClassLoader().getRClass("RObject");
 		
 		System.out.println("RObject的ID: " + rClassID);
-		try {
-			new FunctionTester(rClass.Function("HelloWorldFunction")).test();
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		IFunction function;
+		function = rClass.Function("HelloWorldFunction");
+		new FunctionTester(function).test();
 	}
 
 }
