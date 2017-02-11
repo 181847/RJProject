@@ -18,9 +18,9 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 9-String；
 	 * 10以及10以上代表Java包装的RClass；
 	 * 负无穷到-1代表完全自定义的RClass；
-	 * 这一项在init()当中从RClassLoader中获取，且只与referenceClass有关。
+	 * 这一项在init()当中从RClassLoader中获取，且只与referenceRClass有关。
 	 */
-	public int referenceClassID;
+	public int rClassID;
 	
 	/**
 	 * 实际的数据域。
@@ -35,11 +35,11 @@ public class RReference extends NameableWithString implements IRReference {
 	/**
 	 * 引用所属的RClass名称。
 	 */
-	public String referenceClass;
+	public String referenceRClass;
 	/**
-	 * 数据所属的RClass名称。
+	 * 数据所属的RClass的RClassID。
 	 */
-	public String dataClass;
+	public int dataRClassID;
 	
 	/**
 	 * 构造一个完全空白的RReference。
@@ -54,69 +54,69 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 自动申请一个一维数组，
 	 * 并写入指定的Ojbect到这个一维数组的第0号单元。
 	 */
-	public RReference(int referenceClassID, Object data, 
-						int memberNum, String referenceClass, 
-						String dataClass){
-		this.referenceClassID = referenceClassID;
+	public RReference(int referenceRClassID, Object data, 
+						int memberNum, String referenceRClass){
+		this.rClassID = referenceRClassID;
 		datas = new Object[1];
 		datas[0] = data;
 		this.memberNum = memberNum;
-		this.referenceClass = referenceClass;
-		this.dataClass = dataClass;
+		this.referenceRClass = referenceRClass;
 	}
 	
 	/**
 	 * 构造方法，传入部分参数进行设置，然后调用init()方法设置memberNum\dataClass\datas。
-	 * @param referenceClass 引用所属的RClass类型。
+	 * @param referenceRClass 引用所属的RClass类型。
 	 * @param referenceName 引用的名字。
 	 */
-	public RReference(String referenceClass, String referenceName){
+	public RReference(String referenceRClass, String referenceName){
 		setName(referenceName);
-		this.referenceClass = referenceClass;
+		this.referenceRClass = referenceRClass;
 		init();
 	}
 	
 	/**
-	 * 初始化方法，根据referenceClass
+	 * 初始化方法，根据referenceRClass
 	 * 对这个RReference实例进行初始化设置
 	 */
 	public void init(){
-		if ((referenceClassID = RClassLoaderManager.getRClassLoader().getRClassIDOf(referenceClass)) >= 1 && referenceClassID <= 9){
+		rClassID =	 RClassLoaderManager.getRClassLoader()
+										.getRClassIDOf(referenceRClass);
+		if (rClassID >= 1 && rClassID <= 9){
 			memberNum = 1;
 			mallocSpace(1);
 			
-			switch(referenceClassID){
+			switch(rClassID){
 			case 1:
-				writeObject(new Byte("0"), referenceClass);
+				writeObject(new Byte("0"), referenceRClass);
 				break;
 			case 2:
-				writeObject(new Boolean(false), referenceClass);
+				writeObject(new Boolean(false), referenceRClass);
 				break;
 			case 3:
-				writeObject(new Short((short)0), referenceClass);
+				writeObject(new Short((short)0), referenceRClass);
 				break;
 			case 4:
-				writeObject(new Integer(0), referenceClass);
+				writeObject(new Integer(0), referenceRClass);
 				break;
 			case 5:
-				writeObject(new Long(0), referenceClass);
+				writeObject(new Long(0), referenceRClass);
 				break;
 			case 6:
-				writeObject(new Float(0), referenceClass);
+				writeObject(new Float(0), referenceRClass);
 				break;
 			case 7:
-				writeObject(new Double(0), referenceClass);
+				writeObject(new Double(0), referenceRClass);
 				break;
 			case 8:
-				writeObject(new Character('\0'), referenceClass);
+				writeObject(new Character('\0'), referenceRClass);
 				break;
 			case 9:
-				writeObject(new String(""), referenceClass);
+				writeObject(new String(""), referenceRClass);
 				break;
 			}
 		} else {
 			datas = null;
-			dataClass = "";
+			dataRClassID = 0;
 		}
 			
 	}
@@ -138,16 +138,25 @@ public class RReference extends NameableWithString implements IRReference {
 		
 		//除非本RReference是基本数据类型
 		//否则dataClass以及smemberNum都要重新指定
-		if (referenceClassID <= -1 || referenceClassID >= 10){
-			dataClass = source.getDataClass();
+		if (rClassID <= -1 || rClassID >= 10){
+			dataRClassID = source.getDataRClassID();
 			memberNum = source.getMemberNum();
 		}
 		return 1;
 	}
 	
 	@Override
-	public int getReferenceClassID() {
-		return referenceClassID;
+	public int getRClassID() {
+		return rClassID;
+	}
+	
+	/**
+	 * 不实现这个方法，RClassID不能由外部设置，
+	 * 在init()方法中就会设置好RClassID。
+	 */
+	@Override
+	public void setRClassID(int rClassID){
+		//Empty Body
 	}
 	
 	/**
@@ -173,17 +182,17 @@ public class RReference extends NameableWithString implements IRReference {
 	 * @return 引用所属的RClass的类型名称
 	 */
 	@Override
-	public String getReferenceClass() {
-		return referenceClass;
+	public String getReferenceRClass() {
+		return referenceRClass;
 	}
 
 	/**
-	 * 返回引用的具体的数据的类型
-	 * @return 数据所属的RClass的类型名称
+	 * 返回引用的具体的数据的类型RClassID
+	 * @return 数据所属的RClass的RClassID
 	 */
 	@Override
-	public String getDataClass() {
-		return dataClass;
+	public int getDataRClassID() {
+		return dataRClassID;
 	}
 
 	/**
@@ -194,7 +203,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 */
 	@Override
 	public Object readObject() {
-		if (referenceClassID <= -1 || datas == null){
+		if (rClassID <= -1 || datas == null){
 			return null;
 		}
 		return datas[0];
@@ -208,19 +217,19 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 将传入的参数data放进新数组的第0号单元，dataClass变为指定的参数。
 	 * @param data 要写入RReference的数据
 	 * @param dataClass 指定数据的dataClass，
-	 * 要求dataClass必须和referenceClass相同，
+	 * 要求dataClass必须和referenceRClass相同，
 	 * 否则写入失败。
 	 * @return 写入失败返回0，写入成功返回1
 	 */
 	@Override
 	public int writeObject(Object data, String dataClass) {
 		//引用类型不是基本数据类型或者Java包装类
-		//又或者dataClass与referenceClass不相等
-		if (referenceClassID <0 ||
-				RClassLoaderManager.getRClassLoader().checkRClassMatchType(referenceClass, dataClass) > 2){
+		//又或者dataClass与referenceRClass不相等
+		if (rClassID <0 ||
+				RClassLoaderManager.getRClassLoader().checkRClassMatchType(referenceRClass, dataClass) > 2){
 			return 0;
 		}
-		this.dataClass = dataClass;
+		this.dataRClassID = RClassLoaderManager.getRClassLoader().getRClassIDOf(dataClass);
 		datas[0] = data;
 		return 1;
 	}
@@ -242,7 +251,7 @@ public class RReference extends NameableWithString implements IRReference {
 
 	@Override
 	public IRReference Member(String memberName) {
-		if (referenceClassID >= 0 || datas == null){
+		if (rClassID >= 0 || datas == null){
 			return null;
 		}
 		
@@ -264,7 +273,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 */
 	@Override
 	public IRReference getMemberInLocation(int location) {
-		if (referenceClassID >= 0 || datas == null || 
+		if (rClassID >= 0 || datas == null || 
 				location < 0 || location >= datas.length){
 			return null;
 		}
@@ -278,7 +287,7 @@ public class RReference extends NameableWithString implements IRReference {
 	 */	
 	@Override
 	public int locateMemberOf(String memberName) {
-		if (referenceClassID >=  0 || datas == null){
+		if (rClassID >=  0 || datas == null){
 			return -1;
 		}
 		
