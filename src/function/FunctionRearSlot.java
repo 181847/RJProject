@@ -14,6 +14,15 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 		excuterList = new ExcuterList(excuterListSpace);
 		returnvalList = new ReturnvalList(returnvalListSpace);
 	}
+	
+	/**
+	 * 返回excuter和returnval的总数
+	 * @return excuter和returnval的总数
+	 */
+	@Override
+	public int getNum() {
+		return excuterList.getNum() + returnvalList.getNum();
+	}
 
 	@Override
 	public int insertExcuter(IExcuter excuter)
@@ -37,6 +46,11 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	public int deleteExcuter(String excuterName)
 	{
 		return excuterList.deleteExcuter(excuterName);
+	}
+	
+	@Override
+	public int getExcuterIndexOf(String excuterName) {
+		return excuterList.getExcuterIndexOf(excuterName);
 	}
 
 	@Override
@@ -74,10 +88,9 @@ public class FunctionRearSlot implements IFunctionRearSlot{
 	{
 		return returnvalList;
 	}
-	
-	//返回excuter和returnval的总数
+
 	@Override
-	public int getNum() {
-		return excuterList.getNum() + returnvalList.getNum();
+	public int getReturnvalIndexOf(String returnvalName) {
+		return returnvalList.getReturnvalIndexOf(returnvalName);
 	}
 }

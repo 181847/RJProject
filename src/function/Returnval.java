@@ -15,20 +15,8 @@ public class Returnval extends RReference implements IReturnval{
 	}
 
 	@Override
-	public void insertExcutee(IExcutee excutee)
+	public void linkExcutee(IExcutee excutee)
 	{
 		this.excutee = excutee;
 	}
-
-	@Override
-	public boolean isBlongToBasicCalculatorFunction()
-	{
-		// TODO: Implement this method
-		return excutee == null;
-	}
-
-
-
-	
-	
 }

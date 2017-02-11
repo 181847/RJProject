@@ -4,7 +4,6 @@ import functionInterface.*;
 
 public class ReturnvalList extends NamedItemList implements IReturnvalList
 {
-
 	public ReturnvalList(){
 		super();
 	}
@@ -35,5 +34,10 @@ public class ReturnvalList extends NamedItemList implements IReturnvalList
 	public int deleteReturnval(String returnvalName)
 	{
 		return deleteItem(returnvalName);
+	}
+
+	@Override
+	public int getReturnvalIndexOf(String returnvalName) {
+		return getIndexOf(returnvalName);
 	}
 }

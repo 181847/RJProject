@@ -1,14 +1,15 @@
-package testSpace;
-import function.AbstractFunction;
+package testSpace.testRClass;
 import functionInterface.IExcuter;
 import function.LinerExcutee;
 import function.Parameter;
 import function.Excuter;
+import function.FunctionNeedParameters;
 import function.Returnval;
 
-public class HelloWorldFunction extends AbstractFunction {
+public class HelloWorldFunction extends FunctionNeedParameters {
+	
 	public HelloWorldFunction(){
-		super(2, 0, 0, 0);
+		super(3, 2, 1, 1);
 		//创建Excutee
 		insertExcutee(new LinerExcutee("fire", 1));
 		insertExcutee(new LinerExcutee("fireSlot2", 2));
@@ -21,7 +22,7 @@ public class HelloWorldFunction extends AbstractFunction {
 		//创建Returnval
 		insertReturnval(new Returnval("Integer", "return"));
 		//设置Function的名字
-		setName("Hello World Function");
+		setName("HelloWorldFunction");
 	}
 
 	@Override
@@ -46,7 +47,6 @@ public class HelloWorldFunction extends AbstractFunction {
 		char ch = (Character)Parameter("ch").readObject();
 		
 		System.out.println("参数n：" + n + " 参数ch：" + ch);
-		
 		Returnval("return").writeObject(new Integer(n + 1), "Integer");
 		
 		return Excuter("endTry");
@@ -62,5 +62,4 @@ public class HelloWorldFunction extends AbstractFunction {
 	public void clearGraph() {
 		//Empty body
 	}
-
 }

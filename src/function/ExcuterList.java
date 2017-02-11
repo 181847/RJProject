@@ -35,4 +35,9 @@ public class ExcuterList extends NamedItemList implements IExcuterList
 	{
 		return deleteItem(excuterName);
 	}
+
+	@Override
+	public int getExcuterIndexOf(String excuterName) {
+		return getIndexOf(excuterName);
+	}
 }
