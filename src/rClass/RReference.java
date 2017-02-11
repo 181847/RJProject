@@ -23,6 +23,17 @@ public class RReference extends NameableWithString implements IRReference {
 	public int rClassID;
 	
 	/**
+	 * 引用所属的RClass名称。
+	 */
+	public String referenceRClass;
+	
+	/**
+	 * 数据所属的RClass的RClassID，
+	 * 这一项只能在writeObject()，或者writeRReference()中设置
+	 */
+	public int dataRClassID;
+	
+	/**
 	 * 实际的数据域。
 	 */
 	public Object[] datas;
@@ -31,15 +42,6 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 成员数量。
 	 */
 	public int memberNum;
-	
-	/**
-	 * 引用所属的RClass名称。
-	 */
-	public String referenceRClass;
-	/**
-	 * 数据所属的RClass的RClassID。
-	 */
-	public int dataRClassID;
 	
 	/**
 	 * 构造一个完全空白的RReference。

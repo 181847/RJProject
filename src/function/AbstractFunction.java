@@ -26,6 +26,9 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	 */
 	public IFunctionRearSlot functionRearSlot;
 	
+	/**
+	 * Function所属的RClass的ID。
+	 */
 	int rClassID;
 	
 	public AbstractFunction(){
