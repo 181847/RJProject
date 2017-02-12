@@ -9,13 +9,26 @@ import functionInterface.IExcuter;
  */
 public abstract class FunctionNeedParameters extends AbstractFunction {
 	
-	public FunctionNeedParameters(){
-		super();
+	/**
+	 * @param name function的名字。
+	 */
+	public FunctionNeedParameters(String name){
+		super(name);
 	}
 	
-	public FunctionNeedParameters(int excuteeList, int parameterList, int excuterList, int returnvalList)
+	/**
+	 * @param name function的名字
+	 * @param excuteeList excutee列表的空间数量
+	 * @param parameterList parameter列表的空间数量
+	 * @param excuterList excuter列表的空间数量
+	 * @param returnvalList returnval列表的空间数量
+	 * 列表空间无需担心，如果不够程序会自动扩张，
+	 * 但是预先就设置好的话能节省性能。
+	 */
+	public FunctionNeedParameters(String name, 
+			int excuteeList, int parameterList, int excuterList, int returnvalList)
 	{
-		super(excuteeList, parameterList, excuterList, returnvalList);
+		super(name, excuteeList, parameterList, excuterList, returnvalList);
 	}
 	
 	/**
