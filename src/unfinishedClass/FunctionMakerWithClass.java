@@ -2,7 +2,9 @@ package unfinishedClass;
 
 import basicTool.NameableWithString;
 import functionInterface.IFunction;
+import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionMaker;
+import functionInterface.IFunctionRearSlot;
 
 public class FunctionMakerWithClass extends NameableWithString implements IFunctionMaker{
 	Class<? extends IFunction> functionClass;
@@ -67,4 +69,11 @@ public class FunctionMakerWithClass extends NameableWithString implements IFunct
 		return newFunctionProduct;
 	}
 
+	/**
+	 * 此方法对于本类型的FunctionMaker无作用。
+	 */
+	@Override
+	public int fillFunctionGraphOf(IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot) {
+		return 0;
+	}
 }
