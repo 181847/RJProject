@@ -1,7 +1,6 @@
 package rClass;
 import basicTool.NameableWithString;
 import rClassInterface.IRReference;
-import unfinishedClass.RClassLoaderManager;
 
 public class RReference extends NameableWithString implements IRReference {
 	/**

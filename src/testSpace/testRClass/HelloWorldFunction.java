@@ -1,15 +1,15 @@
 package testSpace.testRClass;
 import functionInterface.IExcuter;
-import function.LinerExcutee;
-import function.Parameter;
-import function.Excuter;
 import function.FunctionNeedParameters;
-import function.Returnval;
+import function.component.Excuter;
+import function.component.LinerExcutee;
+import function.component.Parameter;
+import function.component.Returnval;
 
 public class HelloWorldFunction extends FunctionNeedParameters {
 	
 	public HelloWorldFunction(){
-		super(3, 2, 1, 1);
+		super("HelloWorldFunction", 3, 2, 1, 1);
 		//创建Excutee
 		insertExcutee(new LinerExcutee("fire", 1));
 		insertExcutee(new LinerExcutee("fireSlot2", 2));
@@ -21,8 +21,6 @@ public class HelloWorldFunction extends FunctionNeedParameters {
 		insertExcuter(new Excuter("endTry"));
 		//创建Returnval
 		insertReturnval(new Returnval("Integer", "return"));
-		//设置Function的名字
-		setName("HelloWorldFunction");
 	}
 
 	@Override
