@@ -1,4 +1,4 @@
-package function;
+package function.component;
 import basicTool.NameableWithString;
 import functionInterface.*;
 

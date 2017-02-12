@@ -1,4 +1,4 @@
-package function;
+package function.component;
 import functionInterface.*;
 import rClass.RReference;
 

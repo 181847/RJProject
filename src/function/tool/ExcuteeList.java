@@ -1,4 +1,4 @@
-package function;
+package function.tool;
 import basicTool.NamedItemList;
 import functionInterface.*;
 

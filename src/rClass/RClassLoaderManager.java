@@ -1,6 +1,8 @@
-package unfinishedClass;
+package rClass;
 import rClassInterface.IRClassLoader;
+import unfinishedClass.RClassLoader;
 import unfinishedClass.basicRClass.*;
+import unfinishedClass.basicRClass.RInteger.RInteger;
 
 public class RClassLoaderManager {
 	public static IRClassLoader rClassLoader;

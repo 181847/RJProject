@@ -1,4 +1,4 @@
-package function;
+package function.tool;
 import functionInterface.*;
 
 public class FunctionRearSlot implements IFunctionRearSlot{

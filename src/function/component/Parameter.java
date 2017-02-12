@@ -1,10 +1,14 @@
-package function;
+package function.component;
 import functionInterface.*;
 import rClass.RReference;
 
 public class Parameter extends RReference implements IParameter{
 	IReturnval returnvalSource;
 	
+	/**
+	 * @param referenceClass 参数的RClass类型名字。
+	 * @param parameterName 参数引用的名字。
+	 */
 	public Parameter(String referenceClass, String parameterName){
 		super(referenceClass, parameterName);
 		returnvalSource = null;
