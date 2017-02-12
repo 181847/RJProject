@@ -11,20 +11,6 @@ public interface IFunctionFactory {
 	public int insertFunctionMaker(IFunctionMaker functionMaker);
 	
 	/**
-	 * 添加一个能够创建构造Function的FunctionMaker。
-	 * @param constructFunctionMaker 能够创建构造Function的FunctionMaker。
-	 * @return 添加成功返回1，如果ConstructFunction已存在就返回-1，
-	 * 并且不对原来的ConstructFunctionMaker做任何的修改。
-	 */
-	public int insertConstructFunctionMaker(IFunctionMaker constructFunctionMaker);
-	
-	/**
-	 * 这个特殊的方法专门用于获取FunctionFactory当中的构造Function。
-	 * @return 一个ConstructFunction。
-	 */
-	public IFunction getConstructFunction();
-	
-	/**
 	 * 获取指定名字的Function的序号，不包括构造Function。
 	 * @param functionName Function的名字。
 	 * @return  指定名字的Function在这个FunctionFactory中的序号。
