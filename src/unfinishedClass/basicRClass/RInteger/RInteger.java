@@ -8,8 +8,9 @@ public class RInteger extends AbstractRClassWithFunctionFactory {
 
 	public RInteger(){
 		super("Integer");
-		insertFunctionClass(IntegerAddFunction.class);
 		insertConstructFunctionClass(RIntegerConstructFunction.class);
+		insertFunctionClass(IntegerAddFunction.class);
+		insertFunctionClass(BasicIntegerAddFunction.class);
 	}
 	
 	@Override
