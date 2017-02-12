@@ -9,6 +9,7 @@ public class RInteger extends AbstractRClassWithFunctionFactory {
 	public RInteger(){
 		super("Integer");
 		insertFunctionClass(IntegerAddFunction.class);
+		insertConstructFunctionClass(RIntegerConstructFunction.class);
 	}
 	
 	@Override
@@ -18,5 +19,4 @@ public class RInteger extends AbstractRClassWithFunctionFactory {
 		newInstance.writeObject(new Integer(0), "Integer");
 		return newInstance;
 	}
-
 }
