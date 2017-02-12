@@ -1,13 +1,14 @@
-package unfinishedClass.basicRClass;
+package unfinishedClass.basicRClass.RInteger;
 
-import rClass.AbstractRClassWithFunctionList;
 import rClass.RReference;
 import rClassInterface.IRReference;
+import unfinishedClass.AbstractRClassWithFunctionFactory;
 
-public class RInteger extends AbstractRClassWithFunctionList {
+public class RInteger extends AbstractRClassWithFunctionFactory {
 
 	public RInteger(){
 		super("Integer");
+		insertFunctionClass(IntegerAddFunction.class);
 	}
 	
 	@Override
