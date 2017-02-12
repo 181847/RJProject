@@ -16,8 +16,8 @@ public class LinerExcutee extends AbstractExcutee{
 	{
 		if (nextExcuter != null){
 			runner.pushExcutee(nextExcuter.getExcutee());
+			nextExcuter = null;
 		}
-		nextExcuter = null;
 		isReady = !hostFunction.needParameters();
 	}
 }
