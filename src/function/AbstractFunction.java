@@ -1,6 +1,8 @@
 package function;
 
 import basicTool.NameableWithString;
+import function.tool.FunctionHeadSlot;
+import function.tool.FunctionRearSlot;
 import functionInterface.IExcutee;
 import functionInterface.IExcuteeList;
 import functionInterface.IExcuter;
@@ -31,13 +33,28 @@ public abstract class AbstractFunction extends NameableWithString implements IFu
 	 */
 	int rClassID;
 	
-	public AbstractFunction(){
+	/**
+	 * @param name function的名字。
+	 */
+	public AbstractFunction(String name){
+		super(name);
 		functionHeadSlot = new FunctionHeadSlot();
 		functionRearSlot = new FunctionRearSlot();
 	}
 	
-	public AbstractFunction(int excuteeList, int parameterList, int excuterList, int returnvalList)
+	/**
+	 * @param name function的名字
+	 * @param excuteeList excutee列表的空间数量
+	 * @param parameterList parameter列表的空间数量
+	 * @param excuterList excuter列表的空间数量
+	 * @param returnvalList returnval列表的空间数量
+	 * 列表空间无需担心，如果不够程序会自动扩张，
+	 * 但是预先就设置好的话能节省性能。
+	 */
+	public AbstractFunction(String name, 
+			int excuteeList, int parameterList, int excuterList, int returnvalList)
 	{
+		super(name);
 		functionHeadSlot = new FunctionHeadSlot(excuteeList, parameterList);
 		functionRearSlot = new FunctionRearSlot(excuterList, returnvalList);
 	}
