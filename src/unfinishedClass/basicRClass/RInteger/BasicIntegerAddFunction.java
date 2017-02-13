@@ -40,7 +40,8 @@ public class BasicIntegerAddFunction extends AbstractBasicCalculatorFunction imp
 			addPara = Integer.parseInt(modifierInfo);
 		} catch (NumberFormatException e){
 			System.out.println("错误，IntegerAddFunction试图通过modify(String)方法增加参数，"
-					+ "但是传入的字符串无法转换为整型。");
+					+ "但是传入的字符串无法转换为整型。"
+					+ "字符串参数：" + modifierInfo);
 			e.printStackTrace();
 		}
 		
@@ -67,5 +68,4 @@ public class BasicIntegerAddFunction extends AbstractBasicCalculatorFunction imp
 		returnval = null;
 		return getExcuter(0);
 	}
-
 }

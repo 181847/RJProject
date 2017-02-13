@@ -1,7 +1,6 @@
 package unfinishedClass.basicRClass.RInteger;
 
 import basicInterface.IModifier;
-import function.*;
 import function.component.Excuter;
 import function.component.LinerExcutee;
 import function.component.Parameter;
@@ -10,8 +9,9 @@ import functionInterface.IExcuter;
 import functionInterface.IFunction;
 import functionInterface.IParameterList;
 import functionInterface.IReturnval;
+import unfinishedClass.AbstractFunctionNeedParameterForJava;
 
-public class IntegerAddFunction extends FunctionNeedParameters implements IFunction, IModifier {
+public class IntegerAddFunction extends AbstractFunctionNeedParameterForJava implements IFunction, IModifier {
 	
 	public IntegerAddFunction(){
 		super("IntegerAddFunction", 1, 1, 1, 1);
@@ -73,17 +73,4 @@ public class IntegerAddFunction extends FunctionNeedParameters implements IFunct
 		returnval = null;
 		return getExcuter(0);
 	}
-
-	@Override
-	public void fillContentGraph() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void clearGraph() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

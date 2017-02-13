@@ -3,14 +3,13 @@ package unfinishedClass.basicRClass.RInteger;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 import rClassInterface.IRReference;
-import function.component.*;
-import unfinishedClass.AbstractConstructFunction;
+import unfinishedClass.AbstractConstructFunctionForJava;
 
-public class RIntegerConstructFunction extends AbstractConstructFunction implements IFunction {
+public class RIntegerConstructFunction extends AbstractConstructFunctionForJava implements IFunction {
 	
 	public RIntegerConstructFunction() {
 		super("Integer", 1);
-		insertParameter(new Parameter("String", "value"));
+		insertParameter("String", "value");
 	}
 
 	@Override
