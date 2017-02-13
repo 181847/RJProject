@@ -1,9 +1,9 @@
 package unfinishedClass.basicRClass.RInteger;
 
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
-import unfinishedClass.AbstractRClassForJava;
 
 public class RInteger extends AbstractRClassForJava implements IRClass{
 

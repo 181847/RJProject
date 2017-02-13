@@ -1,4 +1,4 @@
-package unfinishedClass;
+package rClass;
 
 import basicTool.NameableWithString;
 import functionInterface.IFunction;
@@ -13,8 +13,6 @@ import rClassInterface.IRReference;
  * constructionFunction的设置和获取，
  * 创建一个construcFunctionMaker成员变量，
  * 创建了一个成员变量存储RClassID。
- * @author 75309
- *
  */
 public abstract class AbstractRClass extends NameableWithString implements IRClass {
 	/**

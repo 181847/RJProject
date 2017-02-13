@@ -1,4 +1,4 @@
-package unfinishedClass;
+package function.component;
 
 import functionInterface.IExcutee;
 import functionInterface.IReturnval;

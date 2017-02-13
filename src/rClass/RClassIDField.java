@@ -1,4 +1,4 @@
-package unfinishedClass;
+package rClass;
 import rClassInterface.IRClass;
 
 /**

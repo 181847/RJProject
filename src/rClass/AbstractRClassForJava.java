@@ -1,5 +1,6 @@
-package unfinishedClass;
+package rClass;
 
+import function.tool.FunctionMakerWithClass;
 import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionRearSlot;

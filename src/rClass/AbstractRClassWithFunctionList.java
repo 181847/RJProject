@@ -7,7 +7,6 @@ import functionInterface.IFunctionList;
 import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
-import unfinishedClass.AbstractRClass;
 
 /**
  * 基本数据类型RClass和Java包装类RClass的父类抽象类，

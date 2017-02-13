@@ -1,7 +1,7 @@
 package testSpace.testRClass;
 
+import rClass.AbstractRClassWithFunctionFactory;
 import rClassInterface.IRClass;
-import unfinishedClass.AbstractRClassWithFunctionFactory;
 
 public class RObjectSecond extends AbstractRClassWithFunctionFactory implements IRClass {
 
