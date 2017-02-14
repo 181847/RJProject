@@ -1,8 +1,8 @@
 package functionInterface;
-import basicInterface.IHoldRClassID;
 import basicInterface.INameable;
+import basicInterface.IRClassIDHolder;
 
-public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable,IHoldRClassID{
+public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable,IRClassIDHolder{
 	
 	/**
 	 * 开始function的参数处理，以及发动run方法。

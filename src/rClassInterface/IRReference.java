@@ -1,10 +1,10 @@
 package rClassInterface;
-import basicInterface.IHoldRClassID;
 import basicInterface.INameable;
+import basicInterface.IRClassIDHolder;
 
 
 
-public interface IRReference extends INameable,IHoldRClassID{
+public interface IRReference extends INameable,IRClassIDHolder{
 	/**
 	 * 将source引用的对象赋给调用者，
 	 * 这个方法主要用于Parameter和Returnval相互赋值时使用
