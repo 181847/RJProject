@@ -25,19 +25,6 @@ public abstract class AbstractBasicCalculatorFunction extends AbstractFunctionNe
 	public abstract IExcuter run(int paragraph);
 	
 	/**
-	 * 强制重载这个添加Returnval的方法，
-	 * 不允许用户自行添加Returnval的实例对象，
-	 * 用户如果想添加Returnval，
-	 * 请使用方法：int insertReturnval(String returnvalString)，
-	 * 这个方法只需要传入Returnval的名字就可以添加一个新的Returnval了。
-	 */
-	@Override
-	public int insertReturnval(IReturnval returnval){
-		//Empty Body
-		return 0;
-	}
-	
-	/**
 	 * 在这个方法中，程序猿只需要给定参数的类型和参数的名字，
 	 * 内部自行创建一个Returnval，
 	 * 然后将Returnval连接到本function的唯一一个excutee，
@@ -60,27 +47,7 @@ public abstract class AbstractBasicCalculatorFunction extends AbstractFunctionNe
 	 * 不允许用户自行添加Excutee。
 	 */
 	@Override
-	public int insertExcutee(IExcutee excutee){
-		//Empty Body
-		return 0;
-	}
-	
-	/**
-	 * 强制重载这个添加Excutee的方法，
-	 * 不允许用户自行添加Excutee。
-	 */
-	@Override
 	public int insertExcutee(String excuteeeName, int paragrah){
-		//Empty Body
-		return 0;
-	}
-	
-	/**
-	 * 强制重载这个添加Excuter的方法，
-	 * 不允许用户自行添加Excuter。
-	 */
-	@Override
-	public int insertExcuter(IExcuter excuter){
 		//Empty Body
 		return 0;
 	}

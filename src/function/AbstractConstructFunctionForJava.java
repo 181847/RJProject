@@ -39,16 +39,6 @@ public abstract class AbstractConstructFunctionForJava extends AbstractFunctionN
 	 * 不允许用户自行添加Excutee。
 	 */
 	@Override
-	public int insertExcutee(IExcutee excutee){
-		//Empty Body
-		return 0;
-	}
-	
-	/**
-	 * 强制重载这个添加Excutee的方法，
-	 * 不允许用户自行添加Excutee。
-	 */
-	@Override
 	public int insertExcutee(String excuteeeName, int paragrah){
 		//Empty Body
 		return 0;
@@ -59,25 +49,7 @@ public abstract class AbstractConstructFunctionForJava extends AbstractFunctionN
 	 * 不允许用户自行添加Excuter。
 	 */
 	@Override
-	public int insertExcuter(IExcuter excuter){
-		return 0;
-	}
-	
-	/**
-	 * 强制重载这个添加Excuter的方法，
-	 * 不允许用户自行添加Excuter。
-	 */
-	@Override
 	public int insertExcuter(String excuterName){
-		return 0;
-	}
-	
-	/**
-	 * 强制重载这个添加Returnval的方法，
-	 * 不允许用户自行添加Returnval。
-	 */
-	@Override
-	public int insertReturnval(IReturnval returnval){
 		return 0;
 	}
 	
