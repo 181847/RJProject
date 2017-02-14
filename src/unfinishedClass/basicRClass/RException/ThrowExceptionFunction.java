@@ -26,8 +26,6 @@ public class ThrowExceptionFunction extends AbstractFunctionNeedParameterForJava
 	@Override
 	public IExcuter run(int paragraph) {
 		Exception e = (Exception) Parameter("exception").readObject();
-		e = null;
-		e.printStackTrace();
 		return dealWithException(e);
 	}
 
