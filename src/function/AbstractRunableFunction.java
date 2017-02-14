@@ -33,7 +33,11 @@ public abstract class AbstractRunableFunction extends AbstractFunctionWithExcept
 	}
 	
 	/**
-	 * 准备参数，发动run()方法。
+	 * 准备参数，发动run()方法，
+	 * 当prepareParameters()/run()方法中发生任何异常，
+	 * 都将会捕获异常，并且调用dealWithException(Exception)，
+	 * 来对异常进行单独的处理，将异常放进名为“EXCEPTION”的Excuter中，
+	 * 将这个特殊的Excuter返回，使得Runner进入到异常路线。
 	 * @param paragraph 用于区别这个function中不同功能代码段的数字。
 	 */
 	@Override
