@@ -77,7 +77,6 @@ public class RClassIDField {
 			return -positiveField.length;
 		}
 		return positiveField.length;
-		
 	}
 	
 	/**

@@ -1,12 +1,14 @@
 package testSpace;
 
 import functionInterface.IFunction;
+import rClass.RClassLoaderManager;
 import runner.Runner;
 import runnerInterface.IRunner;
 import testSpace.testRClass.HelloWorldFunction;
 
 public class TestRunner {
 	public static void main(String[] args) {
+		RClassLoaderManager.prepareRClassLoader();
 		IFunction function = new HelloWorldFunction();
 		IFunction function2 = new HelloWorldFunction();
 		

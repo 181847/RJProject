@@ -1,9 +1,9 @@
 package testSpace.testRClass;
 
-import rClass.AbstractRClassWithFunctionFactory;
+import rClass.AbstractRClassForJava;
 import rClassInterface.IRClass;
 
-public class RObjectSecond extends AbstractRClassWithFunctionFactory implements IRClass {
+public class RObjectSecond extends AbstractRClassForJava implements IRClass {
 
 	public RObjectSecond() {
 		super("RObjectSecond");
