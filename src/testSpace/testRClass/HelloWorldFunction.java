@@ -1,6 +1,6 @@
 package testSpace.testRClass;
+import function.AbstractFunctionForJava;
 import functionInterface.IExcuter;
-import unfinishedClass.AbstractFunctionForJava;
 
 public class HelloWorldFunction extends AbstractFunctionForJava {
 	

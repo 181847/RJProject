@@ -1,9 +1,9 @@
 package unfinishedClass.basicRClass.RInteger;
 
+import function.AbstractConstructFunctionForJava;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 import rClassInterface.IRReference;
-import unfinishedClass.AbstractConstructFunctionForJava;
 
 public class RIntegerConstructFunction extends AbstractConstructFunctionForJava implements IFunction {
 	

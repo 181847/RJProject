@@ -1,6 +1,7 @@
 package unfinishedClass.basicRClass.RInteger;
 
 import basicInterface.IModifier;
+import function.AbstractFunctionNeedParameterForJava;
 import function.component.Excuter;
 import function.component.LinerExcutee;
 import function.component.Parameter;
@@ -9,7 +10,6 @@ import functionInterface.IExcuter;
 import functionInterface.IFunction;
 import functionInterface.IParameterList;
 import functionInterface.IReturnval;
-import unfinishedClass.AbstractFunctionNeedParameterForJava;
 
 public class IntegerAddFunction extends AbstractFunctionNeedParameterForJava implements IFunction, IModifier {
 	
