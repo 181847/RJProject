@@ -198,9 +198,10 @@ public class RReference extends NameableWithString implements IRReference {
 
 	/**
 	 * 以Object形式返回第0号单元的引用
-	 * 要求只适用于基本数据类型、Java包装类RClass
-	 * 任何错误发生时都会返回null
-	 * @return
+	 * 要求只适用于Java包装类，
+	 * 如果不是Java包装类，或者datas数组为空，
+	 * 返回null。
+	 * @return Object对象
 	 */
 	@Override
 	public Object readObject() {
