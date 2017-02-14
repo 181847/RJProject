@@ -28,11 +28,16 @@ public class ReturnvalWithExcutee extends RReference implements IReturnval {
 	/**
 	 * @param excutee 要连接的Excutee，
 	 * 这个Exuctee一般是包含这个返回值的BasicCalculatorFunction的Exuctee。
+	 * @return 插入元素为null返回0，成功返回1。
 	 */
 	@Override
-	public void linkExcutee(IExcutee excutee)
+	public int linkExcutee(IExcutee excutee)
 	{
+		if (excutee == null){
+			return 0;
+		}
 		this.excutee = excutee;
+		return 1;
 	}
 
 }

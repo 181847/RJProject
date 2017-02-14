@@ -25,7 +25,8 @@ public class Returnval extends RReference implements IReturnval{
 	 * 所以这个方法不会将返回值与任何Function的Excutee相连接。
 	 */
 	@Override
-	public void linkExcutee(IExcutee excutee){
+	public int linkExcutee(IExcutee excutee){
 		//Empty Body
+		return 0;
 	}
 }

@@ -11,6 +11,7 @@ public interface IExcuter extends INameable{
 	/**
 	 * 链接Excutee
 	 * @param excutee 链接的对象Excutee
+	 * @return 插入失败返回0
 	 */
-	public void linkExcutee(IExcutee excutee);
+	public int linkExcutee(IExcutee excutee);
 }

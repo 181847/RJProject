@@ -23,11 +23,16 @@ public class Excuter extends NameableWithString implements IExcuter{
 	/**
 	 * 链接Excutee
 	 * @param excutee 链接的对象Excutee
+	 * @return 插入元素为null返回0，成功返回1。
 	 */
 	@Override
-	public void linkExcutee(IExcutee excutee)
+	public int linkExcutee(IExcutee excutee)
 	{
+		if (excutee == null){
+			return 0;
+		}
 		this.excutee = excutee;
+		return 1;
 	}
 
 
