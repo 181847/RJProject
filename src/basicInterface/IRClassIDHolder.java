@@ -1,6 +1,6 @@
 package basicInterface;
 
-public interface IHoldRClassID {
+public interface IRClassIDHolder {
 	/**
 	 * 获取RClassID。
 	 * @return RClassID。
