@@ -1,6 +1,7 @@
 package rClass;
 import rClassInterface.IRClassLoader;
 import unfinishedClass.basicRClass.*;
+import unfinishedClass.basicRClass.RException.RException;
 import unfinishedClass.basicRClass.RInteger.RInteger;
 
 public class RClassLoaderManager {
@@ -24,5 +25,6 @@ public class RClassLoaderManager {
 		rClassLoader.loadJarRClass(new RDouble());
 		rClassLoader.loadJarRClass(new RCharacter());
 		rClassLoader.loadJarRClass(new RString());
+		rClassLoader.loadJarRClass(new RException());
 	}
 }
