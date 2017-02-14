@@ -45,6 +45,7 @@ public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction i
 		super(name);
 		functionHeadSlot = new FunctionHeadSlot(excuteeList, parameterList);
 		functionRearSlot = new FunctionRearSlot(excuterList + 1, returnvalList);
+		this.insertExcuter(new ExceptionExcuter("EXCEPTION"));
 	}
 
 	@Override
@@ -76,16 +77,6 @@ public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction i
 		functionHeadSlot.prepareParameters();
 	}
 	
-	/**
-	 * 每个Function都必须包含一个ExceptionExcuter，名字统一为“EXCEPTION”
-	 * 用于在本Function内部发生任何异常时，将Runner转到异常线路上进行一场的处理。
-	 * 本抽象类实现的这个方法在AbstractFunctionWithExceptionExcuter的构造方法中被调用。
-	 * @return 成功插入返回1，失败返回0。
-	 */
-	public int insertExceptionExcuter(){
-		this.insertExcuter(new ExceptionExcuter("EXCEPTION"));
-		return 1;
-	}
 	
 	//******************************************About Slot**************************************************
 	/**
