@@ -46,6 +46,7 @@ public class RClassIDField {
 	 * @return 加载成功的RClassID。
 	 */
 	public int registJarRClass(IRClass rClassToRegist){
+		ensurePositiveFieldSpace();
 		positiveField[positiveUseableID] = rClassToRegist;
 		return positiveUseableID++;
 	}
@@ -71,9 +72,29 @@ public class RClassIDField {
 	 * 空间不足，就返回一个负数，大小为positiveField增长后的长度的负数。
 	 */
 	public int ensurePositiveFieldSpace(){
-		//TODO
-		return 0;
+		if (positiveUseableID >= positiveField.length){
+			resize(true);
+			return -positiveField.length;
+		}
+		return positiveField.length;
 		
+	}
+	
+	/**
+	 * 如果传入的参数为真，就扩容正区域部分，
+	 * 如果传入的参数为假，就扩容负区域部分。
+	 * 扩容的空间大小由ensureCapacity决定。
+	 * @param resizePositiveField 是否扩容正区域部分。
+	 */
+	public void resize(boolean resizePositiveField){
+		if (resizePositiveField){
+			IRClass[] newField = new IRClass[positiveField.length + ensureCapacity];
+			for (int i = positiveUseableID; i >= 0; --i){
+				newField[i] = positiveField[i];
+			}
+			positiveField = newField;
+			newField = null;
+		}
 	}
 	
 	/**
