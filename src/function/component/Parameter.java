@@ -1,5 +1,6 @@
 package function.component;
 import functionInterface.*;
+import rClass.RClassLoaderManager;
 import rClass.RReference;
 
 public class Parameter extends RReference implements IParameter{
@@ -33,7 +34,9 @@ public class Parameter extends RReference implements IParameter{
 	@Override
 	public void linkReturnval(IReturnval returnval)
 	{
-		returnvalSource = returnval;
+		if ( 1 == RClassLoaderManager.getRClassLoader().checkRClassMatchType(returnval.getRClassID(), getRClassID()) ){
+			returnvalSource = returnval;
+		}
 	}
 	
 	/**
