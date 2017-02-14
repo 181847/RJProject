@@ -178,6 +178,23 @@ public class RClassLoader implements IRClassLoader{
 		}
 		return Integer.MAX_VALUE;
 	}
+	
+	/**
+	 * 通过RClassID的情况检查两个RClass类型的关系，
+	 * 目前只有在都是正数，且相等的情况下返回1，其他情况下返回0。
+	 * @param rClassAID RClassID
+	 * @param rClassBID 另一个RClassID
+	 * @return 检查结果，相同且都为Java包装类，返回1；
+	 * 否则返回0。
+	 */
+	public int checkRClassMatchType(int rClassAID, int rClassBID){
+		if (rClassAID >= 0){
+			if (rClassAID == rClassBID){
+				return 1;
+			}
+		}
+		return 0;
+	}
 
 	/**
 	 * 获得一个RClass类型实例。
