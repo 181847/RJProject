@@ -1,9 +1,10 @@
 package unfinishedClass;
 
+import basicInterface.IExceptionHolder;
 import function.component.LinerExcutee;
 import functionInterface.IExcutee;
 
-public class ExceptionExcutee extends LinerExcutee implements IExcutee {
+public class ExceptionExcutee extends LinerExcutee implements IExcutee, IExceptionHolder {
 	
 	Exception exception;
 
