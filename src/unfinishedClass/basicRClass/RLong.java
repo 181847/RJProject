@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RLong extends AbstractRClassWithFunctionList {
+public class RLong extends AbstractRClassForJava implements IRClass {
 
 	public RLong(){
 		super("Long");

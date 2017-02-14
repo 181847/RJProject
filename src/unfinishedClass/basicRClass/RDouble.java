@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RDouble extends AbstractRClassWithFunctionList {
+public class RDouble extends AbstractRClassForJava implements IRClass {
 
 	public RDouble(){
 		super("Double");

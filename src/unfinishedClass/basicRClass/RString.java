@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RString extends AbstractRClassWithFunctionList {
+public class RString extends AbstractRClassForJava implements IRClass {
 
 	public RString(){
 		super("String");

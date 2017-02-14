@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RFloat extends AbstractRClassWithFunctionList {
+public class RFloat extends AbstractRClassForJava implements IRClass {
 
 	public RFloat(){
 		super("Float");

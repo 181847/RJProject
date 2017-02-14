@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RBoolean extends AbstractRClassWithFunctionList {
+public class RBoolean extends AbstractRClassForJava implements IRClass {
 
 	public RBoolean(){
 		super("Boolean");

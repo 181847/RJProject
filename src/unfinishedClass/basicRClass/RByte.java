@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RByte extends AbstractRClassWithFunctionList {
+public class RByte extends AbstractRClassForJava implements IRClass {
 
 	public RByte(){
 		super("Byte");

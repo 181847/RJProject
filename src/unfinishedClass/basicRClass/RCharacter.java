@@ -1,10 +1,11 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RCharacter extends AbstractRClassWithFunctionList {
+public class RCharacter extends AbstractRClassForJava implements IRClass {
 
 	public RCharacter(){
 		super("Character");
