@@ -12,17 +12,17 @@ import functionInterface.IParameter;
 import functionInterface.IParameterList;
 import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
-import rClassInterface.IRReference;
-import unfinishedClass.AbstractFunctionWithExceptionExcuter;
+import unfinishedClass.AbstractFunctionCatchException;
 import unfinishedClass.ExceptionExcuter;
 
 /**
  * 这个类实现了Function的invoke方法，
- * 以及有关prepareParameters()/run()方法中发生异常的处理方法。
+ * 有关prepareParameters()/run()方法中发生异常的处理方法，
+ * 设置由谁处理本function异常的方法assignExceptionHandler()。
  * @author 75309
  *
  */
-public abstract class AbstractRunableFunction extends AbstractFunctionWithExceptionExcuter implements IFunction {
+public abstract class AbstractRunableFunction extends AbstractFunctionWithRClassID implements IFunction {
 	
 	/**
 	 * 设置function的名字。
@@ -60,6 +60,23 @@ public abstract class AbstractRunableFunction extends AbstractFunctionWithExcept
 		IExceptionHolder exceptionExcuter = (IExceptionHolder) Excuter("EXCEPTION");
 		exceptionExcuter.setException(e);
 		return (ExceptionExcuter) exceptionExcuter;
+	}
+	
+	/**
+	 * 为当前这个Function指定，当它发生异常时，
+	 * 哪个function来接受异常，注意接受异常的Function一定是一个带有ExceptionExcutee的function，
+	 * @param catchExceptionFunction
+	 * @return 成功指定异常的接受者就返回1，失败返回0。
+	 */
+	public int assignExceptionHandler(IFunction catchExceptionFunction){
+		if (catchExceptionFunction == null){
+			return 0;
+		}
+		if (catchExceptionFunction instanceof AbstractFunctionCatchException){
+			Excuter("EXCEPTION").linkExcutee(catchExceptionFunction.Excutee("CATCH"));
+			return 1;
+		}
+		return -1;
 	}
 
 	@Override
@@ -163,46 +180,4 @@ public abstract class AbstractRunableFunction extends AbstractFunctionWithExcept
 
 	@Override
 	public abstract int getReturnvalIndexOf(String returnvalName);
-
-	@Override
-	public IRReference getNewInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IFunction ConstructFunction() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IFunction Function(String functionName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IFunction getFunction(int functionIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getFunctionIndexOf(String functionName) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int fillFunctionGraphOf(String functionName, IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int fillFunctionGraphOf(int functionIndex, IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
