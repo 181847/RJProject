@@ -27,7 +27,7 @@ public class CatchExceptionFunction extends AbstractFunctionCatchException imple
 	@Override
 	public IExcuter run(int paragraph) {
 		Exception exception = ( (IExceptionHolder) Excutee("CATCH") ).getException();
-		IReturnval returnval = Returnval("e");
+		IReturnval returnval = Returnval("exception");
 		returnval.mallocSpace(1);
 		returnval.writeObject(exception, "Exception");
 		return Excuter("deal");
