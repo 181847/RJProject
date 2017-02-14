@@ -3,7 +3,9 @@ package rClass;
 import function.tool.FunctionFactory;
 import functionInterface.IFunction;
 import functionInterface.IFunctionFactory;
+import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionMaker;
+import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
@@ -21,6 +23,17 @@ public abstract class AbstractRClassWithFunctionFactory extends AbstractRClass i
 		super(rClassName);
 		functionFactory = new FunctionFactory(factorySpace);
 	}
+	
+	@Override
+	public abstract IRReference getNewInstance();
+	
+	@Override
+	public abstract int fillFunctionGraphOf(String functionName, 
+			IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot);
+
+	@Override
+	public abstract int fillFunctionGraphOf(int functionIndex, 
+			IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot);
 	
 	/**
 	 * 向FunctionFactory插入一个FunctionMaker。
