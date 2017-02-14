@@ -1,11 +1,11 @@
 package rClassInterface;
-import basicInterface.IHoldRClassID;
 import basicInterface.INameable;
+import basicInterface.IRClassIDHolder;
 import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionRearSlot;
 
-public interface IRClass extends INameable,IHoldRClassID{
+public interface IRClass extends INameable,IRClassIDHolder{
 	/**
 	 * 从RClass中创建一个RReference，
 	 * 这个RReference的datas数组一定是有实例对象的，
