@@ -5,6 +5,7 @@ import functionInterface.IExcutee;
 import functionInterface.IExcuteeList;
 import functionInterface.IExcuter;
 import functionInterface.IExcuterList;
+import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionRearSlot;
 import functionInterface.IParameter;
@@ -12,7 +13,14 @@ import functionInterface.IParameterList;
 import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
 import rClassInterface.IRClass;
-
+/**
+ * 本抽象类暂时废除，因为这个抽象类的唯一作用就是在构造方法中向Function调用
+ * insertExceptionExcuter()，向function添加一个异常出口，
+ * 然而在这个时候类中往往还没有初始化承载Excuter的列表，
+ * 于是会产生空指针异常，还是改为手动增加ExceptionExcuter吧。
+ * @author 75309
+ *
+ */
 public abstract class AbstractFunctionWithExceptionExcuter extends AbstractFunctionWithRClassID implements IRClass {
 
 	/**
@@ -21,16 +29,25 @@ public abstract class AbstractFunctionWithExceptionExcuter extends AbstractFunct
 	 */
 	public AbstractFunctionWithExceptionExcuter(String name) {
 		super(name);
-		insertExceptionExcuter();
 	}
-
+	
 	/**
-	 * 从这个抽象类开始添加的一个方法，
-	 * 用来专门插入一个名字为 “EXCEPTION” 的ExceptionExcuter，
-	 * 这个方法的实现交由子类，调用则是在本抽象类的构造方法中调用。
-	 * @return
+	 * @param catchExceptionFunction 要求这个传入的function实例对象必须是AbstractFunctionCatchException的子类。
+	 * @return 如果传入的参数不是指定的类型就返回-1；
+	 * 如果为null，返回0；
+	 * 如果成功，放回。
 	 */
-	public abstract int insertExceptionExcuter();
+	@Override
+	public int assignExceptionHandler(IFunction catchExceptionFunction){
+		if (catchExceptionFunction == null){
+			return 0;
+		}
+		if (catchExceptionFunction instanceof AbstractFunctionCatchException){
+			Excuter("EXCEPTION").linkExcutee(catchExceptionFunction.Excutee("CATCH"));
+			return 1;
+		}
+		return -1;
+	}
 	
 	@Override
 	public abstract IExcuter invoke(int paragraph);
