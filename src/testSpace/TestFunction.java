@@ -2,16 +2,18 @@ package testSpace;
 
 import functionInterface.IFunction;
 import rClass.RClassLoaderManager;
-import testSpace.testRClass.HelloWorldFunction;
+import rClassInterface.IRClass;
+import rClassInterface.IRClassLoader;
 import testSpace.testTool.FunctionTester;
 
 public class TestFunction {
 	public static void main(String[] args){
 		RClassLoaderManager.prepareRClassLoader();
+		IRClassLoader loader = RClassLoaderManager.getRClassLoader();
+		IRClass rclass = loader.getRClass("String");
 		
-		IFunction function = new HelloWorldFunction();
-		function.Parameter("n").writeObject(new Integer(45), "Integer");
-		function.Parameter("ch").writeObject(new Character('@'), "Character");
+		IFunction function = rclass.Function("Print");
+		function.Parameter("text").writeObject("testMessage", "String");
 		
 		new FunctionTester(function).test();
 	}
