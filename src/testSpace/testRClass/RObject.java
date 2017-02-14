@@ -1,14 +1,14 @@
 package testSpace.testRClass;
-import rClass.AbstractRClassWithFunctionList;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RObject extends AbstractRClassWithFunctionList implements IRClass {
+public class RObject extends AbstractRClassForJava implements IRClass {
 	
 	public RObject(){
 		super("RObject");
-		insertFunction(new HelloWorldFunction());
+		insertFunctionClass(HelloWorldFunction.class);
 	}
 	
 	@Override
