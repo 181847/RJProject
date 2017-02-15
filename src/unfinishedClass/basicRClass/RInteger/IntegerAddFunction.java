@@ -66,11 +66,11 @@ public class IntegerAddFunction extends AbstractFunctionNeedParameterForJava imp
 		for (int i = parameterList.getNum() - 1; i >= 0; --i){
 			sum += (Integer)(parameterList.getParameter(i).readObject());
 		}
-		IReturnval returnval= getReturnval(0);
+		IReturnval returnval= Returnval("result");
 		returnval.mallocSpace(1);
 		returnval.writeObject(new Integer(sum), "Integer");
 		parameterList = null;
 		returnval = null;
-		return getExcuter(0);
+		return Excuter("finished");
 	}
 }
