@@ -1,5 +1,6 @@
 package function;
 
+import function.component.ExceptionExcuter;
 import function.tool.FunctionHeadSlot;
 import function.tool.FunctionRearSlot;
 import functionInterface.IExcutee;
@@ -13,7 +14,6 @@ import functionInterface.IParameter;
 import functionInterface.IParameterList;
 import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
-import unfinishedClass.ExceptionExcuter;
 
 public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction implements IFunction {
 	/**

@@ -3,6 +3,7 @@ import rClassInterface.IRClassLoader;
 import unfinishedClass.basicRClass.*;
 import unfinishedClass.basicRClass.RException.RException;
 import unfinishedClass.basicRClass.RInteger.RInteger;
+import unfinishedClass.basicRClass.RString.RString;
 
 public class RClassLoaderManager {
 	public static IRClassLoader rClassLoader;

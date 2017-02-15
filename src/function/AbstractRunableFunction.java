@@ -1,6 +1,7 @@
 package function;
 
 import basicInterface.IExceptionHolder;
+import function.component.ExceptionExcuter;
 import functionInterface.IExcutee;
 import functionInterface.IExcuteeList;
 import functionInterface.IExcuter;
@@ -12,8 +13,6 @@ import functionInterface.IParameter;
 import functionInterface.IParameterList;
 import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
-import unfinishedClass.AbstractFunctionCatchException;
-import unfinishedClass.ExceptionExcuter;
 
 /**
  * 这个类实现了Function的invoke方法，
