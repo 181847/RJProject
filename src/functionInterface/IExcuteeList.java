@@ -21,7 +21,7 @@ public interface IExcuteeList extends ICountable{
 	
 	/**
 	 * 通过序号得到一个的Excutee，
-	 * @param excuteeIndex 想要获取的Excutee的名字。
+	 * @param excuteeIndex 想要获取的Excutee的序号。
 	 * @return 指定Excutee的元素，
 	 * 如果没有找到就返回null。
 	 */
