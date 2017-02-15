@@ -47,6 +47,9 @@ public abstract class AbstractFunctionWithRClassID extends NameableWithString im
 	}
 	
 	@Override
+	public abstract int assignExceptionHandler(IFunction catchExceptionFunction);
+	
+	@Override
 	public abstract IExcuter invoke(int paragraph);
 
 	@Override
