@@ -32,4 +32,9 @@ public class CatchExceptionFunction extends AbstractFunctionCatchException imple
 		returnval.writeObject(exception, "Exception");
 		return Excuter("deal");
 	}
+
+	@Override
+	public boolean needParameters() {
+		return true;
+	}
 }

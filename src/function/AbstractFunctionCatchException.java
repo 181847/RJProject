@@ -5,10 +5,10 @@ import functionInterface.IExcuter;
 import functionInterface.IFunction;
 
 /**
- * Excutee: CATCH 特殊类型的excutee，类型为ExceptionExcutee，
+ * Excutee: CATCH ExceptionExcutee类型的excutee，用于处理异常的执行入口。
  * 内部存储着一个Exception变量，用于Runner的异常线路传递。
  */
-public abstract class AbstractFunctionCatchException extends AbstractFunctionNeedParameterForJava implements IFunction {
+public abstract class AbstractFunctionCatchException extends AbstractFunctionForJava implements IFunction {
 
 	/**
 	 * 在本抽象类中自动为excuteeList加一，
@@ -22,7 +22,7 @@ public abstract class AbstractFunctionCatchException extends AbstractFunctionNee
 	 */
 	public AbstractFunctionCatchException(String name, int excuteeList, int parameterList, int excuterList,
 			int returnvalList) {
-		super(name, excuteeList, parameterList, excuterList, returnvalList);
+		super(name, excuteeList + 1, parameterList, excuterList, returnvalList);
 		this.insertExcutee(new ExceptionExcutee("CATCH", 0));
 	}
 
