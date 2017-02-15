@@ -1,6 +1,5 @@
-package unfinishedClass;
+package function;
 
-import function.AbstractFunctionWithRClassID;
 import functionInterface.IExcutee;
 import functionInterface.IExcuteeList;
 import functionInterface.IExcuter;
