@@ -200,7 +200,6 @@ public class RClassLoader implements IRClassLoader{
 	 * 获得一个RClass类型实例。
 	 * @param rClass 要获取的RClas的名字。
 	 * @return RClass的类型实例引用。
-	 * 
 	 */
 	public IRClass getRClass(String rClass) {
 		Integer returnedID = nameToID.get(rClass);
@@ -209,6 +208,16 @@ public class RClassLoader implements IRClassLoader{
 			return null;
 		}
 		return idField.getRClass((int)returnedID);
+	}
+	
+	/**
+	 * 获得一个RClass类型实例。
+	 * @param rClassID RClassID。
+	 * @return RClass的类型实例引用。
+	 */
+	@Override
+	public IRClass getRCllass(int rClassID) {
+		return idField.getRClass(rClassID);
 	}
 	
 	/**
@@ -263,5 +272,4 @@ public class RClassLoader implements IRClassLoader{
 		}
 		return (int)returnedID;
 	}
-
 }
