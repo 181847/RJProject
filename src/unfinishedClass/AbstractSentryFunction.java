@@ -1,12 +1,13 @@
 package unfinishedClass;
 
 import function.AbstractFunctionForJava;
+import function.component.MixExcuteeAndExcuter;
+import function.component.MixParameterAndReturnval;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 
 /**
- * 这个抽象类增加了一个同时添加Parameter和Returnval的方法，
- * 阻止子类通过字符串添加Function组件。
+ * 此抽象类暂时废除。
  */
 public abstract class AbstractSentryFunction extends AbstractFunctionForJava implements IFunction {
 	public AbstractSentryFunction(String name, int excuteeList, int parameterList, int excuterList, int returnvalList) {
