@@ -1,11 +1,14 @@
 package testSpace;
 
+
 import functionInterface.IFunction;
 import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 import runner.Runner;
 import runnerInterface.IRunner;
+import unfinishedClass.RLogger;
+import unfinishedClass.RunningLogger;
 
 public class TestException {
 
@@ -28,7 +31,7 @@ public class TestException {
 		
 		function4.Excuter("deal").linkExcutee(function1.Excutee("print"));
 		function1.Parameter("text").linkReturnval(function2.Returnval("message"));
-		function2.Parameter("exception").linkReturnval(function4.Returnval("exception"));
+		function2.Parameter("THIS").linkReturnval(function4.Returnval("exception"));
 		
 		IRunner runner = new Runner("LiuXiang");
 		runner.pushExcutee(construct.Excutee("construct"));
@@ -36,7 +39,7 @@ public class TestException {
 		runner.setRunable(true);
 		runner.run();
 		
-		System.out.println("testEnd");
+		RLogger.log("testEnd");
 	}
 
 }
