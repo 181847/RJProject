@@ -1,6 +1,8 @@
 package unfinishedClass;
 
 import function.AbstractFunctionForJava;
+import function.component.MixExcuteeAndExcuter;
+import function.component.MixParameterAndReturnval;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 
@@ -29,7 +31,7 @@ public class HeadSentryFunction extends AbstractFunctionForJava implements IFunc
 
 	@Override
 	public IExcuter run(int paragraph) {
-		Logger.log("Runner has walked through the headSentryFunction.");
+		RLogger.log("Runner has walked through the headSentryFunction.");
 		return null;
 	}
 	
