@@ -8,7 +8,6 @@ import rClassInterface.IRClassLoader;
 import runner.Runner;
 import runnerInterface.IRunner;
 import unfinishedClass.RLogger;
-import unfinishedClass.RunningLogger;
 
 public class TestException {
 
