@@ -1,6 +1,5 @@
-package unfinishedClass;
+package function.component;
 
-import function.component.LinerExcutee;
 import functionInterface.IExcutee;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;

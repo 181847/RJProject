@@ -1,6 +1,5 @@
-package unfinishedClass;
+package function.component;
 
-import function.component.Parameter;
 import functionInterface.IExcutee;
 import functionInterface.IParameter;
 import functionInterface.IReturnval;
