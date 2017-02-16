@@ -29,6 +29,7 @@ public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction i
 	public IFunctionRearSlot functionRearSlot;
 	
 	/**
+	 * Excuter: “EXCEPTION”。
 	 * 本构造方法中会自动对excuterList加一，
 	 * 这多出来的一个位置用来插入所有Function当中都需要的“EXCEPTION”Excuter，
 	 * 具体调用insertExceptionExcuter()方法插入这个“EXCEPTION”的时候是在

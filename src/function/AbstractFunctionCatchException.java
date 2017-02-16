@@ -11,6 +11,8 @@ import functionInterface.IFunction;
 public abstract class AbstractFunctionCatchException extends AbstractFunctionForJava implements IFunction {
 
 	/**
+	 * Excutee: "CATCH"，
+	 * Excuter: “EXCEPTION”。
 	 * 在本抽象类中自动为excuteeList加一，
 	 * 多出来的一个空间用来放置一个名为“CATCH”的ExceptionExcutee，
 	 * 且它对应的代码段的数字为0。

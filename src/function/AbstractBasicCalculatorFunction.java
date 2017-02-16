@@ -1,15 +1,15 @@
 package function;
 
 import function.component.ReturnvalWithExcutee;
-import functionInterface.IExcutee;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 import functionInterface.IReturnval;
 
 public abstract class AbstractBasicCalculatorFunction extends AbstractFunctionNeedParameterForJava implements IFunction {
 	/**
-	 * 基本运算节点统一包括一个名为“fire”的Excutee，
-	 * 不包含Excuter。
+	 * Excutee: “fire”，
+	 * Excuter: “EXCEPTION”。
+	 * 基本运算节点统一包括一个名为“fire”的Excutee。
 	 * @param name 基本运算Function的名字。
 	 * @param parameterList 参数空间数量。
 	 * @param returnvalList 返回值空间数量。
@@ -18,7 +18,6 @@ public abstract class AbstractBasicCalculatorFunction extends AbstractFunctionNe
 		super(name, 1, parameterList,
 				0, returnvalList);
 		super.insertExcutee("fire", 1);
-		
 	}
 
 	@Override

@@ -8,8 +8,11 @@ import functionInterface.IReturnval;
 public abstract class AbstractConstructFunctionForJava extends AbstractFunctionNeedParameterForJava implements IFunction {
 	
 	/**
-	 * 构造Function只允许有一个Excutee，
-	 * 一个Excuter，
+	 * Excutee: “construct”，
+	 * Parameter: “source”，
+	 * Excuter: “EXCEPTION”，
+	 * Excuter: “constructEnd”，
+	 * Returnval: “newInstance”。
 	 * 一个自身RClass类型的返回值，
 	 * 参数可以任意多个，但至少有一个自身RClass类型的参数。
 	 * @param name 构造Function的名字，
