@@ -8,13 +8,13 @@ public class GetMessageFunction extends AbstractBasicCalculatorFunction implemen
 
 	public GetMessageFunction() {
 		super("GetMessage", 1, 1);
-		insertParameter("Exception", "exception");
+		insertTHIS("Exception");
 		insertReturnval("String", "message");
 	}
 
 	@Override
 	public IExcuter run(int paragraph) {
-		Exception e = (Exception) Parameter("exception").readObject();
+		Exception e = (Exception) (THIS().readObject());
 		Returnval("message").writeObject(e.getMessage(), "String");
 		return null;
 	}
