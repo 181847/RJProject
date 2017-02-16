@@ -11,6 +11,7 @@ public class RException extends AbstractRClassForJava implements IRClass {
 		insertFunctionClass(CatchExceptionFunction.class);
 		insertFunctionClass(ThrowExceptionFunction.class);
 		insertFunctionClass(GetMessageFunction.class);
+		insertFunctionClass(PrintStackTraceFunction.class);
 	}
 
 }
