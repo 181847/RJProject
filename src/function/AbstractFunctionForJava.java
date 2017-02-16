@@ -10,6 +10,7 @@ import functionInterface.IReturnval;
 public abstract class AbstractFunctionForJava extends AbstractFunctionWithSlot implements IFunction {
 
 	/**
+	 * Excuter: “EXCEPTION”。
 	 * @param name function的名字
 	 * @param excuteeList excutee列表的初始化空间数量。
 	 * @param parameterList parameter列表的初始化空间数量。
@@ -35,8 +36,14 @@ public abstract class AbstractFunctionForJava extends AbstractFunctionWithSlot i
 		//Empty Body
 	}
 	
+	/**
+	 * @return 如果参数列表不为空，就返回true；
+	 * 参数列表为空，就返回1。
+	 */
 	@Override
-	public abstract boolean needParameters();
+	public boolean needParameters() {
+		return getParameterList().getNum() > 0;
+	}
 	
 	//*************************************add methods************************************************
 	/**
