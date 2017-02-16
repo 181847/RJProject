@@ -27,7 +27,16 @@ public abstract class AbstractFunctionCatchException extends AbstractFunctionFor
 		super(name, excuteeList + 1, parameterList, excuterList, returnvalList);
 		this.insertExcutee(new ExceptionExcutee("CATCH", 0));
 	}
+	
+	/**
+	 * 获取名为“CATCH”的Excutee内部的Exception对象。
+	 * @return
+	 */
+	public Exception catchException(){
+		return ((ExceptionExcutee) Excutee("CATCH")).getException();
+	}
 
 	@Override
 	public abstract IExcuter run(int paragraph);
+	
 }
