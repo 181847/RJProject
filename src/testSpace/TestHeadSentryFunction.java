@@ -6,7 +6,7 @@ import runner.Runner;
 import runnerInterface.IRunner;
 import unfinishedClass.HeadSentryFunction;
 
-public class TestSentryFunction extends Test {
+public class TestHeadSentryFunction extends Test {
 
 	public static void main(String[] args) {
 		prepare();
