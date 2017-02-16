@@ -1,6 +1,8 @@
 package unfinishedClass;
 
 import function.AbstractFunctionCatchException;
+import function.component.MixExcuteeAndExcuter;
+import function.component.MixParameterAndReturnval;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 
@@ -17,7 +19,8 @@ public class RearSentryFunction extends AbstractFunctionCatchException implement
 	}
 
 	/**
-	 * Excutee : "CATCH"
+	 * Excutee : "CATCH"，
+	 * Excuter: “EXCEPTION”。
 	 * @param name function的名字
 	 * @param excuteeList excutee列表的初始化空间数量。
 	 * @param parameterList parameter列表的初始化空间数量。
@@ -29,8 +32,14 @@ public class RearSentryFunction extends AbstractFunctionCatchException implement
 	}
 	@Override
 	public IExcuter run(int paragraph) {
-		Logger.log("Runner has walked through the rearSentryFunction.");
-		return null;
+		switch(paragraph){
+		case 0:
+			RLogger.log("RearSentryFunction has catch the Exception.");
+			return dealWithException(catchException());
+		default:
+			RLogger.log("Runner has walked through the rearSentryFunction.");
+			return null;
+		}
 	}
 
 	@Override
