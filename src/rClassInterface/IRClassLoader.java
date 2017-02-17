@@ -44,7 +44,7 @@ public interface IRClassLoader{
 	 * @param rClassID RClassID。
 	 * @return RClass的类型实例引用。
 	 */
-	public IRClass getRCllass(int rClassID);
+	public IRClass getRClass(int rClassID);
 	
 	/**
 	 * 查看这个RClass的粗略类型标识，1至9代表基本数据类型。

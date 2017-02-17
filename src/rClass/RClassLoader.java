@@ -216,7 +216,7 @@ public class RClassLoader implements IRClassLoader{
 	 * @return RClass的类型实例引用。
 	 */
 	@Override
-	public IRClass getRCllass(int rClassID) {
+	public IRClass getRClass(int rClassID) {
 		return idField.getRClass(rClassID);
 	}
 	
