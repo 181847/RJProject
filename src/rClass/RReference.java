@@ -51,17 +51,16 @@ public class RReference extends NameableWithString implements IRReference {
 	
 	/**
 	 * 通常在代码级别创建Java包装类的实例RReference的时候进行调用，
-	 * 由程序猿完全掌控其中的内容，
-	 * 自动申请一个一维数组，
-	 * 并写入指定的Ojbect到这个一维数组的第0号单元。
+	 * 由程序猿完全掌控其中的内容。
 	 */
-	public RReference(int referenceRClassID, Object data, 
-						int memberNum, String referenceRClass){
+	public RReference(int referenceRClassID, String referenceRClass, String name, 
+			Object[] datas, int memberNum,  int dataRClassID){
+		super(name);
 		this.rClassID = referenceRClassID;
-		datas = new Object[1];
-		datas[0] = data;
-		this.memberNum = memberNum;
 		this.referenceRClass = referenceRClass;
+		this.datas = datas;
+		this.memberNum = memberNum;
+		this.dataRClassID = dataRClassID;
 	}
 	
 	/**
