@@ -7,5 +7,6 @@ public class RUtils extends AbstractRClassForJava {
 	public RUtils() {
 		super("Utils");
 		insertFunctionClass(ExceptionMakerFunction.class);
+		insertFunctionClass(HelloWorldFunction.class);
 	}
 }
