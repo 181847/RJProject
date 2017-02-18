@@ -3,6 +3,7 @@ import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
+import unfinishedClass.basicRClass.RUtils.HelloWorldFunction;
 
 public class RObject extends AbstractRClassForJava implements IRClass {
 	
