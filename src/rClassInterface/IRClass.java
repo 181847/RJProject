@@ -22,6 +22,15 @@ public interface IRClass extends INameable,IRClassIDHolder{
 	public IRReference getNewInstance();
 	
 	/**
+	 * 向RClass中插入Function的方法，
+	 * RClass的加载成员Function的时候是在分配RClassID之后才进行的，
+	 * 在RClass被分配RClassID之后，
+	 * 系统统一调用一次这个方法用来加载RClass的成员Function。
+	 * @return 插入成功返回1，如果有失败返回0。
+	 */
+	public int loadFunction();
+	
+	/**
 	 * 获得IRClass的唯一的一个构造Function，
 	 * 这个Function用来创建一个RClass的对象实例。
 	 * @return 构造Function
