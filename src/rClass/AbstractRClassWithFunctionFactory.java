@@ -41,6 +41,7 @@ public abstract class AbstractRClassWithFunctionFactory extends AbstractRClass i
 	 * @return 如果已存在相同名字的元素就返回2，如果插入成功就返回1。
 	 */
 	public int insertFunctionMaker(IFunctionMaker functionMaker){
+		functionMaker.setRClassID(getRClassID());
 		return functionFactory.insertFunctionMaker(functionMaker);
 	}
 

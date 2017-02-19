@@ -69,6 +69,7 @@ public abstract class AbstractRClass extends NameableWithString implements IRCla
 	public int insertConstructFunctionMaker(IFunctionMaker constructFunctionMaker){
 		if (this.constructFunctionMaker == null){
 			this.constructFunctionMaker = constructFunctionMaker;
+			this.constructFunctionMaker.setRClassID(rClassID);
 			return 1;
 		}
 		return 2;
