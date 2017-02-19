@@ -54,6 +54,7 @@ public class RClassLoader implements IRClassLoader{
 		
 		nameToID.put(rClassToLoad.getName(), ID);
 		rClassToLoad.setRClassID(ID);
+		rClassToLoad.loadFunction();
 		return ID;
 	}
 	
