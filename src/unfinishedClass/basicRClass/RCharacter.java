@@ -4,6 +4,7 @@ import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
+import unfinishedClass.RLogger;
 
 public class RCharacter extends AbstractRClassForJava implements IRClass {
 
@@ -17,6 +18,13 @@ public class RCharacter extends AbstractRClassForJava implements IRClass {
 		newInstance.mallocSpace(1);
 		newInstance.writeObject(new Character('\0'), "Character");
 		return newInstance;
+	}
+
+
+	@Override
+	public int loadFunction() {
+		RLogger.log(this.getName() + " 加载成员Function。");
+		return 0;
 	}
 
 }

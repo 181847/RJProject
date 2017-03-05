@@ -1,9 +1,7 @@
 package function;
 
-import functionInterface.IExcutee;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
-import functionInterface.IReturnval;
 
 public abstract class AbstractConstructFunctionForJava extends AbstractFunctionNeedParameterForJava implements IFunction {
 	

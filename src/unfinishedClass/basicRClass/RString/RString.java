@@ -4,12 +4,14 @@ import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
+import unfinishedClass.RLogger;
+import unfinishedClass.basicRClass.RUtils.ExceptionMakerFunction;
+import unfinishedClass.basicRClass.RUtils.HelloWorldFunction;
 
 public class RString extends AbstractRClassForJava implements IRClass {
 
 	public RString(){
 		super("String");
-		insertFunctionClass(PrintFunction.class);
 	}
 	
 	@Override
@@ -18,6 +20,13 @@ public class RString extends AbstractRClassForJava implements IRClass {
 		newInstance.mallocSpace(1);
 		newInstance.writeObject(new String(""), "String");
 		return newInstance;
+	}
+	
+	@Override
+	public int loadFunction() {
+		RLogger.log(this.getName() + " 加载成员Function。");
+		insertFunctionClass(PrintFunction.class);
+		return 1;
 	}
 
 }

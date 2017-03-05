@@ -19,7 +19,7 @@ public abstract class AbstractBasicCalculatorFunction extends AbstractFunctionNe
 				0, returnvalList);
 		super.insertExcutee("fire", 1);
 	}
-
+	
 	@Override
 	public abstract IExcuter run(int paragraph);
 	
