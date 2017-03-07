@@ -2,6 +2,12 @@ package function.component;
 import basicTool.NameableWithString;
 import functionInterface.*;
 
+/**
+ * 执行出口，
+ * 用来存储执行出口的类型，
+ * 一般的Excutee（执行入口）在运行任务完成之后会获得一个Excuter（执行出口），
+ * 通过这个Excuter来把Runner送到下个Excutee（执行入口）上。
+ */
 public class Excuter extends NameableWithString implements IExcuter{
 	IExcutee excutee;
 	

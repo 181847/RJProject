@@ -16,9 +16,8 @@ import rClassInterface.IRClass;
  * 本抽象类暂时废除，因为这个抽象类的唯一作用就是在构造方法中向Function调用
  * insertExceptionExcuter()，向function添加一个异常出口，
  * 然而在这个时候类中往往还没有初始化承载Excuter的列表，
- * 于是会产生空指针异常，还是改为手动增加ExceptionExcuter吧。
- * @author 75309
- *
+ * 于是会产生空指针异常，
+ * 还是改为手动在AbstractFunctionWithSlot中手动增加ExceptionExcuter吧。
  */
 public abstract class AbstractFunctionWithExceptionExcuter extends AbstractFunctionWithRClassID implements IRClass {
 

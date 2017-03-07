@@ -4,6 +4,11 @@ import functionInterface.IExcutee;
 import functionInterface.IReturnval;
 import rClass.RReference;
 
+/**
+ * 带有执行入口的返回值插口，
+ * 这种返回值插口专门用于BasicCalculateorFunction（基本运算节点），
+ * 当这种返回值插口被参数访问，它所对应的基本运算节点将会执行运算功能。
+ */
 public class ReturnvalWithExcutee extends RReference implements IReturnval {
 	IExcutee excutee;
 	

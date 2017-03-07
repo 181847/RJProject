@@ -6,6 +6,11 @@ import unfinishedClass.basicRClass.RInteger.RInteger;
 import unfinishedClass.basicRClass.RString.RString;
 import unfinishedClass.basicRClass.RUtils.RUtils;
 
+/**
+ * 全局的RClassLoader管理者，
+ * 通过这个RClassManager，
+ * 使得任何地方都能通过这个类的静态方法来获得整个程序的RClassLoader。
+ */
 public class RClassLoaderManager {
 	public static IRClassLoader rClassLoader;
 	public static int positiveSpace = 100;

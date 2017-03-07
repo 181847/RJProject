@@ -11,8 +11,8 @@ import rClassInterface.IRReference;
 /**
  * 这个AbstractRClass的主要实现的方法是实现的RClassID的设置和获取，
  * constructionFunction的设置和获取，
- * 创建一个construcFunctionMaker成员变量，
- * 创建了一个成员变量存储RClassID。
+ * 包含一个construcFunctionMaker成员变量，
+ * 一个整形成员变量存储RClassID。
  */
 public abstract class AbstractRClass extends NameableWithString implements IRClass {
 	/**

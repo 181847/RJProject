@@ -2,6 +2,12 @@ package unfinishedClass;
 
 import rClass.RClassLoaderManager;
 
+/**
+ * 所有RClass组件的Info类型的Info对象，
+ * 一般有Function，MemberInfo。
+ * @author 75309
+ *
+ */
 public abstract class RClassComponentInfo{
 	public int rClassID;
 	public String rClassName;

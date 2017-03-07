@@ -7,6 +7,19 @@ import functionInterface.IFunction;
 import functionInterface.IParameter;
 import functionInterface.IReturnval;
 
+/**
+ * 本类为了方便向Function插入组件对象，重载了四个添加组件的方法，
+ * 这些方法不需要在外部创建组件实例然后插入，
+ * 而是只需要提供字符串，内部自动创建固定类型的实例来插入。
+ * 插口详情
+ * Excutee：无；
+ * Parameter：无；
+ * Excuter：
+ * 【
+ * {ExceptionExcuter，“EXCEPTION”，异常执行出口 }
+ * 】
+ * Returnval：无。
+ */
 public abstract class AbstractFunctionForJava extends AbstractFunctionWithSlot implements IFunction {
 
 	/**
@@ -34,15 +47,6 @@ public abstract class AbstractFunctionForJava extends AbstractFunctionWithSlot i
 	@Override
 	public void clearGraph() {
 		//Empty Body
-	}
-	
-	/**
-	 * @return 如果参数列表不为空，就返回true；
-	 * 参数列表为空，就返回1。
-	 */
-	@Override
-	public boolean needParameters() {
-		return getParameterList().getNum() > 0;
 	}
 	
 	//*************************************add methods************************************************

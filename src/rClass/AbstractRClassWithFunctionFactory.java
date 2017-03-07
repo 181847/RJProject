@@ -9,11 +9,15 @@ import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
+/**
+ * 这个类型的Function用一个functionFactory来存储生产Function实例对象的FunctionMaker，
+ * 注意：构造Function只能有一个，且构造Function的Maker不会放在FunctionFactory中，
+ * 而是由AbstractRClass中的一个成员变量来存储ConstructFunctionMaker。
+ */
 public abstract class AbstractRClassWithFunctionFactory extends AbstractRClass implements IRClass {
 	public IFunctionFactory functionFactory;
 
 	/**
-	 * 
 	 * @param rClassName RClass的名字。
 	 * @param factorySpace functionFactory初始的空间数量，
 	 * 虽说空间会在不够的时候自动扩容，

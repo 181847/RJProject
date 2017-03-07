@@ -1,5 +1,13 @@
 package basicInterface;
 
+/**
+ * 一个可以用字符串来修改对象的接口，
+ * 实现这个接口的类可以通过一个字符串来修改他的对象，
+ * 例如IntegerAddFunction可以通过这个接口来添加参数针脚，
+ * 来实现任意数量的整数相加。
+ * @author 75309
+ *
+ */
 public interface IModifier {
 	/**
 	 * 用字符串返回类型的自定义信息，

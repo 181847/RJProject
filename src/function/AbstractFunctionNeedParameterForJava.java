@@ -4,6 +4,24 @@ import functionInterface.IExcuter;
 import functionInterface.IFunction;
 import functionInterface.IParameter;
 
+/**
+ * 本类针对所有需要参数的Function来创建的抽象类，
+ * 这个类的Function覆盖了needParameters()方法，
+ * 使得调用这个方法一定会返回true，
+ * 添加了两个获取和设置THIS参数的方法。
+ * 之所以创建这么一种Function抽象类是因为，
+ * 方法一般都是需要参数的，极少情况下有不需要参数的Function。
+ * 通过这个类来派生出AbstractBasicCalculatorFunction、
+ * AbstractConstructionFunctionForJava。
+ * 插口详情
+ * Excutee：无；
+ * Parameter：无；
+ * Excuter：
+ * 【
+ * {ExceptionExcuter，“EXCEPTION”，异常执行出口 }
+ * 】
+ * Returnval：无。
+ */
 public abstract class AbstractFunctionNeedParameterForJava extends AbstractFunctionForJava implements IFunction {
 
 	/**

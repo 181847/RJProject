@@ -3,6 +3,12 @@ import functionInterface.*;
 import rClass.RClassLoaderManager;
 import rClass.RReference;
 
+/**
+ * 参数插口，
+ * 用来保存当前Function所需的参数，
+ * 参数插口与返回值插口相连接，
+ * 并且从返回值插口获取数据。
+ */
 public class Parameter extends RReference implements IParameter{
 	IReturnval returnvalSource;
 	

@@ -9,8 +9,6 @@ import functionInterface.IReturnval;
  * 也可以当作Returnval，
  * 作参数和返回值时，所包含的数据都是一样的，
  * 这个类专门用于HeadSentryFunction和RearSentryFunction。
- * @author 75309
- *
  */
 public class MixParameterAndReturnval extends Parameter implements IParameter, IReturnval {
 

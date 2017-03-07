@@ -1,6 +1,11 @@
 package function.component;
 import runnerInterface.*;
 
+/**
+ * 线性执行出口，
+ * 最常用的Exuctee类型，
+ * 将Runner简单的传送到nexExcuter所指向的位置。
+ */
 public class LinerExcutee extends AbstractExcutee{
 	/**
 	 * @param excuteeName Excutee的名字

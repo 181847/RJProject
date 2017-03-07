@@ -4,7 +4,9 @@ import functionInterface.IExcutee;
 import functionInterface.IExcuteeStack;
 import functionInterface.IMarkInExcuteeStack;
 
-//StaticExcuteeStack不允许有null元素压入栈内
+/**
+ * StaticExcuteeStack不允许有null元素压入栈内。
+ */
 public class StaticExcuteeStack implements IExcuteeStack {
 	IExcutee[] buffer;
 	int top;

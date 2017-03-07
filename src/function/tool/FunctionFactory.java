@@ -5,6 +5,9 @@ import functionInterface.IFunction;
 import functionInterface.IFunctionFactory;
 import functionInterface.IFunctionMaker;
 
+/**
+ * 存储FunctionMaker的列表，用于RClass对象中。
+ */
 public class FunctionFactory extends NamedItemList implements IFunctionFactory {
 	
 	public FunctionFactory(int space){

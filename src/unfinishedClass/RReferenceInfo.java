@@ -1,5 +1,6 @@
 package unfinishedClass;
 
+import basicTool.RLogger;
 import rClass.RReference;
 import rClassInterface.IRReference;
 
@@ -148,5 +149,4 @@ public class RReferenceInfo extends RClassComponentInfo{
 		}
 		return null;
 	}
-
 }

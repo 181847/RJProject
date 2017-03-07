@@ -7,6 +7,16 @@ import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
+/**
+ * 此类专门方便用Java定义RClass而创建的，
+ * 内部重载了两个添加构造Function和普通Function的方法，
+ * 为RClass添加Function原本需要创建指定的FunctionMaker实例，
+ * 然后将FunctionMaker插入RClass对象，
+ * 现在重载插入FunctionMaker的方法，
+ * 程序员只需要指定他们写好的Function的Class为参数，
+ * 程序会自动创建一个FunctionMakerWithClass，
+ * 然后将这个Function插入RClass中。
+ */
 public abstract class AbstractRClassForJava extends AbstractRClassWithFunctionFactory implements IRClass {
 
 	/**

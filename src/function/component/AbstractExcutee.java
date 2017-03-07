@@ -3,6 +3,10 @@ import basicTool.NameableWithString;
 import functionInterface.*;
 import runnerInterface.*;
 
+/**
+ * 此类是Excutee的抽象类，
+ * 子类需要实现sendRunner的方法。
+ */
 public abstract class AbstractExcutee extends NameableWithString implements IExcutee{
 	public IExcuter nextExcuter;
 	public boolean isReady;

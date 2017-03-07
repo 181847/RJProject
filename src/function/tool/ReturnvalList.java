@@ -2,6 +2,9 @@ package function.tool;
 import basicTool.NamedItemList;
 import functionInterface.*;
 
+/**
+ * 存储执行入口的列表，用于FunctionRearSlot中。
+ */
 public class ReturnvalList extends NamedItemList implements IReturnvalList
 {
 	public ReturnvalList(){

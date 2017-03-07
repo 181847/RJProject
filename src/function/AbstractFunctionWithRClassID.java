@@ -13,6 +13,9 @@ import functionInterface.IParameterList;
 import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
 
+/**
+ * 本类实现有关RClassID相关的获取和设置。
+ */
 public abstract class AbstractFunctionWithRClassID extends NameableWithString implements IFunction {
 	
 	/**

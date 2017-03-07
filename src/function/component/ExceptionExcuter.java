@@ -4,6 +4,11 @@ import basicInterface.IExceptionHolder;
 import functionInterface.IExcutee;
 import functionInterface.IExcuter;
 
+/**
+ * 异常线路上的Excuter，拥有一个异常变量的成员，
+ * 当Runner发生异常，Runner将会在ExceptionExcutee和ExceptionExcuter之间进行传递，
+ * 内部的异常变量成员 用来存储 发生的异常。
+ */
 public class ExceptionExcuter extends Excuter implements IExcuter,IExceptionHolder{
 	/**
 	 * 当前Function中发生的异常对象。

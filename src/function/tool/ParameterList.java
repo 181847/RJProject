@@ -2,6 +2,12 @@ package function.tool;
 import basicTool.NamedItemList;
 import functionInterface.*;
 
+/**
+ * 存储参数插口的列表，
+ * 此类增加一个方法，
+ * 通知内部的所有参数插口去他们相连的返回值哪里获取数据，
+ * 用于FunctionHeadSlot中。
+ */
 public class ParameterList extends NamedItemList implements IParameterList{
 
 	public ParameterList(){

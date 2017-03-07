@@ -52,6 +52,18 @@ public class RReference extends NameableWithString implements IRReference {
 	/**
 	 * 通常在代码级别创建Java包装类的实例RReference的时候进行调用，
 	 * 由程序猿完全掌控其中的内容。
+	 * @param referenceRClassID
+	 * 		引用的数据所属的RClass的ID。
+	 * @param referenceRClass
+	 * 		引用数据的RClass的名字。
+	 * @param name
+	 * 		引用自身的名字。
+	 * @param datas
+	 * 		引用的数据区域。
+	 * @param memberNum
+	 * 		成员数量。
+	 * @param dataRClassID
+	 * 		引用的数据所属的RClassID。
 	 */
 	public RReference(int referenceRClassID, String referenceRClass, String name, 
 			Object[] datas, int memberNum,  int dataRClassID){
@@ -65,8 +77,10 @@ public class RReference extends NameableWithString implements IRReference {
 	
 	/**
 	 * 构造方法，传入部分参数进行设置，然后调用init()方法设置memberNum\dataClass\datas。
-	 * @param referenceRClass 引用所属的RClass类型。
-	 * @param referenceName 引用的名字。
+	 * @param referenceRClass 
+	 * 		引用所属的RClass类型。
+	 * @param referenceName
+	 * 		引用的名字。
 	 */
 	public RReference(String referenceRClass, String referenceName){
 		setName(referenceName);
@@ -76,7 +90,10 @@ public class RReference extends NameableWithString implements IRReference {
 	
 	/**
 	 * 初始化方法，根据referenceRClass
-	 * 对这个RReference实例进行初始化设置
+	 * 对这个RReference实例进行初始化设置，
+	 * 包括根据RClass的名字来设置rClassID，
+	 * 如果是基本数据类型，
+	 * 还要为引用分配一个默认的数据。
 	 */
 	public void init(){
 		rClassID =	 RClassLoaderManager.getRClassLoader()
@@ -124,10 +141,12 @@ public class RReference extends NameableWithString implements IRReference {
 	/**
 	 * 将source引用的对象赋给调用者，
 	 * 这个方法主要用于Parameter和Returnval相互赋值时使用
-	 * @param source 赋值时，数据的来源
-	 * @return 成功返回1，
-	 * source为null返回0，
-	 * 类型不匹配返回-1。
+	 * @param source 
+	 * 		赋值时，数据的来源
+	 * @return 
+	 * 		成功返回1，
+	 * 		source为null返回0，
+	 * 		类型不匹配返回-1。
 	 */
 	@Override
 	public int set(IRReference source) {
@@ -145,6 +164,9 @@ public class RReference extends NameableWithString implements IRReference {
 		return 1;
 	}
 	
+	/**
+	 * 获取引用本身所属的RClassID。
+	 */
 	@Override
 	public int getRClassID() {
 		return rClassID;
@@ -160,8 +182,9 @@ public class RReference extends NameableWithString implements IRReference {
 	}
 	
 	/**
-	 * 返回成员数量
-	 * @return 成员数量
+	 * 返回成员数量。
+	 * @return 
+	 * 		成员数量。
 	 */
 	@Override
 	public int getMemberNum(){
@@ -169,8 +192,9 @@ public class RReference extends NameableWithString implements IRReference {
 	}
 	
 	/**
-	 * 返回引用的datas数组
-	 * @return 引用的数据数组
+	 * 返回引用的datas数组。
+	 * @return
+	 * 		引用的数据数组。
 	 */
 	@Override
 	public Object[] getObjects() {
@@ -179,7 +203,8 @@ public class RReference extends NameableWithString implements IRReference {
 
 	/**
 	 * 返回引用的引用类型名称
-	 * @return 引用所属的RClass的类型名称
+	 * @return 
+	 * 		引用所属的RClass的类型名称
 	 */
 	@Override
 	public String getReferenceRClass() {
@@ -188,7 +213,8 @@ public class RReference extends NameableWithString implements IRReference {
 
 	/**
 	 * 返回引用的具体的数据的类型RClassID
-	 * @return 数据所属的RClass的RClassID
+	 * @return 
+	 * 		数据所属的RClass的RClassID
 	 */
 	@Override
 	public int getDataRClassID() {
@@ -200,7 +226,8 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 要求只适用于Java包装类，
 	 * 如果不是Java包装类，或者datas数组为空，
 	 * 返回null。
-	 * @return Object对象
+	 * @return 
+	 * 		Object对象
 	 */
 	@Override
 	public Object readObject() {
@@ -216,18 +243,24 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 这个方法主要是在构造函数，或者创建一个新的RClass实例的时候使用，
 	 * 注意这个方法的使用者一定是一个基本数据类型，或者Java包装类，
 	 * 将传入的参数data放进新数组的第0号单元，dataClass变为指定的参数。
-	 * @param data 要写入RReference的数据
-	 * @param dataClass 指定数据的dataClass，
-	 * 要求dataClass必须和referenceRClass相同，
-	 * 否则写入失败。
-	 * @return 写入失败返回0，写入成功返回1
+	 * @param data 
+	 * 		要写入RReference的数据
+	 * @param dataClass 
+	 * 		指定数据的dataClass，
+	 * 		要求dataClass必须和referenceRClass相同，
+	 * 		否则写入失败。
+	 * @return 
+	 * 		写入失败返回0，写入成功返回1
 	 */
 	@Override
 	public int writeObject(Object data, String dataClass) {
 		//引用类型不是基本数据类型或者Java包装类
 		//又或者dataClass与referenceRClass不相等
 		if (rClassID <0 ||
-				RClassLoaderManager.getRClassLoader().checkRClassMatchType(referenceRClass, dataClass) > 2){
+				RClassLoaderManager
+					.getRClassLoader()
+					.checkRClassMatchType(referenceRClass, dataClass)
+					> 2){
 			return 0;
 		}
 		this.dataRClassID = RClassLoaderManager.getRClassLoader().getRClassIDOf(dataClass);
@@ -240,9 +273,12 @@ public class RReference extends NameableWithString implements IRReference {
 	 * 完全自定义RClass的RReference的datas数组存储的都是RReference类，
 	 * 调用此方法前需保证调用者当中的datas所指向的数组长度与传入Object数组的长度相同，
 	 * 然后依次复制参数数组的值到datas数组当中。
-	 * @param rReferenceList RReference列表。
-	 * @param dataClass 指定的dataClass名字。
-	 * @return 写入成功返回1，失败返回0。
+	 * @param rReferenceList 
+	 * 		RReference列表。
+	 * @param dataClass 
+	 * 		指定的dataClass名字。
+	 * @return 
+	 * 		写入成功返回1，失败返回0。
 	 */
 	@Override
 	public int writeRReference(Object[] rReferenceList, String dataClass) {
@@ -250,6 +286,18 @@ public class RReference extends NameableWithString implements IRReference {
 		return 0;
 	}
 
+	/**
+	 * 仅针对CustomRClass类型的实例，
+	 * 获取这个实例中的特定名字的 子RReference 的方法。
+	 * @param memberName
+	 * 		子RReference的名字。
+	 * @return 
+	 * 		如果这个引用所属的RClassID>=0，
+	 * 		或者这个引用并没有被分配RClass实例，
+	 * 		或者不存在指定名字的子RReference对象，
+	 * 		返回null；
+	 * 		否则返回指定名字的RReference。
+	 */
 	@Override
 	public IRReference Member(String memberName) {
 		if (rClassID >= 0 || datas == null){
@@ -269,8 +317,13 @@ public class RReference extends NameableWithString implements IRReference {
 	/**
 	 * 专门用于完全自定义RClass的方法，
 	 * 从指定的datas[]数组序号处获取子成员RReference
-	 * @param memberIndex 数组下标
-	 * @return 子成员RReference
+	 * @param location 
+	 * 		数组下标。
+	 * @return 
+	 * 		如果loacation超出datas的长度范围，
+	 * 		或者这个引用所属的RClassID>=0，
+	 * 		返回null；
+	 * 		否则，返回子成员RReference。
 	 */
 	@Override
 	public IRReference getMemberInLocation(int location) {

@@ -7,6 +7,11 @@ import functionInterface.IFunctionRearSlot;
 import unfinishedClass.AbstractFunctionMakerWithRClassID;
 import unfinishedClass.RLogger;
 
+/**
+ * 拥有一个Function类型Class对象的FunctionMaker，
+ * 通过Class的反射来创建Function的实例对象，
+ * 用于FunctionFactory。
+ */
 public class FunctionMakerWithClass extends AbstractFunctionMakerWithRClassID implements IFunctionMaker{
 	Class<? extends IFunction> functionClass;
 	

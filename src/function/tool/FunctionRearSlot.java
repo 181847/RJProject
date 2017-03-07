@@ -1,6 +1,10 @@
 package function.tool;
 import functionInterface.*;
 
+/**
+ * 存储 执行出口列表 和 返回值插口列表，用于Function中，
+ * 对 执行出口和 返回值插口 统一管理。
+ */
 public class FunctionRearSlot implements IFunctionRearSlot{
 	public IExcuterList excuterList;
 	public IReturnvalList returnvalList;

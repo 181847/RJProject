@@ -3,6 +3,9 @@ import functionInterface.IExcuterList;
 import basicTool.NamedItemList;
 import functionInterface.IExcuter;
 
+/**
+ * 存储执行出口的列表，用于FunctionRearSlot中。
+ */
 public class ExcuterList extends NamedItemList implements IExcuterList
 {
 

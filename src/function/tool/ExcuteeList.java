@@ -2,6 +2,9 @@ package function.tool;
 import basicTool.NamedItemList;
 import functionInterface.*;
 
+/**
+ * 存储执行入口的列表，用于FunctionHeadSlot中。
+ */
 public class ExcuteeList extends NamedItemList implements IExcuteeList
 {
 	

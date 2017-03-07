@@ -15,11 +15,9 @@ import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
 
 /**
- * 这个类实现了Function的invoke方法，
- * 有关prepareParameters()/run()方法中发生异常的处理方法，
+ * 这个类实现了Function的运行时的逻辑，
+ * 实现invoke()/prepareParameters()/run()方法，
  * 设置由谁处理本function异常的方法assignExceptionHandler()。
- * @author 75309
- *
  */
 public abstract class AbstractRunableFunction extends AbstractFunctionWithRClassID implements IFunction {
 	
@@ -33,7 +31,7 @@ public abstract class AbstractRunableFunction extends AbstractFunctionWithRClass
 	
 	/**
 	 * 准备参数，发动run()方法，
-	 * 当prepareParameters()/run()方法中发生任何异常，
+	 * 当prepareParameters()/run()方法中发生任何异常， 
 	 * 都将会捕获异常，并且调用dealWithException(Exception)，
 	 * 来对异常进行单独的处理，将异常放进名为“EXCEPTION”的Excuter中，
 	 * 将这个特殊的Excuter返回，使得Runner进入到异常路线。
@@ -67,6 +65,7 @@ public abstract class AbstractRunableFunction extends AbstractFunctionWithRClass
 	 * @param catchExceptionFunction
 	 * @return 成功指定异常的接受者就返回1，失败返回0。
 	 */
+	@Override
 	public int assignExceptionHandler(IFunction catchExceptionFunction){
 		if (catchExceptionFunction == null){
 			return 0;

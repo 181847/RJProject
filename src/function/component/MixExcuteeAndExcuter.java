@@ -2,9 +2,25 @@ package function.component;
 
 import functionInterface.IExcutee;
 import functionInterface.IExcuter;
-import functionInterface.IFunction;
 import runnerInterface.IRunner;
 
+/**
+ * 混合执行入口和执行出口，
+ * 这种特殊的执行接口类用于SentryFunction当中，
+ * SentryFunction本身应该不具备任何执行代码，
+ * 他的作用只是作为CustomFunction的外壳，
+ * 将Runner以及参数数据转入或传出CustomFunction，
+ * 除了异常执行出口，
+ * SentryFunction的其他执行入口和执行出口都应该一一对应，
+ * 名字完全相同，
+ * 于是这种混合类型的执行接口就出现了。
+ * 既可以作为执行入口也可以执行执行出口，
+ * 内部共用一个字符串名字。
+ * 除非SentryFunction中特别指定执行出口（比如发生异常时转到异常出口），
+ * 否则其他正常情况下，
+ * 这个执行入口在执行完毕之后会将Runner转到内部的excutee成员指定的执行入口上，
+ * 因为他自己本身就是一个执行出口。
+ */
 public class MixExcuteeAndExcuter extends LinerExcutee implements IExcutee, IExcuter {
 	public IExcutee excutee;
 	

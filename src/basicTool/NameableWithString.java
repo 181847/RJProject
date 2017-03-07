@@ -1,6 +1,19 @@
 package basicTool;
 import basicInterface.INameable;
 
+/**
+ * 可命名对象，
+ * 这个对象内部用一个字符串来存储一个名字，
+ * 是一下这些类型的父类，
+ * RClass，
+ * FunctionMaker，
+ * Function，
+ * RReference，
+ * Excutee，
+ * Parameter，
+ * Returnval，
+ * Exucter。
+ */
 public class NameableWithString implements INameable
 {
 	String name;

@@ -1,5 +1,13 @@
 package basicInterface;
 
+/**
+ * 用于存储可命名对象的列表类，
+ * 这个列表类能够在空间不够的时候自动扩容为原来的两倍，
+ * 这个对象一般用于存储Excutee、Parameter、Excuter、Returnval，
+ * RClass这种可命名对象存储在专门的RClassLoader当中；
+ * FunctionMaker这种可命名对象存储在FunctionFactory当中；
+ * 普通的Function对象则一般不会被存储。
+ */
 public interface INamedItemList extends ICountable{
 	/**
 	 * 返回存储了多少个对象，

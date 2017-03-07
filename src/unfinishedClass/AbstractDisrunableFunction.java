@@ -15,8 +15,6 @@ import functionInterface.IReturnvalList;
 
 /**
  * 这个方法将有关独立执行Function运算功能的方法实现为空方法。
- * @author 75309
- *
  */
 public abstract class AbstractDisrunableFunction extends AbstractFunctionWithRClassID implements IFunction {
 	/**

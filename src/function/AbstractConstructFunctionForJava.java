@@ -3,6 +3,28 @@ package function;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 
+/**
+ * 构造Function的抽象类，
+ * 专门为了构造Function添加了一些特定名字的组件
+ * 插口详情
+ * Excutee：
+ * 【
+ * {LinerExcutee，“construct”， 1， 构造执行入口}
+ * 】
+ * Parameter：
+ * 【
+ * {Parameter，“source”， 构造Function可能需要的参数源头，这个参数不是一定需要连接的}
+ * 】
+ * Excuter：
+ * 【
+ * {ExceptionExcuter，“EXCEPTION”，异常执行出口 }
+ * {Excuter，“constructEnd”， 构造完成执行出口}
+ * 】
+ * Returnval：
+ * 【
+ * {Returnval，“newInstance”，构造完成的新实例}
+ * 】
+ */
 public abstract class AbstractConstructFunctionForJava extends AbstractFunctionNeedParameterForJava implements IFunction {
 	
 	/**

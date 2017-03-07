@@ -2,6 +2,12 @@ package function.component;
 import functionInterface.*;
 import rClass.RReference;
 
+/**
+ * 返回值插口，
+ * 用来保存当前Function执行完成的输出数据，
+ * 返回值插口与参数插口相连接，
+ * 为参数提供数据。
+ */
 public class Returnval extends RReference implements IReturnval{
 	/**
 	 * @param referenceClass 返回值的类型。

@@ -11,21 +11,24 @@ import java.util.Hashtable;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 
+/**
+ * 本工程的核心，
+ * 放置所有运行时需要的RClass对象，
+ * 每个RClass对象都分配了一个独一无二的RClassID。
+ */
 public class RClassLoader implements IRClassLoader{	
 	public RClassIDField idField;
 	public Hashtable<String, Integer> nameToID;
-	
-	public RClassLoader(){
-		idField = new RClassIDField();
-		nameToID = new Hashtable<String, Integer>(100, 0.75f);
-	}
-	
+
 	/**
 	 * 带参构造方法，初始化IDField和Hashtable的空间，
 	 * Hashtable的Capacity为IDField的正负空间数量之和。
-	 * @param positiveSpace IDField的正空间数量，存储基本数据类型RClass以及Java包装类型RClass。
-	 * @param negativeSpace IDField的负空间数量，存储完全自定义RClass。
-	 * @param loadFactor Hashtable的装载因子。
+	 * @param positiveSpace
+	 * 		IDField的正空间数量，存储基本数据类型RClass以及Java包装类型RClass。
+	 * @param negativeSpace 
+	 * 		IDField的负空间数量，存储完全自定义RClass。
+	 * @param loadFactor 
+	 * 		Hashtable的装载因子。
 	 */
 	public RClassLoader(int positiveSpace, int negativeSpace, float loadFactor){
 		idField = new RClassIDField(positiveSpace, negativeSpace);
@@ -36,8 +39,10 @@ public class RClassLoader implements IRClassLoader{
 	/**
 	 * 将一个RClass实例对象装载进入RClassLoader，
 	 * 并建立RClass的名字到RClassID的联系。
-	 * @param loadingRClass 要装载的RClass类型对象。
-	 * @return 为RClass注册的RClassID。
+	 * @param loadingRClass 
+	 * 		要装载的RClass类型对象。
+	 * @return 
+	 * 		为RClass注册的RClassID。
 	 */
 	public int loadJarRClass(IRClass rClassToLoad){
 		if (rClassToLoad == null){
@@ -64,8 +69,10 @@ public class RClassLoader implements IRClassLoader{
 	 * 加载其中的RClass，这个jar文件中有一个RMETA-INF/RMANIFEST.txt文件，
 	 * 其中有一行记录着MainRClass，冒号空一格之后的信息，
 	 * 就是要从文件中加载RClass路径。
-	 * @param rClassFile 文件的绝对路径。
-	 * @return 加载好了的RClass的ID。
+	 * @param rClassFile 
+	 * 		文件的绝对路径。
+	 * @return 
+	 * 		加载好了的RClass的ID。
 	 */
 	public int loadRClassFromJar(String rClassPath){
 		String manifestString = "";

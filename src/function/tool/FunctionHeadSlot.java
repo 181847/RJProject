@@ -1,6 +1,10 @@
 package function.tool;
 import functionInterface.*;
 
+/**
+ * 存储执行入口列表 和 参数插口列表，用于Function中，
+ * 对执行入口和参数插口统一管理。
+ */
 public class FunctionHeadSlot implements IFunctionHeadSlot{
 	public IExcuteeList excuteeList;
 	public IParameterList parameterList;

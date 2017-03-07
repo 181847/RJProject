@@ -4,6 +4,9 @@ import basicTool.NamedItemList;
 import functionInterface.IFunction;
 import functionInterface.IFunctionList;
 
+/**
+ * 存储Function对象的列表，暂时被废弃。
+ */
 public class FunctionList extends NamedItemList implements IFunctionList {
 	
 	public FunctionList(){

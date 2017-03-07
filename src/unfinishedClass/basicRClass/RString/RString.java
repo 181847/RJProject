@@ -1,12 +1,10 @@
 package unfinishedClass.basicRClass.RString;
 
+import basicTool.RLogger;
 import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
-import unfinishedClass.RLogger;
-import unfinishedClass.basicRClass.RUtils.ExceptionMakerFunction;
-import unfinishedClass.basicRClass.RUtils.HelloWorldFunction;
 
 public class RString extends AbstractRClassForJava implements IRClass {
 

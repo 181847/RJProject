@@ -15,6 +15,20 @@ import functionInterface.IParameterList;
 import functionInterface.IReturnval;
 import functionInterface.IReturnvalList;
 
+/**
+ * 在AbstractRunableFunction的基础上添加两个成员变量，
+ * 用来存储执行入口、执行出口、参数插口、返回值插口，
+ * 这个Function类实现了有关这些Function组件对象的添加和获取，
+ * 并且向这个Function默认添加一个名为"EXCEPTION"的异常执行出口。
+ * 插口详情
+ * Excutee：无；
+ * Parameter：无；
+ * Excuter：
+ * 【
+ * {ExceptionExcuter，“EXCEPTION”，异常执行出口 }
+ * 】
+ * Returnval：无。
+ */
 public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction implements IFunction {
 	/**
 	 * Function的前方插槽
@@ -48,16 +62,11 @@ public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction i
 		functionRearSlot = new FunctionRearSlot(excuterList + 1, returnvalList);
 		this.insertExcuter(new ExceptionExcuter("EXCEPTION"));
 	}
-
-	@Override
-	public abstract boolean needParameters();
-
-	@Override
-	public abstract IExcuter run(int paragraph);
 	
 	@Override
+	public abstract IExcuter run(int paragraph);
+	@Override
 	public abstract void fillContentGraph();
-
 	@Override
 	public abstract void clearGraph();
 	
@@ -78,6 +87,14 @@ public abstract class AbstractFunctionWithSlot extends AbstractRunableFunction i
 		functionHeadSlot.prepareParameters();
 	}
 	
+	/**
+	 * @return 如果参数列表不为空，就返回true；
+	 * 参数列表为空，就返回1。
+	 */
+	@Override
+	public boolean needParameters() {
+		return getParameterList().getNum() > 0;
+	}
 	
 	//******************************************About Slot**************************************************
 	/**
