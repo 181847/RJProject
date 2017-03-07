@@ -115,7 +115,7 @@ public abstract class AbstractRClassWithFunctionFactory extends AbstractRClass i
 	 * @param functionName
 	 * 		Function（或者FunctionMaker）的名字。
 	 * @return
-	 * 		Function（或者FunctionMaker）的序号
+	 * 		Function（或者FunctionMaker）的序号。
 	 */
 	@Override
 	public int getFunctionIndexOf(String functionName) {

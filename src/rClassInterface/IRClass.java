@@ -65,11 +65,16 @@ public interface IRClass extends INameable,IRClassIDHolder{
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过名字读取相应的function描述文件，
-	 * 对CustomFunction的内部进行填充。
-	 * @param functionIndex 指定的Function的序号；
-	 * @param rearSlot 某个CustomFunction的内部裸露出来的Returnval和Excuter；
-	 * @param headSlot 某个CustomFunction的内部裸露出来的Excutee和Parameter；
-	 * @return 成功填充返回1，失败返回0。
+	 * 通过customFunction的名字，
+	 * 来填充自定义customFunction的内容图表。
+	 * @param funcitonName
+	 * 		customFunction的名字。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return
+	 * 		成功返回1。
 	 */
 	public int fillFunctionGraphOf(String functionName,
 			IFunction headSentryFunction,
@@ -77,11 +82,16 @@ public interface IRClass extends INameable,IRClassIDHolder{
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过序号读取相应的function描述文件，
-	 * 对CustomFunction的内部进行填充。
-	 * @param functionIndex 指定的Function的序号；
-	 * @param rearSlot 某个CustomFunction的内部裸露出来的Returnval和Excuter；
-	 * @param headSlot 某个CustomFunction的内部裸露出来的Excutee和Parameter；
-	 * @return 成功填充返回1，失败返回0。
+	 * 通过customFunction的序号，
+	 * 来填充自定义customFunction的内容图表。
+	 * @param funcitonName
+	 * 		customFunction的名字。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return
+	 * 		成功返回1。
 	 */
 	public int fillFunctionGraphOf(int functionIndex,
 			IFunction headSentryFunction,
