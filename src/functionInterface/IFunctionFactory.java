@@ -30,4 +30,36 @@ public interface IFunctionFactory {
 	 * @return 新的Function的实例对象。
 	 */
 	public IFunction getFunction(int functionIndex);
+	
+	/**
+	 * 通过customFunction的名字，
+	 * 来填充自定义customFunction的内容图表。
+	 * @param funcitonName
+	 * 		customFunction的名字。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return
+	 * 		成功返回1。
+	 */
+	public int fillFunctionGraphOf(String functionName,
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
+
+	/**
+	 * 通过customFunction的序号，
+	 * 来填充自定义customFunction的内容图表。
+	 * @param funcitonName
+	 * 		customFunction的名字。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return
+	 * 		成功返回1。
+	 */
+	public int fillFunctionGraphOf(int functionIndex,
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 }
