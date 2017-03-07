@@ -10,17 +10,21 @@ import basicInterface.IRClassIDHolder;
 public interface IFunctionMaker extends INameable,IRClassIDHolder{
 	/**
 	 * 创建一个新的Function实例对象。
-	 * @return 新的Function实例对象。
+	 * @return 
+	 * 		新的Function实例对象。
 	 */
 	public IFunction makeFunction();
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过读取相应的function描述文件，
 	 * 对CustomFunction的内部进行填充。
-	 * @param rearSlot 某个CustomFunction的内部裸露出来的Returnval和Excuter；
-	 * @param headSlot 某个CustomFunction的内部裸露出来的Excutee和Parameter；
-	 * @return 成功填充返回1，失败返回0。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return 
+	 * 		成功填充返回1，失败返回0。
 	 */
-	public int fillFunctionGraphOf(IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot);
+	public int fillFunctionGraphOf(IFunction headSentryFunction, IFunction rearSentryFunction);
 
 }
