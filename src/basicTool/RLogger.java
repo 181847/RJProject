@@ -8,4 +8,8 @@ public class RLogger{
 	public static void logException(Exception e){
 		e.printStackTrace();
 	}
+	
+	public static void logError(String message){
+		System.out.println("ERROR! Message: ");
+	}
 }
