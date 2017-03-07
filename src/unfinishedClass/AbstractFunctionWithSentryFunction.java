@@ -63,8 +63,8 @@ public abstract class AbstractFunctionWithSentryFunction extends AbstractDisruna
 			getRClassLoader().
 			getRClass(getRClassID()).
 			fillFunctionGraphOf(getName(),
-							headSentryFunction.getRearSlot(), 
-							rearSentryFunction.getHeadSlot());
+							headSentryFunction, 
+							rearSentryFunction);
 	}
 
 	/**

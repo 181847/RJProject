@@ -2,8 +2,6 @@ package rClass;
 
 import function.tool.FunctionMakerWithClass;
 import functionInterface.IFunction;
-import functionInterface.IFunctionHeadSlot;
-import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
@@ -68,13 +66,17 @@ public abstract class AbstractRClassForJava extends AbstractRClassWithFunctionFa
 	
 
 	@Override
-	public int fillFunctionGraphOf(String functionName, IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot) {
+	public int fillFunctionGraphOf(String functionName,
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction) {
 		//Empty Body
 		return 0;
 	}
 
 	@Override
-	public int fillFunctionGraphOf(int functionIndex, IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot) {
+	public int fillFunctionGraphOf(int functionIndex,
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction) {
 		//Empty Body
 		return 0;
 	}

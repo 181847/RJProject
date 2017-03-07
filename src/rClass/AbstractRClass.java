@@ -2,9 +2,7 @@ package rClass;
 
 import basicTool.NameableWithString;
 import functionInterface.IFunction;
-import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionMaker;
-import functionInterface.IFunctionRearSlot;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
@@ -88,8 +86,12 @@ public abstract class AbstractRClass extends NameableWithString implements IRCla
 	public abstract int getFunctionIndexOf(String functionName);
 
 	@Override
-	public abstract int fillFunctionGraphOf(String functionName, IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot);
+	public abstract int fillFunctionGraphOf(String functionName,
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 
 	@Override
-	public abstract int fillFunctionGraphOf(int functionIndex, IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot);
+	public abstract int fillFunctionGraphOf(int functionIndex,
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 }

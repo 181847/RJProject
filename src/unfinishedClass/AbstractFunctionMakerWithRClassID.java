@@ -26,7 +26,9 @@ public abstract class AbstractFunctionMakerWithRClassID extends NameableWithStri
 	public abstract IFunction makeFunction();
 
 	@Override
-	public abstract int fillFunctionGraphOf(IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot);
+	public abstract int fillFunctionGraphOf(
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 	
 	/**
 	 * @return 当前FunctionMaker所属的RClass的ID。

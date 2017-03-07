@@ -80,7 +80,9 @@ public class FunctionMakerWithClass extends AbstractFunctionMakerWithRClassID im
 	 * 此方法对于本类型的FunctionMaker无作用。
 	 */
 	@Override
-	public int fillFunctionGraphOf(IFunctionRearSlot rearSlot, IFunctionHeadSlot headSlot) {
+	public int fillFunctionGraphOf(IFunction headSentryFunction, 
+			IFunction rearSentryFunction) {
+		//Empty Body
 		return 0;
 	}
 }
