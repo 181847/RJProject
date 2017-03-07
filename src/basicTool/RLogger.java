@@ -1,4 +1,4 @@
-package unfinishedClass;
+package basicTool;
 
 public class RLogger{
 	public static void log(String message){

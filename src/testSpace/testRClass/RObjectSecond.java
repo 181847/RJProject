@@ -1,8 +1,8 @@
 package testSpace.testRClass;
 
+import basicTool.RLogger;
 import rClass.AbstractRClassForJava;
 import rClassInterface.IRClass;
-import unfinishedClass.RLogger;
 import unfinishedClass.basicRClass.RUtils.HelloWorldFunction;
 
 public class RObjectSecond extends AbstractRClassForJava implements IRClass {

@@ -1,9 +1,9 @@
 package testSpace;
 
+import basicTool.RLogger;
 import functionInterface.IFunction;
 import rClassInterface.IRClass;
 import unfinishedClass.HeadSentryFunction;
-import unfinishedClass.RLogger;
 import unfinishedClass.RearSentryFunction;
 import unfinishedClass.basicRClass.RUtils.ExceptionMakerFunction;
 

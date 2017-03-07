@@ -1,7 +1,7 @@
 package unfinishedClass.basicRClass.RUtils;
 
+import basicTool.RLogger;
 import rClass.AbstractRClassForJava;
-import unfinishedClass.RLogger;
 
 public class RUtils extends AbstractRClassForJava {
 

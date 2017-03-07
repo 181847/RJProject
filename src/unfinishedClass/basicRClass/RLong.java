@@ -1,10 +1,10 @@
 package unfinishedClass.basicRClass;
 
+import basicTool.RLogger;
 import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
-import unfinishedClass.RLogger;
 
 public class RLong extends AbstractRClassForJava implements IRClass {
 

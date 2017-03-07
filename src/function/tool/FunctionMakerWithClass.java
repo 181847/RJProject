@@ -1,11 +1,11 @@
 package function.tool;
 
+import basicTool.RLogger;
 import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionMaker;
 import functionInterface.IFunctionRearSlot;
 import unfinishedClass.AbstractFunctionMakerWithRClassID;
-import unfinishedClass.RLogger;
 
 /**
  * 拥有一个Function类型Class对象的FunctionMaker，

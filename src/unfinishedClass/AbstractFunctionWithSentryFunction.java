@@ -15,9 +15,7 @@ import rClass.RClassLoaderManager;
 
 /**
  * 这个抽象类加入了两个位于Function前后的两个SentryFunction，
- * 这两个SentryFunction的功能是代替FunctionSlot的功能 
- * @author 75309
- *
+ * 这两个SentryFunction的功能是代替FunctionSlot的功能 。
  */
 public abstract class AbstractFunctionWithSentryFunction extends AbstractDisrunableFunction implements IFunction {
 	/**

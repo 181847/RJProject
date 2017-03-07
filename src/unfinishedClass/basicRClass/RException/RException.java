@@ -1,8 +1,8 @@
 package unfinishedClass.basicRClass.RException;
 
+import basicTool.RLogger;
 import rClass.AbstractRClassForJava;
 import rClassInterface.IRClass;
-import unfinishedClass.RLogger;
 import unfinishedClass.basicRClass.RInteger.BasicIntegerAddFunction;
 import unfinishedClass.basicRClass.RInteger.IntegerAddFunction;
 import unfinishedClass.basicRClass.RInteger.RIntegerConstructFunction;

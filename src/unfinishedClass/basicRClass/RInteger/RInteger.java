@@ -1,10 +1,10 @@
 package unfinishedClass.basicRClass.RInteger;
 
+import basicTool.RLogger;
 import rClass.AbstractRClassForJava;
 import rClass.RReference;
 import rClassInterface.IRClass;
 import rClassInterface.IRReference;
-import unfinishedClass.RLogger;
 import unfinishedClass.basicRClass.RUtils.ExceptionMakerFunction;
 import unfinishedClass.basicRClass.RUtils.HelloWorldFunction;
 

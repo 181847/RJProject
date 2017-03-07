@@ -1,6 +1,7 @@
 ﻿package unfinishedClass;
 
 import basicInterface.IModifier;
+import basicTool.RLogger;
 import functionInterface.IFunction;
 import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
@@ -12,8 +13,10 @@ public class FunctionInfo extends RClassComponentInfo{
 	public String modifierInfo;
 
 	/**
-	 * @param rClassName 这个Function所属的RClass的名字。
-	 * @param functionName 这个Function的名字。
+	 * @param rClassName 
+	 * 		这个Function所属的RClass的名字。
+	 * @param functionName 
+	 * 		这个Function的名字。
 	 */
 	public FunctionInfo(String rClassName, String functionName) {
 		super(rClassName);
