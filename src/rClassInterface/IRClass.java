@@ -72,8 +72,8 @@ public interface IRClass extends INameable,IRClassIDHolder{
 	 * @return 成功填充返回1，失败返回0。
 	 */
 	public int fillFunctionGraphOf(String functionName,
-									IFunctionRearSlot rearSlot,
-									IFunctionHeadSlot headSlot);
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过序号读取相应的function描述文件，
@@ -84,7 +84,7 @@ public interface IRClass extends INameable,IRClassIDHolder{
 	 * @return 成功填充返回1，失败返回0。
 	 */
 	public int fillFunctionGraphOf(int functionIndex,
-									IFunctionRearSlot rearSlot,
-									IFunctionHeadSlot headSlot);
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 	
 }
