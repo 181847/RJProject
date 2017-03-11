@@ -16,7 +16,6 @@ import rClassInterface.IRReference;
  * 然后将这个Function插入RClass中。
  */
 public abstract class AbstractRClassForJava extends AbstractRClassWithFunctionFactory implements IRClass {
-
 	/**
 	 * @param rClassName RClass的名字。
 	 * @param factorySpace functionFactory的初始空间数量，
