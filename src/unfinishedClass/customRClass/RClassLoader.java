@@ -1,4 +1,4 @@
-package rClass;
+package unfinishedClass.customRClass;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +8,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Hashtable;
 
+import basicTool.RLogger;
+import rClass.RClassIDField;
+import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 
@@ -137,21 +140,85 @@ public class RClassLoader implements IRClassLoader{
 		}
 		
 		if (foundMainRClass){
+			if (nameToID.get(rClassToLoad.getName()) == null){
+				RLogger.logError("加载JarRClass失败，已存在同名RClass对象。");
+				return 0;
+			}
 			return loadJarRClass(rClassToLoad);
 		}
-		
 		return 0;
 	}
 	
 	/**
 	 * 此方法专门对应完全自定义的RClass，现在未完成，
 	 * 已知文件是zip文件，从中加载RClass。
-	 * @param rClassFile 文件的绝对路径。
-	 * @return 加载好了的RClass的ID。
+	 * @param rClassFile 
+	 * 		文件的绝对路径。
+	 * @return 
+	 * 		加载好了的RClass的ID。
 	 */
 	public int loadRClassFromZip(String rClassPath){
 		//TODO
-		System.out.println("the method: loadRClassFromZip(), cannot do anything with " + rClassPath);
+		
+		//从文件目录获取RClass的结构化信息，
+		//包括引用的其他RClass的路径，RClass的成员信息，RClass的Function脚本的位置。
+		//在这里要检查RClass的相关描述是否正确，
+		//比如命名声明的Interface，但是却带有成员变量，
+		//这种RClass是非法的，不允许创建，
+		//直接返回null。
+		RClassScriptStruct rClassScriptStruct = RClassScripteStruct.getScriptStruct(rClassPath);
+
+		if (rClassScriptStruct == null){
+			RLogger.logError("获取RClass脚本信息失败，"
+					+ "无法加载CustomRClass，"
+					+ "请检查CustomRClass的路径："
+					+ rClassPath + "。");
+			return 0;
+		}
+		
+		//加载导入的其他RClass
+		for (String importRClassPath : rClassScriptStruct.getImportRClassPathArray()){
+			if (0 == loadRClassFrom(importRClassPath)){
+				RLogger.logError("CustomRClass导入外部RClass失败，请检查导入RClass的路径："
+						+ importRClassPath);
+				return 0;
+			}
+		}
+		
+		//检查要加载的这个RClass是否与RClassLoader中的RClass有同名冲突。
+		if (null == 
+				nameToID.get(rClassScriptStruct.getMainRClassName()) ){
+			RLogger.log("要加载的RClass与现有的RClass发生名字冲突，"
+					+ "可能这个RClass已经被加载过，无需再加载；"
+					+ "又或者纯粹的是名字冲突，无法加载同名RClass。"
+					+ "\n请检查RClass的名字：" + rClassScriptStruct.getMainRClassName());
+			return 1;
+		}
+		
+		//检查RClass信息是否能够被加载，
+		//比如需要的外部RClass是否存在，
+		//Function是否完整，
+		//构造Function是否包含了父类的构造Function，
+		//调用的Function是否存在……
+		if (rClassScriptStruct.checkLegal()){
+			CustomRClass rowRClass = rClassScriptStruct.makeRowRClass();
+			int rClassID = idField.registZipRClass(rowRClass);
+			
+			
+			CustomRClassHelper.extendsRClass(
+					rowRClass,
+					rClassScriptStruct.getSuperID(),
+					rClassScriptStruct.getInterfaceIDArray(), 
+					rClassScriptStruct.getStaticMemberInfoArray(), 
+					rClassScriptStruct.getNormalMemberInfoArray(), 
+					rClassScriptStruct.getAbstractConstructFunctionMaker(), 
+					rClassScriptStruct.getAbstractFunctionMakerArray());
+			//此方法用来将rowRClass中的AbstractFunction重载为实现Function。
+			rClasScriptStruct.overrideAbstractFunction(rowRClass);
+		}
+		
+		
+		
 		return 0;
 	}
 
@@ -167,7 +234,6 @@ public class RClassLoader implements IRClassLoader{
 			
 		} else if (rClassPath.endsWith(".zip")){
 			return loadRClassFromZip(rClassPath);
-			
 		}
 		return 0;
 	}
