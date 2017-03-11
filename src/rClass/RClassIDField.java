@@ -69,7 +69,7 @@ public class RClassIDField {
 	 * @return 
 	 * 		加载成功的RClassID。
 	 */
-	public int registZipRClass(IRClass rClassToRegist, int[] fathers){
+	public int registZipRClass(IRClass rClassToRegist){
 		//TODO
 		return 0;
 	}
