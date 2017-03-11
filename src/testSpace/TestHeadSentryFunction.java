@@ -4,7 +4,7 @@ import functionInterface.IFunction;
 import rClassInterface.IRClass;
 import runner.Runner;
 import runnerInterface.IRunner;
-import unfinishedClass.HeadSentryFunction;
+import unfinishedClass.customFunction.HeadSentryFunction;
 
 public class TestHeadSentryFunction extends Test {
 

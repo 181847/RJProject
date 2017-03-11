@@ -3,9 +3,9 @@ package testSpace;
 import basicTool.RLogger;
 import functionInterface.IFunction;
 import rClassInterface.IRClass;
-import unfinishedClass.HeadSentryFunction;
-import unfinishedClass.RearSentryFunction;
 import unfinishedClass.basicRClass.RUtils.ExceptionMakerFunction;
+import unfinishedClass.customFunction.HeadSentryFunction;
+import unfinishedClass.customFunction.RearSentryFunction;
 
 public class TestRearSentryFunction extends Test {
 

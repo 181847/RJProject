@@ -1,51 +1,39 @@
-package unfinishedClass;
+package unfinishedClass.customFunction;
 
 import basicTool.RLogger;
-import function.AbstractFunctionCatchException;
+import function.AbstractFunctionForJava;
 import function.component.MixExcuteeAndExcuter;
 import function.component.MixParameterAndReturnval;
 import functionInterface.IExcuter;
 import functionInterface.IFunction;
 
-public class RearSentryFunction extends AbstractFunctionCatchException implements IFunction {
+public class HeadSentryFunction extends AbstractFunctionForJava implements IFunction {
 	/**
-	 * Excutee: "CATCH"，
 	 * Excuter: “EXCEPTION”。
 	 * 默认构造方法，
 	 * 名字初始化为“unknownNameForHeadSentryFunction”，
 	 * 各个Function的组件列表的空间数量均为5个。
 	 */
-	public RearSentryFunction() {
-		super("unknownNameForRearSentryFunction", 5, 5, 5, 5);
+	public HeadSentryFunction() {
+		super("unknownNameForHeadSentryFunction", 5, 5, 5, 5);
 	}
-
+	
 	/**
-	 * Excutee : "CATCH"，
-	 * Excuter: “EXCEPTION”。
+	 * Excutee : "CATCH"
 	 * @param name function的名字
 	 * @param excuteeList excutee列表的初始化空间数量。
 	 * @param parameterList parameter列表的初始化空间数量。
 	 * @param excuterList parameter列表的初始化空间数量。
 	 * @param returnvalList returnval列表的初始化空间数量。
 	 */
-	public RearSentryFunction(String name, int excuteeList, int parameterList, int excuterList, int returnvalList) {
+	public HeadSentryFunction(String name, int excuteeList, int parameterList, int excuterList, int returnvalList) {
 		super(name, excuteeList, parameterList, excuterList, returnvalList);
-	}
-	@Override
-	public IExcuter run(int paragraph) {
-		switch(paragraph){
-		case 0:
-			RLogger.log("RearSentryFunction has catch the Exception.");
-			return dealWithException(catchException());
-		default:
-			RLogger.log("Runner has walked through the rearSentryFunction.");
-			return null;
-		}
 	}
 
 	@Override
-	public boolean needParameters() {
-		return getParameterList().getNum() > 0;
+	public IExcuter run(int paragraph) {
+		RLogger.log("Runner has walked through the headSentryFunction.");
+		return null;
 	}
 	
 	/**
@@ -79,7 +67,9 @@ public class RearSentryFunction extends AbstractFunctionCatchException implement
 	 */
 	@Override
 	public int insertReturnval(String rClass, String returnvalName){
-		return insertParameter(rClass, returnvalName);
+		MixParameterAndReturnval shareTheData = new MixParameterAndReturnval(rClass, returnvalName);
+		return insertParameter(shareTheData) 
+				* insertReturnval(shareTheData);
 	}
 	
 	/**

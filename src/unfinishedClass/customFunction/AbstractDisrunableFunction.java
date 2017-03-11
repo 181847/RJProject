@@ -1,4 +1,4 @@
-package unfinishedClass;
+package unfinishedClass.customFunction;
 
 import function.AbstractFunctionWithRClassID;
 import functionInterface.IExcutee;

@@ -1,4 +1,4 @@
-package unfinishedClass;
+package unfinishedClass.customFunction;
 
 import function.AbstractFunctionForJava;
 import function.component.MixExcuteeAndExcuter;

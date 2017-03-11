@@ -1,4 +1,4 @@
-package unfinishedClass;
+package unfinishedClass.customFunction;
 
 import functionInterface.IExcutee;
 import functionInterface.IExcuteeList;
