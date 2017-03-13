@@ -66,6 +66,10 @@ public class CustomRClass extends AbstractRClassWithFunctionFactory{
 		return 0;
 	}
 
+	public CustomFunctionFactory getCustomFunctionFactory() {
+		return customFunctionFactory;
+	}
+
 	@Override
 	public IRReference getNewInstance() {
 		// TODO Auto-generated method stub
