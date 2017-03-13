@@ -42,24 +42,26 @@ public class CustomRClassHelper {
 		for (int interfaceID : interfaceIDs){
 			extendsFunction(subRClass, interfaceID);
 		}
-		extendsFunction(subRClass, superID);
 		
-		//获取父类RClass对象
-		CustomRClass superRClass = 
-				(CustomRClass) RClassLoaderManager
-						.getRClassLoader()
-						.getRClass(superID);
-		
+		if (superID <= -1){
+			extendsFunction(subRClass, superID);
+			
+			//获取父类RClass对象
+			CustomRClass superRClass = 
+					(CustomRClass) RClassLoaderManager
+							.getRClassLoader()
+							.getRClass(superID);
+			
 
-		//初始化成员信息
-		subRClass.staticMembers = staticMembers;
-		subRClass.normalMembers = normalMembers;
+			//初始化成员信息
+			subRClass.staticMembers = staticMembers;
+			subRClass.normalMembers = normalMembers;
+			
+			//继承父类成员，
+			//并且添加本类新定义的成员。
+			extendsMembers(subRClass, superRClass.members, staticMembers, normalMembers);
+		}
 		
-		//继承父类成员，
-		//并且添加本类新定义的成员。
-		extendsMembers(subRClass, superRClass.members, staticMembers, normalMembers); 
-		
-		//TODO
 		return 0;
 	}
 	
@@ -107,10 +109,10 @@ public class CustomRClassHelper {
 		for (IFunctionMaker functionMaker : superRClass.customFunctionFactory.toFunctionMakerArray()){
 			//将当前subFunctionFactory中的同名Function覆盖掉，
 			//如果没有同名的Function，就直接退出。
-			subFunctionFactory.overrideFunctionMaker(functionMaker);
+			subFunctionFactory.override(functionMaker);
 			
 			//讲这个FunctionMaker追加到subFunctionFactory的尾部。
-			subFunctionFactory.addFunctionMaker(functionMaker);
+			subFunctionFactory.add(functionMaker);
 		}
 		return 1;
 	}
