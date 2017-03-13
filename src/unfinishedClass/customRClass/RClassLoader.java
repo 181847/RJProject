@@ -166,7 +166,7 @@ public class RClassLoader implements IRClassLoader{
 		//比如命名声明的Interface，但是却带有成员变量，
 		//这种RClass是非法的，不允许创建，
 		//直接返回null。
-		RClassScriptStruct rClassScriptStruct = RClassScripteStruct.getScriptStruct(rClassPath);
+		RClassScriptStruct rClassScriptStruct = RClassScriptStruct.getScriptStruct(rClassPath);
 
 		if (rClassScriptStruct == null){
 			RLogger.logError("获取RClass脚本信息失败，"
@@ -203,8 +203,12 @@ public class RClassLoader implements IRClassLoader{
 		if (rClassScriptStruct.checkLegal()){
 			CustomRClass rowRClass = rClassScriptStruct.makeRowRClass();
 			int rClassID = idField.registZipRClass(rowRClass);
+			nameToID.put(rowRClass.getName(), rClassID);
+			rowRClass.setRClassID(rClassID);
 			
-			
+			//请注意，这里在插入本类定义的FunctionMaker的时候插入的都是AbstractFunctionMaker，
+			//让这个RClass先有这些Function的记录，
+			//之后再去创建拥有实际功能的FunctionMaker时就能找到自己的Function。
 			CustomRClassHelper.extendsRClass(
 					rowRClass,
 					rClassScriptStruct.getSuperID(),
@@ -213,11 +217,12 @@ public class RClassLoader implements IRClassLoader{
 					rClassScriptStruct.getNormalMemberInfoArray(), 
 					rClassScriptStruct.getAbstractConstructFunctionMaker(), 
 					rClassScriptStruct.getAbstractFunctionMakerArray());
-			//此方法用来将rowRClass中的AbstractFunction重载为实现Function。
-			rClasScriptStruct.overrideAbstractFunction(rowRClass);
+			
+			//此方法用来将rowRClass中的占位置的AbstractFunction覆盖成真正的FunctionMaker，
+			//当然如果是抽象RClass的话，可能覆盖之后还是AbstractFunctionMaker。
+			rClassScriptStruct.replaceAbstractFunction(rowRClass);
+			return rClassID;
 		}
-		
-		
 		
 		return 0;
 	}
