@@ -200,7 +200,7 @@ public class RClassLoader implements IRClassLoader{
 		//Function是否完整，
 		//构造Function是否包含了父类的构造Function，
 		//调用的Function是否存在……
-		if (rClassScriptStruct.checkLegal()){
+		if (rClassScriptStruct.isLegal()){
 			CustomRClass rowRClass = rClassScriptStruct.makeRowRClass();
 			int rClassID = idField.registZipRClass(rowRClass);
 			nameToID.put(rowRClass.getName(), rClassID);
