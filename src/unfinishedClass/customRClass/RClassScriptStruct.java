@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -12,6 +13,7 @@ import java.util.zip.ZipInputStream;
 
 import basicTool.RLogger;
 import functionInterface.IFunctionMaker;
+import unfinishedClass.RReferenceHelper;
 import unfinishedClass.RReferenceInfo;
 
 public class RClassScriptStruct {
@@ -48,12 +50,18 @@ public class RClassScriptStruct {
 	protected String[] superInterfaceNames;
 	
 	/**
-	 * 声明的静态成员信息。
+	 * 声明的静态成员信息，
+	 * 第一维任意长度，
+	 * 第二维必须三个长度，
+	 * 分别存类型、名字、初始化数据。
 	 */
 	protected String[][] staticMemberInfos;
 	
 	/**
-	 * 声明的普通成员信息。
+	 * 声明的普通成员信息
+	 * 第一维任意长度，
+	 * 第二维必须三个长度，
+	 * 分别存类型、名字、初始化数据。
 	 */
 	protected String[][] normalMemberInfos;
 	
@@ -160,8 +168,10 @@ public class RClassScriptStruct {
 		
 		String reader;
 		boolean haveMainRClassInfo = false;
+		ArrayList<String> importRClassList = new ArrayList<String>();
 		while ((reader = rManifestBR.readLine()) != null){
 			if (reader.startsWith("MainRClass: ")){
+				
 				//出现两个MainRClass，显示出错信息，加载失败
 				if (haveMainRClassInfo){
 					RLogger.logError("创建RClassScriptStruct时，"
@@ -170,22 +180,62 @@ public class RClassScriptStruct {
 					return null;
 				}
 				
+				reader = reader.substring(12);
 				//初始化RClassScriptStruct的主要信息，
-				//包括父类、成员变量、成员Function。
-				formatMainRClassInfo(rClassScriptStruct, rClassZF, reader.substring(12));
-				haveMainRClassInfo = true;
+				//包括父类、成员变量、成员Function，
+				//返回值表示加载是否成功，
+				//加载过程中一旦发生错误就会返回false。
+				haveMainRClassInfo = formatMainRClassInfo(rClassScriptStruct, rClassZF, reader);
+				if (haveMainRClassInfo){
+					continue;
+				} else {
+					RLogger.logError("读取RClass主要文件时发生错误，"
+							+ "加载RClass主要信息失败，请检查："
+							+ "ZipFile文件路径：" + customRClassPath
+							+ "，zip中主要RClass文件路径：" + reader);
+					return null;
+				}
 			}
 			
 			//导入外部RClass，
 			//注意导入的外部RClass是一个Zip/Jar文件的路径，
 			//是本RClass脚本Zip文件外面的文件。
 			if (reader.startsWith("ImportRClass: ")){
-				importRClass(rClassScriptStruct, reader.substring(14));
+				importRClassList.add(reader.substring(14));
 			}
-			
 		}
 		
+		//初始化导入类信息。
+		rClassScriptStruct.importRClassPaths = 
+				importRClassList.toArray(new String[0]);
+		
 		return null;
+	}
+
+	/**
+	 * 通过这个rClassZF的Zip文件，以及指定的Zip文件内部路径，
+	 * 来初始化RClassScriptStruct内部的RClass主要信息，
+	 * 包括父类信息、接口信息、RClass名字、
+	 * 静态成员变量、普通成员变量、成员FunctionScript、
+	 * 静态FunctionScript。
+	 * @param rClassScriptStruct
+	 * 		rClassScriptStruct对象，
+	 * 		用来存放RClass脚本信息。
+	 * @param rClassZF
+	 * 		拥有所有脚本信息的Zip文件，
+	 * 		这里不会检查zip文件的正确性。
+	 * @param innerZipFilePath
+	 * 		记录了RClass主要信息的zip内部文件地址。
+	 * @return 
+	 * 		如果发生任何读取错误，
+	 * 		或者基本的格式规范错误，
+	 * 		返回false；
+	 * 		如果正常加载完的话，返回true。
+	 */
+	private static boolean formatMainRClassInfo(RClassScriptStruct rClassScriptStruct, ZipFile rClassZF,
+			String innerZipFilePath) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**
@@ -230,7 +280,7 @@ public class RClassScriptStruct {
 	 * 		脚本正确返回true，
 	 * 		存在错误返回false。
 	 */
-	public boolean checkLegal(){
+	public boolean isLegal(){
 		//TODO
 		isScriptCorrect = false;
 		return isScriptCorrect;
@@ -275,11 +325,11 @@ public class RClassScriptStruct {
 	public RReferenceInfo[] getStaticMemberInfoArray(){
 		if (isScriptCorrect){
 			//根据静态成员信息来创建RReferenceInfo数组。
-			return makeRReferenceInfoArray(staticMemberInfos);
+			return RReferenceHelper.makeRRefArray(staticMemberInfos);
 		}
 		return new RReferenceInfo[0];
 	}
-	
+
 	/**
 	 * 获取这个RClass脚本定义的普通成员的信息数组。
 	 * @return
@@ -289,7 +339,7 @@ public class RClassScriptStruct {
 	public RReferenceInfo[] getNormalMemberInfoArray(){
 		if (isScriptCorrect){
 			//根据普通成员信息来创建RReferenceInfo数组。
-			return makeRReferenceInfoArray(normalMemberInfos);
+			return RReferenceHelper.makeRRefArray(normalMemberInfos);
 		}
 		return new RReferenceInfo[0];
 	}
