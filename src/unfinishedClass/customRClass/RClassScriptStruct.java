@@ -112,14 +112,9 @@ public class RClassScriptStruct {
 	 * 		如果正确返回一个RClassScriptStruct对象。
 	 */
 	public static RClassScriptStruct getScriptStruct(String customRClassPath){
-		//TODO
-		
 		ZipFile rClassZF;
-		ZipInputStream rClassZIS;
 		try{
 			rClassZF = new ZipFile(customRClassPath);
-			rClassZIS = 
-					new ZipInputStream(new FileInputStream(customRClassPath));
 		} catch(ZipException e){
 			RLogger.logError("RClassScriptStruct获取 ZipFile 失败，"
 					+ "目标路径不是Zip文件格式，"
@@ -152,6 +147,13 @@ public class RClassScriptStruct {
 		try{
 			rManifest = rClassZF.getEntry("RMETA-INF/RMANIFEST.txt");
 		} catch (IllegalStateException e){
+			RLogger.logError("获取RClass脚本的Zip文件中的\"RMETA-INF/RMANIFEST.txt\" 时Zip文件"
+					+ "已被关闭，创建RClassScriptStruct失败，"
+					+ "请检查RClass脚本路径：" + customRClassPath + "。");
+			return null;
+		}
+		
+		if (rManifest == null){
 			RLogger.logError("获取RClass脚本的Zip文件中不存在的\"RMETA-INF/RMANIFEST.txt\"，"
 					+ "创建RClassScriptStruct失败，"
 					+ "请检查RClass脚本路径：" + customRClassPath + "。");
@@ -209,6 +211,7 @@ public class RClassScriptStruct {
 		rClassScriptStruct.importRClassPaths = 
 				importRClassList.toArray(new String[0]);
 		
+		rClassZF.close();
 		return null;
 	}
 
@@ -232,9 +235,24 @@ public class RClassScriptStruct {
 	 * 		返回false；
 	 * 		如果正常加载完的话，返回true。
 	 */
-	private static boolean formatMainRClassInfo(RClassScriptStruct rClassScriptStruct, ZipFile rClassZF,
-			String innerZipFilePath) {
+	private static boolean formatMainRClassInfo(RClassScriptStruct rClassScriptStruct, 
+			ZipFile rClassZF,
+			String mainScriptPath) {
 		// TODO Auto-generated method stub
+		
+		ZipEntry mainEntry;
+		try{
+			mainEntry = rClassZF.getEntry(mainScriptPath);
+		} catch (IllegalStateException e){
+			RLogger.logError("RClassScriptStruct.formatMainRClassInfo()准备读取"
+					+ "主要RClass信息，但是包含RClass的Zip文件已被关闭，"
+					+ "读取操作失败。请检查Zip文件：" + rClassZF.getName());
+			return false;
+		}
+		
+		
+		rClassZF.getInputStream(mainScriptPath);
+		
 		return false;
 	}
 
