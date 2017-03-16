@@ -149,7 +149,12 @@ public class RClassLoader implements IRClassLoader{
 		return 0;
 	}
 	
+	
+	
 	/**
+	 * 暂时废弃的方法，
+	 * 加载CustomRClass统一通过工程文件进行加载，
+	 * 详情见方法：RClassLoader.loadRWorkSpace(String workSpacePath)
 	 * 此方法专门对应完全自定义的RClass，现在未完成，
 	 * 已知文件是zip文件，从中加载RClass。
 	 * @param rClassFile 
