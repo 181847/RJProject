@@ -1,12 +1,19 @@
 package unfinishedClass.customRClass;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import basicTool.RLogger;
 import rClass.RClassIDField;
@@ -19,7 +26,8 @@ import rClassInterface.IRClassLoader;
  * 放置所有运行时需要的RClass对象，
  * 每个RClass对象都分配了一个独一无二的RClassID。
  */
-public class RClassLoader implements IRClassLoader{	
+public class RClassLoader implements IRClassLoader{
+	public static String jarBufferPath = "jarBufferFolder";
 	public RClassIDField idField;
 	public Hashtable<String, Integer> nameToID;
 
@@ -72,10 +80,11 @@ public class RClassLoader implements IRClassLoader{
 	 * 加载其中的RClass，这个jar文件中有一个RMETA-INF/RMANIFEST.txt文件，
 	 * 其中有一行记录着MainRClass，冒号空一格之后的信息，
 	 * 就是要从文件中加载RClass路径。
-	 * @param rClassFile 
+	 * @param rClassPath 
 	 * 		文件的绝对路径。
 	 * @return 
 	 * 		加载好了的RClass的ID。
+	 * 		加载失败返回0。
 	 */
 	public int loadRClassFromJar(String rClassPath){
 		String manifestString = "";
@@ -149,87 +158,230 @@ public class RClassLoader implements IRClassLoader{
 		return 0;
 	}
 	
-	
-	
 	/**
-	 * 暂时废弃的方法，
-	 * 加载CustomRClass统一通过工程文件进行加载，
-	 * 详情见方法：RClassLoader.loadRWorkSpace(String workSpacePath)
-	 * 此方法专门对应完全自定义的RClass，现在未完成，
-	 * 已知文件是zip文件，从中加载RClass。
-	 * @param rClassFile 
-	 * 		文件的绝对路径。
-	 * @return 
-	 * 		加载好了的RClass的ID。
+	 * 加载工程文件。
+	 * @param rClassPath
+	 * 		以.zip结尾的Zip压缩文件路径。
+	 * @return
+	 * 		加载成功返回1，
+	 * 		失败返回0。
 	 */
-	public int loadRClassFromZip(String rClassPath){
-		//TODO
+	public int loadProject(String rClassPath) {
+		ZipFile projectFile;
+		//保存所有JarRClass的描述信息
+		ArrayList<String> jarRClassDeclarations = 
+				new ArrayList<String>();
+		//保存所有CustomRClass的声明
+		ArrayList<String> cusRClassDeclarations = 
+				new ArrayList<String>();
 		
-		//从文件目录获取RClass的结构化信息，
-		//包括引用的其他RClass的路径，RClass的成员信息，RClass的Function脚本的位置。
-		//在这里要检查RClass的相关描述是否正确，
-		//比如命名声明的Interface，但是却带有成员变量，
-		//这种RClass是非法的，不允许创建，
-		//直接返回null。
-		RClassScriptStruct rClassScriptStruct = RClassScriptStruct.getScriptStruct(rClassPath);
-
-		if (rClassScriptStruct == null){
-			RLogger.logError("获取RClass脚本信息失败，"
-					+ "无法加载CustomRClass，"
-					+ "请检查CustomRClass的路径："
-					+ rClassPath + "。");
+		ZipFile rClassZF;
+		try{
+			projectFile = new ZipFile(rClassPath);
+		} catch(ZipException e){
+			RLogger.logError("RClassLoader加载工程文件，"
+					+ "目标路径不是Zip文件格式，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
+			return 0;
+			
+		} catch (IOException e){
+			RLogger.logError("RClassScriptStruct获取 ZipFile 时发生IO异常，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
+			return 0;
+			
+		} catch (SecurityException e){
+			RLogger.logError("RClassScriptStruct获取 ZipFile 时发生 安全性 异常，"
+					+ "加载工程文件失败，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
 			return 0;
 		}
 		
-		//加载导入的其他RClass
-		for (String importRClassPath : rClassScriptStruct.getImportRClassPathArray()){
-			if (0 == loadRClassFrom(importRClassPath)){
-				RLogger.logError("CustomRClass导入外部RClass失败，请检查导入RClass的路径："
-						+ importRClassPath);
-				return 0;
+		//获取主要描述文件
+		ZipEntry rManifestEntry;
+		try{
+			rManifestEntry = rClassZF.getEntry("RMETA-INF/RMANIFEST.txt");
+		} catch (IllegalStateException e){
+			RLogger.logError("获取工程文件中的\"RMETA-INF/RMANIFEST.txt\" 时，Zip文件"
+					+ "已被关闭，加载工程文件失败，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
+			projectFile.close();
+			return 0;
+		}
+		
+		if (rManifestEntry == null){
+			RLogger.logError("被加载的工程文件中不存在的\"RMETA-INF/RMANIFEST.txt\"，"
+					+ "加载工程文件失败，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			return 0;
+		}
+		
+		BufferedReader rManifestBR = 
+				new BufferedReader(
+						new InputStreamReader(
+								rClassZF.getInputStream(rManifestEntry)));
+		
+		String rManifestLine;
+		while((rManifestLine = rManifestBR.readLine()) != null){
+			if (rManifestLine.startsWith("JarRClass: ")){
+				jarRClassDeclarations
+					.add(rManifestLine.replaceFirst("JarRClass: ", "src/"));
+				continue;
+			}
+			if (rManifestLine.startsWith("CustomRClass: ")){
+				cusRClassDeclarations
+					.add(rManifestLine.replaceFirst("CustomRClass: ", "src/"));
 			}
 		}
 		
-		//检查要加载的这个RClass是否与RClassLoader中的RClass有同名冲突。
-		if (null == 
-				nameToID.get(rClassScriptStruct.getMainRClassName()) ){
-			RLogger.log("要加载的RClass与现有的RClass发生名字冲突，"
-					+ "可能这个RClass已经被加载过，无需再加载；"
-					+ "又或者纯粹的是名字冲突，无法加载同名RClass。"
-					+ "\n请检查RClass的名字：" + rClassScriptStruct.getMainRClassName());
-			return 1;
+		//加载指定的工程文件中的Jar文件
+		if (1 != loadJarRClassInProject(projectFile, jarRClassDeclarations)){
+			return 0;
 		}
-		
-		//检查RClass信息是否能够被加载，
-		//比如需要的外部RClass是否存在，
-		//Function是否完整，
-		//构造Function是否包含了父类的构造Function，
-		//调用的Function是否存在……
-		if (rClassScriptStruct.isLegal()){
-			CustomRClass rowRClass = rClassScriptStruct.makeRowRClass();
-			int rClassID = idField.registZipRClass(rowRClass);
-			nameToID.put(rowRClass.getName(), rClassID);
-			rowRClass.setRClassID(rClassID);
-			
-			//请注意，这里在插入本类定义的FunctionMaker的时候插入的都是AbstractFunctionMaker，
-			//让这个RClass先有这些Function的记录，
-			//之后再去创建拥有实际功能的FunctionMaker时就能找到自己的Function。
-			CustomRClassHelper.extendsRClass(
-					rowRClass,
-					rClassScriptStruct.getSuperID(),
-					rClassScriptStruct.getInterfaceIDArray(), 
-					rClassScriptStruct.getStaticMemberInfoArray(), 
-					rClassScriptStruct.getNormalMemberInfoArray(), 
-					rClassScriptStruct.getAbstractConstructFunctionMaker(), 
-					rClassScriptStruct.getAbstractFunctionMakerArray());
-			
-			//此方法用来将rowRClass中的占位置的AbstractFunction覆盖成真正的FunctionMaker，
-			//当然如果是抽象RClass的话，可能覆盖之后还是AbstractFunctionMaker。
-			rClassScriptStruct.replaceAbstractFunction(rowRClass);
-			return rClassID;
+		//加载指定的工程文件中的CustomRClass
+		if (1 != loadCusRClassInProject(projectFile, cusRClassDeclarations)){
+			return 0;
 		}
+		return 1;
+	}
+	
+	/**
+	 * 从工程文件中加载所有声明的JarRClass。
+	 * @param projectFile
+	 * 		Zip格式的工程文件。
+	 * @param jarRClassDeclarations
+	 * 		所有JarRClass的.jar文件在Zip文件中的位置。
+	 * @return
+	 * 		成功返回1，
+	 * 		失败返回0。
+	 */
+	private int loadJarRClassInProject(ZipFile projectFile, ArrayList<String> jarRClassDeclarations) {
+		FileOutputStream jarOutputStream = null;
+		ZipEntry jarEntry = null;
+		InputStream jarInputStream = null;
+		boolean occuredError = false;
+		for (int i = jarRClassDeclarations.size(); i > 0; --i){
+			try {
+				jarOutputStream = 
+						new FileOutputStream(jarBufferPath + "/jarRClassToLoad.jar");
+			} catch (FileNotFoundException e) {
+				RLogger.logError("加载工程文件中的JarRClass时，"
+						+ "无法再外部创建临时Jar文件，"
+						+ "加载工程失败，"
+						+ "请检查工程文件：" + projectFile.getName());
+				RLogger.logException(e);
+				occuredError = true;
+				break;
+			}
+			jarEntry = projectFile.getEntry(jarRClassDeclarations.get(i - 1));
+			
+			//获取Jar文件头
+			if (jarEntry == null){
+				RLogger.logError("未能获得工程文件中的Jar文件的ZipEntry，"
+						+ "加载工程文件失败，"
+						+ "要加载的JarRClass的目标路径是：" + jarRClassDeclarations.get(i - 1)
+						+ "请检查工程文件：" + projectFile.getName());
+				occuredError = true;
+				break;
+			}
+			
+			//获取Jar文件输入流
+			try {
+				jarInputStream = projectFile.getInputStream(jarEntry);
+			} catch (IOException e) {
+				RLogger.logError("加载工程文件中的JarRClass时发生IOException，"
+						+ "加载工程失败，"
+						+ "要加载的JarRClass的目标路径是：" + jarEntry.getName()
+						+ "请检查工程文件：" + projectFile.getName());
+				RLogger.logException(e);
+				occuredError = true;
+				break;
+			}
+			
+			//解压缩Jar文件
+			int bufferByte;
+			try {
+				while((bufferByte = jarInputStream.read()) != -1){
+					jarOutputStream.write(bufferByte);
+				}
+			} catch (IOException e) {
+
+				RLogger.logError("解压缩工程文件中的JarRClass时发生IOException，"
+						+ "加载工程失败，"
+						+ "要加载的JarRClass的目标路径是：" + jarEntry.getName()
+						+ "请检查工程文件：" + projectFile.getName());
+				RLogger.logException(e);
+				occuredError = true;
+				break;
+			}//解压缩Jar文件
+			
+			if ( ! occuredError){
+				if (0 == loadRClassFromJar(jarBufferPath + "/jarRClassToLoad.jar")){
+					//返回0表示加载失败
+					RLogger.logError("加载工程文件中解压出来的Jar文件失败，"
+							+ "请检查解压出来的Jar文件：" + jarBufferPath + "/jarRClassToLoad.jar");
+				}
+			}
+			
+			
+			if (jarOutputStream != null){
+				try {
+					jarOutputStream.close();
+					jarOutputStream = null;
+				} catch (IOException e) {
+					RLogger.logError("加载工程文件中Jar文件中，关闭Jar输出流失败。");
+					RLogger.logException(e);
+					occuredError = true;
+				}
+			}//关闭输出流
+			
+			if (jarInputStream != null){
+				try {
+					jarInputStream.close();
+					jarInputStream = null;
+				} catch (IOException e) {
+					RLogger.logError("加载工程文件中Jar文件中，关闭Jar输入流失败。");
+					RLogger.logException(e);
+					occuredError = true;
+				}
+			}//关闭输入流
+			
+			if (occuredError){
+				break;
+			} else {
+				RLogger.log("成功加载工程文件中第" + i + "个JarRClass。");
+			}
+		}//while
 		
-		return 0;
+		if (jarOutputStream != null){
+			try {
+				jarOutputStream.close();
+				jarOutputStream = null;
+			} catch (IOException e) {
+				RLogger.logError("加载工程文件中Jar文件中，关闭Jar输出流失败。");
+				RLogger.logException(e);
+				occuredError = true;
+			}
+		}//关闭输出流
+		
+		if (jarInputStream != null){
+			try {
+				jarInputStream.close();
+				jarInputStream = null;
+			} catch (IOException e) {
+				RLogger.logError("加载工程文件中Jar文件中，关闭Jar输入流失败。");
+				RLogger.logException(e);
+				occuredError = true;
+			}
+		}//关闭输入流
+		
+		if (occuredError){
+			return 0;
+		}
+		return 1;
 	}
 
 	/**
@@ -243,7 +395,7 @@ public class RClassLoader implements IRClassLoader{
 			return loadRClassFromJar(rClassPath);
 			
 		} else if (rClassPath.endsWith(".zip")){
-			return loadRClassFromZip(rClassPath);
+			return loadProject(rClassPath);
 		}
 		return 0;
 	}
