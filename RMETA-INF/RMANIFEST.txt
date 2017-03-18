@@ -1,1 +1,1 @@
-MainRClass: testSpace.testRClass.RObject
+MainRClass: unfinishedClass.basicRClass.RString.RString
