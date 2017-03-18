@@ -10,6 +10,6 @@ public class RLogger{
 	}
 	
 	public static void logError(String message){
-		System.out.println("ERROR! Message: ");
+		System.out.println("ERROR! Message: " + message);
 	}
 }
