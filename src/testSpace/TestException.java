@@ -14,6 +14,7 @@ public class TestException {
 	public static void main(String[] args) {
 		RClassLoaderManager.prepareRClassLoader();
 		IRClassLoader loader = RClassLoaderManager.getRClassLoader();
+		loader.loadRClassFrom("D:/tempFile/RJProjectWorkSpace/ProjectForException/ProjectForException.zip");
 		IRClass rclass1 = loader.getRClass("String");
 		IRClass rclass2 = loader.getRClass("Exception");
 		
