@@ -239,7 +239,7 @@ public class RClassLoader implements IRClassLoader{
 							}
 							if (rManifestLine.startsWith("CustomRClass: ")){
 								cusRClassDeclarations
-									.add(rManifestLine.replaceFirst("CustomRClass: ", "src/"));
+									.add(rManifestLine.substring(14));
 							}
 						}//while
 					} catch (IOException e) {
@@ -262,8 +262,7 @@ public class RClassLoader implements IRClassLoader{
 						if ( ! occuredError){
 							if (1 != loadCusRClassInProject(projectFile, cusRClassDeclarations)){
 								RLogger.logError("加载工程文件中的CustomRClass发生错误，"
-										+ "导致加载工程文件失败，"
-										+ "未能加载剩余的CustomRClass。");
+										+ "导致加载工程文件失败。");
 								occuredError = true;
 							}//加载CustomRClass完毕
 						}//if occuredError 加载CustomRClass
@@ -300,6 +299,41 @@ public class RClassLoader implements IRClassLoader{
 		}
 	}
 	
+	/**
+	 * 加载工程文件中的CustomRClass。
+	 * @param projectFile
+	 * 		工程文件。
+	 * @param cusRClassDeclarations
+	 * 		关于此工程文件中所有CustomRClass的名字，
+	 * 		注意这里的每一项都是形如“myPacakge.RClass1”这样的RClass全名。
+	 * @return
+	 * 		成功返回1，
+	 * 		失败返回0。
+	 */
+	private int loadCusRClassInProject(ZipFile projectFile, ArrayList<String> cusRClassDeclarations) {
+		// TODO Auto-generated method stub
+		LoadCusRClassSequence sequence = new LoadCusRClassSequence();
+		CustomRClass cusRClassArray[];
+		for (int i = cusRClassDeclarations.size(); i > 0; --i){
+			if (-1 == 
+					sequence.join(projectFile, cusRClassDeclarations.get(i - 1))){
+				RLogger.logError("加载工程文件中的CustomRClass脚本文件发生错误，"
+						+ "加载CustomRClass失败。");
+				return 0;
+			}
+		}
+		
+		//从加载序列生成CustomRClass实例对象，
+		//这些生成的CustomRClass对象只初始化了名称信息。
+		cusRClassArray = sequence.makeCusRClassArray();
+		CustomRClassHelper.registRClassID(cusRClassArray);
+		CustomRClassHelper.initMember(cusRClassArray, sequence);
+		CustomRClassHelper.initAbstractFunctionMaker(cusRClassArray, sequence);
+		CustomRClassHelper.overriedAbstractFunctionMaker(cusRClassArray, sequence);
+		return 1;
+	}
+
+
 	/**
 	 * 从工程文件中加载所有声明的JarRClass。
 	 * @param projectFile
