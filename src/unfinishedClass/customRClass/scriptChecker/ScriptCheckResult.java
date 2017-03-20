@@ -1,6 +1,6 @@
-package unfinishedClass.customRClass;
+package unfinishedClass.customRClass.scriptChecker;
 
-public class RCScriptCheckResult {
+public class ScriptCheckResult {
 	//0代表Interface，
 	//1代表AbstractClass，
 	//2代表Class
@@ -9,7 +9,7 @@ public class RCScriptCheckResult {
 	//用来存储检查结果是否正确
 	protected boolean isRight;
 	
-	public RCScriptCheckResult(){
+	public ScriptCheckResult(){
 		rClassType = 0;
 		isRight = true;
 	}
