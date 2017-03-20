@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import basicInterface.INameable;
 import basicTool.RLogger;
+import unfinishedClass.customRClass.scriptChecker.RClassTypeScriptChecker;
+import unfinishedClass.customRClass.scriptChecker.ScriptCheckResult;
 
 /**
  * 这个脚本结构之所以继承INameable结构是为了方便在加载工程文件时，
@@ -89,8 +91,9 @@ public class RClassScriptStruct implements INameable{
 		//checkResult用来存储临时的检查信息，
 		//比如当前脚本是接口、抽象类还是普通类，
 		
-		RCScriptCheckResult checkResult = new RCScriptCheckResult();
+		ScriptCheckResult checkResult = new ScriptCheckResult();
 		int checkLine = 0;
+		checkLine = new RClassTypeScriptChecker().check(scriptLines, checkLine, checkResult);
 		checkLine = checkRClassType(scriptLines, checkLine, checkResult);
 		checkLine = checkName(scriptLines, checkLine, checkResult);
 		checkLine = checkSuperRClass(scriptLines, checkLine, checkResult);
@@ -103,9 +106,9 @@ public class RClassScriptStruct implements INameable{
 	}
 
 	/**
-	 * 检查接口声明是否正确，
-	 * 检查项目包括是否声明了相应数量的接口名字，
-	 * 接口名字是否包含非法字符。
+	 * 检查静态成员变量声明是否正确，
+	 * 检查项目包括是否声明了相应数量的静态成员，
+	 * 静态成员变量名字是否包含非法字符。
 	 * @param scriptLines
 	 * 		包含原生脚本字符的ArrayList对象，
 	 * 		每一行脚本存储一个单位。
@@ -117,7 +120,9 @@ public class RClassScriptStruct implements INameable{
 	 * 		无错误发生的话返回checkLine + 1，
 	 * 		出现任何错误返回-1。
 	 */
-	private static int checkInterface(ArrayList<String> scriptLines, int checkLine, RCScriptCheckResult checkResult) {
+	private static int checkStaticMember(ArrayList<String> scriptLines, int checkLine,
+			ScriptCheckResult checkResult) {
+		// TODO Auto-generated method stub
 		int interfaceNum = 0;
 		String scriptLine;
 		//确保之前的检查结果为true
@@ -135,14 +140,136 @@ public class RClassScriptStruct implements INameable{
 					scriptLine = 
 							scriptLine.substring(rClassInterfaceDeclaration.length());
 					
-					//检查接口数量声明是否正确
+					//检查接口数量声明是否符合规范
 					try{
 						interfaceNum = Integer.parseInt(scriptLine);
 					} catch (NumberFormatException e){
 						RLogger.logError("CustomRClass脚本中第" + checkLine
 								+ "行  接口声明出错，"
-								+ "声明的接口数量无法从字符串转换成整形。");
+								+ "声明的接口数量无法从字符串转换成整形数字。");
 						RLogger.logException(e);
+						checkResult.setResult(false);
+						interfaceNum = 0;
+					}
+					
+					//检查接口数量声明是否为正整数
+					if (interfaceNum < 0){
+						RLogger.logError("CustomRClass脚本中第" + checkLine
+								+ "行  接口声明出错，"
+								+ "声明的接口数量不能为负数。");
+						checkResult.setResult(false);
+						interfaceNum = 0;
+					}
+					
+					//检查固定数量的接口名字的正确性
+					for (int i = 1; i < interfaceNum && checkResult.isRight(); ++i){
+						
+						//检查是否到了脚本文件的结尾
+						if(checkLine + i < scriptLines.size()){
+							scriptLine = scriptLines.get(checkLine + i);
+							
+							//检查接口声明是否以'$'开头
+							if (scriptLine.startsWith("$")){
+								
+								//检查接口名字是否包含非法字符
+								if (RNameChecker.check(scriptLine.substring(1))){
+									//TODO
+								} else {
+									RLogger.logError("CustomRClass脚本中第" + checkLine + i
+											+ "行  接口声明出错，"
+											+ "该行声明的接口名字包含以下非法字符："
+											+ RNameChecker.getErrorStrings());
+									checkResult.setResult(false);
+								}
+								
+							} else {
+								RLogger.logError("CustomRClass脚本中第" + checkLine + i
+										+ "行  接口声明出错，"
+										+ "该行的信息没有以'$'字符开始。");
+								checkResult.setResult(false);
+							}//if 检查接口声明是否以'$'开头
+							
+						} else {
+							RLogger.logError("CustomRClass脚本中接口声明出错，"
+									+ "该脚本声明了" + interfaceNum
+									+ "个接口，但是程序只检查到第" + i
+									+ "个接口的时候到达了脚本文件的末尾，"
+									+ "接口声明缺失。");
+							checkResult.setResult(false);
+							
+						}//if 检查是否到了脚本文件结尾
+					}//for 检查各个接口名称的正确性
+				}//if 本行是否声明接口
+				
+			} else {
+				RLogger.logError("CustomRClass脚本 接口声明出错，没有可检查的脚本信息。");
+					checkResult.setResult(false);
+			}//if 能否获取脚本信息
+			
+		} else {
+			RLogger.logError("CustomRClass脚本 接口声明检查取消，因为本次检查之前的检查结果false，不能进行本次检查。");
+		}//if 本次检查前结果是否为true
+		
+		
+		if (checkResult.isRight()){
+			return checkResult.getRClassType() == 0 ? 
+					checkLine : checkLine + 1;
+		} else {
+			return -1;
+		}//if
+	}
+
+	/**
+	 * 检查接口声明是否正确，
+	 * 检查项目包括是否声明了相应数量的接口名字，
+	 * 接口名字是否包含非法字符。
+	 * @param scriptLines
+	 * 		包含原生脚本字符的ArrayList对象，
+	 * 		每一行脚本存储一个单位。
+	 * @param checkLine
+	 * 		从指定的行数开始检查。
+	 * @param checkResult
+	 * 		存储检查的结果。
+	 * @return
+	 * 		无错误发生的话返回checkLine + 1，
+	 * 		出现任何错误返回-1。
+	 */
+	private static int checkInterface(ArrayList<String> scriptLines, int checkLine, 
+			ScriptCheckResult checkResult) {
+		int interfaceNum = 0;
+		String scriptLine;
+		//确保之前的检查结果为true
+		if (checkResult.isRight()){
+			
+			//确保checkLine可提取脚本信息
+			if (checkLine >= 0 && checkLine < scriptLines.size()){
+				
+				//获取脚本信息
+				scriptLine = scriptLines.get(checkLine);
+				
+				//本行是否声明接口
+				if (scriptLine.startsWith(rClassInterfaceDeclaration)){
+					
+					scriptLine = 
+							scriptLine.substring(rClassInterfaceDeclaration.length());
+					
+					//检查接口数量声明是否符合规范
+					try{
+						interfaceNum = Integer.parseInt(scriptLine);
+					} catch (NumberFormatException e){
+						RLogger.logError("CustomRClass脚本中第" + checkLine
+								+ "行  接口声明出错，"
+								+ "声明的接口数量无法从字符串转换成整形数字。");
+						RLogger.logException(e);
+						checkResult.setResult(false);
+						interfaceNum = 0;
+					}
+					
+					//检查接口数量声明是否为正整数
+					if (interfaceNum < 0){
+						RLogger.logError("CustomRClass脚本中第" + checkLine
+								+ "行  接口声明出错，"
+								+ "声明的接口数量不能为负数。");
 						checkResult.setResult(false);
 						interfaceNum = 0;
 					}
@@ -222,7 +349,7 @@ public class RClassScriptStruct implements INameable{
 	 * 		无错误发生，且脚本定义的是抽象类型或者普通类型的话返回checkLine + 1；
 	 * 		出现任何错误返回-1。
 	 */
-	private static int checkSuperRClass(ArrayList<String> scriptLines, int checkLine, RCScriptCheckResult checkResult) {
+	private static int checkSuperRClass(ArrayList<String> scriptLines, int checkLine, ScriptCheckResult checkResult) {
 		String scriptLine;
 		//确保之前的检查结果为true
 		if (checkResult.isRight()){
@@ -298,7 +425,7 @@ public class RClassScriptStruct implements INameable{
 	 * 		无错误发生的话返回checkLine + 1，
 	 * 		出现任何错误返回-1。
 	 */
-	private static int checkName(ArrayList<String> scriptLines, int checkLine, RCScriptCheckResult checkResult) {
+	private static int checkName(ArrayList<String> scriptLines, int checkLine, ScriptCheckResult checkResult) {
 		String scriptLine;
 		//确保之前的检查结果为true
 		if (checkResult.isRight()){
@@ -373,7 +500,8 @@ public class RClassScriptStruct implements INameable{
 	 * 		检查完毕之后下一个要检查的行数，
 	 * 		-1代表脚本检查完毕。
 	 */
-	private static int checkRClassType(ArrayList<String> scriptLines, int checkLine, RCScriptCheckResult checkResult) {
+	private static int checkRClassType(ArrayList<String> scriptLines, int checkLine,
+			ScriptCheckResult checkResult) {
 		String scriptLine;
 		//确保之前的检查结果为true
 		if (checkResult.isRight()){
