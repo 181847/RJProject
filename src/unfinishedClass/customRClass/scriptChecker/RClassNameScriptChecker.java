@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptChecker;
 import java.util.ArrayList;
 
 import basicTool.RLogger;
-import unfinishedClass.customRClass.RClassScriptStruct;
+import unfinishedClass.customRClass.script.RClassScriptStruct;
 
 
 /**
@@ -41,7 +41,7 @@ public class RClassNameScriptChecker extends ScriptChecker {
 			if (RNameChecker.check(scriptLine)){
 				//TODO
 			} else {
-				RLogger.logError("CustomRClass脚本中第" + checkLine
+				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
 						+ "行 名字声明出错，"
 						+ "声明的RClass名字中包含如下非法字符串："
 						+ RNameChecker.getErrorStrings());
@@ -49,7 +49,7 @@ public class RClassNameScriptChecker extends ScriptChecker {
 			}
 			
 		} else {
-			RLogger.logError("CustomRClass脚本中第" + checkLine
+			RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
 					+ "行  名字声明出错，"
 					+ "没有在此行中声明RClass的名字。");
 			checkResult.setResult(false);

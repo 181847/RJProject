@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass;
+package unfinishedClass.customRClass.script;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,6 +15,7 @@ import basicTool.RLogger;
 import functionInterface.IFunctionMaker;
 import unfinishedClass.RReferenceHelper;
 import unfinishedClass.RReferenceInfo;
+import unfinishedClass.customRClass.CustomRClass;
 
 /**
  * 本类暂时被废弃。

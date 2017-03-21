@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptChecker;
 import java.util.ArrayList;
 
 import basicTool.RLogger;
-import unfinishedClass.customRClass.RClassScriptStruct;
+import unfinishedClass.customRClass.script.RClassScriptStruct;
 
 /**
  * 检查CustomRClass的类型声明是否正确。

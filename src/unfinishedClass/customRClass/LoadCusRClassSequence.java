@@ -11,6 +11,7 @@ import java.util.zip.ZipFile;
 import basicTool.NamedItemList;
 import basicTool.RLogger;
 import rClass.RClassLoaderManager;
+import unfinishedClass.customRClass.script.RClassScriptStruct;
 
 public class LoadCusRClassSequence extends NamedItemList {
 	/**预先申请space个元素空间。
