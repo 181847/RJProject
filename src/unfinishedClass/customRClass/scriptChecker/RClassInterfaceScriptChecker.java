@@ -8,7 +8,7 @@ import unfinishedClass.customRClass.script.RClassScriptStruct;
 /**
  * 检查检查CustomRClass的接口声明是否正确。
  */
-public class RClassInterfaceScriptChecker extends ScriptChecker {
+public class RClassInterfaceScriptChecker extends ScriptUnForceChecker {
 
 	public RClassInterfaceScriptChecker() {
 		super("CustomRClass接口声明");
@@ -32,83 +32,59 @@ public class RClassInterfaceScriptChecker extends ScriptChecker {
 	 * 		发生任何错误，返回checkLine + 1。
 	 */
 	@Override
-	protected int checkDetail(ArrayList<String> scriptLines, int checkLine, ScriptCheckResult checkResult) {
-		int interfaceNum;
-		//获取本行信息
+	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {
 		String scriptLine = scriptLines.get(checkLine);
-		
-		//本行是否声明接口
+		boolean hitEnd = false;
+		int scriptSize = scriptLines.size();
 		if (scriptLine.startsWith(RClassScriptStruct.rClassInterfaceDeclaration)){
-			
-			scriptLine = 
-					scriptLine.substring(RClassScriptStruct.rClassInterfaceDeclaration.length());
-			
-			//检查接口数量声明是否符合规范
-			try{
-				interfaceNum = Integer.parseInt(scriptLine);
-			} catch (NumberFormatException e){
-				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-						+ "行  接口声明出错，"
-						+ "声明的接口数量无法从字符串转换成整形数字。");
-				RLogger.logException(e);
-				checkResult.setResult(false);
-				interfaceNum = 0;
-			}
-			
-			//检查接口数量声明是否为正整数
-			if (interfaceNum < 0){
-				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-						+ "行  接口声明出错，"
-						+ "声明的接口数量不能为负数。");
-				checkResult.setResult(false);
-				interfaceNum = 0;
-			}
-			
-			//检查固定数量的接口名字的正确性
-			for (int i = 1; i <= interfaceNum && checkResult.isRight(); ++i){
+			++ checkLine;
+			for (; checkLine > 0 && checkLine < scriptSize;
+					++checkLine){
 				
-				//检查是否到了脚本文件的结尾
-				if(checkLine + i < scriptLines.size()){
-					scriptLine = scriptLines.get(checkLine + i);
+				scriptLine = scriptLines.get(checkLine);
+				
+				//第二层次符号
+				if (scriptLine.startsWith(RClassScriptStruct.hierarchy_2_Symbol)){
+					//发现第二层次的声明符号
+					//检查接口名是否包含非法字符
+					scriptLine = scriptLine.substring(
+							RClassScriptStruct.hierarchy_2_Symbol.length());
+					if ( ! RNameChecker.check(scriptLine)){
+						//接口的声明中发现非法字符
+						return -1;
+					}
 					
-					//检查接口声明是否以'$'开头
-					if (scriptLine.startsWith("$")){
-						
-						//检查接口名字是否包含非法字符
-						if (RNameChecker.check(scriptLine.substring(1))){
-							//TODO
-						} else {
-							RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine + i
-									+ "行  接口声明出错，"
-									+ "该行声明的接口名字包含以下非法字符："
-									+ RNameChecker.getErrorStrings());
-							checkResult.setResult(false);
-							interfaceNum = 1;
-						}//if 检查接口名字是否包含非法字符
-						
+				//第一层次符号
+				} else if (scriptLine.startsWith(RClassScriptStruct.hierarchy_1_Symbol)) {
+					//发现第一层次的声明符号，
+					//检查是否是接口声明结束的字符串。
+					if ( scriptLine.startsWith(RClassScriptStruct.rClassInterfaceDeclaration_End)){
+						hitEnd = true;
+						break;	
 					} else {
-						RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine + i
-								+ "行  接口声明出错，"
-								+ "该行的信息没有以'$'字符开始。");
-						checkResult.setResult(false);
-						interfaceNum = 1;
-					}//if 检查接口声明是否以'$'开头
-					
+						showGrammarErrorMessage(checkLine, "检查接口声明的过程中发现第一层次符号，"
+								+ "但是这一行并不是接口声明结束的信息，层次错误。");
+						return -1;
+					}
+				
+				//未知层次的信息声明
 				} else {
-					RLogger.logError("CustomRClass脚本中接口声明出错，"
-							+ "该脚本声明了" + interfaceNum
-							+ "个接口，但是程序只检查到第" + i
-							+ "个接口的时候到达了脚本文件的末尾，"
-							+ "接口声明缺失。");
-					checkResult.setResult(false);
-					interfaceNum = 1;
-				}//if 检查是否到了脚本文件结尾
-			}//for 检查各个接口名称的正确性
+					showGrammarErrorMessage(checkLine, "检查接口声明的过程中没有以层次符号声明的信息，"
+							+ "无法进行检查。");
+					return -1;
+				}
+			}//for
 			
-		} else {
-			return checkLine;
-		}//if 本行是否声明接口
+			if (hitEnd){
+				//到达了接口声明结束的行信息
+				++ checkLine;
+			} else {
+				//没有到达接口声明结束的行信息
+				showGrammarErrorMessage(checkLine, "检查接口声明的过程中没有发现接口声明结束的行信息。");
+				return -1;
+			}
+		}
 		
-		return checkLine + interfaceNum;
+		return checkLine;
 	}
 }

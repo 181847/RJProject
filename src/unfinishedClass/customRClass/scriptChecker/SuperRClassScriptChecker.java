@@ -6,18 +6,18 @@ import basicTool.RLogger;
 import unfinishedClass.customRClass.script.RClassScriptStruct;
 
 /**
- * 检查CustomRClass的父类声明是否符合脚本的定义，
- * 不能出现脚本声明的是接口类型的RClass，
- * 但是它声明了父类这种情况。
+ * 检查父类的声明是否正确。
  */
-public class SuperRClassScriptChecker extends ScriptChecker {
+public class SuperRClassScriptChecker extends ScriptUnForceChecker {
 	public SuperRClassScriptChecker() {
 		super("CustomRClass父类声明");
 	}
 
 	/**
 	 * 检查本行是否正确声明了CustomRClass的继承父类，
-	 * 接口类型的RClass不能声明父类。
+	 * 本行可以不以RClassScriptStruct.rClassExtendsDeclaration开头，
+	 * 但是如果以这个字符串开头，那么就必须保证没有非法字符。
+	 * 但是入股
 	 * @param scriptLines
 	 * 		脚本文件信息，
 	 * 		每一个数组的元素都是脚本的一行字符串。
@@ -38,43 +38,24 @@ public class SuperRClassScriptChecker extends ScriptChecker {
 	 * 		返回checkLine + 1。
 	 */
 	@Override
-	protected int checkDetail(ArrayList<String> scriptLines, int checkLine, ScriptCheckResult checkResult) {
+	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {
 		//获取本行信息
 		String scriptLine = scriptLines.get(checkLine);
 		
 		//本行是否声明父类
 		if (scriptLine.startsWith(RClassScriptStruct.rClassExtendsDeclaration)){
 			
-			//声明了父类，查看先前的检查结果，
-			//判断这个脚本信息能否声明父类，
-			//要求，接口类型不能声明父类。
-			if (checkResult.getRClassType() == 0){
-				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-						+ "行  父类声明出错，"
-						+ "先前的检查结果表明这个脚本定义的是一个接口类型，"
-						+ "但是这个脚本却声明了一个父类，"
-						+ "接口不允许声明父类，如果接口要继承其他接口，"
-						+ "请使用“" + RClassScriptStruct.rClassInterfaceDeclaration 
-						+ "”加被继承接口数量，换行，相应数量的被继承接口的名字，"
-						+ "这样的方式来声明要继承的接口。");
-				checkResult.setResult(false);
+			//获取父类名字
+			scriptLine = 
+					scriptLine.substring(RClassScriptStruct.rClassExtendsDeclaration.length());
+			if (RNameChecker.check(scriptLine)){
+				return checkLine + 1;
 			} else {
-				
-				//获取父类名字
-				scriptLine = 
-						scriptLine.substring(RClassScriptStruct.rClassExtendsDeclaration.length());
-				if (RNameChecker.check(scriptLine)){
-					//TODO
-					//RLogger.log("CustomRClass");
-				} else {
-					RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-							+ "行  父类声明出错，"
-							+ "父类的名字中包含如下非法字符串："
-							+ RNameChecker.getErrorStrings());
-				}
-			}//if 父类是否为接口
-			
-			++ checkLine;
+				showGrammarErrorMessage(checkLine, 
+						"脚本中定义的父类的名字是：" + scriptLine
+						+ "，其中可能包含以下非法字符：" + RNameChecker.getErrorString());
+				return -1;
+			}
 		}//if 本行是否声明父类
 		
 		return checkLine;

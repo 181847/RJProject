@@ -9,9 +9,9 @@ import unfinishedClass.customRClass.script.RClassScriptStruct;
 /**
  * 检查CustomRClass的名字声明是否正确。
  */
-public class RClassNameScriptChecker extends ScriptChecker {
+public class RClassNameScriptChecker extends ScriptForceChecker {
 	public RClassNameScriptChecker() {
-		super("CustomRClass类型声明");
+		super("CustomRClass名字声明");
 	}
 
 	/**
@@ -26,35 +26,25 @@ public class RClassNameScriptChecker extends ScriptChecker {
 	 * @return
 	 * 		checkLine + 1。
 	 */
-	@Override
-	protected int checkDetail(ArrayList<String> scriptLines, int checkLine, ScriptCheckResult checkResult) {
-		//获取本行信息
+	@@Override
+	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {
 		String scriptLine = scriptLines.get(checkLine);
-		
-		//本行是否声明名字
-		if (scriptLine.startsWith(RClassScriptStruct.rClassNameDeclaration)){
+		if (scriptLine.startsWith(
+				RClassScriptStruct.rClassNameDeclaration)){
+			scriptLine = scriptLine.substring(
+					RClassScriptStruct.rClassTypeDeclaration.length());
 			
-			//获取RClass名字声明
-			scriptLine = 
-					scriptLine.substring(RClassScriptStruct.rClassNameDeclaration.length());
-			
-			if (RNameChecker.check(scriptLine)){
-				//TODO
+			if ( RNameChecker.check(scriptLine) ){
+				return checkLine + 1;
 			} else {
-				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-						+ "行 名字声明出错，"
-						+ "声明的RClass名字中包含如下非法字符串："
-						+ RNameChecker.getErrorStrings());
-				checkResult.setResult(false);
+				showGrammarErrorMessage(checkLine, 
+						"脚本中定义的RClass的名字是：" + scriptLine
+						+ "，其中可能包含以下非法字符：" + RNameChecker.getErrorString());
+				return -1;
 			}
-			
 		} else {
-			RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-					+ "行  名字声明出错，"
-					+ "没有在此行中声明RClass的名字。");
-			checkResult.setResult(false);
-		}//if 本行是否声明名字
-		
-		return checkLine + 1;
+			showGrammarErrorMessage(checkLine, ""没有声明CustomRClass的名字"");
+			return -1;
+		}
 	}
 }
