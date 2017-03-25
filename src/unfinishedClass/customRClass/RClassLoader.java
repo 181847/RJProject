@@ -315,21 +315,26 @@ public class RClassLoader implements IRClassLoader{
 		LoadCusRClassSequence sequence = new LoadCusRClassSequence();
 		CustomRClass cusRClassArray[];
 		for (int i = cusRClassDeclarations.size(); i > 0; --i){
-			if (-1 == 
-					sequence.join(projectFile, cusRClassDeclarations.get(i - 1))){
-				RLogger.logError("加载工程文件中的CustomRClass脚本文件发生错误，"
-						+ "加载CustomRClass失败。");
-				return 0;
-			}
+			sequence.append(projectFile, cusRClassDeclarations.get(i - 1));
 		}
 		
+		//按照先父类，后子类的方法进行脚本文件的排序
+		sequence.organize();
+		//在这个方法中对RClass的脚本进行声明检查，
+		//比如声明的父类必须存在，
+		//接口不能声明成员等等错误都要在这里检查出来
+		sequence.checkAllRClass();
 		//从加载序列生成CustomRClass实例对象，
 		//这些生成的CustomRClass对象只初始化了名称信息。
-		cusRClassArray = sequence.makeCusRClassArray();
-		CustomRClassHelper.registRClassID(cusRClassArray);
-		CustomRClassHelper.initMember(cusRClassArray, sequence);
-		CustomRClassHelper.initAbstractFunctionMaker(cusRClassArray, sequence);
-		CustomRClassHelper.overriedAbstractFunctionMaker(cusRClassArray, sequence);
+		sequence.makeCusRClass();
+		//注册RClassID
+		sequence.registRClassID(cusRClassArray);
+		//初始化成员信息
+		sequence.initMember(cusRClassArray, sequence);
+		//陈列抽象Function
+		sequence.initAbstractFunctionMaker(cusRClassArray, sequence);
+		//实现抽象Function
+		sequence.overriedAbstractFunctionMaker(cusRClassArray, sequence);
 		return 1;
 	}
 
