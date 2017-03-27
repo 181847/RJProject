@@ -29,17 +29,16 @@ public class RClassInterfaceScriptChecker extends ScriptUnForceChecker {
 	 * 		声明接口，
 	 * 		各个声明的接口名称符合规则，而且至少包含指定数量的接口声明，
 	 * 		返回checkLine + 1 + 声明的接口数量；
-	 * 		发生任何错误，返回checkLine + 1。
+	 * 		发生任何错误，返回-1。
 	 */
 	@Override
 	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {
-		String scriptLine = scriptLines.get(checkLine);
 		boolean hitEnd = false;
 		int scriptSize = scriptLines.size();
+		String scriptLine = scriptLines.get(checkLine);
 		if (scriptLine.startsWith(RClassScriptStruct.rClassInterfaceDeclaration)){
 			++ checkLine;
-			for (; checkLine > 0 && checkLine < scriptSize;
-					++checkLine){
+			for (; checkLine > 0 && checkLine < scriptSize; ++checkLine){
 				
 				scriptLine = scriptLines.get(checkLine);
 				
@@ -51,6 +50,8 @@ public class RClassInterfaceScriptChecker extends ScriptUnForceChecker {
 							RClassScriptStruct.hierarchy_2_Symbol.length());
 					if ( ! RNameChecker.check(scriptLine)){
 						//接口的声明中发现非法字符
+						showGrammarErrorMessage(checkLine, "检查接口声明中包含以下部分非法字符："
+								+ RNameChecker.getErrorString());
 						return -1;
 					}
 					

@@ -18,26 +18,10 @@ import unfinishedClass.customRClass.script.RClassScriptStruct;
  * 但是对于这种错误本Checker不会报错，
  * 这个初始化的错误会在RClass第一次初始化这个成员的时候报错。
  */
-public class MemberScriptChecker extends ScriptChecker {
-	protected String memberDeclaration;
-
-	/**
-	 * @param memberType
-	 * 		发生错误时向日志标识出错误的信息。
-	 * @param memberDeclaration
-	 * 		用来具体检查成员的声明字段，
-	 * 		这些字段一般是RClassScriptStruct或者FunctionScriptStruct中的静态成员字符串，
-	 * 		在脚本文件中，
-	 * 		成员的声明都会伴随这些字符串先声明相应的成员有多少个，
-	 * 		然后在之后的几行内添加相应数量的成员的类型、名字、初始值。
-	 */
-	public MemberScriptChecker(String memberType, String memberDeclaration) {
-		super(memberType + "-成员声明");
-		if (memberDeclaration == null){
-			this.memberDeclaration = "**未知成员申明字段**";
-		} else {
-			this.memberDeclaration = memberDeclaration;
-		}
+public class MemberScriptChecker extends ScriptUnForceChecker {
+	
+	public MemberScriptChecker() {
+		super("成员声明");
 	}
 
 	/**
@@ -50,88 +34,70 @@ public class MemberScriptChecker extends ScriptChecker {
 	 * @param checkResult
 	 * 		存储的检查结果。
 	 * @return
-	 * 		如果没有声明成员，
-	 * 		返回checkLine；
-	 * 		如果声明了成员，且没有发生错误，
-	 * 		返回checkLine + 1 + 声明的成员数量；
-	 * 		如果发生了任何错误，
-	 * 		返回checkLine + 1。
+	 * 		发生任何错误返回-1，
+	 * 		正确返回RClassScriptStruct.rClassMemberDeclaration_End的下一行的行数。
 	 */
 	@Override
-	protected int checkDetail(ArrayList<String> scriptLines, int checkLine, ScriptCheckResult checkResult) {
-		int memberNum;
-		//获取脚本信息
+	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {
+		boolean hitEnd = false;
+		int scriptSize = scriptLines.size();
 		String scriptLine = scriptLines.get(checkLine);
-		
-		//本行是否声明接口
-		if (scriptLine.startsWith(memberDeclaration)){
+		if (scriptLine.startsWith(RClassScriptStruct.rClassMemberDeclaration)){
+			++checkLine;
 			
-			scriptLine = 
-					scriptLine.substring(memberDeclaration.length());
+			//检查静态成员的声明
+			checkLine = 
+					new StaticMemberChecker().check(scriptLines, checkLine);
 			
-			//检查接口数量声明是否符合规范
-			try{
-				memberNum = Integer.parseInt(scriptLine);
-			} catch (NumberFormatException e){
-				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-						+ "行  成员声明出错，"
-						+ "声明的成员数量无法从字符串转换成整形数字。");
-				RLogger.logException(e);
-				checkResult.setResult(false);
-				memberNum = 0;
+			if (checkLine < 0){
+				return -1;
 			}
 			
-			//检查接口数量声明是否为正整数
-			if (memberNum < 0){
-				RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-						+ "行  成员声明出错，"
-						+ "声明的成员数量不能为负数。");
-				checkResult.setResult(false);
-				memberNum = 0;
-			}
-			
-			//检查固定数量的接口名字的正确性
-			for (int i = 1; i < memberNum && checkResult.isRight(); ++i){
-				
-				//检查是否到了脚本文件的结尾
-				if(checkLine + i < scriptLines.size()){
-					scriptLine = scriptLines.get(checkLine + i);
-					
-					//检查接口声明是否以'$'开头
-					if (scriptLine.startsWith("$")){
-						scriptLine = 
-								scriptLine.substring(1);
-						//检查接口名字是否包含非法字符
-						if (RMemberChecker.check(scriptLine.substring(1))){
-							//TODO
-						} else {
-							RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine + i
-									+ "行  成员声明出错，"
-									+ "该行声明的成员名字可能包含以下非法字符："
-									+ RMemberChecker.getErrorStrings()
-									+ "，或者该行的声明不符合规范，该行中的成员信息：" + scriptLine);
-							checkResult.setResult(false);
-						}//if 检查接口名字是否包含非法字符
-						
+			for (; checkLine >= 0 && checkLine < scriptSize; ++checkLine){
+				scriptLine = scriptLines.get(checkLine);
+
+				//第三层次的声明符号
+				if (scriptLine.startsWith(RClassScriptStruct.hierarchy_3_Symbol)){
+					//发现第三层次的声明符号
+					//检查成员声明是否包含非法字符
+					scriptLine = scriptLine.substring(
+							RClassScriptStruct.hierarchy_3_Symbol.length());
+					if ( ! RMemberChecker.check(scriptLine)){
+						showGrammarErrorMessage(checkLine, "检查成员声明的过程中发现成员声明出错，"
+								+ "可能包含非法字符，也可能声明字段数量不是2或者3，请检查本行："
+								+ scriptLine);
+						return -1;
+					}
+				} else if (scriptLine.startsWith(RClassScriptStruct.hierarchy_1_Symbol)){
+					//发现第一层次的声明符号，
+					//检查是否是成员声明结束的字符串。
+					if ( scriptLine.startsWith(RClassScriptStruct.rClassMemberDeclaration_End)){
+						hitEnd = true;
+						break;	
 					} else {
-						RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine + i
-								+ "行  成员声明出错，"
-								+ "该行的信息没有以'$'字符开始。");
-						checkResult.setResult(false);
-					}//if 检查接口声明是否以'$'开头
-					
+						showGrammarErrorMessage(checkLine, "检查成员声明的过程中发现第一层次符号，"
+								+ "但是这一行并不是成员声明结束的信息(" 
+								+ RClassScriptStruct.rClassMemberDeclaration_End + ")，层次错误。");
+						return -1;
+					}
 				} else {
-					RLogger.logError("脚本：" + checkType + " 出错，第" + checkLine
-							+ "行，该脚本声明了" + memberNum
-							+ "个成员，但是程序只检查到第" + i
-							+ "个成员的时候到达了脚本文件的末尾，"
-							+ "接口声明缺失。");
-					checkResult.setResult(false);
-					
-				}//if 检查是否到了脚本文件结尾
-			}//for 检查各个接口名称的正确性
-		}//if 本行是否声明接口
-		return 0;
+					showGrammarErrorMessage(checkLine, "检查成员声明的过程中没有以层次符号声明的信息，"
+							+ "无法进行检查。");
+					return -1;
+				}
+			}//for
+			
+			if (hitEnd){
+				//到达了成员声明结束的行信息
+				++ checkLine;
+			} else {
+				//没有到达成员声明结束的行信息
+				showGrammarErrorMessage(checkLine, "检查成员声明的过程中没有发现接口声明结束的行信息。");
+				return -1;
+			}
+		}
+		
+		return checkLine;
 	}
 
 }
