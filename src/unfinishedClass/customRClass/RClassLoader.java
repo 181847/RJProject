@@ -20,6 +20,8 @@ import rClass.RClassIDField;
 import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
+import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
+import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
 
 /**
  * 本工程的核心，
@@ -311,30 +313,33 @@ public class RClassLoader implements IRClassLoader{
 	 * 		失败返回0。
 	 */
 	private int loadCusRClassInProject(ZipFile projectFile, ArrayList<String> cusRClassDeclarations) {
-		// TODO Auto-generated method stub
+		/*
 		LoadCusRClassSequence sequence = new LoadCusRClassSequence();
 		CustomRClass cusRClassArray[];
 		for (int i = cusRClassDeclarations.size(); i > 0; --i){
 			sequence.append(projectFile, cusRClassDeclarations.get(i - 1));
 		}
 		
-		//按照先父类，后子类的方法进行脚本文件的排序
-		sequence.organize();
-		//在这个方法中对RClass的脚本进行声明检查，
-		//比如声明的父类必须存在，
-		//接口不能声明成员等等错误都要在这里检查出来
-		sequence.checkAllRClass();
-		//从加载序列生成CustomRClass实例对象，
-		//这些生成的CustomRClass对象只初始化了名称信息。
-		sequence.makeCusRClass();
-		//注册RClassID
-		sequence.registRClassID(cusRClassArray);
-		//初始化成员信息
-		sequence.initMember(cusRClassArray, sequence);
-		//陈列抽象Function
-		sequence.initAbstractFunctionMaker(cusRClassArray, sequence);
-		//实现抽象Function
-		sequence.overriedAbstractFunctionMaker(cusRClassArray, sequence);
+		//对加载序列进行统一的检查，
+		//剔除所有有问题的脚本
+		//TODO
+		//sequence.Reoraganize();
+		
+		//开始加载脚本
+		sequence.startLoad();
+		*/
+		ScriptBlock scriptSequenceHead = 
+				ScriptBlockHelper
+					.generateSequence(projectFile, cusRClassDeclarations);
+		
+		//整理脚本文件结构，
+		//去除包含错误的脚本文件。
+		ScriptBlockHelper
+			.organize(scriptSequenceHead);
+		
+		ScriptBlockHelper
+			.loadRClass(scriptSequenceHead);
+		
 		return 1;
 	}
 
