@@ -74,7 +74,12 @@ public class TotalFunctionScriptChecker extends ScriptChecker {
 		} else {
 			RLogger.logError(checkType + "检查取消，因为本次检查之前的检查结果false，不能进行本次检查。");
 		}
-		return 0;
+		
+		if (checkResult.isRight()){
+			return nextLine;
+		} else {
+			return checkLine;
+		}
 	}
 
 }

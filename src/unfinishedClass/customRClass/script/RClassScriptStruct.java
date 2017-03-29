@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import basicInterface.INameable;
 import basicTool.RLogger;
+import unfinishedClass.customRClass.CustomRClass;
 import unfinishedClass.customRClass.scriptChecker.RClassTypeScriptChecker;
 import unfinishedClass.customRClass.scriptChecker.ScriptCheckResult;
 
@@ -18,6 +19,12 @@ import unfinishedClass.customRClass.scriptChecker.ScriptCheckResult;
  * 方便加载序列添加这个对象。
  */
 public class RClassScriptStruct implements INameable{
+	public static String hierarchy_1_Symbol = "#";
+	public static String hierarchy_2_Symbol = "@";
+	public static String hierarchy_3_Symbol = "$";
+	public static String hierarchy_4_Symbol = "%";
+	public static String hierarchy_5_Symbol = "^";
+	
 	public static String rClassTypeDeclaration = "#RClassType: ";
 	
 	public static String rClassInterfaceType = "Interface";
@@ -26,20 +33,31 @@ public class RClassScriptStruct implements INameable{
 	
 	public static String rClassNameDeclaration = "#Name: ";
 	public static String rClassExtendsDeclaration = "#Extends: ";
-	public static String rClassInterfaceDeclaration = "#Implements: ";
-	public static String rClassStaticMemberDeclaration = "#StaticMember: ";
-	public static String rClassMemberDeclaration = "#Member: ";
-	public static String rClassConFunDeclaration = "#ConstructFunction: ";
-	public static String rClassStaticFunDeclaration = "#StaticFunction: ";
-	public static String rClassFunctionDeclaration = "#Function: ";
 	
+	public static String rClassInterfaceDeclaration = "#Implements";
+	public static String rClassInterfaceDeclaration_End = "#ImplementsEnd";
+	
+	public static String rClassMemberDeclaration = "#Member";
+	public static String rClassMemberDeclaration_End = "#MemberEnd";
+	
+	public static String rClassStaticMemberDeclaration = "@StaticMember";
+	public static String rClassStaticMemberDeclaration_End = "@StaticMemberEnd";
+	
+	public static String rClassConFunDeclaration = "#ConstructFunction";
+	public static String rClassConFunDeclaration_End = "#ConstructFunctionEnd";
+	
+	public static String rClassStaticFunDeclaration = "#StaticFunction: ";
+	public static String rClassStaticFunDeclaration_End = "#StaticFunctionEnd";
+	
+	public static String rClassFunctionDeclaration = "#Function: ";
+	public static String rClassFunctionDeclaration_End = "#FunctionEnd";
+	
+	public static String rClassAbstractFunDeclaration = "#AbstractFunction: ";
+	public static String rClassAbstractFunDeclaration_End = "#AbstractFunctionEnd";
+	
+	protected CustomRClass targetRClass;
 	protected String rClassType;
 	protected String name;
-	/**
-	 * 非接口父类的名字，
-	 * 如果没有继承非接口父类，
-	 * 这一项应该为空串，即""。
-	 */
 	protected String superRClass;
 	protected String[] interfaces;
 	protected String[][] staticMembers;
@@ -68,42 +86,23 @@ public class RClassScriptStruct implements INameable{
 	/**
 	 * 检查脚本信息是否符合基本的语法结构（注意：这里不会检查任何类型正确，
 	 * 例如继承了一个不存在的类、或者声明了一个不存在变量类型等等，
-	 * 这些错误不在检查范围之内），
-	 * 检查的项目包括CustomRClass类型声明是否为一下三种：
-	 * “Interface, AbstractClass, Class”；
-	 * 名称、父类、接口等是否包含非法字符；
-	 * 声明的项目数量是否与声明的对象对应，
-	 * 比如"#Implement: 3"声明了三个接口，
-	 * 但是下方只写出了两个接口的名字，
-	 * 这就算是语法错误；
-	 * 声明的RClass类型是否与声明的成员变量、Function一致，
-	 * 诸如声明为“Interface”，但是又声明了成员变量，
-	 * 这就算是语法错误，
-	 * 要求，“Interface”只能声明抽象成员Function、
-	 * “AbstractClass”至少声明一个抽象成员Function、
-	 * “Class”不能声明抽象成员Function。
+	 * 这些错误不在检查范围之内）
 	 * @param scriptLines
 	 * 		包含脚本信息的字符串数组列表，
 	 * 		每一个元素都是脚本的一行字符串。
 	 */
 	public static boolean grammarIsRight(ArrayList<String> scriptLines) {
 		// TODO Auto-generated method stub
-		//checkResult用来存储临时的检查信息，
-		//比如当前脚本是接口、抽象类还是普通类，
-		
-		ScriptCheckResult checkResult = new ScriptCheckResult();
 		int checkLine = 0;
-		checkLine = new RClassTypeScriptChecker()
-				.check(scriptLines, checkLine, checkResult);
-		checkLine = checkRClassType(scriptLines, checkLine, checkResult);
-		checkLine = checkName(scriptLines, checkLine, checkResult);
-		checkLine = checkSuperRClass(scriptLines, checkLine, checkResult);
-		checkLine = checkInterface(scriptLines, checkLine, checkResult);
-		checkLine = checkStaticMember(scriptLines, checkLine, checkResult);
-		checkLine = checkMember(scriptLines, checkLine, checkResult);
-		checkLine = checkFunction(scriptLines, checkLine, checkResult);
 		
-		return checkResult.isRight();
+		checkLine = checkRClassType(scriptLines, checkLine);
+		checkLine = checkName(scriptLines, checkLine);
+		checkLine = checkSuperRClass(scriptLines, checkLine);
+		checkLine = checkInterface(scriptLines, checkLine);
+		checkLine = checkMember(scriptLines, checkLine);
+		checkLine = checkFunction(scriptLines, checkLine);
+		
+		return checkLine > 0;
 	}
 
 	/**

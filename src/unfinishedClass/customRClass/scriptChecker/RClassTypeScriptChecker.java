@@ -24,7 +24,8 @@ public class RClassTypeScriptChecker extends ScriptForceChecker {
 	 * @param checkResult
 	 * 		存储的检查结果。
 	 * @return
-	 * 		checkLine + 1。
+	 * 		无错误，返回checkLine + 1；
+	 * 		发生任何错误，返回-1。
 	 */
 	@Override
 	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {

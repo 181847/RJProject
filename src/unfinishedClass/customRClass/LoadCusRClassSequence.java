@@ -165,4 +165,93 @@ public class LoadCusRClassSequence extends NamedItemList {
 		}
 		return false;
 	}
+
+	/**
+	 * 本方法用于取代join()方法，直接从工程文件中读取脚本信息，
+	 * 生成脚本结构并加入序列中，
+	 * 不考虑父子类的顺序。
+	 * @param projectFile
+	 * 		工程文件。
+	 * @param rClassName
+	 * 		被添加的RClass的名字。
+	 */
+	public void append(ZipFile projectFile, String cusRClassName) {
+		ZipEntry cusRClassScriptEntry = null;
+		InputStream scriptIS = null;
+		BufferedReader scriptBR = null;
+		String scriptLine;
+		
+		//scriptLines第一行存储这个脚本信息从哪个工程文件的哪一个内部文件获得
+		ArrayList<String> scriptLines;
+		RClassScriptStruct thisScriptStruct;
+		String[] parents;
+		boolean occuredError = false;
+		
+		//获取脚本文件头
+		cusRClassName = "src/" + cusRClassName.replace('.', '/') + ".crc";
+		cusRClassScriptEntry = 
+				projectFile.getEntry(cusRClassName);
+		if (cusRClassScriptEntry == null){
+			RLogger.logError("工程加载序列添加加载脚本对象时无法获取指定的ZipEntry"
+					+ "请检查工程文件：" + projectFile.getName()
+					+ "。要获取的脚本路径：" + cusRClassName);
+			occuredError = true;
+		}
+		
+		//获取脚本文件输入流
+		if ( ! occuredError){
+			try {
+				scriptIS = projectFile.getInputStream(cusRClassScriptEntry);
+			} catch (IOException e) {
+				RLogger.logError("工程加载序列获取脚本输入流发生IO异常，序列添加失败。");
+				RLogger.logException(e);
+				occuredError = true;
+			}
+			
+			//读取脚本信息，用ArrayList存储直接的脚本信息
+			if ( ! occuredError){
+				scriptBR = new BufferedReader(new InputStreamReader(scriptIS));
+				scriptLines = new ArrayList<String>();
+				//添加脚本文件的主要位置信息
+				scriptLines.add("工程文件：" + projectFile.getName() + "脚本位置：" + cusRClassName);
+				
+				try {
+					while((scriptLine = scriptBR.readLine()) != null){
+						scriptLines.add(scriptLine);
+					}
+				} catch (IOException e) {
+					RLogger.logError("工程加载序列读取一个CustomRClass的脚本文件时发生IO异常，"
+							+ "创建工程加载序列失败，"
+							+ "请检查工程文件：" + projectFile.getName()
+							+ "。要读取的脚本路径：" + cusRClassName);
+					RLogger.logException(e);
+					occuredError = true;
+				}//提取脚本信息完毕
+				
+				//创建RClassScriptStruct对象
+				if ( ! occuredError){
+					thisScriptStruct = 
+							RClassScriptStruct.getRClassScriptStruct(scriptLines);
+					if (thisScriptStruct == null){
+						RLogger.logError("工程加载序列无法根据脚本信息创建RClassScriptStruct，"
+								+ "创建工程加载序列失败，"
+								+ "请检查工程文件：" + projectFile.getName()
+								+ "。要读取的脚本路径：" + cusRClassName);
+						occuredError = true;
+					}//生成脚本结构完毕
+					
+					//向序列末尾添加这个ScriptStruct对象
+					if ( ! occuredError){
+						append(thisScriptStruct);
+					}
+					
+				}//if occuredError 创建RClassScriptStruct对象
+			}//if occuredError 读取脚本信息，用ArrayList存储直接的脚本信息
+		}//if occuredError 获取脚本文件输入流
+	}
+
+	public void startLoad() {
+		// TODO Auto-generated method stub
+		
+	}
 }

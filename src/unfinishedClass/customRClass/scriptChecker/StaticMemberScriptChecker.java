@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import unfinishedClass.customRClass.script.RClassScriptStruct;
 
-public class StaticMemberChecker extends ScriptUnForceChecker {
+public class StaticMemberScriptChecker extends ScriptUnForceChecker {
 
-	public StaticMemberChecker(String checkType) {
+	public StaticMemberScriptChecker(String checkType) {
 		super("静态成员声明");
 	}
 

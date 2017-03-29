@@ -26,16 +26,8 @@ public class SuperRClassScriptChecker extends ScriptUnForceChecker {
 	 * @param checkResult
 	 * 		存储的检查结果。
 	 * @return
-	 * 		checkResult显示为接口类型，
-	 * 		本行没有声明父类，返回checkLine；
-	 * 		checkResult显示为抽象类或者普通类，
-	 * 		本行没有声明父类，返回 checkLine；
-	 * 		checkResult显示为抽象类或者普通类，
-	 * 		本行声明了父类，返回checkLine + 1；
-	 * 		任何错误发生，
-	 * 		比如checkResult显示为接口类型，
-	 * 		但是声明了父类，
-	 * 		返回checkLine + 1。
+	 * 		无错误，返回checkLine + 1；
+	 * 		发生任何错误，返回-1。
 	 */
 	@Override
 	protected int checkDetail(ArrayList<String> scriptLines, int checkLine) {
