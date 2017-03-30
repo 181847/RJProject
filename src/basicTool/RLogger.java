@@ -13,7 +13,7 @@ public class RLogger{
 	public static void logException(Exception e, String location, String error, String reason){
 		System.out.println("ERROR Location: " + location);
 		logException(e);
-		logError(error, reason);
+		logError(location, error, reason);
 	}
 	
 	public static void logError(String message){
@@ -24,5 +24,11 @@ public class RLogger{
 		System.out.println("ERROR Location: " + location 
 				+ "\nERROR: " + error
 				+ "\nReason: " + reason);
+	}
+	
+	public static void logError(String location, String error,
+			String reason, String detail){
+		logError(location, error, detail);
+		System.out.println("ErrorDetail: ");
 	}
 }
