@@ -1,8 +1,8 @@
 package unfinishedClass.customRClass.scriptBlock;
 
-public class ScriptInformation implements Information {
+public class RawScriptInformation implements Information {
 	protected String scriptSourse;
-	public ScriptInformation(String source){
+	public RawScriptInformation(String source){
 		scriptSourse = source;
 	}
 	
