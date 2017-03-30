@@ -11,6 +11,7 @@ import java.util.zip.ZipFile;
 import basicTool.RLogger;
 
 public class ScriptBlockHelper {
+	public static char hierarchyCharacter = '\t';
 	/**
 	 * 从zip文件中读取指定的脚本文件，
 	 * 生成脚本结构，
@@ -39,7 +40,7 @@ public class ScriptBlockHelper {
 			//script的第一个元素是script所来自的工程文件路径，
 			//以及脚本文件在工程文件中的位置，
 			//script必须大于1保证有实际的声明语句。
-			if (script != null && script.size() <= 1){
+			if (script != null && script.size() >= 2){
 				//从脚本行来生成脚本结构
 				singleScriptBlock = generateScriptBlock(script);
 				
@@ -62,16 +63,16 @@ public class ScriptBlockHelper {
 	 * @return
 	 * 		一个ScriptBlock，prec/next为null。
 	 */
-	private static ScriptBlock generateScriptBlock(ArrayList<String> script) {
+	public static ScriptBlock generateScriptBlock(ArrayList<String> script) {
 		// TODO Auto-generated method stub
 		
 		ScriptBlock scriptBlock = new ScriptBlock(
-				new ScriptInformation(script.get(0)), false);
-		scriptBlock.include(
-				new ScriptBlock(
-						new HeadInformation(), true));
+				new RawScriptInformation(script.get(0)), false);
+		ScriptBlock contentScriptBlockHead = getNewContentHead();
+		
+		scriptBlock.include(contentScriptBlockHead);
 		ScriptBlockChainGenerator chainGenerator = 
-				new ScriptBlockChainGenerator(scriptBlock.getSub(), script, 1);
+				new ScriptBlockChainGenerator(contentScriptBlockHead, script, 1);
 		
 		chainGenerator.generate();
 		if (chainGenerator.failed()){
@@ -79,6 +80,17 @@ public class ScriptBlockHelper {
 		}
 		
 		return scriptBlock;
+	}
+
+	/**
+	 * 获取一个普通的ScriptBlock的头部节点，
+	 * 这个头部节点首尾相连。
+	 */
+	public static ScriptBlock getNewContentHead() {
+		// TODO Auto-generated method stub
+		ScriptBlock contentHead = new ScriptBlock(null, true);
+		contentHead.follow(contentHead);
+		return contentHead;
 	}
 
 	/**
@@ -165,5 +177,35 @@ public class ScriptBlockHelper {
 		return head;
 	}
 	
-	
+	/**
+	 * 计算scriptLine这一行的层次数。
+	 * @param scriptLine
+	 * 		脚本的一行信息。
+	 * @return
+	 * 		scriptLine的开头所包含的层次符号的数量，
+	 * 		层次符号为ScriptBlockHelper.hierarchyCharacter。
+	 */
+	public static int calculateHierarchy(String scriptLine) {
+		// TODO Auto-generated method stub
+		int countHierarchy = 0;
+		for (char pointer: scriptLine.toCharArray()){
+			if (pointer == ScriptBlockHelper.hierarchyCharacter){
+				++ countHierarchy;
+			} else {
+				break;
+			}
+		}
+		return countHierarchy;
+	}
+
+	/**
+	 * 去掉ScriptLine的前方的层次声明符号。
+	 * @param scriptLine
+	 * 		脚本文件中的原生信息。
+	 * @return
+	 * 		修剪层次声明符号之后的信息。
+	 */
+	public static String trimScriptLine(String scriptLine) {
+		return scriptLine.substring(calculateHierarchy(scriptLine));
+	}
 }
