@@ -83,17 +83,6 @@ public class ScriptBlockHelper {
 	}
 
 	/**
-	 * 获取一个普通的ScriptBlock的头部节点，
-	 * 这个头部节点首尾相连。
-	 */
-	public static ScriptBlock getNewContentHead() {
-		// TODO Auto-generated method stub
-		ScriptBlock contentHead = new ScriptBlock(null, true);
-		contentHead.follow(contentHead);
-		return contentHead;
-	}
-
-	/**
 	 * 从Zip文件中提取出一个脚本文件。
  	 * @param projectFile
  	 * 		包含脚本文件的Zip文件。
@@ -175,6 +164,17 @@ public class ScriptBlockHelper {
 		ScriptBlock head = new ScriptBlock(new ScriptSequenceInformation(), true);
 		head.follow(head);
 		return head;
+	}
+	
+	/**
+	 * 创建一个普通的ScriptBlock的头部节点，
+	 * 这个头部节点首尾相连。
+	 */
+	public static ScriptBlock getNewContentHead() {
+		// TODO Auto-generated method stub
+		ScriptBlock contentHead = new ScriptBlock(null, true);
+		contentHead.follow(contentHead);
+		return contentHead;
 	}
 	
 	/**

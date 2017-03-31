@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
+import unfinishedClass.customRClass.scriptBlock.ScriptSpider;
 
 public class TestScriptBlockerHelper_generateScriptBlock {
 
@@ -64,6 +65,9 @@ public class TestScriptBlockerHelper_generateScriptBlock {
 		
 		ScriptBlock scriptBlock = 
 				ScriptBlockHelper.generateScriptBlock(script);
+		
+		new ScriptSpider(scriptBlock)
+			.workUntilEnd();
 		
 		System.out.println(scriptBlock.toString());
 		RLogger.log("测试结束");
