@@ -1,4 +1,6 @@
-package unfinishedClass.customRClass.scriptBlock;
+package unfinishedClass.customRClass.scriptBlock.spider;
+
+import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 public abstract class AbstractBCSpider implements IBlockChainSpider {
 	protected ScriptBlock originalBlock;
@@ -24,8 +26,7 @@ public abstract class AbstractBCSpider implements IBlockChainSpider {
 			return;
 		} else {
 			ScriptBlock nextBlock = targetBlock.getNext();
-			if (nextBlock == null 
-					|| nextBlock.isHead()){
+			if (nextBlock.isHead()){
 				hitButtom = true;
 			} else {
 				targetBlock = nextBlock;
@@ -39,8 +40,7 @@ public abstract class AbstractBCSpider implements IBlockChainSpider {
 			return;
 		} else {
 			ScriptBlock precBlock = targetBlock.getPrec();
-			if (precBlock == null 
-					|| precBlock.isHead()){
+			if (precBlock.isHead()){
 				hitTop = true;
 			} else {
 				targetBlock = precBlock;

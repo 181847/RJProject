@@ -22,6 +22,7 @@ import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
+import unfinishedClass.customRClass.scriptBlock.spider.SequenceSpider;
 
 /**
  * 本工程的核心，
@@ -332,13 +333,15 @@ public class RClassLoader implements IRClassLoader{
 				ScriptBlockHelper
 					.generateSequence(projectFile, cusRClassDeclarations);
 		
+		new SequenceSpider(scriptSequenceHead).workUntilEnd();
+		
 		//整理脚本文件结构，
 		//去除包含错误的脚本文件。
 		ScriptBlockHelper
 			.organize(scriptSequenceHead);
 		
-		ScriptBlockHelper
-			.loadRClass(scriptSequenceHead);
+		//ScriptBlockHelper
+		//	.loadRClass(scriptSequenceHead);
 		
 		return 1;
 	}

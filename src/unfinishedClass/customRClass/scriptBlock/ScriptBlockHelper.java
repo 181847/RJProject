@@ -32,7 +32,7 @@ public class ScriptBlockHelper {
 		ScriptBlock singleScriptBlock;
 		
 		ArrayList<String> script;
-		for (int declarLine = cusRClassDeclarations.size();
+		for (int declarLine = cusRClassDeclarations.size() - 1;
 				declarLine >= 0; --declarLine){
 			//获取脚本文件定义的一行一行的字符串
 			script = pickScriptInZip(projectFile, cusRClassDeclarations.get(declarLine));
@@ -207,5 +207,28 @@ public class ScriptBlockHelper {
 	 */
 	public static String trimScriptLine(String scriptLine) {
 		return scriptLine.substring(calculateHierarchy(scriptLine));
+	}
+
+	/**
+	 * 对加载序列中的脚本进行错误的剔除。
+	 * @param scriptSequenceHead
+	 * 		加载序列的HeadBlock。
+	 */
+	public static void organize(ScriptBlock scriptSequenceHead) {
+		// TODO Auto-generated method stub
+		new SequenceGrammarSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
+		new InformationUpgradeSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
+		new SequenceClassSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
+		new SequenceSuperSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
+		new SequenceOverrideSpider(scriptSequenceHead)
+			.workUntilEnd();
 	}
 }

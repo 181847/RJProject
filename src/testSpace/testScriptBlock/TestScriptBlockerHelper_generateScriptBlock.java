@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
-import unfinishedClass.customRClass.scriptBlock.ScriptSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.ScriptSpider;
 
 public class TestScriptBlockerHelper_generateScriptBlock {
 
