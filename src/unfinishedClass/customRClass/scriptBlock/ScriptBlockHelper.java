@@ -210,25 +210,61 @@ public class ScriptBlockHelper {
 	}
 
 	/**
-	 * 对加载序列中的脚本进行错误的剔除。
+	 * 对加载序列中的脚本进行错误的剔除，
+	 * 错误的类型包括基本语法错误，，
+	 * 声明类型与声明的内容不匹配错误
+	 * 循环继承，
+	 * 继承父类不存在。
 	 * @param scriptSequenceHead
 	 * 		加载序列的HeadBlock。
 	 */
 	public static void organize(ScriptBlock scriptSequenceHead) {
 		// TODO Auto-generated method stub
+		//为各个脚本结构的信息赋予行数，
+		//方便在后期输出错误信息的位置。
+		new SequenceLineAssignerSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
+		//检查语法错误，
+		//此阶段假定所有脚本定义的都是AbstractRClass，
+		//各个层次中的一些包含的信息必须存在，
+		//比如类型声明必须存在，类型声明下面的具体类型也必须存在，
+		//哪怕是包含一个最微小的语法错误，
+		//这个脚本都将整个地从加载序列中删除。
 		new SequenceGrammarSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
+		//信息升级，
+		//将脚本中的信息进行提升，
+		//比如原来一行的成员信息，
+		//在这里就要把它按照类型、名字、初始化值 三个部分进行分割
+		//方便后续的实例化操作。
 		new InformationUpgradeSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
-		new SequenceClassSpider(scriptSequenceHead)
-			.workUntilEnd();
+		//检查声明类型和声明内容不匹配错误，
+		//特别针对脚本中声明的RClass类型进行检查，
+		//保证接口类型的RClass没有声明Extends、Member
+		//、ConFun、StaticFun、Fun；
+		//保证普通RClass类型没有声明AbstractFun。
+		new SequenceContentMatchSpider(scriptSequenceHead)
+			.worUntilEnd();
 		
-		new SequenceSuperSpider(scriptSequenceHead)
-			.workUntilEnd();
+		//检查父类是否存在，
+		//如果父类没有被加载，
+		//在加载序列中找到这个父类，
+		//如果加载序列中也没有这个父类，
+		//那么这个脚本就是错误的，
+		将其从加载序列中删除。
+		new SequenceSuperExistSpider(scriptSequenceHead)
+			.workUnitlEnd();
 		
-		new SequenceOverrideSpider(scriptSequenceHead)
-			.workUntilEnd();
+		//检查循环继承是否存在，
+		//将存在于循环继承中的脚本全部删除，
+		//并且将剩余的正常序列进行重排序，
+		//按照先父类后子类的顺序进行排序。
+		new SequenceLoopExtendsSpider(scriptSequenceHead)
+			.worUntilEnd();
+		
 	}
 }
