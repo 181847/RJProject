@@ -4,7 +4,7 @@ import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
 
-public class ScriptSpider extends AbstractBCSpider {
+public class ScriptPrintSpider extends AbstractBCSpider {
 	protected int hierarchy;
 	protected int lineCounter;
 
@@ -14,7 +14,7 @@ public class ScriptSpider extends AbstractBCSpider {
 	 * @param startLine
 	 * 		打印脚本行数的初始值。
 	 */
-	public ScriptSpider(ScriptBlock targetBlock, int startLine, int hierarchy) {
+	public ScriptPrintSpider(ScriptBlock targetBlock, int startLine, int hierarchy) {
 		super(targetBlock);
 		lineCounter = startLine;
 		this.hierarchy = hierarchy;
@@ -25,7 +25,7 @@ public class ScriptSpider extends AbstractBCSpider {
 	 * @param targetBlock
 	 * 		开始遍历的Block节点。
 	 */
-	public ScriptSpider(ScriptBlock targetBlock){
+	public ScriptPrintSpider(ScriptBlock targetBlock){
 		super(targetBlock);
 		lineCounter = 1;
 		hierarchy = 0;
@@ -44,8 +44,8 @@ public class ScriptSpider extends AbstractBCSpider {
 		++lineCounter;
 		
 		if (targetBlock.getSub() != null){
-			ScriptSpider newScriptSpider = 
-					new ScriptSpider(targetBlock.getSub(), lineCounter, hierarchy + 1);
+			ScriptPrintSpider newScriptSpider = 
+					new ScriptPrintSpider(targetBlock.getSub(), lineCounter, hierarchy + 1);
 			newScriptSpider.workUntilEnd();
 			lineCounter = newScriptSpider.getLineCounter();
 		}

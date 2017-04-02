@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -17,12 +16,11 @@ import java.util.zip.ZipFile;
 
 import basicTool.RLogger;
 import rClass.RClassIDField;
-import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
-import unfinishedClass.customRClass.scriptBlock.spider.SequenceSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.SequencePrintSpider;
 
 /**
  * 本工程的核心，
@@ -333,7 +331,7 @@ public class RClassLoader implements IRClassLoader{
 				ScriptBlockHelper
 					.generateSequence(projectFile, cusRClassDeclarations);
 		
-		new SequenceSpider(scriptSequenceHead).workUntilEnd();
+		new SequencePrintSpider(scriptSequenceHead).workUntilEnd();
 		
 		//整理脚本文件结构，
 		//去除包含错误的脚本文件。

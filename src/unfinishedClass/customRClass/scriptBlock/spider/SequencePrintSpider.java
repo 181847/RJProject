@@ -3,9 +3,9 @@ package unfinishedClass.customRClass.scriptBlock.spider;
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
-public class SequenceSpider extends AbstractBCSpider {
+public class SequencePrintSpider extends AbstractBCSpider {
 
-	public SequenceSpider(ScriptBlock targetBlock) {
+	public SequencePrintSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
@@ -13,7 +13,7 @@ public class SequenceSpider extends AbstractBCSpider {
 	protected void dealWithTargetBlock() {
 		RLogger.log("CustomRClass脚本文件信息：" + targetBlock.getInformation().toString());
 		if (targetBlock.getSub() != null){
-			new ScriptSpider(targetBlock.getSub())
+			new ScriptPrintSpider(targetBlock.getSub())
 				.workUntilEnd();
 		}
 	}

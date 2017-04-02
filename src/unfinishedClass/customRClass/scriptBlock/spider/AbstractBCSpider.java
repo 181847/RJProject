@@ -2,6 +2,10 @@ package unfinishedClass.customRClass.scriptBlock.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
+/**
+ * Spider不处理block为null的情况，
+ * 请一定保证初始时targetBlock是一个双重循环链表中的一个节点。
+ */
 public abstract class AbstractBCSpider implements IBlockChainSpider {
 	protected ScriptBlock originalBlock;
 	protected ScriptBlock targetBlock;
@@ -15,6 +19,7 @@ public abstract class AbstractBCSpider implements IBlockChainSpider {
 	public AbstractBCSpider(ScriptBlock targetBlock){
 		originalBlock = 
 				this.targetBlock = targetBlock;
+		
 		hitTop = hitButtom = false;
 	}
 

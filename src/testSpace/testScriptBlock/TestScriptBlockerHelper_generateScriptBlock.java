@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
-import unfinishedClass.customRClass.scriptBlock.spider.ScriptSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.ScriptPrintSpider;
 
 public class TestScriptBlockerHelper_generateScriptBlock {
 
@@ -66,7 +66,7 @@ public class TestScriptBlockerHelper_generateScriptBlock {
 		ScriptBlock scriptBlock = 
 				ScriptBlockHelper.generateScriptBlock(script);
 		
-		new ScriptSpider(scriptBlock)
+		new ScriptPrintSpider(scriptBlock)
 			.workUntilEnd();
 		
 		System.out.println(scriptBlock.toString());
