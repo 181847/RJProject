@@ -4,6 +4,11 @@ import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 public abstract class ErrorSpider extends AbstractBCSpider {
 	/**
+	 * 一个用来起标志作用的变量。
+	 */
+	protected boolean error;
+	
+	/**
 	 * 默认Spider没有发生错误。
 	 * @param targetBlock
 	 * 		目标Block节点。
@@ -23,8 +28,6 @@ public abstract class ErrorSpider extends AbstractBCSpider {
 		super(targetBlock);
 		error = initError;
 	}
-
-	protected boolean error;
 
 	@Override
 	protected abstract void dealWithTargetBlock();

@@ -3,6 +3,7 @@ package unfinishedClass.customRClass.scriptBlock;
 import java.util.ArrayList;
 
 import basicTool.RLogger;
+import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
 
 public class ScriptBlockChainGenerator {
 	protected boolean failed;

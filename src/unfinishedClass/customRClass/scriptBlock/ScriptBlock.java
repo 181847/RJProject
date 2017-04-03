@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock;
 
+import unfinishedClass.customRClass.scriptBlock.information.Information;
+
 public class ScriptBlock {
 	protected boolean isHead;
 	protected ScriptBlock prec;

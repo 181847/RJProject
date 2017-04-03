@@ -331,7 +331,7 @@ public class RClassLoader implements IRClassLoader{
 				ScriptBlockHelper
 					.generateSequence(projectFile, cusRClassDeclarations);
 		
-		new SequencePrintSpider(scriptSequenceHead).workUntilEnd();
+		//new SequencePrintSpider(scriptSequenceHead).workUntilEnd();
 		
 		//整理脚本文件结构，
 		//去除包含错误的脚本文件。
