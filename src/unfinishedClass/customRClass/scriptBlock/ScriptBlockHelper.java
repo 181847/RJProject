@@ -9,9 +9,27 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import basicTool.RLogger;
+import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
+import unfinishedClass.customRClass.scriptBlock.spider.SequencePrintSpider;
 
 public class ScriptBlockHelper {
 	public static char hierarchyCharacter = '\t';
+	
+	public static String typeDeclaration = "Type:";
+	public static String nameDeclaration = "Name:";
+	public static String extendsDeclaration = "Extends:";
+	public static String implementsDeclaration = "Implements:";
+	public static String memberDeclaration = "Member:";
+	public static String staticMemberDeclaration = "Static:";
+	public static String conFunDeclaration = "ConstructFunction:";
+	public static String staticFunDeclaration = "StaticFunction:";
+	public static String functionDeclaration = "Function: ";
+	public static String abstractFunDeclaration = "AbstractFunction:";
+	
+	public static String interfaceType = "Interface";
+	public static String abstractType = "AbstractClass";
+	public static String classType = "Class";
+	
 	/**
 	 * 从zip文件中读取指定的脚本文件，
 	 * 生成脚本结构，
@@ -64,8 +82,6 @@ public class ScriptBlockHelper {
 	 * 		一个ScriptBlock，prec/next为null。
 	 */
 	public static ScriptBlock generateScriptBlock(ArrayList<String> script) {
-		// TODO Auto-generated method stub
-		
 		ScriptBlock scriptBlock = new ScriptBlock(
 				new RawScriptInformation(script.get(0)), false);
 		ScriptBlock contentScriptBlockHead = getNewContentHead();
@@ -96,13 +112,10 @@ public class ScriptBlockHelper {
 	 * 		如果脚本文件不存在，就返回null。
 	 */
 	private static ArrayList<String> pickScriptInZip(ZipFile projectFile, String cusRClassName) {
-		// TODO Auto-generated method stub
 		ArrayList<String> script;
 		ZipEntry scriptEntry = null;
 		BufferedReader scriptBR = null;
 		String scriptLine;
-		
-		boolean occuredError = false;
 		
 		cusRClassName = "src/" + cusRClassName.replace('.', '/') + ".crc";
 		scriptEntry = 
@@ -123,11 +136,12 @@ public class ScriptBlockHelper {
 					+ "获取BufferedReader失败。");
 			RLogger.logException(e);
 			return null;
-		}
+		}//try
 		
 		script = new ArrayList<String>();
 		script.add("工程文件：" + projectFile.getName()
 				+ "脚本位置：" + cusRClassName);
+		
 		try {
 			while((scriptLine = scriptBR.readLine()) != null){
 				script.add(scriptLine);
@@ -138,7 +152,7 @@ public class ScriptBlockHelper {
 					"读取脚本信息失败",  
 					"从BufferedReader中读取行时发生IO异常");
 			script = null;
-		}
+		}//try
 		
 		if (scriptBR != null){
 			try {
@@ -148,8 +162,8 @@ public class ScriptBlockHelper {
 						"ScritBlockHelper.pickScriptInZip()", 
 						"BufferedReader关闭失败",  
 						"关闭BufferedReader时发生IO异常");
-			}
-		}
+			}//try
+		}//if
 		
 		return script;
 	}
@@ -171,7 +185,6 @@ public class ScriptBlockHelper {
 	 * 这个头部节点首尾相连。
 	 */
 	public static ScriptBlock getNewContentHead() {
-		// TODO Auto-generated method stub
 		ScriptBlock contentHead = new ScriptBlock(null, true);
 		contentHead.follow(contentHead);
 		return contentHead;
@@ -186,7 +199,6 @@ public class ScriptBlockHelper {
 	 * 		层次符号为ScriptBlockHelper.hierarchyCharacter。
 	 */
 	public static int calculateHierarchy(String scriptLine) {
-		// TODO Auto-generated method stub
 		int countHierarchy = 0;
 		for (char pointer: scriptLine.toCharArray()){
 			if (pointer == ScriptBlockHelper.hierarchyCharacter){
@@ -225,21 +237,33 @@ public class ScriptBlockHelper {
 		new SequenceLineAssignerSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
+		//new SequencePrintSpider(scriptSequenceHead)
+		//	.workUntilEnd();
+		//RLogger.log("Organize End.");
+		
+		//为block的imformation设置ImformationType，
+		//方便后续的语法检查来区分不同的声明字段。
+		new SequenceAnalysisSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
 		//检查语法错误，
 		//此阶段假定所有脚本定义的都是AbstractRClass，
-		//各个层次中的一些包含的信息必须存在，
+		//各个层次中的一些必要的信息必须存在，
+		//成员的声明和初始化必须符合要求，
+		//（必要时可以将错误的初始化数据改正回来）
 		//比如类型声明必须存在，类型声明下面的具体类型也必须存在，
 		//哪怕是包含一个最微小的语法错误，
 		//这个脚本都将整个地从加载序列中删除。
 		new SequenceGrammarSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
-		//信息升级，
-		//将脚本中的信息进行提升，
+		//信息收集，
+		//将脚本中的信息提升到上层的Information当中，
+		//最终由Information类型来存储RClass的信息，
 		//比如原来一行的成员信息，
-		//在这里就要把它按照类型、名字、初始化值 三个部分进行分割
+		//在这里就要把它按照类型、名字、初始化值 三个部分进行分割，
 		//方便后续的实例化操作。
-		new InformationUpgradeSpider(scriptSequenceHead)
+		new SequenceInformationGetterSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
 		//检查声明类型和声明内容不匹配错误，
@@ -255,16 +279,17 @@ public class ScriptBlockHelper {
 		//在加载序列中找到这个父类，
 		//如果加载序列中也没有这个父类，
 		//那么这个脚本就是错误的，
-		将其从加载序列中删除。
-		new SequenceSuperExistSpider(scriptSequenceHead)
+		//将其从加载序列中删除。
+		new SequenceSuperCheckSpider(scriptSequenceHead)
 			.workUnitlEnd();
 		
 		//检查循环继承是否存在，
-		//将存在于循环继承中的脚本全部删除，
-		//并且将剩余的正常序列进行重排序，
-		//按照先父类后子类的顺序进行排序。
+		//对每一个Class进行继承层次检查，
+		//每个ScriptBlock的Information都会存储一个
+		//层次检查状态的标志：
+		//未检查、检查中、已检查、检查失败
 		new SequenceLoopExtendsSpider(scriptSequenceHead)
 			.worUntilEnd();
-		
+		*/
 	}
 }
