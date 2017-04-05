@@ -6,7 +6,12 @@ package unfinishedClass.customRClass;
 public class RStringChecker {
 	//被检查的所有非法字符。
 	public static String[] illegalStrings = {
-			"@"};
+			"@",
+			"(",
+			")",
+			"{",
+			"}"
+			};
 	
 	public static String illegalStringCollection = null;
 	
@@ -33,5 +38,19 @@ public class RStringChecker {
 			}
 		}
 		return illegalStringCollection;
+	}
+
+	public static boolean checkVar(String informationString) {
+		if ( ! check(informationString)){
+			return false;
+		}
+		
+		//分割信息，查看是否按照空格分成两个或者三个部分
+		String[] vars = informationString.split(" ");
+		if (vars.length != 2 || vars.length != 3){
+			return false;
+		}
+		
+		return true;
 	}
 }
