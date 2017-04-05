@@ -19,10 +19,10 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 	protected void dealWithTargetBlock() {
 		ScriptBlock subBlock = targetBlock.getSub();
 		Information information = targetBlock.getInformation();
-		String informationString = information.toString();
+		String informationString = information.getOriginalString();
 		
-		if (informationString.equals(ScriptBlockHelper.typeDeclaration)){
-			//类型 
+		if (informationString.equals(ScriptDeclaration.type)){
+			//类型声明
 			information.setType(InformationType.TYPE);
 			//为类型声明之下的信息赋予InformationType
 			if (subBlock != null){
@@ -30,7 +30,7 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptBlockHelper.nameDeclaration)){
+		} else if (informationString.equals(ScriptDeclaration.name)){
 			//名字声明
 			information.setType(InformationType.NAME);
 			//为名字声明下面的信息赋予InformationType
@@ -39,7 +39,7 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptBlockHelper.extendsDeclaration)){
+		} else if (informationString.equals(ScriptDeclaration.extendsD)){
 			//父类声明
 			information.setType(InformationType.EXTENDS);
 			//为父类声明下面的信息赋予InformationType
@@ -48,7 +48,7 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 				
-		} else if (informationString.equals(ScriptBlockHelper.implementsDeclaration)){
+		} else if (informationString.equals(ScriptDeclaration.implementsD)){
 			//父类接口声明
 			information.setType(InformationType.IMPLEMENTS);
 			//为父类接口声明下面的信息赋予InformationType
@@ -57,35 +57,35 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 				
-		} else if (informationString.equals(ScriptBlockHelper.memberDeclaration)){
+		} else if (informationString.equals(ScriptDeclaration.member)){
 			//成员声明
 			information.setType(InformationType.MEMBER);
 			//为成员声明下面的信息赋予InformationType
 			if (subBlock != null){
-				new MemberAnalysisSpider(subBlock)
+				new VarFieldAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 					
-		} else if (informationString.equals(ScriptBlockHelper.conFunDeclaration)){
+		} else if (informationString.equals(ScriptDeclaration.conFun)){
 			//构造Function声明
 			information.setType(InformationType.CONFUN);
 			//为构造Function声明下面的信息赋予InformationType
 			if (subBlock != null){
-				new ConFunAnalysisSpider(subBlock)
+				new FunAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 					
-		} else if (informationString.equals(ScriptBlockHelper.staticFunDeclaration)){
-			targetBlock.setInformation(
-					new FunNameInformation(information));
+		} else if (informationString.startsWith(ScriptDeclaration.staticFun)){
+			//静态Function声明
+			information.setType(InformationType.STATICFUN);
 			
 			//为静态Function声明下面的信息赋予InformationType
 			if (subBlock != null){
-				new StaticFunAnalysisSpider(subBlock)
+				new FunAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 					
-		} else if (informationString.equals(ScriptBlockHelper.funDeclaration)){
+		} else if (informationString.startsWith(ScriptDeclaration.function)){
 			//成员Function声明
 			information.setType(InformationType.FUN);
 			//为成员Function声明下面的信息赋予InformationType
@@ -94,12 +94,12 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 					
-		} else if (informationString.equals(ScriptBlockHelper.abstractFunDeclaration)){
+		} else if (informationString.startsWith(ScriptDeclaration.abstractFun)){
 			//抽象Function声明
 			information.setType(InformationType.ABSTRACTFUN);
 			//为抽象Function声明下面的信息赋予InformationType
 			if (subBlock != null){
-				new AbstractAnalysisSpider(subBlock)
+				new FunAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 				

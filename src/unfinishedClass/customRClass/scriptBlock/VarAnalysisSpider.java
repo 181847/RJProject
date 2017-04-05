@@ -5,12 +5,9 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
-/**
- * 分析Block中的Information是否包含非法字符。
- */
-public class NameAnalysisSpider extends AbstractBCSpider {
+public class VarAnalysisSpider extends AbstractBCSpider {
 
-	public NameAnalysisSpider(ScriptBlock targetBlock) {
+	public VarAnalysisSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
@@ -19,12 +16,14 @@ public class NameAnalysisSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		String informationString = information.getOriginalString();
 		
-		//检查是否包含非法字符
-		if (RStringChecker.check(informationString)){
-			information.setType(InformationType.CONTENT);
+		if (RStringChecker.checkVar(informationString)){
+			information.setType(InformationType.VAR);
 		} else {
-			information.setType(InformationType.VOID);
-			information.appendDescription("信息中包含非法字符：" + RStringChecker.getIllegalStrings());
+			 //包含非法字符的信息，或者不符合变量声明格式
+			 information.setType(InformationType.VOID);
+			 information.appendDescription("变量声明包含非法字符"
+			 + RStringChecker.getIllegalStrings()
+			 + "或者不符合变量定义的格式。");
 		}
 	}
 

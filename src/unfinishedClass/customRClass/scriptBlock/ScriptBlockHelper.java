@@ -13,22 +13,6 @@ import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation
 import unfinishedClass.customRClass.scriptBlock.spider.SequencePrintSpider;
 
 public class ScriptBlockHelper {
-	public static char hierarchyCharacter = '\t';
-	
-	public static String typeDeclaration = "Type:";
-	public static String nameDeclaration = "Name:";
-	public static String extendsDeclaration = "Extends:";
-	public static String implementsDeclaration = "Implements:";
-	public static String memberDeclaration = "Member:";
-	public static String staticMemberDeclaration = "Static:";
-	public static String conFunDeclaration = "ConstructFunction:";
-	public static String staticFunDeclaration = "StaticFunction:";
-	public static String functionDeclaration = "Function: ";
-	public static String abstractFunDeclaration = "AbstractFunction:";
-	
-	public static String interfaceType = "Interface";
-	public static String abstractType = "AbstractClass";
-	public static String classType = "Class";
 	
 	/**
 	 * 从zip文件中读取指定的脚本文件，
@@ -201,7 +185,7 @@ public class ScriptBlockHelper {
 	public static int calculateHierarchy(String scriptLine) {
 		int countHierarchy = 0;
 		for (char pointer: scriptLine.toCharArray()){
-			if (pointer == ScriptBlockHelper.hierarchyCharacter){
+			if (pointer == ScriptDeclaration.hierarchy){
 				++ countHierarchy;
 			} else {
 				break;
