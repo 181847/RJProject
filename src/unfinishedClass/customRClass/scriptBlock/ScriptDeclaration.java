@@ -5,6 +5,7 @@ package unfinishedClass.customRClass.scriptBlock;
  */
 public class ScriptDeclaration {
 	public static char hierarchy = '\t';
+	public static char nameHierarchy = '.';
 	
 	//顶层信息声明
 	public static String type = "Type:";
@@ -32,4 +33,25 @@ public class ScriptDeclaration {
 	public static String interfaceType = "Interface";
 	public static String abstractType = "AbstractClass";
 	public static String classType = "Class";
+
+	//子Fun的位置声明的开始和结束的标志符
+	public static String locationStart = "(";
+	public static String locationEnd = ")";
+
+	//子Fun的Modify声明的开始和结束的标志符
+	public static String modifyStart = "{";
+	public static String modifyEnd = "}";
+	
+	//子Fun中的弧线声明字段
+	public static String EArc = "EtoE: ";
+	public static String PArc = "RtoP: ";
+
+	//特殊的Function组件名字，
+	//这些组件名字不允许用户手动声明在他们的自定义Function中，
+	//只能由程序在运行时自行创建，
+	//或者在生成的脚本文件中，
+	//在Function内部的Arc声明中涉及这些特殊的包含非法字符的名称。
+	public static String[] spicialExcuters = {"@EXCEPTION"};
+	public static String[] specialParameters = {"@THIS"};
+	
 }

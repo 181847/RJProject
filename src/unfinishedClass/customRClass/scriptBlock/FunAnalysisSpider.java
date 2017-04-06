@@ -25,7 +25,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 			//Function的执行入口组件分析
 			information.setType(InformationType.EXCUTEE);
 			if (subBlock != null){
-				new ExcutAnalysisSpider(subBlock)
+				new ExcuteeAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 			
@@ -41,7 +41,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 			//Function的执行出口组件分析
 			information.setType(InformationType.EXCUTER);
 			if (subBlock != null){
-				new ExcutAnalysisSpider(subBlock)
+				new ExcuterAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 			
