@@ -51,7 +51,13 @@ public class ScriptDeclaration {
 	//只能由程序在运行时自行创建，
 	//或者在生成的脚本文件中，
 	//在Function内部的Arc声明中涉及这些特殊的包含非法字符的名称。
-	public static String[] spicialExcuters = {"@EXCEPTION"};
+	public static String[] specialExcuters = {"@EXCEPTION"};
 	public static String[] specialParameters = {"@THIS"};
+	public static String arrow = " -> ";
+	
+	//数字序号和声明部分的分割符
+	public static String indexSplit = ".";
+	//数字之间的分割符
+	public static String numberSplit = ", ";
 	
 }
