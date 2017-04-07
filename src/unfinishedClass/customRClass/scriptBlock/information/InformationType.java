@@ -17,5 +17,6 @@ public enum InformationType {
 	INTERFACE, ABSTRACT, CLASS,
 	
 	//CONTENT表示实际的脚本内容。
-	VAR, CLASSNAME, CONTENT;
+	//RECT表示一个方形的区域左上角与右下角的两个坐标。
+	VAR, CLASSNAME, CONTENT, RECT;
 }
