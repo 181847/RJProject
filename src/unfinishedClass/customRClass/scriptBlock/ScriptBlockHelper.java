@@ -230,6 +230,12 @@ public class ScriptBlockHelper {
 		new SequenceAnalysisSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
+		//输出所有的Information的全部具体信息，
+		//包括行数，Description。
+		new SequencePrintDescriptionSpider(scriptSequenceHead)
+			.workUntilEnd();
+		
+		/*
 		//检查语法错误，
 		//此阶段假定所有脚本定义的都是AbstractRClass，
 		//各个层次中的一些必要的信息必须存在，
