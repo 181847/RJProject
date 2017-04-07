@@ -29,7 +29,7 @@ public class SequenceGrammarSpider extends DeleteSpider {
 			
 			if (scriptGrammarSpider.occurredError()){
 				appendReason("脚本--" 
-						+ targetBlock.getInformation().toString()
+						+ targetBlock.getInformation().getOriginalString()
 						+ "当中发生以下错误：\n" + scriptGrammarSpider.getErrorReason());
 				deleteTarget = true;
 			}

@@ -13,9 +13,9 @@ public class ArcAnalysisSpider extends AbstractBCSpider {
 
 	@Override
 	protected void dealWithTargetBlock() {
-		// TODO Auto-generated method stub
 		Information information = targetBlock.getInformation();
 		String informationString = information.getOriginalString();
+		
 		if (informationString.startsWith(ScriptDeclaration.EArc)){
 			//检查执行路线的弧线声明
 			informationString = 
