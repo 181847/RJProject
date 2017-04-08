@@ -235,18 +235,18 @@ public class ScriptBlockHelper {
 		new SequencePrintDescriptionSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
-		/*
+		
 		//检查语法错误，
 		//此阶段假定所有脚本定义的都是AbstractRClass，
-		//各个层次中的一些必要的信息必须存在，
-		//成员的声明和初始化必须符合要求，
-		//（必要时可以将错误的初始化数据改正回来）
-		//比如类型声明必须存在，类型声明下面的具体类型也必须存在，
+		//这里检查的所谓语法错误指的是：
+		//相关必要信息是否存在，
+		//以及是否存在无关信息，
 		//哪怕是包含一个最微小的语法错误，
 		//这个脚本都将整个地从加载序列中删除。
 		new SequenceGrammarSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
+		/*
 		//信息收集，
 		//将脚本中的信息提升到上层的Information当中，
 		//最终由Information类型来存储RClass的信息，
@@ -262,7 +262,7 @@ public class ScriptBlockHelper {
 		//、ConFun、StaticFun、Fun；
 		//保证普通RClass类型没有声明AbstractFun。
 		new SequenceContentMatchSpider(scriptSequenceHead)
-			.worUntilEnd();
+			.workUntilEnd();
 		
 		//检查父类是否存在，
 		//如果父类没有被加载，
@@ -279,7 +279,7 @@ public class ScriptBlockHelper {
 		//层次检查状态的标志：
 		//未检查、检查中、已检查、检查失败
 		new SequenceLoopExtendsSpider(scriptSequenceHead)
-			.worUntilEnd();
+			.workUntilEnd();
 		*/
 	}
 }

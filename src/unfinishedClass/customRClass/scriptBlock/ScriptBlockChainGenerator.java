@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
 
+/**
+ * 从一个ScriptBlock开始，为其后部添加其他的Block，
+ * 根据script当中的设定好的targetLine开始进行Block的添加。
+ */
 public class ScriptBlockChainGenerator {
 	protected boolean failed;
 	protected ArrayList<String> script;

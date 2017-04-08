@@ -5,7 +5,7 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
 /**
- * 分析Function声明字段的信息，
+ * 分析Function内部声明字段的信息，
  * 不区分ConFun、StaticFun、Fun、AbstractFun。
  */
 public class FunAnalysisSpider extends AbstractBCSpider {
