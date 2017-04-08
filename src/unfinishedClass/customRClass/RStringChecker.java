@@ -60,11 +60,48 @@ public class RStringChecker {
 		// TODO Auto-generated method stub
 		return check(informationString);
 	}
-
-	public static boolean checkFunctionName(String informationString) {
-		if (informationString.indexOf(ScriptDeclaration.nameHierarchy) == -1){
+	
+	/**
+	 * 检查类名是否正确，
+	 * 不能包含非法字符，
+	 * 所有类都必须在包里面，
+	 * 这表明类的全名中至少要包含一个ScripDeclaration.nameHierarchy，
+	 * 来表明类所属的包，形如“defaultPackage.myRClass”。
+	 * @param informationString
+	 * 		被检查的类名。
+	 * @return
+	 * 		符合要求返回true，
+	 * 		否则返回false。
+	 */
+	public static boolean checkRClassName(String informationString){
+		if (-1 == informationString.indexOf(ScriptDeclaration.nameHierarchy)){
 			return false;
 		}
+		return check(informationString);
+	}
+
+	/**
+	 * 检查Function的名字是否正确，
+	 * 要求Function的名字必须包括Function所属的类名，
+	 * 类名中至少要包含一个分分割符，
+	 * 而类名和Function名字中间也要要包括一个分割符，
+	 * 所以informationString至少要两个分割符，
+	 * 形如“basic.Integer.addInteger”。
+	 * @param informationString
+	 * 		被检查的Function全名称。
+	 * @return
+	 * 		符合要求返回true，
+	 * 		否则返回false。
+	 */
+	public static boolean checkFunctionName(String informationString) {
+		int lastHierarchy = 
+				informationString.lastIndexOf(ScriptDeclaration.nameHierarchy);
+		if (lastHierarchy == -1 
+				|| lastHierarchy == informationString
+									.indexOf(ScriptDeclaration.nameHierarchy)){
+			return false;
+		}//if
+		
 		return check(informationString);
 	}
 
@@ -89,11 +126,11 @@ public class RStringChecker {
 		//将弧线的两个端点用序号分隔符分隔开来
 		//相当于把“1.funEnd”变成“1”和“funEnd”
 		String[] foreVtx = arcStrings[0].split(ScriptDeclaration.indexSplit);
-		String[] lateVtx = arcStrings[0].split(ScriptDeclaration.indexSplit);
+		String[] lateVtx = arcStrings[1].split(ScriptDeclaration.indexSplit);
 		
 		//检查端点能够分成两个部分
-		if (foreVtx.length != 2 ||
-				lateVtx.length != 2){
+		if (foreVtx.length != 2 
+				|| lateVtx.length != 2){
 			return false;
 		}
 		
@@ -103,22 +140,52 @@ public class RStringChecker {
 				return false;
 		}
 		
-		//检查弧线的第一个端点是否包含非法字符
-		if ( ! check(foreVtx[1])){
-			//如果包含非法字符是否为特殊组件名称
-			if ( ! checkSpecial(foreVtx[1])){
+		//检查端点的后一个部分是否是正确的function组件名称
+		if ( ! checkFunComponent(foreVtx[1], true)
+				|| ! checkFunComponent(lateVtx[1], true)){
+			return false;
+		}
+		
+		return true;
+	}
+
+	/**
+	 * 检查字符串是否是合法的Function组件名字，
+	 * 检查要分两种情况，
+	 * 一种是用户定义的Function当中的组件名称，
+	 * 另一种则是用户定义的Function连接弧线中的组件名字，
+	 * 用户定义的Function的组件名不能包含非法字符；
+	 * 弧线中的组件名字可以有非法字符，
+	 * 但是要求这个名字必须是程序中固定的几个特殊名字，
+	 * 这些特殊的名字在ScriptDeclaration有定义。
+	 * @param string
+	 * 		被检查的组件名字。
+	 * @param inArc
+	 * 		该组件的名字是否出现于弧线定义中。
+	 * @return
+	 * 		如果inArc为false，
+	 * 		组件名字中没有非法字符时，返回true、
+	 * 		否则返回false；
+	 * 		如果inArc为true，
+	 * 		组件名字中没有非法字符时，返回true、
+	 * 		包含非法字符，但是为特殊的组件名称，返回true、
+	 * 		其他情况返回false。
+	 */
+	private static boolean checkFunComponent(String string, boolean inArc) {
+		if (inArc){
+			//弧线声明中的情况
+			if ( ! check(string)){
+				if ( ! checkSpecial(string)){
+					return false;
+				}
+			}
+			
+		} else {
+			//Function组件定义中的情况
+			if ( ! check(string)){
 				return false;
 			}
 		}
-		
-		//检查弧线的第二个端点是否包含非法字符
-		if ( ! check(lateVtx[1])){
-			//如果包含非法字符是否为特殊组件名称
-			if ( ! checkSpecial(lateVtx[1])){
-				return false;
-			}
-		}
-		
 		return true;
 	}
 
@@ -242,5 +309,96 @@ public class RStringChecker {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * 检查SubFunction的声明是否符合规范，
+	 * 形如“(-4,-7)basic.Integer.addInteger{3}”，
+	 * 前面的二维坐标必须包含，而且其数字必须能够转化成Double型；
+	 * 中间的是Function的名字，这一部分不允许出现非法字符；
+	 * 最后用大括号包含的是Function的Modify信息。
+	 * Modify信息不会进行非法字符的检查，
+	 * 程序将正数第一个“{”认为是Modify信息的开始，
+	 * 将后数第一个“}”认为是Modify信息的结束，
+	 * 中间的信息不会进行检查。
+	 * @param informationString
+	 * 		被检查的SubFun声明。
+	 * @return
+	 * 		正确返回true，
+	 * 		错误返回false。
+	 */
+	public static boolean checkSubFun(String informationString) {
+		//分割subFun信息
+		String[] subFunDetail = splitSubFun(informationString);
+		
+		if (subFunDetail[0] == null 
+				|| subFunDetail[1] == null
+				|| subFunDetail[2] == null){
+			return false;
+		}
+		
+		if ( ! checkLocation(subFunDetail[0])
+				|| ! checkFunctionName(subFunDetail[0])){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 将informationString按照subFun的信息分割成，
+	 * 坐标信息、subFun名称信息、Modify信息 
+	 * 组成的一维数组当中，
+	 * 分割的方式如下：
+	 * <p>1. 坐标信息，从字符串的开头到第一个ScriptDescription.locationEnd；
+	 * <p>2. subFun名称信息，从字符串的第一个ScriptDescription.locationEnd后面的字符到 
+	 * 第一个ScriptDescription.modifyStart前面的字符（如果没有这个字符就到字符串的结尾）；
+	 * <p>3. Modify信息，从字符串的第一个ScriptDescription.modifyStart 
+	 * 到 最后一个ScriptDescription.modifyEnd。
+	 * <p>处理结果预测：<br>
+	 * “(-4,-7)basic.Integer.addInteger{3}”<br>
+	 * 		-> {"(-4,-7)", "basic.Integer.addInteger", "{3}"}；<br><br>
+	 * “(-4,-7basic.Integer.addInteger{3}”<br>
+	 * 		-> {null, null, "{3}"}；<br><br>
+	 * “(-4,-7gkjhg)basic.Integer.addInteger{3}”<br>
+	 * 		-> {"(-4,-7gkjhg)", "basic.Integer.addInteger", "{3}"}；<br><br>
+	 * “(-4,-7gkjhg)basic.Integer.addInteger3}”<br>
+	 * 		-> {"(-4,-7gkjhg)", null, null}；<br><br>
+	 * “(-4,-7gkjhg)basic.Integer.addInteger{3”<br>
+	 * 		-> {"(-4,-7gkjhg)", basic.Integer.addInteger, null}；<br><br>
+	 * @param informationString
+	 * 		被处理的subFun信息。
+	 * @return
+	 * 		一个长度为3的一维数组，
+	 * 		如果相关的信息没有找到的话就将相应的数组元素设为null。
+	 */
+	private static String[] splitSubFun(String informationString) {
+		// TODO Auto-generated method stub
+		String[] result = new String[3];
+		
+		int locationEnd = informationString.indexOf(ScriptDeclaration.locationEnd);
+		int modifyStart = informationString.indexOf(ScriptDeclaration.modifyStart);
+		int modifyEnd = informationString.indexOf(ScriptDeclaration.modifyEnd);
+		
+		//提取位置信息
+		if (locationEnd != -1){
+			result[0] = informationString.substring(0, locationEnd + 1);
+		}
+		
+		//提取functionName信息
+		if (locationEnd != -1
+				&& modifyStart != -1
+				&& locationEnd < modifyStart){
+			result[1] = informationString.substring(locationEnd + 1, modifyStart);
+		}
+		
+		//提取Modify信息
+		if (modifyStart != -1 
+				&& modifyEnd != -1 
+				&& modifyStart < modifyEnd){
+			result[2] = informationString
+					.substring(modifyStart, modifyEnd + 1);
+		}//if
+		
+		return result;
 	}
 }
