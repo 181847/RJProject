@@ -16,7 +16,8 @@ public enum InformationType {
 	//三种RClass的类型。
 	INTERFACE, ABSTRACT, CLASS,
 	
-	//CONTENT表示实际的脚本内容。
-	//RECT表示一个方形的区域左上角与右下角的两个坐标。
-	VAR, CLASSNAME, CONTENT, RECT;
+	VAR, 		//一个可以带有初始值变量信息
+	CLASSNAME, 	//一个RClass的类名。
+	CONTENT, 	//CONTENT表示实际的脚本内容。
+	RECT;		//RECT表示一个方形的区域左上角与右下角的两个坐标。
 }
