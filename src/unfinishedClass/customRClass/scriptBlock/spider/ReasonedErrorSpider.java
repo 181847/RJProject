@@ -18,6 +18,12 @@ public abstract class ReasonedErrorSpider extends ErrorSpider {
 		errorReason = "";
 	}
 	
+	/**
+	 * @param targetBlock
+	 * 		目标Block节点。
+	 * @param initError
+	 * 		手动初始化Spider是否发生错误。
+	 */
 	public ReasonedErrorSpider(ScriptBlock targetBlock, boolean initError) {
 		super(targetBlock, initError);
 		errorReason = "";

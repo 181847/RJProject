@@ -6,7 +6,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.ReasonedErrorSpider;
 /**
  * 假设脚本定义的是AbstractRClass，
  * 检查必要信息是否包含，
- * 例如一个脚本中必须有NAME声明，
+ * 例如一个脚本中必须有NAME声明，（ConFun不需要一定存在）
  * NAME下面也必须有且只有一个类名的声明，
  * 如果没有它的话就算是语法错误。
  * 而这个类名由先前的AnalysisSpider进行分析后只会保证这个类名
@@ -19,7 +19,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.ReasonedErrorSpider;
  * 当前脚本都会被认为发生语法错误，
  * 不允许加载。
  */
-public class ScriptGrammarSpider extends ReasonedErrorSpider {
+public class ScriptGrammarSpider extends GrammarSpider {
 	protected ReasonedErrorSpider typeGS;
 	protected ReasonedErrorSpider nameGS;
 	protected ReasonedErrorSpider extendsGS;
@@ -83,9 +83,8 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			break;
 		default:
 			break;
-		}
-
-	}
+		}//switch
+	}//dealWithTargetBlock
 
 	/**
 	 * 已知targetBlock的InformationType是VOID类型，
@@ -93,7 +92,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 	 * 当前脚本发生语法错误，不允许加载。
 	 */
 	private void dealWith_VOID() {
-		appendReason("RClass的脚本中发现VOID信息。");
+		appendReason("RClass的脚本中发现VOID信息。", true);
 		error = true;
 	}
 
@@ -107,7 +106,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
-			appendReason("ABSTRACTFUN型的信息下面没有具体的抽象Function定义。");
+			appendReason("ABSTRACTFUN型的信息下面没有具体的抽象Function定义。", false);
 			error = true;
 			return;
 		}
@@ -132,7 +131,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
-			appendReason("FUN型的信息下面没有具体的Function定义。");
+			appendReason("FUN型的信息下面没有具体的Function定义。", false);
 			error = true;
 			return;
 		}
@@ -157,7 +156,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
-			appendReason("STATICFUN型的信息下面没有具体的静态Function定义。");
+			appendReason("STATICFUN型的信息下面没有具体的静态Function定义。", false);
 			error = true;
 			return;
 		}
@@ -182,7 +181,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			//conFunGS不为null，
 			//说明先前检查过一次CONFUN，
 			//这个脚本中有两个CONFUN声明，语法错误
-			appendReason("定义中多次发现CONFUN型的信息。");
+			appendReason("定义中多次发现CONFUN型的信息。", false);
 			error = true;
 			return;
 		}
@@ -190,7 +189,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
-			appendReason("CONFUN型的信息下面没有具体的Function定义。");
+			appendReason("CONFUN型的信息下面没有具体的Function定义。", false);
 			error = true;
 			return;
 		}
@@ -217,7 +216,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			//implementsGS不为null，
 			//说明先前检查过一次IMPLEMENTS，
 			//这个脚本中有两个IMPLEMENTS声明，语法错误
-			appendReason("定义中多次发现MEMBER型的信息。");
+			appendReason("定义中多次发现MEMBER型的信息。", false);
 			error = true;
 			return;
 		}
@@ -225,7 +224,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的父类接口定义，语法错误
-			appendReason("MEMBER型的信息下面没有具体的成员定义。");
+			appendReason("MEMBER型的信息下面没有具体的成员定义。", false);
 			error = true;
 			return;
 		}
@@ -252,7 +251,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			//implementsGS不为null，
 			//说明先前检查过一次IMPLEMENTS，
 			//这个脚本中有两个IMPLEMENTS声明，语法错误
-			appendReason("定义中多次发现IMPLEMENTS型的信息。");
+			appendReason("定义中多次发现IMPLEMENTS型的信息。", false);
 			error = true;
 			return;
 		}
@@ -260,12 +259,12 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的父类接口定义，语法错误
-			appendReason("IMPLEMENTS型的信息下面没有具体的父类接口定义。");
+			appendReason("IMPLEMENTS型的信息下面没有具体的父类接口定义。", false);
 			error = true;
 			return;
 		}
 		
-		implementsGS = new ImplementsGrammarSpider(subBlock);
+		implementsGS = new new ClassNameGrammarSpider(subBlock, -1);
 		implementsGS.workUntilEnd();
 		
 		if (implementsGS.occurredError()){
@@ -288,7 +287,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			//extendsGS不为null，
 			//说明先前检查过一次EXTENDS，
 			//这个脚本中有两个EXTENDS声明，语法错误
-			appendReason("定义中多次发现EXTENDS型的信息。");
+			appendReason("定义中多次发现EXTENDS型的信息。", false);
 			error = true;
 			return;
 		}
@@ -296,12 +295,12 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//Extends声明的下面没有具体的父类定义，语法错误
-			appendReason("EXTENDS型的信息下面没有具体的父类定义。");
+			appendReason("EXTENDS型的信息下面没有具体的父类定义。", false);
 			error = true;
 			return;
 		}
 		
-		extendsGS = new ExtendsGrammarSpider(subBlock);
+		extendsGS = new ClassNameGrammarSpider(subBlock, 1);
 		extendsGS.workUntilEnd();
 		
 		if (extendsGS.occurredError()){
@@ -323,7 +322,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			//nameGS不为null，
 			//说明先前检查过一次NAME，
 			//这个脚本中有两个NAME声明，语法错误
-			appendReason("定义中多次发现NAME型的信息。");
+			appendReason("定义中多次发现NAME型的信息。", false);
 			error = true;
 			return;
 		}
@@ -331,12 +330,12 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//TYPE声明的下面没有具体的类型定义，语法错误
-			appendReason("NAME型的信息下面没有具体的名称定义。");
+			appendReason("NAME型的信息下面没有具体的名称定义。", false);
 			error = true;
 			return;
 		}
 		
-		nameGS = new NameGrammarSpider(subBlock);
+		nameGS = new ClassNameGrammarSpider(subBlock, 1);
 		nameGS.workUntilEnd();
 		
 		if (nameGS.occurredError()){
@@ -357,7 +356,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			//typeGS不为null，
 			//说明先前检查过一次TYPE，
 			//这个脚本中有两个TYPE声明，语法错误
-			appendReason("定义中多次发现TYPE型的信息。");
+			appendReason("定义中多次发现TYPE型的信息。", false);
 			error = true;
 			return;
 		}
@@ -365,7 +364,7 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//TYPE声明的下面没有具体的类型定义，语法错误
-			appendReason("TYPE型的信息下面没有具体的类型定义。");
+			appendReason("TYPE型的信息下面没有具体的类型定义。", false);
 			error = true;
 			return;
 		}
@@ -379,5 +378,26 @@ public class ScriptGrammarSpider extends ReasonedErrorSpider {
 			error = true;
 			return;
 		}
+	}
+	
+	/**
+	 * 通过调用这个方法来统一的整合整个脚本中的检查信息，
+	 * 如果typeGS、nameGS为null的话，
+	 * 表示脚本中根本没有合法的类型和名字声明，
+	 * 设置Spider发生的错误，
+	 * 并且返回false；
+	 * 如果typeGS、nameGS不是null的话，直接返回成员error。
+	 */
+	@Override
+	public boolean occurredError(){
+		if (typeGS == null){
+			error = true;
+			appendReason("脚本中没有发现类型声明");
+		}
+		if (nameGS == null){
+			error = true;
+			appendReason("脚本中没有发现类的名称声明");
+		}
+		return error;
 	}
 }
