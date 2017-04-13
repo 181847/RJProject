@@ -82,19 +82,10 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			dealWith_VOID();
 			break;
 		default:
+			dealWith_Unexpected();
 			break;
 		}//switch
 	}//dealWithTargetBlock
-
-	/**
-	 * 已知targetBlock的InformationType是VOID类型，
-	 * 毫无疑问，脚本信息中不允许出现任何无用信息，
-	 * 当前脚本发生语法错误，不允许加载。
-	 */
-	private void dealWith_VOID() {
-		appendReason("RClass的脚本中发现VOID信息。", true);
-		error = true;
-	}
 
 	/**
 	 * 已知targetBlock的InformationType是ABSTRACTFUN类型，
@@ -229,7 +220,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		memberGS = new MemberGrammarSpider(subBlock);
+		memberGS = new VarFieldGrammarSpider(subBlock);
 		memberGS.workUntilEnd();
 		
 		if (memberGS.occurredError()){
@@ -264,7 +255,8 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		implementsGS = new new ClassNameGrammarSpider(subBlock, -1);
+		//没有数量限制的类名检查
+		implementsGS = new ClassNameGrammarSpider(subBlock, -1);
 		implementsGS.workUntilEnd();
 		
 		if (implementsGS.occurredError()){

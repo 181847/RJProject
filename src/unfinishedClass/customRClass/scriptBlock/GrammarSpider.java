@@ -31,6 +31,26 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 	protected abstract void dealWithTargetBlock();
 	
 	/**
+	 * 已知targetBlock的InformationType是VOID类型，
+	 * 毫无疑问，脚本信息中不允许出现任何无用信息，
+	 * 当前脚本发生语法错误，不允许加载，
+	 * 设置error成员为true。
+	 */
+	protected void dealWith_VOID() {
+		appendReason("RClass的脚本中发现VOID信息。", true);
+		error = true;
+	}
+	
+	/**
+	 * 统一定义一个针对意外信息的处理方法，
+	 * 这个方法由子类调用。
+	 */
+	protected void dealWith_Unexpected(){
+		appendReason("脚本中发现无用信息。", true);
+		error = true;
+	}
+	
+	/**
 	 * 添加错误信息的时候在错误信息的前面
 	 * 加上targetBlock的information的行数信息，
 	 * 并且通过一个布尔参数来判断是否添加Information的Description。

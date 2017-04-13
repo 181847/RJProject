@@ -25,6 +25,26 @@ public class TypeGrammarSpider extends GrammarSpider {
 	protected void dealWithTargetBlock() {
 		Information information = targetBlock.getInformation();
 		
+		switch(information.getType()){
+		case INTERFACE:
+		case ABSTRACT:
+		case CLASS:
+			dealWith_CLASS();
+			break;
+		case VOID:
+			dealWith_VOID();
+			break;
+		default:
+			dealWith_Unexpected();
+			break;
+		}
+	}
+
+	/**
+	 * 处理targetBlock的InformationType是INTERFACE/ABSTRACT/CLASS三种的情况，
+	 * 如果foundOne为true说明该Block链上面不止一个具体的类型声明，语法错误。
+	 */
+	protected void dealWith_CLASS() {
 		if (foundOne){
 			//foundOne为true表示之前已经发现了一个具体的类型声明，
 			//所以无论当前的information是什么，
@@ -32,19 +52,8 @@ public class TypeGrammarSpider extends GrammarSpider {
 			error = true;
 			appendReason("已经声明了类型，但是类型声明下面发现多余的无用信息。", false);
 		} else {
-			switch(information.getType()){
-			case INTERFACE:
-			case ABSTRACT:
-			case CLASS:
-				//发现类型的具体声明，手动设置error为false。
-				error = false;
-				break;
-			default:
-				//发现类型声明之外的信息。
-				error = true;
-				appendReason("发现具体类型声明之外的信息。", true);
-				break;
-			}
+			error = false;		//发现类型的具体声明，手动设置error为false。
+			foundOne = true;	//记录已经找到一个具体的类型声明
 		}
 	}
 
