@@ -256,7 +256,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 		}
 		
 		//没有数量限制的类名检查
-		implementsGS = new ClassNameGrammarSpider(subBlock, -1);
+		implementsGS = new ClassNameGrammarSpider(subBlock, false);
 		implementsGS.workUntilEnd();
 		
 		if (implementsGS.occurredError()){
@@ -292,7 +292,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		extendsGS = new ClassNameGrammarSpider(subBlock, 1);
+		extendsGS = new ClassNameGrammarSpider(subBlock, true);
 		extendsGS.workUntilEnd();
 		
 		if (extendsGS.occurredError()){
@@ -327,7 +327,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		nameGS = new ClassNameGrammarSpider(subBlock, 1);
+		nameGS = new ClassNameGrammarSpider(subBlock, true);
 		nameGS.workUntilEnd();
 		
 		if (nameGS.occurredError()){
