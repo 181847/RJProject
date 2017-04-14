@@ -7,20 +7,20 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
  * 允许Block链上面包含Static区域块，
  * 如果Static区域块出错的话，本Spider也算出错。
  */
-public class VarFieldGrammarSpider extends GrammarSpider {
+public class VarFieldGrammarSpider extends VarGrammarSpider {
+	protected boolean foundOne;
 	protected boolean foundStatic;
 
 	/**
-	 * 默认没有发生错误。
+	 * 默认发生错误。
 	 */
 	public VarFieldGrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock, true);
+		super(targetBlock);
 		foundStatic = false;
 	}
 
 	@Override
 	protected void dealWithTargetBlock() {
-		// TODO Auto-generated method stub
 		Information information = targetBlock.getInformation();
 		
 		switch(information.getType()){
@@ -43,7 +43,6 @@ public class VarFieldGrammarSpider extends GrammarSpider {
 	 * 处理静态成员声明。
 	 */
 	protected void dealWith_STATIC() {
-		// TODO Auto-generated method stub
 		if (foundStatic){
 			//foundStatic为true表示之前已经发现了一个静态成员，
 			//所以无论当前的information是什么，
@@ -54,6 +53,10 @@ public class VarFieldGrammarSpider extends GrammarSpider {
 					, false);
 			error = true;
 		} else {
+			if ( ! foundOne ){
+				foundOne = true;
+				error = false;
+			}
 			foundStatic = true;
 			GrammarSpider staticGS = new VarGrammarSpider(targetBlock);
 			staticGS.workUntilEnd();
