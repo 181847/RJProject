@@ -9,6 +9,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.ReasonedErrorSpider;
  * 并且添加一个方法允许在结尾加上Information的Description。
  */
 public abstract class GrammarSpider extends ReasonedErrorSpider {
+	protected boolean foundOne;
 
 	/**
 	 * 默认Spider没有发生错误。
@@ -69,6 +70,19 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 		
 		super.appendReason("错误行数：" + information.getLine() 
 				+ "\n\t" + anotherReason);
+	}
+	
+	/**
+	 * 本方法配合foundOne变量，
+	 * 本方法在第一次查找到合法信息的Block之后将Spider的状态转为正常，
+	 * 本方法被调用时，如果foundOne为false，
+	 * 就将Spider.error变为false，foundOne变为true。
+	 */
+	public void foundOneTaggle(){
+		if ( ! foundOne){
+			foundOne = true;
+			error = false;
+		}
 	}
 
 }
