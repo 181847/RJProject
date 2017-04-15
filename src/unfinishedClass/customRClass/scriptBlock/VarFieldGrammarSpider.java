@@ -8,7 +8,6 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
  * 如果Static区域块出错的话，本Spider也算出错。
  */
 public class VarFieldGrammarSpider extends VarGrammarSpider {
-	protected boolean foundOne;
 	protected boolean foundStatic;
 
 	/**
@@ -53,10 +52,7 @@ public class VarFieldGrammarSpider extends VarGrammarSpider {
 					, false);
 			error = true;
 		} else {
-			if ( ! foundOne ){
-				foundOne = true;
-				error = false;
-			}
+			foundOneTaggle();
 			foundStatic = true;
 			GrammarSpider staticGS = new VarGrammarSpider(targetBlock);
 			staticGS.workUntilEnd();
@@ -67,4 +63,12 @@ public class VarFieldGrammarSpider extends VarGrammarSpider {
 		}
 	}
 
+	@Override
+	public String getErrorReason(){
+		if ( ! foundOne){
+			return super.getErrorReason() + "VarField中没有发现具体的Var声明。";
+		} else {
+			return super.getErrorReason();
+		}
+	}
 }

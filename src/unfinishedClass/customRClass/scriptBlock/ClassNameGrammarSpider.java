@@ -4,10 +4,9 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
 
 /**
  * 此类的目的在于检查一个Block链，
- * 保证链上有1个或者不限次数个 CLASSNAME型Information。
+ * 保证链上只有1个或者不限次数个 CLASSNAME型Information。
  */
 public class ClassNameGrammarSpider extends GrammarSpider {
-	protected boolean foundOne;
 	protected boolean isLimited;
 	
 	/**
@@ -38,7 +37,6 @@ public class ClassNameGrammarSpider extends GrammarSpider {
 	}
 	
 	protected void dealWith_CLASSNAME() {
-		// TODO Auto-generated method stub
 		if (foundOne){
 			if (isLimited){
 				//先前已经找到类名，
@@ -50,6 +48,15 @@ public class ClassNameGrammarSpider extends GrammarSpider {
 		} else {
 			foundOne = true;
 			error = false;
+		}
+	}
+	
+	@Override
+	public String getErrorReason(){
+		if ( ! foundOne){
+			return super.getErrorReason() + "没有发现具体的ClassName声明。";
+		} else {
+			return super.getErrorReason();
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock;
 
 public class VarGrammarSpider extends GrammarSpider {
-	protected boolean foundOne;
 
 	/**
 	 * 默认发生错误。
@@ -14,7 +13,7 @@ public class VarGrammarSpider extends GrammarSpider {
 	protected void dealWithTargetBlock() {
 		switch(targetBlock.getInformation().getType()){
 		case VAR:
-			dealWith_VAR();
+			foundOneTaggle();
 			break;
 		case VOID:
 			dealWith_VOID();
@@ -24,12 +23,13 @@ public class VarGrammarSpider extends GrammarSpider {
 			break;
 		}
 	}
-
-	protected void dealWith_VAR() {
+	
+	@Override
+	public String getErrorReason(){
 		if ( ! foundOne){
-			foundOne = true;
-			error = false;
+			return super.getErrorReason() + "Var声明中没有发现具体的Var声明。";
+		} else {
+			return super.getErrorReason();
 		}
 	}
-
 }

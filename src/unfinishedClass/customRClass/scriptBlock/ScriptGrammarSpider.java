@@ -34,16 +34,12 @@ public class ScriptGrammarSpider extends GrammarSpider {
 
 
 	/**
-	 * 默认Spider没有发生错误。
+	 * 默认Spider发生错误。
 	 * @param targetBlock
 	 * 		目标Block节点。
 	 */
 	public ScriptGrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock);
-	}
-	
-	public ScriptGrammarSpider(ScriptBlock targetBlock, boolean initError){
-		super(targetBlock, initError);
+		super(targetBlock, true);
 	}
 
 	@Override
@@ -94,6 +90,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 每次只需要保证ABSTRACTFUN内部的Function定义无语法错误。
 	 */
 	private void dealWith_ABSTRACTFUN() {
+		foundOneTaggle();
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
@@ -119,6 +116,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 每次只需要保证FUN内部的Function定义无语法错误。
 	 */
 	private void dealWith_FUN() {
+		foundOneTaggle();
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
@@ -144,6 +142,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 每次只需要保证STATICFUN内部的Function定义无语法错误。
 	 */
 	private void dealWith_STATICFUN() {
+		foundOneTaggle();
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
 			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
@@ -168,6 +167,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 要求同一个脚本中不得出现两个CONFUN声明。
 	 */
 	private void dealWith_CONFUN() {
+		foundOneTaggle();
 		if (conFunGS != null){
 			//conFunGS不为null，
 			//说明先前检查过一次CONFUN，
@@ -203,10 +203,11 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * MEMBER下面至少有一个STATIC或者VAR的Information。
 	 */
 	private void dealWith_MEMBER() {
+		foundOneTaggle();
 		if (memberGS != null){
-			//implementsGS不为null，
-			//说明先前检查过一次IMPLEMENTS，
-			//这个脚本中有两个IMPLEMENTS声明，语法错误
+			//memberGS不为null，
+			//说明先前检查过一次MEMBER，
+			//这个脚本中有两个MEMBER声明，语法错误
 			appendReason("定义中多次发现MEMBER型的信息。", false);
 			error = true;
 			return;
@@ -238,6 +239,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * IMPLEMENTS下面至少有一个InformationType为CLASSNAME的Information。
 	 */
 	private void dealWith_IMPLEMENTS() {
+		foundOneTaggle();
 		if (implementsGS != null){
 			//implementsGS不为null，
 			//说明先前检查过一次IMPLEMENTS，
@@ -275,6 +277,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 此检查过程类似Name的检查，
 	 */
 	private void dealWith_EXTENDS() {
+		foundOneTaggle();
 		if (extendsGS != null){
 			//extendsGS不为null，
 			//说明先前检查过一次EXTENDS，
@@ -310,6 +313,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * NAME下面有且只有一个InformationType为CLASSNAME的Information。
 	 */
 	private void dealWith_NAME() {
+		foundOneTaggle();
 		if (nameGS != null){
 			//nameGS不为null，
 			//说明先前检查过一次NAME，
@@ -344,6 +348,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 要求同一个脚本中不得出现两个TYPE声明。
 	 */
 	private void dealWith_TYPE() {
+		foundOneTaggle();
 		if (typeGS != null){
 			//typeGS不为null，
 			//说明先前检查过一次TYPE，

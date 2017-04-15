@@ -8,7 +8,6 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
  * INTERFACE或 ABSTRACT或 CLASS的Block。
  */
 public class TypeGrammarSpider extends GrammarSpider {
-	protected boolean foundOne;
 
 	/**
 	 * 默认发生了错误，
@@ -54,6 +53,15 @@ public class TypeGrammarSpider extends GrammarSpider {
 		} else {
 			error = false;		//发现类型的具体声明，手动设置error为false。
 			foundOne = true;	//记录已经找到一个具体的类型声明
+		}
+	}
+	
+	@Override
+	public String getErrorReason(){
+		if ( ! foundOne){
+			return super.getErrorReason() + "没有发现具体的Type声明。";
+		} else {
+			return super.getErrorReason();
 		}
 	}
 
