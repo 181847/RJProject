@@ -10,6 +10,7 @@ import java.util.zip.ZipFile;
 
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
+import unfinishedClass.customRClass.scriptBlock.spider.ReasonedErrorSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.SequencePrintSpider;
 
 public class ScriptBlockHelper {
@@ -243,7 +244,13 @@ public class ScriptBlockHelper {
 		//以及是否存在无关信息，
 		//哪怕是包含一个最微小的语法错误，
 		//这个脚本都将整个地从加载序列中删除。
-		new SequenceGrammarSpider(scriptSequenceHead)
+		ReasonedErrorSpider sequenceSpider = new SequenceGrammarSpider(scriptSequenceHead);
+		sequenceSpider.workUntilEnd();
+		RLogger.log("\n\n\n\n\n脚本序列语法检查结果：");
+		RLogger.log(sequenceSpider.getErrorReason());
+		
+		RLogger.log("\n\n\n\n\n脚本序列语法检查之后的加载序列中的脚本：");
+		new SequencePrintDescriptionSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
 		/*
