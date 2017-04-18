@@ -5,6 +5,9 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
+/**
+ * 这个类用来分析注释的矩形区域是否正确声明。
+ */
 public class CommentAnalysisSpider extends AbstractBCSpider {
 
 	public CommentAnalysisSpider(ScriptBlock targetBlock) {
