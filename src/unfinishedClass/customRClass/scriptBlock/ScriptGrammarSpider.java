@@ -39,7 +39,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 	 * 		目标Block节点。
 	 */
 	public ScriptGrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock, true);
+		super(targetBlock, true, "RClass脚本检查");
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		funGS = new FunGrammarSpider(subBlock);
+		funGS = new FunGrammarSpider(subBlock, "普通Function检查");
 		funGS.workUntilEnd();
 		
 		if (funGS.occurredError()){
@@ -151,7 +151,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		staticFunGS = new StaticFunGrammarSpider(subBlock);
+		staticFunGS = new FunGrammarSpider(subBlock, "静态Function检查");
 		staticFunGS.workUntilEnd();
 		
 		if (staticFunGS.occurredError()){
@@ -179,7 +179,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 		
 		ScriptBlock subBlock = targetBlock.getSub();
 		if (subBlock == null){
-			//IMPLEMENTS声明的下面没有具体的Function定义，语法错误
+			//CONFUN声明的下面没有具体的Function定义，语法错误
 			appendReason("CONFUN型的信息下面没有具体的Function定义。", false);
 			error = true;
 			return;
@@ -221,7 +221,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		memberGS = new VarFieldGrammarSpider(subBlock);
+		memberGS = new VarFieldGrammarSpider(subBlock, "RClass的成员变量检查");
 		memberGS.workUntilEnd();
 		
 		if (memberGS.occurredError()){
@@ -258,7 +258,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 		}
 		
 		//没有数量限制的类名检查
-		implementsGS = new ClassNameGrammarSpider(subBlock, false);
+		implementsGS = new ClassNameGrammarSpider(subBlock, false, "RClass实现的接口名检查");
 		implementsGS.workUntilEnd();
 		
 		if (implementsGS.occurredError()){
@@ -295,7 +295,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		extendsGS = new ClassNameGrammarSpider(subBlock, true);
+		extendsGS = new ClassNameGrammarSpider(subBlock, true, "RClass继承的父类名检查");
 		extendsGS.workUntilEnd();
 		
 		if (extendsGS.occurredError()){
@@ -331,7 +331,7 @@ public class ScriptGrammarSpider extends GrammarSpider {
 			return;
 		}
 		
-		nameGS = new ClassNameGrammarSpider(subBlock, true);
+		nameGS = new ClassNameGrammarSpider(subBlock, true, "RClass的类名检查");
 		nameGS.workUntilEnd();
 		
 		if (nameGS.occurredError()){

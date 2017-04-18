@@ -16,7 +16,7 @@ public class TypeGrammarSpider extends GrammarSpider {
 	 * 才不算发生错误。
 	 */
 	public TypeGrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock, true);
+		super(targetBlock, true, "RClass类型检查");
 		foundOne = false;
 	}
 
