@@ -16,7 +16,6 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 
 	@Override
 	protected void dealWithTargetBlock() {
-		// TODO Auto-generated method stub
 		ScriptBlock subBlock = targetBlock.getSub();
 		Information information = targetBlock.getInformation();
 		String informationString = information.getOriginalString();
@@ -33,7 +32,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 			//Function的参数组件分析
 			information.setType(InformationType.PARAMETER);
 			if (subBlock != null){
-				new VarAnalysisSpider(subBlock)
+				new VarAnalysisSpider(subBlock, InformationType.PARAMETER)
 					.workUntilEnd();
 			}
 			
@@ -49,7 +48,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 			//Function的返回值组件分析
 			information.setType(InformationType.RETURNVAL);
 			if (subBlock != null){
-				new VarAnalysisSpider(subBlock)
+				new VarAnalysisSpider(subBlock, InformationType.RETURNVAL)
 					.workUntilEnd();
 			}
 			
