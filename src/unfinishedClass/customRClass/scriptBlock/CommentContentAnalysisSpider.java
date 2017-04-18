@@ -1,5 +1,4 @@
 package unfinishedClass.customRClass.scriptBlock;
-
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
