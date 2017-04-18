@@ -12,9 +12,15 @@ public class VarFieldGrammarSpider extends VarGrammarSpider {
 
 	/**
 	 * 默认发生错误。
+	 * @param targetBlock
+	 * 		目标Block。
+	 * @param spiderDescription
+	 * 		对本Spider的具体描述，
+	 * 		这个描述将会被添加进错误信息的头部，
+	 * 		用来帮助用户确定错误是发生在哪个检查过程中的。
 	 */
-	public VarFieldGrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock);
+	public VarFieldGrammarSpider(ScriptBlock targetBlock, String spiderDescription) {
+		super(targetBlock, spiderDescription);
 		foundStatic = false;
 	}
 
@@ -27,7 +33,7 @@ public class VarFieldGrammarSpider extends VarGrammarSpider {
 			dealWith_STATIC();
 			break;
 		case VAR:
-			//dealWith_VAR();
+			dealWith_VAR();
 			break;
 		case VOID:
 			dealWith_VOID();
@@ -54,7 +60,16 @@ public class VarFieldGrammarSpider extends VarGrammarSpider {
 		} else {
 			foundOneTaggle();
 			foundStatic = true;
-			GrammarSpider staticGS = new VarGrammarSpider(targetBlock);
+			ScriptBlock subBlock = 
+					targetBlock.getSub();
+			
+			if (subBlock == null){
+				appendReason("静态成员声明块当中没有具体的成员声明", false);
+				error = true;
+				return;
+			}
+			
+			GrammarSpider staticGS = new VarGrammarSpider(subBlock, "静态变量检查");
 			staticGS.workUntilEnd();
 			if (staticGS.occurredError()){
 				appendReason(staticGS.getErrorReason());
