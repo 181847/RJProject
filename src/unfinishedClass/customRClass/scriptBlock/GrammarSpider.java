@@ -10,13 +10,6 @@ import unfinishedClass.customRClass.scriptBlock.spider.ReasonedErrorSpider;
  */
 public abstract class GrammarSpider extends ReasonedErrorSpider {
 	protected boolean foundOne;
-
-	/**
-	 * 默认Spider没有发生错误。
-	 */
-	public GrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock);
-	}
 	
 	/**
 	 * @param targetBlock
@@ -24,8 +17,9 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 	 * @param initError
 	 * 		手动初始化Spider是否发生错误。
 	 */
-	public GrammarSpider(ScriptBlock targetBlock, boolean initError){
+	public GrammarSpider(ScriptBlock targetBlock, boolean initError, String spiderDescription){
 		super(targetBlock, initError);
+		appendReason(spiderDescription + "中发现以下错误：");
 	}
 
 	@Override
@@ -38,7 +32,7 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 	 * 设置error成员为true。
 	 */
 	protected void dealWith_VOID() {
-		appendReason("RClass的脚本中发现VOID信息。", true);
+		appendReason("发现VOID信息。", true);
 		error = true;
 	}
 	
@@ -47,7 +41,7 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 	 * 这个方法由子类调用。
 	 */
 	protected void dealWith_Unexpected(){
-		appendReason("脚本中发现无用信息。", true);
+		appendReason("发现无用信息。", true);
 		error = true;
 	}
 	
@@ -69,7 +63,8 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 		}
 		
 		super.appendReason("错误行数：" + information.getLine() 
-				+ "\n\t" + anotherReason);
+				+ "\n\t" + anotherReason
+				+ "\n");
 	}
 	
 	/**
@@ -84,5 +79,14 @@ public abstract class GrammarSpider extends ReasonedErrorSpider {
 			error = false;
 		}
 	}
-
+	
+	@Override
+	public String getErrorReason(){
+		if ( ! foundOne){
+			return super.getErrorReason() 
+					+ "没有发现至少一个合法的信息。";
+		}
+		
+		return super.getErrorReason();
+	}
 }
