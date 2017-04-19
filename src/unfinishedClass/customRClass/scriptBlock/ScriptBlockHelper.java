@@ -10,6 +10,7 @@ import java.util.zip.ZipFile;
 
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
+import unfinishedClass.customRClass.scriptBlock.spider.SequenceInformationSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.analysisSpider.forSequence.SequenceAnalysisSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedErrorSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequenceLineAssignerSpider;
@@ -250,23 +251,26 @@ public class ScriptBlockHelper {
 		//这个脚本都将整个地从加载序列中删除。
 		ReasonedErrorSpider sequenceSpider = new SequenceGrammarSpider(scriptSequenceHead);
 		sequenceSpider.workUntilEnd();
+		
+		//输出语法检查结果
 		RLogger.log("\n\n\n\n\n脚本序列语法检查结果：");
 		RLogger.log(sequenceSpider.getErrorReason());
 		
+		//输出语法检查过后 加载序列 中剩余的脚本
 		RLogger.log("\n\n\n\n\n脚本序列语法检查之后的加载序列中的脚本：");
 		new SequencePrintDescriptionSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
-		/*
 		//信息收集，
 		//将脚本中的信息提升到上层的Information当中，
 		//最终由Information类型来存储RClass的信息，
 		//比如原来一行的成员信息，
 		//在这里就要把它按照类型、名字、初始化值 三个部分进行分割，
 		//方便后续的实例化操作。
-		new SequenceInformationGetterSpider(scriptSequenceHead)
+		new SequenceInformationSpider(scriptSequenceHead)
 			.workUntilEnd();
-		
+
+		/*
 		//检查声明类型和声明内容不匹配错误，
 		//特别针对脚本中声明的RClass类型进行检查，
 		//保证接口类型的RClass没有声明Extends、Member
