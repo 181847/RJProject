@@ -1,23 +1,9 @@
 package unfinishedClass.customRClass.scriptBlock;
 
-import unfinishedClass.customRClass.scriptBlock.information.Information;
-import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
 
-public class ScriptSequenceInformation implements Information {
-	@Override
-	public String toString(){
-		return "ScriptSequence";
-	}
-
-	@Override
-	public InformationType getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setType(InformationType type) {
-		// TODO Auto-generated method stub
-		
+public class ScriptSequenceInformation extends RawScriptInformation {
+	public ScriptSequenceInformation() {
+		super("ScriptSequence");
 	}
 }

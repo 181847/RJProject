@@ -20,7 +20,7 @@ import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
-import unfinishedClass.customRClass.scriptBlock.spider.SequencePrintSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
 
 /**
  * 本工程的核心，

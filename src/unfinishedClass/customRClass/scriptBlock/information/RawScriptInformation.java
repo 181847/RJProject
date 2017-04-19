@@ -38,6 +38,10 @@ public class RawScriptInformation implements Information {
 
 	@Override
 	public void appendDescription(String anotherDescription) {
-		description += "; " + anotherDescription;
+		if (description.isEmpty()){
+			description = anotherDescription;
+		} else {
+			description += "; " + anotherDescription;
+		}
 	}
 }
