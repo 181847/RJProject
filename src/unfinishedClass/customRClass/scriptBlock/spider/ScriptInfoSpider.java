@@ -70,7 +70,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addAbstractFun(infoSpider.getConFunStruct());
+		rClassStruct.addAbstractFunStruct(infoSpider.FunStruct());
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addFun(infoSpider.getConFunStruct());
+		rClassStruct.addFunStruct(infoSpider.FunStruct());
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addConFun(infoSpider.getConFunStruct());
+		rClassStruct.addStaticFunStruct(infoSpider.FunStruct());
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addConFun(infoSpider.getConFunStruct());
+		rClassStruct.addConFunStruct(infoSpider.FunStruct());
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的成员信息
-		rClassStruct.addMember(infoSpider.getVarFieldStruct());
+		rClassStruct.addMemberStruct(infoSpider.getVarFieldStruct());
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的继承父类接口信息
-		rClassStruct.addImplementSet(infoSpider.getImplementSet());
+		rClassStruct.addImplementSetStruct(infoSpider.getImplementSetStruct());
 	}
 
 	/**

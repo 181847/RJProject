@@ -3,7 +3,10 @@ package unfinishedClass.customRClass.scriptBlock.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
-public class FunAbstractInfoSpider extends AbstractBCSpider {
+/**
+ * 抽象类实现有关收集Function信息的各种方法。
+ */
+public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 	protected FunctionStruct functionStruct;
 	
 	public FunAbstractInfoSpider(ScriptBlock targetBlock) {
@@ -46,8 +49,7 @@ public class FunAbstractInfoSpider extends AbstractBCSpider {
 	/**
 	 * 收集注释信息。
 	 */
-	private void dealWith_COMMENT() {
-		// TODO Auto-generated method stub
+	protected void dealWith_COMMENT() {
 		CommentSetInfoSpider infoSpider = 
 				new CommentSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
@@ -58,7 +60,7 @@ public class FunAbstractInfoSpider extends AbstractBCSpider {
 	/**
 	 * 收集弧线信息。
 	 */
-	private void dealWith_ARC() {
+	protected void dealWith_ARC() {
 		ArcSetInfoSpider infoSpider = 
 				new ArcSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
@@ -126,7 +128,7 @@ public class FunAbstractInfoSpider extends AbstractBCSpider {
 	 */
 	protected void dealWith_EXCUTEE() {
 		ExcuteeSetInfoSpider infoSpider = 
-				new ExcuteesInfoSpider(targetBlock.getSub());
+				new ExcuteeSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
 		functionStruct.addExcuteeSetStruct(infoSpider.getExcuteeSetStruct());
