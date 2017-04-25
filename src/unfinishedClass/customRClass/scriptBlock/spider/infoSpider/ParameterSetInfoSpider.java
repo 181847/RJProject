@@ -1,7 +1,9 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ParameterSetStruct;
 
 /**
  * 收集Block链上面的Parameter组件信息，
@@ -21,7 +23,7 @@ public class ParameterSetInfoSpider extends AbstractBCSpider {
 		switch(information.getType()){
 		case PARAMETER:
 			parameterSetStruct
-				.addParameterStruct(information.getOriginalString());
+				.addParameter(information.getOriginalString());
 			break;
 		default:
 			break;

@@ -1,7 +1,9 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.VarFieldStruct;
 
 /**
  * 提取Block链上的信息作为成员变量的信息，
@@ -13,7 +15,7 @@ public class VarFieldInfoSpider extends AbstractBCSpider {
 	
 	public VarFieldInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		varFieldStruct = new varFieldStruct();
+		varFieldStruct = new VarFieldStruct();
 	}
 
 	@Override
@@ -34,7 +36,10 @@ public class VarFieldInfoSpider extends AbstractBCSpider {
 	 * 提取targetBlock.information中存储的变量信息到varFieldStruct中。
 	 */
 	protected void dealWith_VAR() {
-		varFieldStruct.addVar(information.getOriginalString());
+		varFieldStruct.addVar(
+				targetBlock
+				.getInformation()
+				.getOriginalString());
 	}
 
 	/**
@@ -46,7 +51,8 @@ public class VarFieldInfoSpider extends AbstractBCSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的成员信息
-		varFieldStruct.addStaticSetStruct(infoSpider.getVarSetStruct());
+		varFieldStruct.addStaticSetStruct(
+				infoSpider.getVarSetStruct());
 	}
 
 	public VarFieldStruct getVarFieldStruct() {

@@ -1,6 +1,8 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
+import unfinishedClass.customRClass.scriptBlock.spider.InfoSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
 
 /**
  * 已知Block链为一个脚本信息链，
@@ -70,7 +72,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addAbstractFunStruct(infoSpider.FunStruct());
+		rClassStruct.addAbstractFunStruct(infoSpider.getFunStruct());
 	}
 
 	/**
@@ -83,7 +85,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addFunStruct(infoSpider.FunStruct());
+		rClassStruct.addFunStruct(infoSpider.getFunStruct());
 	}
 	
 	/**
@@ -96,7 +98,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addStaticFunStruct(infoSpider.FunStruct());
+		rClassStruct.addStaticFunStruct(infoSpider.getFunStruct());
 	}
 
 	/**
@@ -109,7 +111,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addConFunStruct(infoSpider.FunStruct());
+		rClassStruct.addConFunStruct(infoSpider.getFunStruct());
 	}
 
 	/**
@@ -149,6 +151,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		rClassStruct.addExtends(
 				targetBlock
 				.getSub()
+				.getNext()
 				.getInformation()
 				.getOriginalString());
 	}
@@ -163,6 +166,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		rClassStruct.addName(
 				targetBlock
 				.getSub()
+				.getNext()
 				.getInformation()
 				.getOriginalString());
 	}
@@ -178,7 +182,8 @@ public class ScriptInfoSpider extends InfoSpider {
 				targetBlock
 				.getSub()
 				.getNext()
-				.getInformation());
+				.getInformation()
+				.getType());
 	}
 	
 	

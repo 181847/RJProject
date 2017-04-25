@@ -1,6 +1,8 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ImplementSetStruct;
 
 /**
  * 提取Block链上的原始信息作为父类接口的名称。

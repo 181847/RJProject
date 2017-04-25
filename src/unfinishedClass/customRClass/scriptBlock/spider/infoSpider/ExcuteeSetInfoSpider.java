@@ -1,7 +1,9 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuteeSetStruct;
 
 /**
  * 收集Block链上面的Excutee组件信息，
@@ -21,7 +23,7 @@ public class ExcuteeSetInfoSpider extends AbstractBCSpider {
 		switch(information.getType()){
 		case EXCUTEE:
 			excuteeSetStruct
-				.addExcuteeStruct(information.getOriginalString());
+				.addExcutee(information.getOriginalString());
 			break;
 		default:
 			break;

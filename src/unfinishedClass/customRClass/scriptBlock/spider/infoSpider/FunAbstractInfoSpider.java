@@ -1,7 +1,9 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.FunctionStruct;
 
 /**
  * 抽象类实现有关收集Function信息的各种方法。
@@ -134,7 +136,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 		functionStruct.addExcuteeSetStruct(infoSpider.getExcuteeSetStruct());
 	}
 
-	public FunctoinStruct getFunStruct(){
+	public FunctionStruct getFunStruct(){
 		return functionStruct;
 	}
 
