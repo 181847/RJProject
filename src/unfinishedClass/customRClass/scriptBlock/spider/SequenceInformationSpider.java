@@ -2,6 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.ScriptInfoSpider;
 
 /**
  * 将加载序列中的每个脚本中的信息，
