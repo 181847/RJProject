@@ -68,7 +68,11 @@ public class ScriptInfoSpider extends InfoSpider {
 	 */
 	protected void dealWith_ABSTRACTFUN() {
 		AbstractFunInfoSpider infoSpider = 
-				new AbstractFunInfoSpider(targetBlock.getSub());
+				new AbstractFunInfoSpider(
+						targetBlock.getSub(),
+						targetBlock
+						.getInformation()
+						.getOriginalString());
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
@@ -81,7 +85,11 @@ public class ScriptInfoSpider extends InfoSpider {
 	 */
 	protected void dealWith_FUN() {
 		FunInfoSpider infoSpider = 
-				new FunInfoSpider(targetBlock.getSub());
+				new FunInfoSpider(
+						targetBlock.getSub(),
+						targetBlock
+						.getInformation()
+						.getOriginalString());
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
@@ -94,7 +102,11 @@ public class ScriptInfoSpider extends InfoSpider {
 	 */
 	protected void dealWith_STATICFUN() {
 		StaticFunInfoSpider infoSpider = 
-				new StaticFunInfoSpider(targetBlock.getSub());
+				new StaticFunInfoSpider(
+						targetBlock.getSub(),
+						targetBlock
+							.getInformation()
+							.getOriginalString());
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
@@ -107,7 +119,8 @@ public class ScriptInfoSpider extends InfoSpider {
 	 */
 	protected void dealWith_CONFUN() {
 		ConFunInfoSpider infoSpider = 
-				new ConFunInfoSpider(targetBlock.getSub());
+				new ConFunInfoSpider(
+						targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息

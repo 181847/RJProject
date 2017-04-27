@@ -3,6 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ReturnvalSetStruct;
 
 public class ReturnvalSetInfoSpider extends AbstractBCSpider {
 	protected ReturnvalSetStruct returnvalSetStruct;
@@ -18,7 +19,7 @@ public class ReturnvalSetInfoSpider extends AbstractBCSpider {
 		switch(information.getType()){
 		case RETURNVAL:
 			returnvalSetStruct
-				.addReturnvalStruct(information.getOriginalString());
+				.addReturnval(information.getOriginalString());
 			break;
 		default:
 			break;

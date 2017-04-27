@@ -2,6 +2,8 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.CommentSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.CommentStruct;
 
 /**
  * 收集Block链上面的注释信息，
@@ -12,6 +14,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 
 	public CommentSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
+		commentSetStruct = new CommentSetStruct();
 	}
 
 	@Override
@@ -31,8 +34,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 	 */
 	protected void dealWith_RECT() {
 		CommentStruct commentStruct =
-				new CommentStruct;
-		commentStruct.addRectStruct(targetBlock.getInformation().getOriginalString());
+				new CommentStruct();
 		
 		//提取子链中的详细注释信息
 		pickUpCommentLines(commentStruct);
@@ -40,7 +42,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 	}
 	
 	/**
-	 * 提取子链中的每一个Block中的信息到commentStruct对象当中，
+	 * 提取子链中的每一个Block中的信息到参数的commentStruct对象当中，
 	 * 默认子链是一个带头结点的双重循环链表。
 	 */
 	protected void pickUpCommentLines(CommentStruct commentStruct){
@@ -59,6 +61,10 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 					.getInformation()
 					.getOriginalString());
 		}
+	}
+
+	public CommentSetStruct getCommentSetStruct() {
+		return commentSetStruct;
 	}
 	
 }

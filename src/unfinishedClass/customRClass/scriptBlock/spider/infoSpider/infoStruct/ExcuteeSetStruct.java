@@ -6,7 +6,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 public class ExcuteeSetStruct {
 
 	/**
-	 * 添加一个Excutee组件信息，
+	 * 添加一个Exutee组件信息，
 	 * 可以只是一个简单的字符串，
 	 * 例如“fire”。
 	 * @param excuteeInfo

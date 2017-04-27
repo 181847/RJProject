@@ -3,6 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.SubFunSetStruct;
 
 /**
  * 收集Block链上面的SubFun信息，
@@ -22,7 +23,7 @@ public class SubFunSetInfoSpider extends AbstractBCSpider {
 		switch(information.getType()){
 		case SUBFUN:
 			subFunSetStruct
-				.addSubFunStruct(information.getOriginalString());
+				.addSubFun(information.getOriginalString());
 			break;
 		default:
 			break;

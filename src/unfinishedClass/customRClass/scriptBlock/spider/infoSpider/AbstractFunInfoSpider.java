@@ -1,6 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
+import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
@@ -12,9 +13,24 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  */
 public class AbstractFunInfoSpider extends FunAbstractInfoSpider {
 
-	public AbstractFunInfoSpider(ScriptBlock targetBlock) {
+	public AbstractFunInfoSpider(ScriptBlock targetBlock, String declaration) {
 		super(targetBlock);
 		functionStruct.setType(InformationType.ABSTRACTFUN);
+		functionStruct.setName(pickName(declaration));
+	}
+	
+	/**
+	 * 提取AbstractFun声明中的名称部分,
+	 * 例如从“AbstractFunction: abstractFunctionName”提取出“abstractFunctionName”这一部分。
+	 * @param declaration
+	 * 		FunctionBlock中的information字符串。
+	 * @return
+	 * 		Function声明的名称部分。
+	 */
+	protected String pickName(String declaration) {
+		return declaration = 
+				declaration.substring(
+						ScriptDeclaration.abstractFun.length());
 	}
 
 	@Override
@@ -33,6 +49,7 @@ public class AbstractFunInfoSpider extends FunAbstractInfoSpider {
 			dealWith_RETURNVAL();
 		default:
 			break;
+		}
 	}
 
 }

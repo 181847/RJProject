@@ -3,6 +3,8 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuterSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.InfoStructHelper;
 
 /**
  * 收集Block链上面的Excuter组件信息，
@@ -23,7 +25,8 @@ public class ExcuterSetInfoSpider extends AbstractBCSpider {
 		switch(information.getType()){
 		case EXCUTER:
 			excuterSetStruct
-				.addExcuterStruct(information.getOriginalString());
+			.addExcuter(
+				information.getOriginalString());
 			break;
 		default:
 			break;
@@ -31,6 +34,10 @@ public class ExcuterSetInfoSpider extends AbstractBCSpider {
 	}
 	
 	public ExcuterSetStruct getExcuterSetStruct(){
+		return excuterSetStruct;
+	}
+
+	public ExcuterSetStruct getExcutersStruct() {
 		return excuterSetStruct;
 	}
 }

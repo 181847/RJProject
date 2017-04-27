@@ -18,5 +18,4 @@ public class VarSetStruct {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
