@@ -2,19 +2,19 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.CommentSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.CommentSet;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.CommentStruct;
 
 /**
  * 收集Block链上面的注释信息，
- * 并整合成一个CommentSetStruct对象。
+ * 并整合成一个CommentSet对象。
  */
 public class CommentSetInfoSpider extends AbstractBCSpider {
-	protected CommentSetStruct commentSetStruct;
+	protected CommentSet commentSet;
 
 	public CommentSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		commentSetStruct = new CommentSetStruct();
+		commentSet = new CommentSet();
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 		
 		//提取子链中的详细注释信息
 		pickUpCommentLines(commentStruct);
-		commentSetStruct.addCommentStruct(commentStruct);
+		commentSet.addComment(commentStruct);
 	}
 	
 	/**
@@ -63,8 +63,8 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 
-	public CommentSetStruct getCommentSetStruct() {
-		return commentSetStruct;
+	public CommentSet getCommentSet() {
+		return commentSet;
 	}
 	
 }

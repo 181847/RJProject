@@ -7,6 +7,45 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  * 这个类型作为脚本文件和直接的RClass对象的过渡对象。
  */
 public class RClassStruct {
+	/**
+	 * RClass类型。
+	 */
+	protected InformationType rClassType;
+	
+	/**
+	 * RClass名字，
+	 */
+	protected String rClassName;
+	
+	/**
+	 * 父类信息。
+	 */
+	protected RClassRefStruct extend;
+	
+	/**
+	 * 接口信息集合。
+	 */
+	protected ImplementSet implementSet;
+	
+	/**
+	 * 成员变量集合。
+	 */
+	protected VarFieldStruct memberVarSet;
+	
+	/**
+	 * 构造Function信息。
+	 */
+	protected FunctionStruct conFun;
+	
+	/**
+	 * 静态Function集合
+	 */
+	protected FunSet staticFunSet;
+	
+	/**
+	 * 成员Function以及抽象Function集合。
+	 */
+	protected FunSet funSet;
 
 	/**
 	 * 添加RClass的类型。
@@ -14,9 +53,8 @@ public class RClassStruct {
 	 * 		RClass的类型，要求只能是一下三种之一：
 	 * 		InformationType.INTERFACE/ABSTRACT/CLASS。
 	 */
-	public void addType(InformationType type) {
-		// TODO Auto-generated method stub
-		
+	public void setType(InformationType type) {
+		rClassType = type;
 	}
 	
 	/**
@@ -24,9 +62,8 @@ public class RClassStruct {
 	 * @param name
 	 * 		RClass的名字。
 	 */
-	public void addName(String name) {
-		// TODO Auto-generated method stub
-		
+	public void setName(String name) {
+		rClassName = name;
 	}
 
 	/**
@@ -35,19 +72,17 @@ public class RClassStruct {
 	 * @param superName
 	 * 		父类的名字。
 	 */
-	public void addExtends(String superName) {
-		// TODO Auto-generated method stub
-		
+	public void setExtends(String superName) {
+		extend = new RClassRefStruct(superName);
 	}
 
 	/**
 	 * 添加接口继承的父类名称集合。
-	 * @param iSetStruct
+	 * @param iSet
 	 * 		这个对象当中包含多个接口RClass的名字。
 	 */
-	public void addImplementSetStruct(ImplementSetStruct iSetStruct){
-		//TODO with implementSetStruct
-		
+	public void setImplementSet(ImplementSet iSet){
+		implementSet = iSet;
 	}
 
 	/**
@@ -56,9 +91,8 @@ public class RClassStruct {
 	 * @param varFieldStruct
 	 * 		成员变量集合。
 	 */
-	public void addMemberStruct(VarFieldStruct varFieldStruct) {
-		// TODO Auto-generated method stub
-		
+	public void setMemberSet(VarFieldStruct varFieldStruct) {
+		memberVarSet = varFieldStruct;
 	}
 
 	/**
@@ -67,9 +101,8 @@ public class RClassStruct {
 	 * @param funStruct
 	 * 		构造Function的结构信息。
 	 */
-	public void addConFunStruct(FunctionStruct conFunStruct) {
-		// TODO Auto-generated method stub
-		
+	public void setConFunStruct(FunctionStruct conFunStruct) {
+		conFun = conFunStruct;
 	}
 
 	/**
@@ -79,8 +112,7 @@ public class RClassStruct {
 	 * 		静态Function结构信息。
 	 */
 	public void addStaticFunStruct(FunctionStruct staticFunStruct) {
-		// TODO Auto-generated method stub
-		
+		staticFunSet.addFun(staticFunStruct);
 	}
 
 	/**
@@ -90,8 +122,7 @@ public class RClassStruct {
 	 * 		普通成员Function结构信息。
 	 */
 	public void addFunStruct(FunctionStruct funStruct) {
-		// TODO Auto-generated method stub
-		
+		funSet.addFun(funStruct);
 	}
 
 	/**
@@ -101,8 +132,7 @@ public class RClassStruct {
 	 * 		抽象Function结构信息。
 	 */
 	public void addAbstractFunStruct(FunctionStruct funStruct) {
-		// TODO Auto-generated method stub
-		
+		funSet.addFun(funStruct);
 	}
 	
 	

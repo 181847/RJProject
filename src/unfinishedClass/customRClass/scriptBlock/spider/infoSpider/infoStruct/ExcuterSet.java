@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的Excuter组件信息。
  */
-public class ExcuterSetStruct {
+public class ExcuterSet {
 	/**
 	 * 添加一个Excuter组件信息，
 	 * 可以只是一个简单的字符串，
@@ -13,6 +13,10 @@ public class ExcuterSetStruct {
 	 * 		目前而言只需要这个的名字。
 	 */
 	public void addExcuter(String excuterInfo) {
+		addExcuter(new ExcuterStruct(excuterInfo));
+	}
+
+	public void addExcuter(ExcuterStruct excuterStruct) {
 		// TODO Auto-generated method stub
 		
 	}

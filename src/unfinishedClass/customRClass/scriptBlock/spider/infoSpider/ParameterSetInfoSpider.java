@@ -3,18 +3,18 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ParameterSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ParameterSet;
 
 /**
  * 收集Block链上面的Parameter组件信息，
- * 并整合成一个ParameterSetStruct对象。
+ * 并整合成一个ParameterSet对象。
  */
 public class ParameterSetInfoSpider extends AbstractBCSpider {
-	protected ParameterSetStruct parameterSetStruct;
+	protected ParameterSet parameterSet;
 	
 	public ParameterSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		parameterSetStruct = new ParameterSetStruct();
+		parameterSet = new ParameterSet();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class ParameterSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case PARAMETER:
-			parameterSetStruct
+			parameterSet
 				.addParameter(information.getOriginalString());
 			break;
 		default:
@@ -30,8 +30,8 @@ public class ParameterSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 	
-	public ParameterSetStruct getParameterSetStruct(){
-		return parameterSetStruct;
+	public ParameterSet getParameterSet(){
+		return parameterSet;
 	}
 
 }

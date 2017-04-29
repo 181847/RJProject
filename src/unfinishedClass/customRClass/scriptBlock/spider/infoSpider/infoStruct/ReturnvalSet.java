@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的Returnval组件信息。
  */
-public class ReturnvalSetStruct {
+public class ReturnvalSet {
 	/**
 	 * 添加一个Returnval组件的信息，，
 	 * 形如“basic.Integer parameter2”，<br>
@@ -12,6 +12,10 @@ public class ReturnvalSetStruct {
 	 * 		一个Returnval组件的信息。
 	 */
 	public void addReturnval(String returnvalInfo) {
+		addReturnval(new ReturnvalStruct(returnvalInfo));
+	}
+
+	public void addReturnval(ReturnvalStruct returnvalStruct) {
 		// TODO Auto-generated method stub
 		
 	}

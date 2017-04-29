@@ -3,14 +3,14 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ReturnvalSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ReturnvalSet;
 
 public class ReturnvalSetInfoSpider extends AbstractBCSpider {
-	protected ReturnvalSetStruct returnvalSetStruct;
+	protected ReturnvalSet returnvalSet;
 	
 	public ReturnvalSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		returnvalSetStruct = new ReturnvalSetStruct();
+		returnvalSet = new ReturnvalSet();
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class ReturnvalSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case RETURNVAL:
-			returnvalSetStruct
+			returnvalSet
 				.addReturnval(information.getOriginalString());
 			break;
 		default:
@@ -26,7 +26,7 @@ public class ReturnvalSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 	
-	public ReturnvalSetStruct getReturnvalSetStruct(){
-		return returnvalSetStruct;
+	public ReturnvalSet getReturnvalSet(){
+		return returnvalSet;
 	}
 }

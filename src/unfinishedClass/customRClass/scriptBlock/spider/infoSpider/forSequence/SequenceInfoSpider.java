@@ -1,7 +1,8 @@
-package unfinishedClass.customRClass.scriptBlock.spider;
+package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.forSequence;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.ScriptInfoSpider;
 
 /**
@@ -11,18 +12,17 @@ import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.ScriptInfoSpid
  * 在这里的Block链必须保证其正确性，
  * 收集信息的过程不会检查任何语法错误。
  */
-public class SequenceInformationSpider extends AbstractBCSpider {
+public class SequenceInfoSpider extends AbstractBCSpider {
 
-	public SequenceInformationSpider(ScriptBlock targetBlock) {
+	public SequenceInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
 	@Override
 	protected void dealWithTargetBlock() {
-		Information information = targetBlock.getInformation();
 		
 		ScriptInfoSpider infoSpider = 
-				new ScriptInfoSpider(information.getOriginalString(),targetBlock.getSub());
+				new ScriptInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
 		//根据ScriptInfoSpider的工作成果

@@ -13,6 +13,14 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  */
 public class AbstractFunInfoSpider extends FunAbstractInfoSpider {
 
+	/**
+	 * 收集抽象Function信息的Spider。
+	 * @param targetBlock
+	 * 		目标Block。
+	 * @param declaration
+	 * 		关于抽象Function在脚本中的声明，
+	 * 		将从这个声明中提取抽象Function的名字信息。
+	 */
 	public AbstractFunInfoSpider(ScriptBlock targetBlock, String declaration) {
 		super(targetBlock);
 		functionStruct.setType(InformationType.ABSTRACTFUN);

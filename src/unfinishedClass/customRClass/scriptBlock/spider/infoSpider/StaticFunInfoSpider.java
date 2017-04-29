@@ -13,6 +13,14 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  */
 public class StaticFunInfoSpider extends FunAbstractInfoSpider {
 
+	/**
+	 * 收集静态Function信息的Spider。
+	 * @param targetBlock
+	 * 		目标Block。
+	 * @param declaration
+	 * 		关于静态Function在脚本中的声明，
+	 * 		将从这个声明中提取静态Function的名字信息。
+	 */
 	public StaticFunInfoSpider(ScriptBlock targetBlock, String declaration) {
 		super(targetBlock);
 		functionStruct.setType(InformationType.STATICFUN);

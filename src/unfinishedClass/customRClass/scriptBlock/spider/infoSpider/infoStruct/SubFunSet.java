@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的子Funtion信息。
  */
-public class SubFunSetStruct {
+public class SubFunSet {
 
 	/**
 	 * 添加子Function信息，
@@ -10,7 +10,11 @@ public class SubFunSetStruct {
 	 * @param originalString
 	 * 		子Function信息。
 	 */
-	public void addSubFun(String originalString) {
+	public void addSubFun(String subFunInfo) {
+		addSubFun(new SubFunStruct(subFunInfo));
+	}
+
+	public void addSubFun(SubFunStruct subFunStruct) {
 		// TODO Auto-generated method stub
 		
 	}

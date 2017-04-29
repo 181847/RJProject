@@ -10,13 +10,13 @@ import java.util.zip.ZipFile;
 
 import basicTool.RLogger;
 import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
-import unfinishedClass.customRClass.scriptBlock.spider.SequenceInformationSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.analysisSpider.forSequence.SequenceAnalysisSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedErrorSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequenceLineAssignerSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintDescriptionSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.forSequence.SequenceGrammarSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.SequenceInformationSpider;
 
 public class ScriptBlockHelper {
 	

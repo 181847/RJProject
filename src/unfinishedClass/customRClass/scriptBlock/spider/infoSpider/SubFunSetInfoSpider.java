@@ -3,18 +3,18 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.SubFunSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.SubFunSet;
 
 /**
  * 收集Block链上面的SubFun信息，
- * 并整合成一个SubFunSetStruct对象。
+ * 并整合成一个SubFunSet对象。
  */
 public class SubFunSetInfoSpider extends AbstractBCSpider {
-	protected SubFunSetStruct subFunSetStruct;
+	protected SubFunSet subFunSet;
 	
 	public SubFunSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		subFunSetStruct = new SubFunSetStruct();
+		subFunSet = new SubFunSet();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class SubFunSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case SUBFUN:
-			subFunSetStruct
+			subFunSet
 				.addSubFun(information.getOriginalString());
 			break;
 		default:
@@ -30,8 +30,8 @@ public class SubFunSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 	
-	public SubFunSetStruct getSubFunSetStruct(){
-		return subFunSetStruct;
+	public SubFunSet getSubFunSet(){
+		return subFunSet;
 	}
 
 }

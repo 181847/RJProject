@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Excutee组件的名称集合。
  */
-public class ExcuteeSetStruct {
+public class ExcuteeSet {
 
 	/**
 	 * 添加一个Exutee组件信息，
@@ -14,6 +14,10 @@ public class ExcuteeSetStruct {
 	 * 		目前而言只需要这个的名字。
 	 */
 	public void addExcutee(String excuteeInfo) {
+		addExcutee(new ExcuteeStruct(excuteeInfo));
+	}
+
+	public void addExcutee(ExcuteeStruct excuteeStruct) {
 		// TODO Auto-generated method stub
 		
 	}

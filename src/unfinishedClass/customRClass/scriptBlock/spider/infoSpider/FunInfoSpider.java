@@ -9,6 +9,14 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  */
 public class FunInfoSpider extends FunAbstractInfoSpider {
 
+	/**
+	 * 收集普通Function信息的Spider。
+	 * @param targetBlock
+	 * 		目标Block。
+	 * @param declaration
+	 * 		关于普通Function在脚本中的声明，
+	 * 		将从这个声明中提取普通Function的名字信息。
+	 */
 	public FunInfoSpider(ScriptBlock targetBlock, String declaration) {
 		super(targetBlock);
 		functionStruct.setType(InformationType.FUN);

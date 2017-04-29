@@ -3,18 +3,18 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuteeSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuteeSet;
 
 /**
  * 收集Block链上面的Excutee组件信息，
- * 并整合成一个ExcuteeSetStruct对象。
+ * 并整合成一个ExcuteeSet对象。
  */
 public class ExcuteeSetInfoSpider extends AbstractBCSpider {
-	protected ExcuteeSetStruct excuteeSetStruct;
+	protected ExcuteeSet excuteeSet;
 
 	public ExcuteeSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		excuteeSetStruct = new ExcuteeSetStruct();
+		excuteeSet = new ExcuteeSet();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class ExcuteeSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case EXCUTEE:
-			excuteeSetStruct
+			excuteeSet
 				.addExcutee(information.getOriginalString());
 			break;
 		default:
@@ -30,8 +30,8 @@ public class ExcuteeSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 	
-	public ExcuteeSetStruct getExcuteeSetStruct(){
-		return excuteeSetStruct;
+	public ExcuteeSet getExcuteeSet(){
+		return excuteeSet;
 	}
 
 }

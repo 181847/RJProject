@@ -3,19 +3,19 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ArcSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ArcSet;
 
 /**
  * 收集Block链上面的弧线信息，
- * 并整合成一个ArcSetStruct对象。
+ * 并整合成一个ArcSet对象。
  */
 public class ArcSetInfoSpider extends AbstractBCSpider {
 
-	protected ArcSetStruct arcSetStruct;
+	protected ArcSet arcSet;
 	
 	public ArcSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		arcSetStruct = new ArcSetStruct();
+		arcSet = new ArcSet();
 	}
 
 	@Override
@@ -23,15 +23,15 @@ public class ArcSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case ARC:
-			arcSetStruct
-				.addArcStruct(information.getOriginalString());
+			arcSet
+				.addArc(information.getOriginalString());
 			break;
 		default:
 			break;
 		}
 	}
 	
-	public ArcSetStruct getArcSetStruct(){
-		return arcSetStruct;
+	public ArcSet getArcSet(){
+		return arcSet;
 	}
 }

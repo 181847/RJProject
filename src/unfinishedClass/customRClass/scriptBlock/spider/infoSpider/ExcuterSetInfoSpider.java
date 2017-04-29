@@ -3,20 +3,20 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuterSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuterSet;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.InfoStructHelper;
 
 /**
  * 收集Block链上面的Excuter组件信息，
- * 并整合成一个ExcuterSetStruct对象。
+ * 并整合成一个ExcuterSet对象。
  */
 public class ExcuterSetInfoSpider extends AbstractBCSpider {
 
-	protected ExcuterSetStruct excuterSetStruct;
+	protected ExcuterSet excuterSet;
 	
 	public ExcuterSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		excuterSetStruct = new ExcuterSetStruct();
+		excuterSet = new ExcuterSet();
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class ExcuterSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case EXCUTER:
-			excuterSetStruct
+			excuterSet
 			.addExcuter(
 				information.getOriginalString());
 			break;
@@ -33,11 +33,11 @@ public class ExcuterSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 	
-	public ExcuterSetStruct getExcuterSetStruct(){
-		return excuterSetStruct;
+	public ExcuterSet getExcuterSet(){
+		return excuterSet;
 	}
 
-	public ExcuterSetStruct getExcutersStruct() {
-		return excuterSetStruct;
+	public ExcuterSet getExcutersStruct() {
+		return excuterSet;
 	}
 }

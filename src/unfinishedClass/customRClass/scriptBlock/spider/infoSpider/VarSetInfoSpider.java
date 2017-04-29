@@ -2,21 +2,21 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.VarSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.VarSet;
 
 public class VarSetInfoSpider extends AbstractBCSpider {
-	protected VarSetStruct varSetStruct;
+	protected VarSet varSet;
 	
 	public VarSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		varSetStruct = new VarSetStruct();
+		varSet = new VarSet();
 	}
 
 	@Override
 	protected void dealWithTargetBlock() {
 		switch(targetBlock.getInformation().getType()){
 		case VAR:
-			varSetStruct.addVar(
+			varSet.addVar(
 					targetBlock
 					.getInformation()
 					.getOriginalString());
@@ -26,7 +26,7 @@ public class VarSetInfoSpider extends AbstractBCSpider {
 		}
 	}
 	
-	public VarSetStruct getVarSetStruct(){
-		return varSetStruct;
+	public VarSet getVarSet(){
+		return varSet;
 	}
 }

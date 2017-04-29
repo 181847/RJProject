@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
  * 纯粹收集多个变量的集合，
  * 这个类可以用于VarFieldStruct中作为静态变量的单独区域。
  */
-public class VarSetStruct {
+public class VarSet {
 	/**
 	 * 添加一个变量信息，
 	 * 例如“basic.Integer member3 -12”，
@@ -15,6 +15,15 @@ public class VarSetStruct {
 	 * 		变量信息。
 	 */
 	public void addVar(String varInfo) {
+		addVar(new VarStruct(varInfo));
+	}
+
+	/**
+	 * 添加一个变量信息结构。
+	 * @param varStruct
+	 * 		变量信息结构。
+	 */
+	public void addVar(VarStruct varStruct) {
 		// TODO Auto-generated method stub
 		
 	}

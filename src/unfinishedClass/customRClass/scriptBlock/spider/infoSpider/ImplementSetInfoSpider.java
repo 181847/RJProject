@@ -2,28 +2,28 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ImplementSetStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ImplementSet;
 
 /**
  * 提取Block链上的原始信息作为父类接口的名称。
  */
 public class ImplementSetInfoSpider extends AbstractBCSpider {
-	protected ImplementSetStruct implementSetStruct;
+	protected ImplementSet implementSet;
 
 	public ImplementSetInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		implementSetStruct = new ImplementSetStruct();
+		implementSet = new ImplementSet();
 	}
 
 	@Override
 	protected void dealWithTargetBlock() {
-		implementSetStruct.addInterface(
+		implementSet.addInterface(
 				targetBlock
 				.getInformation()
 				.getOriginalString());
 	}
 
-	public ImplementSetStruct getImplementSetStruct(){
-		return implementSetStruct;
+	public ImplementSet getImplementSet(){
+		return implementSet;
 	}
 }

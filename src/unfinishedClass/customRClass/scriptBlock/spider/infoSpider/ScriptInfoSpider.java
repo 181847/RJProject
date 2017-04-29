@@ -1,6 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
+import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.InfoSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
 
@@ -16,7 +17,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RCl
  * 这些接口名字将会统一整理在implementsStruct中，然后将ImplementsStruct放到rClassStruct中，
  * 同理对于成员信息、Function信息都会做同样的操作。
  */
-public class ScriptInfoSpider extends InfoSpider {
+public class ScriptInfoSpider extends AbstractBCSpider {
 	/**
 	 * 存储着一个RClass定义的结构化变量，
 	 * 内部包含RClass的类型、名字、成员Function……
@@ -24,7 +25,8 @@ public class ScriptInfoSpider extends InfoSpider {
 	protected RClassStruct rClassStruct;
 
 	public ScriptInfoSpider(ScriptBlock targetBlock) {
-		super(new RClassStruct(), targetBlock);
+		super(targetBlock);
+		rClassStruct = new RClassStruct();
 	}
 
 	@Override
@@ -124,7 +126,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addConFunStruct(infoSpider.getFunStruct());
+		rClassStruct.setConFunStruct(infoSpider.getFunStruct());
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的成员信息
-		rClassStruct.addMemberStruct(infoSpider.getVarFieldStruct());
+		rClassStruct.setMemberSet(infoSpider.getVarFieldStruct());
 	}
 
 	/**
@@ -151,7 +153,7 @@ public class ScriptInfoSpider extends InfoSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的继承父类接口信息
-		rClassStruct.addImplementSetStruct(infoSpider.getImplementSetStruct());
+		rClassStruct.setImplementSet(infoSpider.getImplementSet());
 	}
 
 	/**
@@ -161,7 +163,7 @@ public class ScriptInfoSpider extends InfoSpider {
 	 * 这里不会进行任何检查。
 	 */
 	protected void dealWith_EXTENDS() {
-		rClassStruct.addExtends(
+		rClassStruct.setExtends(
 				targetBlock
 				.getSub()
 				.getNext()
@@ -176,7 +178,7 @@ public class ScriptInfoSpider extends InfoSpider {
 	 * 这里不会进行任何检查。
 	 */
 	protected void dealWith_NAME() {
-		rClassStruct.addName(
+		rClassStruct.setName(
 				targetBlock
 				.getSub()
 				.getNext()
@@ -191,12 +193,16 @@ public class ScriptInfoSpider extends InfoSpider {
 	 * 这里不会进行任何检查。
 	 */
 	protected void dealWith_TYPE() {
-		rClassStruct.addType(
+		rClassStruct.setType(
 				targetBlock
 				.getSub()
 				.getNext()
 				.getInformation()
 				.getType());
+	}
+
+	public RClassStruct getRClassStruct() {
+		return rClassStruct;
 	}
 	
 	

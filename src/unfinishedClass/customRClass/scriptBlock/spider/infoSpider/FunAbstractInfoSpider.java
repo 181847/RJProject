@@ -56,7 +56,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new CommentSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addCommentSetStruct(infoSpider.getCommentSetStruct());
+		functionStruct.setCommentSet(infoSpider.getCommentSet());
 	}
 
 	/**
@@ -67,7 +67,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new ArcSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addArcSetStruct(infoSpider.getArcSetStruct());
+		functionStruct.setArcSet(infoSpider.getArcSet());
 	}
 
 	/**
@@ -78,7 +78,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new SubFunSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addSubFunSetStruct(infoSpider.getSubFunSetStruct());
+		functionStruct.setSubFunSet(infoSpider.getSubFunSet());
 	}
 
 	/**
@@ -89,7 +89,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new VarFieldInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addLocalVarSetStruct(infoSpider.getVarFieldStruct());
+		functionStruct.setLocalVarSet(infoSpider.getVarFieldStruct());
 	}
 
 	/**
@@ -100,7 +100,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new ReturnvalSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addReturnvalSetStruct(infoSpider.getReturnvalSetStruct());
+		functionStruct.setReturnvalSet(infoSpider.getReturnvalSet());
 	}
 
 	/**
@@ -111,7 +111,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new ExcuterSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addExcuterSetStruct(infoSpider.getExcutersStruct());
+		functionStruct.setExcuterSet(infoSpider.getExcutersStruct());
 	}
 
 	/**
@@ -122,7 +122,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new ParameterSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addParameterSetStruct(infoSpider.getParameterSetStruct());
+		functionStruct.setParameterSet(infoSpider.getParameterSet());
 	}
 
 	/**
@@ -133,7 +133,7 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 				new ExcuteeSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		functionStruct.addExcuteeSetStruct(infoSpider.getExcuteeSetStruct());
+		functionStruct.setExcuteeSet(infoSpider.getExcuteeSet());
 	}
 
 	public FunctionStruct getFunStruct(){
