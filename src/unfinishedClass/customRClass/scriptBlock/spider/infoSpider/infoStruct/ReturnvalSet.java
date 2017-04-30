@@ -12,11 +12,6 @@ public class ReturnvalSet {
 	 * 		一个Returnval组件的信息。
 	 */
 	public void addReturnval(String returnvalInfo) {
-		addReturnval(new ReturnvalStruct(returnvalInfo));
-	}
-
-	public void addReturnval(ReturnvalStruct returnvalStruct) {
-		// TODO Auto-generated method stub
-		
+		append(new ReturnvalStruct(returnvalInfo));
 	}
 }

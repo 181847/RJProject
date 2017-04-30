@@ -2,8 +2,10 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.forSequence;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.ScriptInfoSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
 
 /**
  * 将加载序列中的每个脚本中的信息，
@@ -20,19 +22,19 @@ public class SequenceInfoSpider extends AbstractBCSpider {
 
 	@Override
 	protected void dealWithTargetBlock() {
-		
+		Information information = targetBlock.getInformation();
 		ScriptInfoSpider infoSpider = 
 				new ScriptInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
+		RClassStruct rClassStruct = infoSpider.getRClassStruct();
+		rClassStruct.setLoadPath(
+						information.getOriginalString());
+		
 		//根据ScriptInfoSpider的工作成果
 		//生成新的Information来存储RClass的结构信息。
-		information = 
-				new RClassStructInformation(
-						information.getOriginalString(),
-						infoSpider.getRClassStruct());
-		
-		targetBlock.setInformation(information);
+		targetBlock.setInformation(
+				new RClassStructInformation(rClassStruct));
 	}
 
 }

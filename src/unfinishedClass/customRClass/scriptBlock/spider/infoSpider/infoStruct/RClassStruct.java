@@ -8,6 +8,11 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  */
 public class RClassStruct {
 	/**
+	 * RClass来源的工程文件和内部的脚本文件路径。
+	 */
+	protected String loadPath;
+	
+	/**
 	 * RClass类型。
 	 */
 	protected InformationType rClassType;
@@ -46,6 +51,10 @@ public class RClassStruct {
 	 * 成员Function以及抽象Function集合。
 	 */
 	protected FunSet funSet;
+	
+	public RClassStruct(){
+		rClassType = InformationType.VOID;
+	}
 
 	/**
 	 * 添加RClass的类型。
@@ -134,19 +143,21 @@ public class RClassStruct {
 	public void addAbstractFunStruct(FunctionStruct funStruct) {
 		funSet.addFun(funStruct);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * 设置当前RClass是从哪个工程文件中的脚本文件加载进来的。
+	 * @param path
+	 * 		工程文件路径和脚本文件路径。
+	 */
+	public void setLoadPath(String path) {
+		loadPath = path;
+	}
+
+	/**
+	 * @return
+	 * 		RClassStruct的类型。
+	 */
+	public InformationType getType() {
+		return rClassType;
+	}
 }

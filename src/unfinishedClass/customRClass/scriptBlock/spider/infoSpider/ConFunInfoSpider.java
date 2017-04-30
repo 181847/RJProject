@@ -12,6 +12,7 @@ public class ConFunInfoSpider extends FunAbstractInfoSpider {
 	public ConFunInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 		functionStruct.setType(InformationType.CONFUN);
+		functionStruct.setName("CONFUN");
 	}
 	
 	@Override

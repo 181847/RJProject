@@ -1,7 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 
 /**
- * Excutee组件信息。
+ * Function的Excutee（执行出口）组件信息。
  */
 public class ExcuteeStruct{
 	public ExcuteeStruct(String excuteeInfo){

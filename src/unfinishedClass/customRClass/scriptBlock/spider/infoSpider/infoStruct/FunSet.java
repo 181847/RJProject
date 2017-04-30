@@ -13,8 +13,32 @@ public class FunSet {
 	 * 		被添加的Function元素。
 	 */
 	public void addFun(FunctionStruct funStruct) {
+		if (noConflicOnName(funStruct)){
+			append(funStruct);
+		}
+	}
+
+	/**
+	 * 在队尾添加FunStruct。
+	 * @param funStruct
+	 * 		被添加的funstruct对象。
+	 */
+	protected void append(FunctionStruct funStruct) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * 检查funStruct是否和内部的某个funStruct的名字产生冲突。
+	 * @param funStruct
+	 * 		被检查的funStruct对象。
+	 * @return
+	 * 		如果有冲突，返回true；
+	 * 		如果不冲突，返回false。
+	 */
+	public boolean noConflicOnName(FunctionStruct funStruct) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }

@@ -15,16 +15,6 @@ public class VarSet {
 	 * 		变量信息。
 	 */
 	public void addVar(String varInfo) {
-		addVar(new VarStruct(varInfo));
-	}
-
-	/**
-	 * 添加一个变量信息结构。
-	 * @param varStruct
-	 * 		变量信息结构。
-	 */
-	public void addVar(VarStruct varStruct) {
-		// TODO Auto-generated method stub
-		
+		append(new VarStruct(varInfo));
 	}
 }

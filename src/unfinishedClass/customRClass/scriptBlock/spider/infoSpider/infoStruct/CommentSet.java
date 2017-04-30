@@ -12,8 +12,7 @@ public class CommentSet {
 	 * 		一个注释信息。
 	 */
 	public void addComment(CommentStruct commentStruct) {
-		// TODO Auto-generated method stub
-		
+		append(commentStruct);
 	}
 
 }

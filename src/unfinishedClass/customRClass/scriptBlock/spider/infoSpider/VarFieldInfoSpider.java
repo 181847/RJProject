@@ -51,7 +51,7 @@ public class VarFieldInfoSpider extends AbstractBCSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的成员信息
-		varFieldStruct.addStaticSet(
+		varFieldStruct.setStaticSet(
 				infoSpider.getVarSet());
 	}
 

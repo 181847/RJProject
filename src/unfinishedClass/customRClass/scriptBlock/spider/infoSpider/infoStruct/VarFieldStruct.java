@@ -14,7 +14,7 @@ public class VarFieldStruct extends VarSet{
 	 * @param varSet
 	 * 		静态成员变量集合。
 	 */
-	public void addStaticSet(VarSet varSet) {
+	public void setStaticSet(VarSet varSet) {
 		staticSet = varSet;
 	}
 

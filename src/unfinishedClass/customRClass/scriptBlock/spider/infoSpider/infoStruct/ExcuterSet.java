@@ -13,11 +13,6 @@ public class ExcuterSet {
 	 * 		目前而言只需要这个的名字。
 	 */
 	public void addExcuter(String excuterInfo) {
-		addExcuter(new ExcuterStruct(excuterInfo));
-	}
-
-	public void addExcuter(ExcuterStruct excuterStruct) {
-		// TODO Auto-generated method stub
-		
+		append(new ExcuterStruct(excuterInfo));
 	}
 }

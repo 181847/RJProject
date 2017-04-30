@@ -14,12 +14,6 @@ public class ExcuteeSet {
 	 * 		目前而言只需要这个的名字。
 	 */
 	public void addExcutee(String excuteeInfo) {
-		addExcutee(new ExcuteeStruct(excuteeInfo));
+		append(new ExcuteeStruct(excuteeInfo));
 	}
-
-	public void addExcutee(ExcuteeStruct excuteeStruct) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

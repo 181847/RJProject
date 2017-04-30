@@ -36,7 +36,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 		CommentStruct commentStruct =
 				new CommentStruct();
 		
-		//提取子链中的详细注释信息
+		//提取子链中的详细注释信息到commentStruct对象中
 		pickUpCommentLines(commentStruct);
 		commentSet.addComment(commentStruct);
 	}

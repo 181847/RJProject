@@ -11,12 +11,6 @@ public class SubFunSet {
 	 * 		子Function信息。
 	 */
 	public void addSubFun(String subFunInfo) {
-		addSubFun(new SubFunStruct(subFunInfo));
+		append(new SubFunStruct(subFunInfo));
 	}
-
-	public void addSubFun(SubFunStruct subFunStruct) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

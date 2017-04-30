@@ -14,11 +14,6 @@ public class ParameterSet {
 	 * 		一个Parameter组件的信息。
 	 */
 	public void addParameter(String parameterInfo) {
-		addParameter(new ParameterStruct(parameterInfo));
-	}
-
-	public void addParameter(ParameterStruct parameterStruct) {
-		// TODO Auto-generated method stub
-		
+		append(new ParameterStruct(parameterInfo));
 	}
 }
