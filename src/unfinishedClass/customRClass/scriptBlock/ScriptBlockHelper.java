@@ -16,7 +16,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequen
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintDescriptionSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.forSequence.SequenceGrammarSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.SequenceInformationSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.forSequence.SequenceInfoSpider;
 
 public class ScriptBlockHelper {
 	
@@ -267,10 +267,10 @@ public class ScriptBlockHelper {
 		//比如原来一行的成员信息，
 		//在这里就要把它按照类型、名字、初始化值 三个部分进行分割，
 		//方便后续的实例化操作。
-		new SequenceInformationSpider(scriptSequenceHead)
+		new SequenceInfoSpider(scriptSequenceHead)
 			.workUntilEnd();
 
-		/*
+		
 		//检查声明类型和声明内容不匹配错误，
 		//特别针对脚本中声明的RClass类型进行检查，
 		//保证接口类型的RClass没有声明Extends、Member
@@ -279,12 +279,22 @@ public class ScriptBlockHelper {
 		new SequenceContentMatchSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
-		//检查父类是否存在，
-		//如果父类没有被加载，
-		//在加载序列中找到这个父类，
-		//如果加载序列中也没有这个父类，
-		//那么这个脚本就是错误的，
-		//将其从加载序列中删除。
+		/*
+		//在这一阶段，基本保证了各个RClassStruct除去父类和接口父类的声明部分之外，
+		//其他部分都是正确的，
+		//而本阶段的主要功能就是去实例化各个RClassStruct中父类和接口父类的对象引用。<br>
+		//以一个父类叫做“com.github.liuyang.RClassDemo”的RClassStruct做进一步解释：<br>
+		//这个父类的信息用一个字符串直接存储在RClassRefStruct当中，
+		//当进行父类继承操作的时候必须找到这个名字叫做
+		//“com.github.liuyang.RClassDemo”的RClassStruct对象，
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
 		new SequenceSuperCheckSpider(scriptSequenceHead)
 			.workUnitlEnd();
 		
