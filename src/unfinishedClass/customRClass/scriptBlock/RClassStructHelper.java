@@ -1,7 +1,12 @@
 package unfinishedClass.customRClass.scriptBlock;
 
+import java.util.Hashtable;
+
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.FunSet;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.FunctionStruct;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.VarSet;
 
 /**
  * 处理RClassStruct相关信息的工具类。
@@ -50,15 +55,145 @@ public class RClassStructHelper {
 	}
 
 	/**
-	 * 检查名称唯一性。
+	 * 检查名称唯一性，
+	 * 即各类成员名称的唯一性，
+	 * 以及Function内部组件的名称唯一性。
 	 * @param rClassStruct
 	 * 		检查目标。
 	 * @param testResult
 	 * 		检查结果。
 	 */
 	private static void testNameConstrainOn(RClassStruct rClassStruct, RSTestResult testResult) {
-		// TODO Auto-generated method stub
+		//测试成员变量中是否有重名。
+		testMemNameCOn(rClassStruct, testResult);
 		
+		//测试静态Fun和普通Fun中是否有重名。
+		testFunNameCOn(rClassStruct, testResult);
+		
+		//测试各个Function内部组件是否有重名现象。
+		testFunCompNameCOn(rClassStruct, testResult);
+	}
+
+	/**
+	 * 测试各个Function内部组件是否有重名现象。
+	 * @param rClassStruct
+	 * 		检查目标。
+	 * @param testResult
+	 * 		检查结果。
+	 */
+	private static void testFunCompNameCOn(RClassStruct rClassStruct, RSTestResult testResult) {
+		//TODO
+		FunSet funSet;
+		FunctionStruct fun;
+		int funNum;
+		
+		fun = rClassStruct.getConFun();
+		
+		//检查构造Function组件名。
+		if (fun != null){
+			testFunCompNCOn(fun, testResult);
+		}
+		
+		//规定循环两次，
+		//分别对静态Function和非静态Function进行检查，
+		//第一次检查静态Function，
+		//第二次检查非静态Function。
+		for(int loop = 2; loop > 0; --loop){
+			if (funSet != null){
+				for (funNum = funSet.getNum(); funNum >= 0; ++i){
+					testFunCompNCOn(fun, testResult);
+				}//for funNum
+			}//if funSet != null
+			
+			//切换到非静态Function。
+			funSet = rClassStruct.getFunSet();
+		}//for loop
+	}
+
+	/**
+	 * 测试Fun是否有重名。
+	 * @param rClassStruct
+	 * 		检查目标。
+	 * @param testResult
+	 * 		检查结果。
+	 */
+	private static void testFunNameCOn(RClassStruct rClassStruct, RSTestResult testResult) {
+		Hashtable<String, Object> nameTable = 
+				new Hashtable<String, Object>(20, 0.5f);
+		FunSet funSet = 
+				rClassStruct.getStaticFunSet();
+		int funNum;
+		String name;
+		
+		//首先添加构造Function的名字。
+		if (rClassStruct.getType() != InformationType.INTERFACE){
+			nameTable.put(rClassStruct.getConFun().getName(), null);
+		}
+		
+		//规定循环两次，
+		//分别对静态Function和非静态Function进行检查，
+		//第一次检查静态Function，
+		//第二次检查非静态Function。
+		for(int loop = 2; loop > 0; --loop){
+			if (funSet != null){
+				for (funNum = funSet.getNum(); funNum >= 0; ++i){
+					name = funSet
+							.getFun(funNum)
+							.getName();
+				
+					if (null == nameTable.get(name)){
+						nameTable.put(name, null);
+					} else {
+						testResult.occurredError();
+						testResult.appendReason("发现重名的Function名：" + name + "。");
+						}
+				}//for funNum
+			}//if funSet != null
+			
+			//切换到非静态Function。
+			funSet = rClassStruct.getFunSet();
+		}//for loop
+	}
+
+	/**
+	 * 测试成员变量是否有重名。
+	 * @param rClassStruct
+	 * 		检查目标。
+	 * @param testResult
+	 * 		检查结果。
+	 */
+	private static void testMemNameCOn(RClassStruct rClassStruct, RSTestResult testResult) {
+		Hashtable<String, Object> nameTable = 
+				new Hashtable<String, Object>(20, 0.5f);
+		
+		VarSet memberSet = 
+				rClassStruct.getStaticMemSet();
+		int memberNum;
+		String name;
+		
+		//规定循环两次，
+		//分别对静态成员和非静态成员进行检查，
+		//第一次检查静态成员，
+		//第二次检查非静态成员。
+		for(int loop = 2; loop > 0; --loop){
+			if (memberSet != null){
+				for (memberNum = memberSet.getNum(); memberNum >= 0; ++i){
+					name = memberSet
+							.getVar(memberNum)
+							.getName();
+				
+					if (null == nameTable.get(name)){
+						nameTable.put(name, null);
+					} else {
+						testResult.occurredError();
+						testResult.appendReason("发现重名的成员变量名：" + name);
+						}
+				}//for memberNum
+			}//if memberSet != null
+			
+			//切换到非静态成员。
+			memberSet = rClassStruct.getMemSet();
+		}//for loop
 	}
 
 	/**
@@ -96,7 +231,16 @@ public class RClassStructHelper {
 	 */
 	private static void testClassConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
 		// TODO Auto-generated method stub
-		
+		if (rClassStruct.getConFun() == null){
+			testResult.occurredError();
+			testResult.appendReason("普通类型RClass没有声明构造Function。");
+		}
+		FunSet funSet = rClassStruct.getFunSet();
+		if (funSet != null && 
+				funSet.haveAbstractFun()){
+			testResult.occurredError();
+			testResult.appendReason("普通类型RClass不能声明抽象Function。");
+		}
 	}
 
 	/**
@@ -107,8 +251,10 @@ public class RClassStructHelper {
 	 * 		检查结果。
 	 */
 	private static void testAbstractConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
-		// TODO Auto-generated method stub
-		
+		if (rClassStruct.getConFun() == null){
+			testResult.occurredError();
+			testResult.appendReason("抽象类型RClass没有声明构造Function。");
+		}
 	}
 
 	/**
@@ -119,7 +265,6 @@ public class RClassStructHelper {
 	 * 		检查结果。
 	 */
 	private static void testInterfaceConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
-		// TODO Auto-generated method stub
 		if (rClassStruct.getExtend() != null){
 			testResult.occurredError();
 			testResult.appendReason("接口类型RClass不能声明非接口父类。");
@@ -139,9 +284,9 @@ public class RClassStructHelper {
 		
 		FunSet funSet = rClassStruct.getFunSet();
 		if (funSet != null && 
-				funSet.haveAbstractFun()){
+				funSet.haveFun()){
 			testResult.occurredError();
-			testResult.appendReason("接口类型RClass不能声明抽象Function。");
+			testResult.appendReason("接口类型RClass不能声明普通Function，只能声明抽象Function。");
 		}
 		
 	}
