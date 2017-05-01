@@ -13,9 +13,7 @@ public class FunSet {
 	 * 		被添加的Function元素。
 	 */
 	public void addFun(FunctionStruct funStruct) {
-		if (noConflicOnName(funStruct)){
-			append(funStruct);
-		}
+		append(funStruct);
 	}
 
 	/**
@@ -27,18 +25,4 @@ public class FunSet {
 		// TODO Auto-generated method stub
 		
 	}
-
-	/**
-	 * 检查funStruct是否和内部的某个funStruct的名字产生冲突。
-	 * @param funStruct
-	 * 		被检查的funStruct对象。
-	 * @return
-	 * 		如果有冲突，返回true；
-	 * 		如果不冲突，返回false。
-	 */
-	public boolean noConflicOnName(FunctionStruct funStruct) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 }
