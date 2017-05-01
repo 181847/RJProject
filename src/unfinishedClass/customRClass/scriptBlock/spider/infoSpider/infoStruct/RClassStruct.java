@@ -33,9 +33,14 @@ public class RClassStruct {
 	protected ImplementSet implementSet;
 	
 	/**
+	 * 静态成员变量集合。
+	 */
+	protected VarSet staticMemberVarSet;
+	
+	/**
 	 * 成员变量集合。
 	 */
-	protected VarFieldStruct memberVarSet;
+	protected VarSet memberVarSet;
 	
 	/**
 	 * 构造Function信息。
@@ -101,7 +106,8 @@ public class RClassStruct {
 	 * 		成员变量集合。
 	 */
 	public void setMemberSet(VarFieldStruct varFieldStruct) {
-		memberVarSet = varFieldStruct;
+		staticMemberVarSet = varFieldStruct.getStaticVarSet();
+		memberVarSet = varFieldStruct.getVarSet();
 	}
 
 	/**
