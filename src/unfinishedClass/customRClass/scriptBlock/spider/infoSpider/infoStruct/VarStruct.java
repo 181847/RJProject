@@ -23,4 +23,18 @@ public class VarStruct{
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 获取变量的名字，
+	 * 注意：不是变量的类型的名字，
+	 * 是变量的名字，
+	 * 假如变量信息是“basic.Integer localVar3 = 12”，
+	 * 则返回的字符串就是“localVar3”。
+	 * @return
+	 * 		变量的名字。
+	 */
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

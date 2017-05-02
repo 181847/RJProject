@@ -166,4 +166,75 @@ public class RClassStruct {
 	public InformationType getType() {
 		return rClassType;
 	}
+
+	/**
+	 * @return
+	 * 		RClass的全名，
+	 * 		例如“com.github.liuyang.RClassDemo2”。
+	 */
+	public String getName() {
+		return rClassName;
+	}
+
+	/**
+	 * 获取包含抽象和普通Function的集合。
+	 * @return
+	 * 		这个集合专门存储抽象Function和普通Function，
+	 * 		不包含静态Function，
+	 * 		也不包含构造Function。
+	 */
+	public FunSet getFunSet() {
+		return funSet;
+	}
+
+	/**
+	 * 获取静态Function的集合。
+	 * @return
+	 * 		包含静态Function的集合，
+	 * 		这个集合要么为null，
+	 * 		要么至少存储着一个Function元素。
+	 */
+	public FunSet getStaticFunSet() {
+		return staticFunSet;
+	}
+
+	/**
+	 * 返回构造Function。
+	 * @return
+	 * 		构造Function。
+	 */
+	public FunctionStruct getConFun() {
+		return conFun;
+	}
+
+	/**
+	 * 获取静态变量成员集合。
+	 * @return
+	 * 		静态成员变量集合，
+	 * 		要么为null，
+	 * 		要么内部至少有一个元素。
+	 */
+	public VarSet getStaticMemberVarSet() {
+		return staticMemberVarSet;
+	}
+
+	/**
+	 * 获取非静态变量成员集合。
+	 * @return
+	 * 		非静态成员变量集合，
+	 * 		要么为null，
+	 * 		要么内部至少有一个元素。
+	 */
+	public VarSet getMemberVarSet() {
+		return memberVarSet;
+	}
+
+	/**
+	 * 获取父类RClass引用结构。
+	 * @return
+	 * 		父类RClass的信息。
+	 */
+	public RClassRefStruct getExtend() {
+		return extend;
+	}
 }

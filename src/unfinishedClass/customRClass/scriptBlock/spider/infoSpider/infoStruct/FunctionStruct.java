@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.Set;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
@@ -14,7 +15,8 @@ public class FunctionStruct {
 	protected ParameterSet parameterSet;
 	protected ExcuterSet excuterSet;
 	protected ReturnvalSet returnvalSet;
-	protected VarFieldStruct localVarSet;
+	protected VarSet localVarSet;
+	protected VarSet staticLocalVarSet;
 	protected SubFunSet subFunSet;
 	protected ArcSet arcSet;
 	protected CommentSet commentSet;
@@ -77,11 +79,20 @@ public class FunctionStruct {
 
 	/**
 	 * 添加本地变量集合。
-	 * @param varFieldStruct
+	 * @param varSet
 	 * 		本地变量集合。
 	 */
-	public void setLocalVarSet(VarFieldStruct varFieldStruct) {
-		localVarSet = varFieldStruct;
+	public void setLocalVarSet(VarSet varSet) {
+		localVarSet = varSet;
+	}
+	
+	/**
+	 * 设定静态本地变量。
+	 * @param varSet
+	 * 		静态本地变量集合。
+	 */
+	public void setStaticLocalVarSet(VarSet varSet){
+		staticLocalVarSet = varSet;
 	}
 
 	/**
@@ -109,5 +120,68 @@ public class FunctionStruct {
 	 */
 	public void setCommentSet(CommentSet commentSet) {
 		this.commentSet = commentSet;
+	}
+
+	/**
+	 * 获取Function的名字。
+	 * @return
+	 * 		Function的名字。
+	 */
+	public String getName() {
+		return funName;
+	}
+
+	/**
+	 * 获取Excutee组件集合。
+	 * @return
+	 * 		Excutee组件集合。
+	 */
+	public ExcuteeSet getExcuteeSet() {
+		return excuteeSet;
+	}
+
+	/**
+	 * 获取Parameter组件集合。
+	 * @return
+	 * 		Parameter组件集合。
+	 */
+	public ParameterSet getParameterSet() {
+		return parameterSet;
+	}
+
+	/**
+	 * 获取Excuter组件集合。
+	 * @return
+	 * 		Excuter组件集合。
+	 */
+	public ExcuterSet getExcuterSet() {
+		return excuterSet;
+	}
+
+	/**
+	 * 获取Returnval组件集合。
+	 * @return
+	 * 		Returnval组件集合。
+	 */
+	public ReturnvalSet getReturnvalSet() {
+		return returnvalSet;
+	}
+
+	/**
+	 * 获取静态本地变量集合。
+	 * @return
+	 * 		静态本地变量集合。
+	 */
+	public VarSet getStaticLocalVarSet() {
+		return staticLocalVarSet;
+	}
+
+	/**
+	 * 获取非静态本地变量集合。
+	 * @return
+	 * 		非静态本地变量集合。
+	 */
+	public VarSet getLocalVarSet() {
+		return localVarSet;
 	}
 }
