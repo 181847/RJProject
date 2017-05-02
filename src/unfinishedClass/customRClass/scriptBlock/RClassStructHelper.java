@@ -3,9 +3,11 @@ package unfinishedClass.customRClass.scriptBlock;
 import java.util.Hashtable;
 
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.ExcuteeSet;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.FunSet;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.FunctionStruct;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.Set;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.VarSet;
 
 /**
@@ -47,7 +49,7 @@ public class RClassStructHelper {
 	 * @param rClassStruct
 	 * 		检查目标。
 	 * @param testResult
-	 * 		检查结果。
+	 * 		存储测试结果。
 	 */
 	private static void testConFunConstrainOn(RClassStruct rClassStruct, RSTestResult testResult) {
 		// TODO Auto-generated method stub
@@ -61,11 +63,17 @@ public class RClassStructHelper {
 	 * @param rClassStruct
 	 * 		检查目标。
 	 * @param testResult
-	 * 		检查结果。
+	 * 		存储测试结果。
 	 */
 	private static void testNameConstrainOn(RClassStruct rClassStruct, RSTestResult testResult) {
 		//测试成员变量中是否有重名。
-		testMemNameCOn(rClassStruct, testResult);
+		//在静态和非静态Function的Set中检查重名Struct。
+		testNameCOn(rClassStruct.getStaticMemberVarSet(),
+				rClassStruct.getMemberVarSet(),
+				null,
+				"RClass的成员变量重名检查",
+				testResult);
+		//testMemNameCOn(rClassStruct, testResult);
 		
 		//测试静态Fun和普通Fun中是否有重名。
 		testFunNameCOn(rClassStruct, testResult);
@@ -79,28 +87,24 @@ public class RClassStructHelper {
 	 * @param rClassStruct
 	 * 		检查目标。
 	 * @param testResult
-	 * 		检查结果。
+	 * 		存储测试结果。
 	 */
 	private static void testFunCompNameCOn(RClassStruct rClassStruct, RSTestResult testResult) {
-		//TODO
-		FunSet funSet;
-		FunctionStruct fun;
-		int funNum;
-		
-		fun = rClassStruct.getConFun();
-		
+		FunctionStruct fun = rClassStruct.getConFun();
 		//检查构造Function组件名。
 		if (fun != null){
 			testFunCompNCOn(fun, testResult);
 		}
-		
+
+		FunSet funSet
+			= rClassStruct.getStaticFunSet();
 		//规定循环两次，
 		//分别对静态Function和非静态Function进行检查，
 		//第一次检查静态Function，
 		//第二次检查非静态Function。
-		for(int loop = 2; loop > 0; --loop){
+		for(int loop = 2, funNum = 0; loop > 0; --loop){
 			if (funSet != null){
-				for (funNum = funSet.getNum(); funNum >= 0; ++i){
+				for (funNum = funSet.getNum(); funNum >= 0; --funNum){
 					testFunCompNCOn(fun, testResult);
 				}//for funNum
 			}//if funSet != null
@@ -111,6 +115,134 @@ public class RClassStructHelper {
 	}
 
 	/**
+	 * 单独检查一个FunctionStruct内部的各个组件是否有重名现象
+	 * @param fun
+	 * 		被检查的FunctionStruct
+	 * @param testResult
+	 * 		存储测试结果。
+	 */
+	private static void testFunCompNCOn(FunctionStruct fun, RSTestResult testResult) {
+		Set waitSequence[] = new Set[]{ 
+				fun.getExcuteeSet(),
+				fun.getParameterSet(),
+				fun.getExcuterSet(),
+				fun.getReturnvalSet()};
+		//用于描述集合中重名检查的字符串，
+		//根据不同的集合，这个不一样
+		String descripArry[] = new String[]{
+				"执行出口",
+				"参数组件",
+				"执行出口",
+				"返回值组件"};
+		
+		for (int loop = 0; loop < 4; ++loop){
+			//在各个单独的集合中检查是否有重名的项目
+			testNameCOn(waitSequence[loop], descripArry[loop], testResult);
+		}
+		
+		//在静态和非静态成员变量集合中一起
+		//检查Function的本地变量是否有重名。
+		testNameCOn(fun.getStaticLocalVarSet(), 
+				fun.getLocalVarSet(), 
+				new String[0],
+				"Function本地变量",
+				testResult);
+	}
+
+	/**
+	 * 对两个Set一起进行重名判断，
+	 * 找出连个Set中重复的名字。
+	 * @param staticLocalVarSet
+	 * 		第一个被检查的Set。
+	 * @param localVarSet
+	 * 		第二个被检查的Set。
+	 * @param extraConflicNameArry
+	 * 		添加的冲突名字，
+	 * 		这些名字将会额外添加进重名的检查过程中。
+	 * @param description
+	 * 		对于检查过程的详细描述，
+	 * 		这个描述信息将会用于向testResult记录错误信息。
+	 * @param testResult
+	 * 		存储测试结果。
+	 */
+	private static void testNameCOn(Set firstSet, 
+			Set secondSet, String[] extraConflicNameArry, 
+			String description, RSTestResult testResult) {
+		Hashtable<String, Object> nameTable = 
+				new Hashtable<String, Object>(15, 0.5f);
+		Set testSet = firstSet;
+		String name;
+		int num;
+		
+		//添加额外的冲突检测名
+		if (extraConflicNameArry != null){
+			for (String extraName : extraConflicNameArry){
+				nameTable.put(extraName, null);
+			}
+		}
+		
+		//规定循环两次，
+		//分别对静态Function和非静态Function进行检查，
+		//第一次检查静态Function，
+		//第二次检查非静态Function。
+		for(int loop = 2; loop > 0; --loop){
+			if (testSet != null){
+				for (num = testSet.getNum(); num >= 0; --num){
+					name = testSet
+							.getStruct(num)
+							.getName();
+					//查看是否有记录
+					if (nameTable.contains(name)){
+						//记录重名的错误信息
+						testResult.occurredError();
+						testResult.appendReason(description 
+								+ "的重名检查过程中发现重复的名字：" 
+								+ name);
+					} else {
+						//添加记录
+						nameTable.put(name, null);
+					}
+				}//for funNum
+			}//if funSet != null
+					
+			//切换到第二个Set再进行检查。
+			testSet = secondSet;
+		}//for loop
+	}
+
+	/**
+	 * 在一个集合当中检查是否有重名的Struct。
+	 * @param set
+	 * 		被检查的集合，
+	 * 		这个集合中包含着拥有名字的Struct对象。
+	 * @param description
+	 * 		描述信息，
+	 * 		用于向testResult输出错误信息。
+	 * @param testResult
+	 * 		存储测试结果。
+	 */
+	private static void testNameCOn(Set set, 
+			String description, RSTestResult testResult) {
+		Hashtable<String, Object> nameTable = 
+				new Hashtable<String, Object>(10, 0.5f);
+		String name;
+		for (int structNum = set.getNum(); structNum > 0; --structNum){
+			name = set.getStruct(structNum).getName();
+			//查看是否有记录
+			if (nameTable.contains(name)){
+				//记录重名的错误信息
+				testResult.occurredError();
+				testResult.appendReason(description 
+						+ "的重名检查过程中发现重复的名字：" 
+						+ name);
+			} else {
+				//添加记录
+				nameTable.put(name, null);
+			}
+		}
+	}
+
+	/**
 	 * 测试Fun是否有重名。
 	 * @param rClassStruct
 	 * 		检查目标。
@@ -118,10 +250,28 @@ public class RClassStructHelper {
 	 * 		检查结果。
 	 */
 	private static void testFunNameCOn(RClassStruct rClassStruct, RSTestResult testResult) {
+		String[] conflicNameArry = null;
+		//首先添加构造Function的名字。
+		if (rClassStruct.getType() != InformationType.INTERFACE){
+			//如果不是接口RClass就添加上构造Function的名字。
+			FunctionStruct conFun = rClassStruct.getConFun();
+			if (conFun != null){
+				//添加上构造Function的名字，
+				//这个名字将会在后来的静态和非静态Function重名检查中用到，
+				//防止和构造Function重名。
+				conflicNameArry = new String[]{conFun.getName()};
+			}
+		}
+		//在静态和非静态Function的Set中检查重名Struct。
+		testNameCOn(rClassStruct.getStaticFunSet(),
+				rClassStruct.getFunSet(),
+				conflicNameArry,
+				"RClass的Function重名检查",
+				testResult);
+		
+		/*放弃原来的检查过程
 		Hashtable<String, Object> nameTable = 
 				new Hashtable<String, Object>(20, 0.5f);
-		FunSet funSet = 
-				rClassStruct.getStaticFunSet();
 		int funNum;
 		String name;
 		
@@ -130,13 +280,15 @@ public class RClassStructHelper {
 			nameTable.put(rClassStruct.getConFun().getName(), null);
 		}
 		
+		FunSet funSet = 
+				rClassStruct.getStaticFunSet();
 		//规定循环两次，
 		//分别对静态Function和非静态Function进行检查，
 		//第一次检查静态Function，
 		//第二次检查非静态Function。
 		for(int loop = 2; loop > 0; --loop){
 			if (funSet != null){
-				for (funNum = funSet.getNum(); funNum >= 0; ++i){
+				for (funNum = funSet.getNum(); funNum >= 0; --funNum){
 					name = funSet
 							.getFun(funNum)
 							.getName();
@@ -153,6 +305,7 @@ public class RClassStructHelper {
 			//切换到非静态Function。
 			funSet = rClassStruct.getFunSet();
 		}//for loop
+		*/
 	}
 
 	/**
@@ -162,22 +315,24 @@ public class RClassStructHelper {
 	 * @param testResult
 	 * 		检查结果。
 	 */
-	private static void testMemNameCOn(RClassStruct rClassStruct, RSTestResult testResult) {
+	private static void testMemNameCOn(RClassStruct rClassStruct,
+			RSTestResult testResult) {
 		Hashtable<String, Object> nameTable = 
 				new Hashtable<String, Object>(20, 0.5f);
-		
-		VarSet memberSet = 
-				rClassStruct.getStaticMemSet();
 		int memberNum;
 		String name;
 		
+		VarSet memberSet = 
+				rClassStruct.getStaticMemberVarSet();
 		//规定循环两次，
 		//分别对静态成员和非静态成员进行检查，
 		//第一次检查静态成员，
 		//第二次检查非静态成员。
 		for(int loop = 2; loop > 0; --loop){
 			if (memberSet != null){
-				for (memberNum = memberSet.getNum(); memberNum >= 0; ++i){
+				for (memberNum = memberSet.getNum();
+						memberNum >= 0; 
+						--memberNum){
 					name = memberSet
 							.getVar(memberNum)
 							.getName();
@@ -187,12 +342,12 @@ public class RClassStructHelper {
 					} else {
 						testResult.occurredError();
 						testResult.appendReason("发现重名的成员变量名：" + name);
-						}
+					}//if
 				}//for memberNum
 			}//if memberSet != null
 			
 			//切换到非静态成员。
-			memberSet = rClassStruct.getMemSet();
+			memberSet = rClassStruct.getMemberVarSet();
 		}//for loop
 	}
 
@@ -203,7 +358,8 @@ public class RClassStructHelper {
 	 * @param testResult
 	 * 		检查结果。
 	 */
-	private static void testTypeConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
+	private static void testTypeConstraintOn(RClassStruct rClassStruct, 
+			RSTestResult testResult) {
 		switch(rClassStruct.getType()){
 		case INTERFACE:
 			//专门测试接口类型RClassStruct的信息完整。
@@ -229,8 +385,8 @@ public class RClassStructHelper {
 	 * @param testResult
 	 * 		检查结果。
 	 */
-	private static void testClassConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
-		// TODO Auto-generated method stub
+	private static void testClassConstraintOn(RClassStruct rClassStruct, 
+			RSTestResult testResult) {
 		if (rClassStruct.getConFun() == null){
 			testResult.occurredError();
 			testResult.appendReason("普通类型RClass没有声明构造Function。");
@@ -250,7 +406,8 @@ public class RClassStructHelper {
 	 * @param testResult
 	 * 		检查结果。
 	 */
-	private static void testAbstractConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
+	private static void testAbstractConstraintOn(RClassStruct rClassStruct, 
+			RSTestResult testResult) {
 		if (rClassStruct.getConFun() == null){
 			testResult.occurredError();
 			testResult.appendReason("抽象类型RClass没有声明构造Function。");
@@ -264,12 +421,14 @@ public class RClassStructHelper {
 	 * @param testResult
 	 * 		检查结果。
 	 */
-	private static void testInterfaceConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
+	private static void testInterfaceConstraintOn(RClassStruct rClassStruct,
+			RSTestResult testResult) {
 		if (rClassStruct.getExtend() != null){
 			testResult.occurredError();
 			testResult.appendReason("接口类型RClass不能声明非接口父类。");
 		}
-		if (rClassStruct.getMemberVarSet() != null){
+		if (rClassStruct.getStaticMemberVarSet() != null
+				|| rClassStruct.getMemberVarSet() != null){
 			testResult.occurredError();
 			testResult.appendReason("接口类型RClass不能声明成员变量。");
 		}
@@ -277,7 +436,7 @@ public class RClassStructHelper {
 			testResult.occurredError();
 			testResult.appendReason("接口类型RClass不能声明构造Function。");
 		}
-		if (rClassStruct.getStaticFun() != null){
+		if (rClassStruct.getStaticFunSet() != null){
 			testResult.occurredError();
 			testResult.appendReason("接口类型RClass不能声明静态Function。");
 		}
@@ -299,7 +458,8 @@ public class RClassStructHelper {
 	 * @param testResult
 	 * 		检查结果。
 	 */
-	private static void testBasicConstraintOn(RClassStruct rClassStruct, RSTestResult testResult) {
+	private static void testBasicConstraintOn(RClassStruct rClassStruct, 
+			RSTestResult testResult) {
 		InformationType type = rClassStruct.getType();
 		String name = rClassStruct.getName();
 		
