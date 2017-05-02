@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的Returnval组件信息。
  */
-public class ReturnvalSet {
+public class ReturnvalSet extends Set{
 	/**
 	 * 添加一个Returnval组件的信息，，
 	 * 形如“basic.Integer parameter2”，<br>

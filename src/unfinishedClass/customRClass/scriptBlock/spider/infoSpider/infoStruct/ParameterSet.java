@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的Parameter组件信息。
  */
-public class ParameterSet {
+public class ParameterSet extends Set{
 
 	/**
 	 * 添加一个Parameter组件的信息，，

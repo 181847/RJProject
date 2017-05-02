@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的Excuter组件信息。
  */
-public class ExcuterSet {
+public class ExcuterSet extends Set{
 	/**
 	 * 添加一个Excuter组件信息，
 	 * 可以只是一个简单的字符串，
