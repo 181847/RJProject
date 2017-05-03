@@ -269,6 +269,13 @@ public class ScriptBlockHelper {
 		//方便后续的实例化操作。
 		new SequenceInfoSpider(scriptSequenceHead)
 			.workUntilEnd();
+		
+		//RClass冲突类名剔除，
+		//这一步保证加载序列中的类名不能与现有的RClassLoader中的类名冲突，
+		//并且加载序列内部也不能有重名，
+		//删除掉任何重名的targetBlock。
+		new SequenceNameFilterSpider(scriptSequenceHead)
+			.workUntilEnd();
 
 		
 		//检查声明类型和声明内容不匹配错误，
@@ -287,14 +294,6 @@ public class ScriptBlockHelper {
 		//这个父类的信息用一个字符串直接存储在RClassRefStruct当中，
 		//当进行父类继承操作的时候必须找到这个名字叫做
 		//“com.github.liuyang.RClassDemo”的RClassStruct对象，
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		//
 		new SequenceSuperCheckSpider(scriptSequenceHead)
 			.workUnitlEnd();
 		
