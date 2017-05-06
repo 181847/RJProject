@@ -282,9 +282,20 @@ public class ScriptBlockHelper {
 		//特别针对脚本中声明的RClass类型进行检查，
 		//保证接口类型的RClass没有声明Extends、Member
 		//、ConFun、StaticFun、Fun；
-		//保证普通RClass类型没有声明AbstractFun。
+		//保证普通RClass类型没有声明AbstractFun；
+		//以及各个详细的组件集合内部没有名称冲突，
+		//任何细小的错误都会导致targetBlock被删除。
 		new SequenceContentMatchSpider(scriptSequenceHead)
 			.workUntilEnd();
+		
+		//继承图生成阶段，
+		//创建一个加载时继承图，
+		//把加载序列中的RClassStruct全部插入继承图中，
+		//准备检查继承关系。
+		SequenceLRCGraphSpider loadRCGSpider = 
+				new SequenceLRCGraphSpider(scriptSequenceHead);
+		loadRCGSpider.workUntilEnd();
+		LoadRCGraph loadRCG = loadRCGSpider.getLoadRCG();
 		
 		/*
 		//在这一阶段，基本保证了各个RClassStruct除去父类和接口父类的声明部分之外，
