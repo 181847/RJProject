@@ -213,15 +213,20 @@ public class ScriptBlockHelper {
 
 	/**
 	 * 对加载序列中的脚本进行错误的剔除，
-	 * 错误的类型包括基本语法错误，，
-	 * 声明类型与声明的内容不匹配错误
-	 * 循环继承，
-	 * 继承父类不存在。
+	 * 错误的类型包括基本语法错误，
+	 * 声明类型与声明的内容不匹配错误，
+	 * 然后将RClass插入生成的加载时继承图中，
+	 * 并返回这个继承图，
+	 * 这个继承图中只有代表RClass的结点，
+	 * 没有弧线。
 	 * @param scriptSequenceHead
 	 * 		加载序列的HeadBlock。
+	 * @return
+	 * 		将整理好的加载时继承图返回，
+	 * 		这个继承图内部只有节点，
+	 * 		没有弧线。
 	 */
-	public static void organize(ScriptBlock scriptSequenceHead) {
-		// TODO Auto-generated method stub
+	public static LoadRCGraph organize(ScriptBlock scriptSequenceHead) {
 		//为各个脚本结构的信息赋予行数，
 		//方便在后期输出错误信息的位置。
 		new SequenceLineAssignerSpider(scriptSequenceHead)
@@ -296,6 +301,8 @@ public class ScriptBlockHelper {
 				new SequenceLRCGraphSpider(scriptSequenceHead);
 		loadRCGSpider.workUntilEnd();
 		LoadRCGraph loadRCG = loadRCGSpider.getLoadRCG();
+		
+		return loadRCG;
 		
 		/*
 		//在这一阶段，基本保证了各个RClassStruct除去父类和接口父类的声明部分之外，
