@@ -11,7 +11,9 @@ import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.Set
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.VarSet;
 
 /**
- * 处理RClassStruct相关信息的工具类。
+ * 测试RClassStruct相关信息约束的工具类，
+ * 最主要的一个方法就是RSTestResult testConstraintOn(RClassStruct)，
+ * 通过这个方法来对RClassStruct来进行完整的信息检查
  */
 public class RClassStructHelper {
 
@@ -169,8 +171,6 @@ public class RClassStructHelper {
 			String description, RSTestResult testResult) {
 		Hashtable<String, Object> nameTable = 
 				new Hashtable<String, Object>(15, 0.5f);
-		String name;		//临时存储被检查的名字
-		int num;			//计数单个Set中的Struct数量
 		
 		//添加额外的冲突检测名
 		if (extraConflicNameArry != null){
@@ -179,15 +179,16 @@ public class RClassStructHelper {
 			}
 		}
 
-		Set testSet = firstSet;
+		String name;		//临时存储被检查的名字
+		int num;			//计数单个Set中的Struct数量
 		//规定循环两次，
 		//分别对firstSet和secondSet进行检查，
 		//第一次检查firstSet，
 		//第二次检查secondSet。
 		for(int loop = 2; loop > 0; --loop){
-			if (testSet != null){
-				for (num = testSet.getNum(); num >= 0; --num){
-					name = testSet
+			if (firstSet != null){
+				for (num = firstSet.getNum(); num >= 0; --num){
+					name = firstSet
 							.getStruct(num)
 							.getName();
 					//查看是否有记录
@@ -205,7 +206,7 @@ public class RClassStructHelper {
 			}//if funSet != null
 					
 			//切换到第二个Set再进行检查。
-			testSet = secondSet;
+			firstSet = secondSet;
 		}//for loop
 	}
 
