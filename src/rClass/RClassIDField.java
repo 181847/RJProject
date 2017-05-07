@@ -1,5 +1,7 @@
 package rClass;
 import rClassInterface.IRClass;
+import unfinishedClass.customRClass.scriptBlock.LoadRCGraph;
+import unfinishedClass.customRClass.scriptBlock.RuntimeRCGraph;
 
 /**
  * 本类用来存储RClass对象实例，并且为存储的RClass对象分配一个RClassID，
@@ -15,9 +17,16 @@ public class RClassIDField {
 	
 	/**
 	 * 正区域，对应的RClassID全部为正数，
-	 * 专门存储基本数据类型RClass以及Java包装类型RClass。
+	 * 专门存储Java类型RClass。
 	 */
 	IRClass[] positiveField;
+	
+	/**
+	 * 负区域，对应的RClassID应该全部都是负数，
+	 * 然而在negativeField内部的RClass所在的数组序号对应的还是正数，
+	 * 正负号只是用来告诉RClassIDField到那个区域去提取RClass。
+	 */
+	RuntimeRCGraph negativeField;
 	
 	/**
 	 * 正区域的能够使用的最大的RClassID，从1开始到正无穷。
@@ -135,5 +144,17 @@ public class RClassIDField {
 			return positiveField[rClassID];
 		}
 		return null;
+	}
+
+	/**
+	 * 将加载时继承图中的RClass加载到运行时继承图中，
+	 * 为每个新的RClass分配RClassID。
+	 * @param loadRCG
+	 * 		加载时继承图。
+	 */
+	public void loadGraph(LoadRCGraph loadRCG) {
+		negativeField.loadMerge(loadRCG, negativeUseableID);
+		//更新最大可用负ID
+		negativeUseableID = -negativeField.getNum();
 	}
 }
