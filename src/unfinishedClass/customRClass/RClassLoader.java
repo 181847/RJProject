@@ -18,6 +18,7 @@ import basicTool.RLogger;
 import rClass.RClassIDField;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
+import unfinishedClass.customRClass.scriptBlock.LoadRCGraph;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
@@ -376,19 +377,58 @@ public class RClassLoader implements IRClassLoader{
 	 * 		失败返回0。
 	 */
 	private int loadCusRClassInProject(ZipFile projectFile, ArrayList<String> cusRClassDeclarations) {
+		//生成加载序列。
 		ScriptBlock scriptSequenceHead = 
 				ScriptBlockHelper
 					.generateSequence(projectFile, cusRClassDeclarations);
 		
 		//整理脚本文件结构，
-		//去除包含错误的脚本文件。
-		ScriptBlockHelper
+		//去除包含错误的脚本文件，
+		//生成加载时继承图。
+		LoadRCGraph loadRCG = ScriptBlockHelper
 			.organize(scriptSequenceHead);
 		
-		//ScriptBlockHelper
-		//	.loadRClass(scriptSequenceHead);
+		//根据每个RClass内部的继承信息，
+		//自动生成弧线来表示继承的方向。
+		loadRCG.autoLink();
+		
+		//删除所有继承弧线出错的结点。
+		loadRCG.clearIllegal();
+		
+		//促使每个结点开始继承RClass，
+		//获取应有的父类信息。
+		loadRCG.extend();
+
+		/*
+		//剔除没有找到父类结点的孤立结点。
+		loadRCG.clearStandAlone();
+		//剔除循环继承结点。
+		loadRCG.clearLoop();
+		*/
+		
+		//加载继承图中的RClass，
+		//并为其分配RClassId。
+		idField.loadGraph(loadRCG);
+		
+		//为每个加载时继承图中的结点记录类名到RClassID的记录。
+		logNameToID(loadRCG);
 		
 		return 1;
+	}
+
+	/**
+	 * 为每个加载时继承图中的结点记录类名到RClassID的记录。
+	 * @param loadRCG
+	 * 		已经分配好RClassID的加载时继承图。
+	 */
+	private void logNameToID(LoadRCGraph loadRCG) {
+		//RClassID都在继承图的每个结点的内部存储着。
+		for (int i = loadRCG.getNum(); i > 0; --i){
+			//获取结点
+			RCGNode node = loadRCG.getNode(i);
+			//放置记录
+			nameToID.put(node.getName(), node.getID());
+		}
 	}
 
 
