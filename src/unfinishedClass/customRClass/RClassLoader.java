@@ -29,7 +29,23 @@ import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequen
  */
 public class RClassLoader implements IRClassLoader{
 	public static String jarBufferPath = "jarBufferFolder";
+	private static String rManifestPath = "RMETA-INF/RMANIFEST.txt";
+	private static String jarRClassDeclaration = "JarRClass: ";
+	private static String cusRClassDeclaration = "CustomRClass: ";
+	private static String jarRClassDeclarInJar = "MainRClass: ";
+
+	/**
+	 * RClassID区域，
+	 * 在这里存储着RClass对象，
+	 * 并且为每一个RClass对象配对一个RClassID，
+	 * 通过RClassID可以方便的找到相应的RClass对象。
+	 */
 	public RClassIDField idField;
+	
+	/**
+	 * 在这里存储着RClass的名字到RClassID的映射，
+	 * 方便通过名字来查找RClass对象。
+	 */
 	public Hashtable<String, Integer> nameToID;
 
 	/**
@@ -93,21 +109,25 @@ public class RClassLoader implements IRClassLoader{
 		IRClass rClassToLoad = null;
 		boolean foundMainRClass = false;
 		try{
+			//获取URLClassLoader
 			URL url = new URL("file:" + rClassPath);
 			URLClassLoader jarRClassLoader = new URLClassLoader(new URL[]{url}, 
 					Thread.currentThread().getContextClassLoader());
 			
+			//读取对应RClass的描述文件。
 			InputStream isManifest = jarRClassLoader.getResourceAsStream("RMETA-INF/RMANIFEST.txt");
 			if (isManifest == null){
 				System.out.println("指定的Jar文件中没有找到 RMETA-INF/RMANIFEST.txt，文件路径："+ rClassPath);
 				jarRClassLoader.close();
 				return 0;
 			}
+			
+			//从描述文件中获取被加载的JarRClass的Class的路径，
 			BufferedReader brManifest = new BufferedReader(new InputStreamReader(isManifest));
 			while((manifestString = brManifest.readLine()) != null){
-				if (manifestString.startsWith("MainRClass: ")){
+				if (manifestString.startsWith(jarRClassDeclarInJar)){
 					//12就是字符串 “MainRClass: ” 的长度，注意：包括最后的那个空格
-					manifestString = manifestString.substring(12);
+					manifestString = manifestString.substring(jarRClassDeclarInJar.length());
 					Class<?> jarRClass = jarRClassLoader.loadClass(manifestString);
 					rClassToLoad = (IRClass) jarRClass.newInstance();
 					foundMainRClass = true;
@@ -163,126 +183,50 @@ public class RClassLoader implements IRClassLoader{
 	 * 		失败返回0。
 	 */
 	public int loadProject(String rClassPath) {
-		ZipFile projectFile = null;
-		//保存所有JarRClass的描述信息
-		ArrayList<String> jarRClassDeclarations = 
-				new ArrayList<String>();
-		//保存所有CustomRClass的声明
-		ArrayList<String> cusRClassDeclarations = 
-				new ArrayList<String>();
-		BufferedReader rManifestBR = null;
-		ZipEntry rManifestEntry = null;
-		String rManifestLine;
-		boolean occuredError = false;
+		//获取工程文件
+		ZipFile projectFile = getProjectFrom(rClassPath);
 		
-		try{
-			projectFile = new ZipFile(rClassPath);
-		} catch(ZipException e){
-			RLogger.logError("RClassLoader加载工程文件，"
-					+ "目标路径不是Zip文件格式，"
-					+ "请检查工程文件：" + rClassPath + "。");
-			RLogger.logException(e);
-			occuredError = true;
+		//获取所有RClass声明
+		//declar同时会作为工程加载是否发生错误的标志，
+		//如果declar为null就表示加载过程中发生了错误。
+		ArrayList<String> declar = getDeclar(projectFile);
+		
+		//保存所有JarRClass的声明信息
+		ArrayList<String> jarRDeclar = 
+				new ArrayList<String>();
+		
+		//保存所有CustomRClass的声明信息
+		ArrayList<String> cusRDeclar = 
+				new ArrayList<String>();
+		
+		//如果声明信息不为空
+		if (declar != null){
+			//从主要声明中将JarRClass和CusRClass区分开来。
+			divideDeclar(declar, jarRDeclar, cusRDeclar);
 			
-		} catch (IOException e){
-			RLogger.logError("RClassScriptStruct获取 ZipFile 时发生IO异常，"
-					+ "请检查工程文件：" + rClassPath + "。");
-			RLogger.logException(e);
-			occuredError = true;
+			//加载JarRClass
+			if (1 != loadJarRClassInProject(projectFile, jarRDeclar)){
+				RLogger.logError("加载工程文件中的JarRClass发生错误，"
+						+ "导致加载工程文件失败，"
+						+ "未能加载剩余的JarRClass和CustomRClass。");
+				//用declar来标记加载过程中发生了错误。
+				declar = null;
+			}
 			
-		} catch (SecurityException e){
-			RLogger.logError("RClassScriptStruct获取 ZipFile 时发生 安全性 异常，"
-					+ "加载工程文件失败，"
-					+ "请检查工程文件：" + rClassPath + "。");
-			RLogger.logException(e);
-			occuredError = true;
+			//加载CusRClass
+			if (1 != loadCusRClassInProject(projectFile, cusRDeclar)){
+				RLogger.logError("加载工程文件中的CustomRClass发生错误，"
+						+ "导致加载工程文件失败。");
+				//用declar来标记加载过程中发生了错误。
+				declar = null;
+			}
+		} else {
+			//declar == null
+			RLogger.logError("RClassLoader.loadProject", 
+					"工程的描述文件为null", 
+					"获取工程描述文件失败");
 		}
 		
-		//获取工程描述文件头
-		if ( ! occuredError){
-			try{
-				rManifestEntry = projectFile.getEntry("RMETA-INF/RMANIFEST.txt");
-			} catch (IllegalStateException e){
-				RLogger.logError("获取工程文件中的\"RMETA-INF/RMANIFEST.txt\" 时，Zip文件"
-						+ "已被关闭，加载工程文件失败，"
-						+ "请检查工程文件：" + rClassPath + "。");
-				RLogger.logException(e);
-			}
-			if (rManifestEntry == null){
-				RLogger.logError("被加载的工程文件中不存在的\"RMETA-INF/RMANIFEST.txt\"，"
-						+ "加载工程文件失败，"
-						+ "请检查工程文件：" + rClassPath + "。");
-				occuredError = true;
-			}//工程描述文件头完毕
-			
-			//获取工程描述文件输入流
-			if ( ! occuredError){
-				
-				try {
-					rManifestBR = new BufferedReader(
-							new InputStreamReader(
-									projectFile.getInputStream(rManifestEntry)));
-				} catch (IOException e) {
-					RLogger.logError("加载工程文件，获取\"RMETA-INF/RMANIFEST.txt\"文件的输入流时发生异常，"
-							+ "加载工程文件失败，请检查工程文件：" + rClassPath);
-					RLogger.logException(e);
-				}//获取工程描述文件输入流完毕
-				
-				//读取描述文件中有关JarRClass和CustomRClass的信息
-				if ( ! occuredError){
-					try {
-						while((rManifestLine = rManifestBR.readLine()) != null){
-							if (rManifestLine.startsWith("JarRClass: ")){
-								rManifestLine = rManifestLine.substring(11).replace('.', '/');
-								jarRClassDeclarations
-									.add("src/" + rManifestLine + ".jar");
-								continue;
-							}
-							if (rManifestLine.startsWith("CustomRClass: ")){
-								cusRClassDeclarations
-									.add(rManifestLine.substring(14));
-							}
-						}//while
-					} catch (IOException e) {
-						RLogger.logError("加载工程文件，读取\"RMETA-INF/RMANIFEST.txt\"文件时发生异常，"
-								+ "加载工程文件失败，请检查工程文件：" + rClassPath);
-						RLogger.logException(e);
-						occuredError = true;
-					}//读取描述文件完毕
-					
-					//加载指定的工程文件中的JarRClass
-					if ( ! occuredError){
-						if (1 != loadJarRClassInProject(projectFile, jarRClassDeclarations)){
-							RLogger.logError("加载工程文件中的JarRClass发生错误，"
-									+ "导致加载工程文件失败，"
-									+ "未能加载剩余的JarRClass和CustomRClass。");
-							occuredError = true;
-						}//加载JarRClass完毕
-						
-						//加载指定的工程文件中的CustomRClass
-						if ( ! occuredError){
-							if (1 != loadCusRClassInProject(projectFile, cusRClassDeclarations)){
-								RLogger.logError("加载工程文件中的CustomRClass发生错误，"
-										+ "导致加载工程文件失败。");
-								occuredError = true;
-							}//加载CustomRClass完毕
-						}//if occuredError 加载CustomRClass
-					}//if occuredError 加载JarRClass
-				}//if occuredError 读取JarRClass、CustomRClass声明
-			}//if occuredError 工程描述文件输入流
-		}//if occuredError 工程描述文件头
-		
-		//关闭工程描述文件输入流
-		try{
-			if (rManifestBR != null){
-				rManifestBR.close();
-			}
-		} catch (IOException e){
-			RLogger.logError("加载工程文件结尾关闭rManifestBR输入流时发生IO异常。");
-			RLogger.logException(e);
-		}//关闭输入流完毕
-		
-		//关闭工程文件
 		try{
 			if (projectFile != null){
 				projectFile.close();
@@ -293,11 +237,131 @@ public class RClassLoader implements IRClassLoader{
 		}//关闭工程文件完毕
 		
 		//检查错误发生情况
-		if (occuredError){
+		if (declar == null){
+			//发生错误
 			return 0;
 		} else {
+			//没有发生错误
 			return 1;
 		}
+	}
+
+	/**
+	 * 从主要声明中将JarRClass和CusRClass区分开来。
+	 * @param declar
+	 * 		主要声明，
+	 * 		不能为null。
+	 * @param jarRDeclar
+	 * 		存储JarRClass声明的集合，
+	 * 		不能为null。
+	 * @param cusRDeclar
+	 * 		存储CusRClass声明的集合，
+	 * 		不能为null。
+	 */
+	private void divideDeclar(ArrayList<String> declar, ArrayList<String> jarRDeclar, ArrayList<String> cusRDeclar) {
+		if ( declar == null 
+				|| jarRDeclar == null
+				|| cusRDeclar == null){
+			RLogger.logError("在对工程文件中声明的RClass信息进行分类的时候发生错误，"
+					+ "三个参数中存在null。");
+			return;
+		}
+		
+		String line;	//临时单行信息。
+		for (int i = declar.size(); i > 0; --i){
+			line = declar.get(i - 1);
+			if (line.startsWith(jarRClassDeclaration)){
+				//JarRClass声明信息
+				//将JarRClass的声明信息转换成在工程文件中的目录。
+				line = line//剔除本行前面的声明信息
+						.substring(jarRClassDeclaration.length())
+						.replace('.', '/');
+						
+				//加上前后的具体文件夹名以及文件扩展名，
+				//然后添加到专门的集合中。
+				jarRDeclar.add("src/" + line + ".jar");
+				
+			} else if (line.startsWith(cusRClassDeclaration)){
+				cusRDeclar.add(
+						line.substring(//剔除本行前面的声明信息
+								cusRClassDeclaration.length()));
+			}
+		}
+	}
+
+
+	/**
+	 * 假定参数的ZipFile是一个工程文件，
+	 * 从中获取所有RClass的声明信息，
+	 * 这些声明信息声明了这个工程文件中包含哪些RClass。
+	 * @param projectFile
+	 * 		工程文件。
+	 * @return
+	 * 		所有的声明信息，
+	 * 		这些声明信息完全按照原来的描述文件，
+	 * 		一行存为一个元素；
+	 * 		如果找不到描述 文件就返回null。
+	 */
+	private ArrayList<String> getDeclar(ZipFile projectFile) {
+		//获取描述文件头
+		ZipEntry rManifestEntry
+			= projectFile.getEntry(rManifestPath);
+		BufferedReader rManifestBR;
+		ArrayList<String> declar = null;
+		
+		if (rManifestEntry == null){
+			RLogger.logError("被加载的工程文件中不存在的\" "+ rManifestPath + "\"，");
+		} else {
+			try {
+				//读取描述文件
+				rManifestBR = new BufferedReader(
+						new InputStreamReader(
+								projectFile.getInputStream(rManifestEntry)));
+				declar = new ArrayList<String>();
+				String line;
+				while ( null != (line = rManifestBR.readLine()) ){
+					declar.add(line);
+				}
+			} catch (IOException e) {
+				RLogger.logError("加载工程文件，读取\"RMETA-INF/RMANIFEST.txt\"文件的输入流时发生异常，");
+				RLogger.logException(e);
+			}
+		}
+		
+		return declar;
+	}
+
+
+	/**
+	 * 从指定的路径获取工程文件的ZipFile。
+	 * @param rClassPath
+	 * 		指定的工程文件路径。
+	 * @return
+	 * 		工程文件的ZipFile。
+	 */
+	private ZipFile getProjectFrom(String rClassPath) {
+		try{
+			return new ZipFile(rClassPath);
+		} catch(ZipException e){
+			RLogger.logError("RClassLoader加载工程文件，"
+					+ "目标路径不是Zip文件格式，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
+			
+		} catch (IOException e){
+			RLogger.logError("RClassScriptStruct获取 ZipFile 时发生IO异常，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
+			
+		} catch (SecurityException e){
+			RLogger.logError("RClassScriptStruct获取 ZipFile 时发生 安全性 异常，"
+					+ "加载工程文件失败，"
+					+ "请检查工程文件：" + rClassPath + "。");
+			RLogger.logException(e);
+		}
+		
+		//发生异常就返回null。
+		return null;
 	}
 	
 	/**
@@ -312,26 +376,9 @@ public class RClassLoader implements IRClassLoader{
 	 * 		失败返回0。
 	 */
 	private int loadCusRClassInProject(ZipFile projectFile, ArrayList<String> cusRClassDeclarations) {
-		/*
-		LoadCusRClassSequence sequence = new LoadCusRClassSequence();
-		CustomRClass cusRClassArray[];
-		for (int i = cusRClassDeclarations.size(); i > 0; --i){
-			sequence.append(projectFile, cusRClassDeclarations.get(i - 1));
-		}
-		
-		//对加载序列进行统一的检查，
-		//剔除所有有问题的脚本
-		//TODO
-		//sequence.Reoraganize();
-		
-		//开始加载脚本
-		sequence.startLoad();
-		*/
 		ScriptBlock scriptSequenceHead = 
 				ScriptBlockHelper
 					.generateSequence(projectFile, cusRClassDeclarations);
-		
-		//new SequencePrintSpider(scriptSequenceHead).workUntilEnd();
 		
 		//整理脚本文件结构，
 		//去除包含错误的脚本文件。
