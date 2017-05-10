@@ -16,14 +16,18 @@ import basicInterface.INameable;
  */
 public class NameableWithString implements INameable
 {
-	String name;
+	protected String name;
 	
 	public NameableWithString(){
 		name = "Unknown";
 	}
 	
 	public NameableWithString(String name){
-		this.name = name;
+		if (name == null){
+			name = "Unknown";
+		} else {
+			this.name = name;
+		}
 	}
 	
 	/**
