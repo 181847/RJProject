@@ -8,13 +8,15 @@ package unfinishedClass.customRClass.scriptBlock;
  * LoadRCGraph和RuntimeRCGraph。
  */
 public class RCGraph {
+	RCGNode[] vertics;
+	int vCount;
+	
 	/**
 	 * @return
 	 * 		结点的数量。
 	 */
 	public int getNum(){
-		//TODO with the NodeNum
-		return 0;
+		return vCount;
 	}
 	
 	/**
@@ -25,7 +27,10 @@ public class RCGraph {
 	 * 		如果序号不合法就返回null。
 	 */
 	public RCGNode getNode(int index){
-		//TODO pick out the RCGNode Object
-		return null;
+		if (index < 0 || index >= vCount){
+			//非法序号，返回null。
+			return null;
+		}
+		return vertics[index];
 	}
 }
