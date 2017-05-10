@@ -4,7 +4,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
  * 可收集多个接口RClass名字的集合，
  * 用来在RClassStructClass中作为接口的记录。
  */
-public class ImplementSet {
+public class ImplementSet extends Set{
 
 	/**
 	 * 添加接口信息。

@@ -237,4 +237,13 @@ public class RClassStruct {
 	public RClassRefStruct getExtend() {
 		return extend;
 	}
+
+	/**
+	 * 获取实现接口的集合。
+	 * @return
+	 * 		接口集合。
+	 */
+	public ImplementSet getImplementSet() {
+		return implementSet;
+	}
 }

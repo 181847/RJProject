@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.tool.Struct;
+
 /**
  * 包含各种RClass信息的集合。
  */
@@ -22,7 +24,7 @@ public class Set {
 	 * @return
 	 * 		对应序号的Struct对象。
 	 */
-	public FunctionStruct getStruct(int structNum) {
+	public Struct getStruct(int structNum) {
 		// TODO Auto-generated method stub
 		return null;
 	}
