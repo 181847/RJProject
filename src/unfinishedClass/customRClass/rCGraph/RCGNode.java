@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock;
+package unfinishedClass.customRClass.rCGraph;
 
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
 
@@ -23,6 +23,20 @@ public class RCGNode {
 	public RClassStruct getRClassStruct() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 * 插入非接口父类继承弧线，
+	 * 这个弧线可以是虚的，
+	 * 指向运行时继承图中的某个节点。
+	 * @param extOut
+	 */
+	public linkOut(ExtArc extOut){
+		//TODO 插入非接口父类继承弧线
+	}
+	
+	public linkOut(ImpArc impOut){
+		//TODO 插入接口父类继承弧线，
 	}
 
 }

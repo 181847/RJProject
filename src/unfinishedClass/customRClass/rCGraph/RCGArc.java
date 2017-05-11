@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock;
+package unfinishedClass.customRClass.rCGraph;
 
 /**
  * 统一的RCGraph中的弧线类型，

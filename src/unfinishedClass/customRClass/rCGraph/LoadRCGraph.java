@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock;
+package unfinishedClass.customRClass.rCGraph;
 
 import java.util.Hashtable;
 
