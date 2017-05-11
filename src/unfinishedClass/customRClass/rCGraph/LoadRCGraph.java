@@ -13,7 +13,9 @@ import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.str
  * 实现有关继承图最多的方法：
  * 插入节点，连接弧线，检查继承错误。
  * 相当于工具类的一种存在，
- * 为RuntimeRCGraph提供服务和桥梁。
+ * 为RuntimeRCGraph提供服务和桥梁，
+ * 图中用于存储顶点的数组的零号单元不放任何值，
+ * 表示空节点。
  */
 public class LoadRCGraph extends RCGraph{
 	Hashtable<String, Integer> nameToIndex;
@@ -33,10 +35,11 @@ public class LoadRCGraph extends RCGraph{
 		//确保空间足够，
 		//空间不足时自动扩充。
 		ensureCapacity();
-		vertics[vCount] = 
+		//注意vertics数组的零号单元不存放顶点。
+		vertics[ ++vCount] = 
 				new RCGNode(rClassStruct);
 		//记录下对应的序号
-		nameToIndex.put(rClassStruct.getName(), vCount++);
+		nameToIndex.put(rClassStruct.getName(), vCount);
 	}
 
 	/**
@@ -53,6 +56,7 @@ public class LoadRCGraph extends RCGraph{
 				vertics[index] = null;
 			}
 			vertics = buffer;
+			buffer = null;
 		}
 	}
 
@@ -76,20 +80,16 @@ public class LoadRCGraph extends RCGraph{
 	protected void createArcFor(RCGNode rCGNode) {
 		RClassStruct rClassStruct = 
 				rCGNode.getRClassStruct();
-		//存储父类序号的值，
-		//正数代表父类在本图中，
-		//负数代表父类在运行时继承图中。
-		//0表示没有在任何位置找到父类。
-		int index;
 		
 		//检查非接口父类信息是否存在，
 		//如果存在就尝试向其创建继承弧线。
 		Struct father = rClassStruct.getExtend();
 		if (father != null){
-			index = searchFor(father.getName());
-			if (index != 0){
-				rCGNode.linkOut(new ExtArc(index));
-			}
+			//创建非接口父类继承弧线，
+			//弧线指向本图时，弧线的入度需要形成链表，
+			//注意这里可能会创建一个到不存在的节点
+			rCGNode.linkOut(
+					createExtArc(father.getName()));
 		}
 
 		//检查接口父类信息是否存在，
@@ -101,13 +101,61 @@ public class LoadRCGraph extends RCGraph{
 					i >= 0; --i){
 				father = implementSet.getStruct(i);
 				if (father != null){
-					index = searchFor(father.getName());
-					if (index != 0){
-						rCGNode.linkOut(new ImpArc(index));
-					}
+					//创建接口父类继承弧线，
+					//弧线指向本图时，弧线的入度需要形成链表
+					rCGNode.linkOut(
+							createImpArc(father.getName()));
 				}
 			}//for
 		}//if
+	}
+
+	/**
+	 * 创建到指定序号的RCGNode的接口继承弧线。
+	 * @param index
+	 * 		RCGNode的序号，
+	 * 		正数代表本图中的结点，
+	 * 		负数代表运行时继承图中的结点。
+	 * @return
+	 * 		如果index为0，返回null；
+	 * 		接口继承弧线，
+	 * 		如果index为正数，
+	 * 		则弧线的入度部分会形成自动形成链表。
+	 */
+	private ImpArc createImpArc(String interfaceName) {
+		int index = searchFor(interfaceName);
+		ImpArc newArc = new ImpArc(index);
+		
+		if (index > 0){
+			//如果结点在本图当中，
+			//在目标结点的入度中作记录。
+			getNode(index).linkIn(newArc);
+		}
+		return newArc;
+	}
+
+	/**
+	 * 创建到指定序号的RCGNode的非接口继承弧线。
+	 * @param index
+	 * 		RCGNode的序号，
+	 * 		正数代表本图中的结点，
+	 * 		负数代表运行时继承图中的结点。
+	 * @return
+	 * 		如果index为0，返回null；
+	 * 		非接口继承弧线，
+	 * 		如果index为正数，
+	 * 		则弧线的入度部分会形成自动形成链表。
+	 */
+	private ExtArc createExtArc(String extendsName) {
+		int index = searchFor(extendsName);
+		ExtArc newArc = new ExtArc(index);
+		
+		if (index > 0){
+			//如果结点在本图当中，
+			//在目标结点的入度中作记录。
+			getNode(index).linkIn(newArc);
+		}
+		return newArc;
 	}
 
 	/**
@@ -150,7 +198,8 @@ public class LoadRCGraph extends RCGraph{
 	 */
 	public void clearIllegal() {
 		// TODO Auto-generated method stub
-		
+		//删除目标对象
+		int[] deleteLogs;
 	}
 
 	/**

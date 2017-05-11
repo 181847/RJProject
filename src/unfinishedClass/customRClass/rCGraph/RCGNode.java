@@ -12,7 +12,7 @@ public class RCGNode {
 	RClassStruct rClassStruct;
 	ExtArc extOut;
 	ImpArc impOut;
-	RCGArc in;
+	RCGArc inArc;
 	public RCGNode(RClassStruct rClassStruct){
 		this.rClassStruct = rClassStruct;
 	}
@@ -21,22 +21,49 @@ public class RCGNode {
 	 * 返回内部存储的RClassStruct结构。
 	 */
 	public RClassStruct getRClassStruct() {
-		// TODO Auto-generated method stub
-		return null;
+		return rClassStruct;
 	}
 	
 	/**
-	 * 插入非接口父类继承弧线，
-	 * 这个弧线可以是虚的，
-	 * 指向运行时继承图中的某个节点。
+	 * 在结点的出度插入非接口父类继承弧线，
+	 * 本方法不对弧线的入度链表进行修改。
 	 * @param extOut
+	 * 		非接口父类继承弧线。
 	 */
-	public linkOut(ExtArc extOut){
-		//TODO 插入非接口父类继承弧线
+	public void linkOut(ExtArc extOut){
+		this.extOut = extOut;
 	}
 	
-	public linkOut(ImpArc impOut){
-		//TODO 插入接口父类继承弧线，
+	/**
+	 * 在结点的出度插入接口继承弧线，
+	 * 本方法不对弧线的入度链表进行修改，
+	 * 只对弧线的出度链表进行连接。
+	 * @param impOut
+	 * 		接口继承弧线。
+	 */
+	public void linkOut(ImpArc impOut){
+		if (this.impOut == null){
+			this.impOut = impOut;
+		} else {
+			//将参数弧线的入度作为入度链表的头结点。
+			impOut.setNextOut(this.impOut);
+			this.impOut = impOut;
+		}
+	}
+
+	/**
+	 * 在结点的入度插入继承弧线（接口或者非接口都可以）
+	 * @param newArc
+	 */
+	public void linkIn(RCGArc inArc) {
+		if (this.inArc == null){
+			this.inArc = inArc;
+		} else {
+			//让弧线的入度形成链表，
+			//参数中的弧线称为链表的头部。
+			inArc.setNextIn(this.inArc);
+			this.inArc = inArc;
+		}
 	}
 
 }

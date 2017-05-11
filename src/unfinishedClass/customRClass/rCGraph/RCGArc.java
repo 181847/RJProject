@@ -27,4 +27,23 @@ public class RCGArc {
 	 * nextIn的弧线指向的也一定是A。
 	 */
 	protected RCGArc nextIn;
+	
+	/**
+	 * @param in
+	 * 		设置入度索引，
+	 * 		正数表示在本图中的结点，
+	 * 		负数表示在运行时继承图中的结点。
+	 */
+	public RCGArc (int in){
+		this.in = in;
+	}
+
+	/**
+	 * 设置相同入度的弧线链表。
+	 * @param inArc
+	 * 		相同入度的弧线链表。
+	 */
+	public void setNextIn(RCGArc inArc) {
+		nextIn = inArc;
+	}
 }
