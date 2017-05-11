@@ -18,7 +18,7 @@ import basicTool.RLogger;
 import rClass.RClassIDField;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
-import unfinishedClass.customRClass.scriptBlock.LoadRCGraph;
+import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
@@ -417,7 +417,8 @@ public class RClassLoader implements IRClassLoader{
 	}
 
 	/**
-	 * 为每个加载时继承图中的结点记录类名到RClassID的记录。
+	 * 为每个加载时继承图中的结点记录类名到RClassID的记录，
+	 * 假定loadRCG中的每个结点都已经分配了RClassID。
 	 * @param loadRCG
 	 * 		已经分配好RClassID的加载时继承图。
 	 */

@@ -1,6 +1,6 @@
 package rClass;
 import rClassInterface.IRClass;
-import unfinishedClass.customRClass.scriptBlock.LoadRCGraph;
+import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
 import unfinishedClass.customRClass.scriptBlock.RuntimeRCGraph;
 
 /**

@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock;
 
+import unfinishedClass.customRClass.rCGraph.RCGraph;
+
 /**
  * 运行时继承图，
  * 这个对象将会作为RClassLoader.idField.negativeField，

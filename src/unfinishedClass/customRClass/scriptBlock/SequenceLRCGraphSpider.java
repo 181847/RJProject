@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock;
 
+import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
