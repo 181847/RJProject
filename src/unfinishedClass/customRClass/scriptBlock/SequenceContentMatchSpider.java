@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.DeleteSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
 
 public class SequenceContentMatchSpider extends DeleteSpider {
 

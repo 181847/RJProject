@@ -1,6 +1,6 @@
 package unfinishedClass.customRClass.rCGraph;
 
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
 
 /**
  * RCGNode作为RCGraph中的结点，

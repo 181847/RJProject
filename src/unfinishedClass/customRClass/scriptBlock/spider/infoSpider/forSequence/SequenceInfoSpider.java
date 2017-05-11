@@ -4,8 +4,8 @@ import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.ScriptInfoSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider.ScriptInfoSpider;
 
 /**
  * 将加载序列中的每个脚本中的信息，

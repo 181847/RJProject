@@ -1,7 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
 
 /**
  * 用于收集Block链上的继承接口信息的Spider，

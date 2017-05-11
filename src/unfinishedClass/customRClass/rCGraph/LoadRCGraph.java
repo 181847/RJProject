@@ -3,9 +3,9 @@ package unfinishedClass.customRClass.rCGraph;
 import java.util.Hashtable;
 
 import rClass.RClassLoaderManager;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.RClassStruct;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.Set;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.tool.Struct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.Set;
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.Struct;
 
 /**
  * 加载时继承图，
