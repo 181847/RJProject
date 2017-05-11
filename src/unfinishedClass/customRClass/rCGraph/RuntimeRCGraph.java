@@ -1,6 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock;
-
-import unfinishedClass.customRClass.rCGraph.RCGraph;
+package unfinishedClass.customRClass.rCGraph;
 
 /**
  * 运行时继承图，

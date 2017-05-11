@@ -1,7 +1,7 @@
 package rClass;
 import rClassInterface.IRClass;
 import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
-import unfinishedClass.customRClass.scriptBlock.RuntimeRCGraph;
+import unfinishedClass.customRClass.rCGraph.RuntimeRCGraph;
 
 /**
  * 本类用来存储RClass对象实例，并且为存储的RClass对象分配一个RClassID，

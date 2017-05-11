@@ -1,6 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock;
-
-import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
+package unfinishedClass.customRClass.scriptBlock.information;
 
 public class ScriptSequenceInformation extends RawScriptInformation {
 	public ScriptSequenceInformation() {

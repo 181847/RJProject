@@ -1,6 +1,7 @@
-package unfinishedClass.customRClass.scriptBlock;
+package unfinishedClass.customRClass.scriptBlock.spider.forSequence;
 
 import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
+import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
@@ -14,7 +15,7 @@ public class SequenceLRCGraphSpider extends AbstractBCSpider {
 
 	public SequenceLRCGraphSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		loadRCG = new LoadRCGraph();
+		loadRCG = new LoadRCGraph(30);
 	}
 
 	@Override

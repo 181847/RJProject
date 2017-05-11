@@ -1,5 +1,8 @@
-package unfinishedClass.customRClass.scriptBlock;
+package unfinishedClass.customRClass.scriptBlock.spider.forSequence;
 
+import unfinishedClass.customRClass.scriptBlock.RClassStructHelper;
+import unfinishedClass.customRClass.scriptBlock.RSTestResult;
+import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.DeleteSpider;
