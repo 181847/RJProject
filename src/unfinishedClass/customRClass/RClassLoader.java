@@ -19,6 +19,7 @@ import rClass.RClassIDField;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
 import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
+import unfinishedClass.customRClass.rCGraph.RCGNode;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
