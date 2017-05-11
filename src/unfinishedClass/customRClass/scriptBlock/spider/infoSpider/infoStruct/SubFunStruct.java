@@ -1,6 +1,8 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 
-public class SubFunStruct {
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.tool.Struct;
+
+public class SubFunStruct extends Struct {
 	public SubFunStruct(String subFunInfo){
 		//TODO
 	}

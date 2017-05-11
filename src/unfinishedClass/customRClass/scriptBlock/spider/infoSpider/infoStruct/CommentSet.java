@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * Function内部的注释集合。
  */
-public class CommentSet {
+public class CommentSet extends Set {
 
 	/**
 	 * 添加一个注释信息，

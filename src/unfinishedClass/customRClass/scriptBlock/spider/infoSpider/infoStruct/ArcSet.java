@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 弧线连接集合。
  */
-public class ArcSet {
+public class ArcSet extends Set {
 
 	/**
 	 * 添加弧线信息。

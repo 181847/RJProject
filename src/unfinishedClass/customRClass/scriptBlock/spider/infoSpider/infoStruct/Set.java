@@ -28,5 +28,14 @@ public class Set {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * 在尾部添加一个Struct结构。
+	 * @param newStruct
+	 * 		被添加的结构。
+	 */
+	public void append(Struct newStruct){
+		//TODO 
+	}
 
 }

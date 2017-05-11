@@ -1,12 +1,14 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 
+import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.tool.Struct;
+
 /**
  * 本类用于保存一个变量的信息，
  * 包括变量的类型，
  * 变量的名字，
  * 对于基本数据类型（例如整形，Boolean）还会保存初始化值。
  */
-public class VarStruct{
+public class VarStruct extends Struct {
 
 	/**
 	 * 按照字符串中的信息来构造变量结构，

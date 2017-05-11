@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct;
 /**
  * 收集Function的子Funtion信息。
  */
-public class SubFunSet {
+public class SubFunSet extends Set{
 
 	/**
 	 * 添加子Function信息，
