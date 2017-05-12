@@ -430,6 +430,7 @@ public class RClassLoader implements IRClassLoader{
 			RCGNode node = loadRCG.getNode(i);
 			//放置记录
 			nameToID.put(node.getName(), node.getID());
+			RLogger.log("");
 		}
 	}
 
