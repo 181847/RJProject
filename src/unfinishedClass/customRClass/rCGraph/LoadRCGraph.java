@@ -2,6 +2,7 @@ package unfinishedClass.customRClass.rCGraph;
 
 import java.util.Hashtable;
 
+import basicTool.RLogger;
 import rClass.RClassLoaderManager;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.Set;
@@ -111,16 +112,14 @@ public class LoadRCGraph extends RCGraph{
 	}
 
 	/**
-	 * 创建到指定序号的RCGNode的接口继承弧线。
-	 * @param index
-	 * 		RCGNode的序号，
-	 * 		正数代表本图中的结点，
-	 * 		负数代表运行时继承图中的结点。
+	 * 创建到指定名字的RCGNode的接口继承弧线。
+	 * @param extendsName
+	 * 		RClass的名字。
 	 * @return
-	 * 		如果index为0，返回null；
-	 * 		接口继承弧线，
-	 * 		如果index为正数，
-	 * 		则弧线的入度部分会形成自动形成链表。
+	 * 		如果找不到指定名字的RClass，
+	 * 		创建出来的弧线指向的序号为0；
+	 * 		在本图中，指向的序号就是正数；
+	 * 		在运行时继承图中，指向的序号就是负数。
 	 */
 	private ImpArc createImpArc(String interfaceName) {
 		int index = searchFor(interfaceName);
@@ -135,16 +134,14 @@ public class LoadRCGraph extends RCGraph{
 	}
 
 	/**
-	 * 创建到指定序号的RCGNode的非接口继承弧线。
-	 * @param index
-	 * 		RCGNode的序号，
-	 * 		正数代表本图中的结点，
-	 * 		负数代表运行时继承图中的结点。
+	 * 创建到指定名字的RCGNode的非接口继承弧线。
+	 * @param extendsName
+	 * 		RClass的名字。
 	 * @return
-	 * 		如果index为0，返回null；
-	 * 		非接口继承弧线，
-	 * 		如果index为正数，
-	 * 		则弧线的入度部分会形成自动形成链表。
+	 * 		如果找不到指定名字的RClass，
+	 * 		创建出来的弧线指向的序号为0；
+	 * 		在本图中，指向的序号就是正数；
+	 * 		在运行时继承图中，指向的序号就是负数。
 	 */
 	private ExtArc createExtArc(String extendsName) {
 		int index = searchFor(extendsName);
@@ -197,9 +194,97 @@ public class LoadRCGraph extends RCGraph{
 	 * 循环继承。
 	 */
 	public void clearIllegal() {
+		//删除记录
+		//本图中的每个结点都会对应这个数组当中的一个整数，
+		//例如vertics[15] 对应 deleteLog[15]（注：vertics[0]没有意义），
+		//任何一个小于等于-1的记录代表当前节点应该被删除，
+		//大于等于0的记录代表在所有删除节点被移除之后，
+		//对应的结点应该向前移动多少个单位距离（0就代表不移动）。
+		int deleteLog[] = new int[vCount];
+		StringBuffer deleteReason;
+		
+		//记录应该被删除的结点序号，
+		//被记录为被删除状态的结点应该具有连锁效应，
+		//假如图中的某个节点作为另一个结点的子类，
+		//这个父节点如果被记录为删除状态，
+		//那么连锁地，子类也应该被记录为删除状态。
+		logIllegal(deleteLog, deleteReason);
+		
+		//执行删除操作，
+		//每一次的删除操作就会在没有删除记录的结点记录上增加压缩偏移记录。
+		deleteIllegal(deleteLog);
+		
+		compressVArray(deleteLog);
+		
+		RLogger.logError(deleteReason.toString());
+	}
+	
+	/**
+	 * 检查每个结点，
+	 * 将所有应该被删除的结点进行记录，
+	 * 并且记录删除原因。
+	 * @param deleteLog
+	 * 		记录被删除的结点，
+	 * 		把对应结点序号的数组元素置为负数，
+	 * 		而且只会设置负数。
+	 * @param deleteReason
+	 * 		所有被删除的原因。
+	 */	private void logIllegal(int[] deleteLog, StringBuffer deleteReason) {
 		// TODO Auto-generated method stub
-		//删除目标对象
-		int[] deleteLogs;
+		for (int vIndex = 1; vIndex <= vCount; ++vIndex){
+			if (deleteLog[vIndex] == 0 
+					&& vertics[vIndex].linkZeroArc()){
+				//连接了一个零号弧线，
+				//零号弧线的入度序号为0，
+				//表示指向的结点不存在，
+				//记录删除这样的结点。
+				deleteLog[vIndex]--;
+				
+				//记录错误信息
+				deleteReason.append("名为" + vertics[vIndex].getName() + 
+						"的RClass继承某些一下可能不存在的RClass:");
+				Set fatherSet = vertics[vIndex].getFatherSet();
+				for (int fatherIndex = fatherSet.getNum(); fatherIndex > 0; --fatherIndex){
+					deleteReason.append(fatherSet.getStruct(fatherIndex))
+				}
+				
+				//将所有连接（或者间接连接）到这个结点的其他子节点删除。
+				logSubTree(vIndex, deleteLog, deleteReason);
+			}
+		}
+	}
+
+
+	/**
+	 * 将所有连接到参数指定结点的子结点全部删除。
+	 * @param vIndex
+	 * 		参考结点序号，所有继承参考结点的子结点都将被记录为删除状态，
+	 * 		同时会递归调用删除这些子结点的子结点。
+	 * @param deleteLog
+	 * 		记录被删除的结点，
+	 * 		把对应结点序号的数组元素置为负数，
+	 * 		而且只会设置负数。
+	 * @param deleteReason
+	 * 		所有被删除的原因。
+	 */
+	private void logSubTree(int vIndex, int[] deleteLog, StringBuffer deleteReason) {
+		int[] subVIndexes = vertics[vIndex].getSubIndexes();
+		
+		//循环这个结点的每个子结点
+		for (int subVIndex: subVIndexes){
+			if (deleteLog[subVIndex] == 0){
+				//子结点还未被记录为删除状态。
+				
+				//记录删除状态
+				-- deleteLog[subVIndex];
+				deleteReason.append("名为" + vertics[subVIndex].getName()
+						+ "的RClass继承了一个被删除的RClass："
+						+ vertics[vIndex] + "，因而被删除。");
+				
+				//删除这个结点以下的子结点
+				logSubTree(subVIndex, deleteLog, deleteReason);
+			}
+		}
 	}
 
 	/**
