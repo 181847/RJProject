@@ -22,8 +22,15 @@ public class LoadRCGraph extends RCGraph{
 	Hashtable<String, Integer> nameToIndex;
 	
 	public LoadRCGraph(int vNum){
-		vertics = new RCGNode[vNum];
+		vertics = new RCGNode[vNum + 1];
 		vCount = 0;
+		//在0号单元放置一个空白无用的RCGNode，
+		//它的名字叫"不存在的RClass"，
+		//这个空白的RCGNode可以记录所有继承了不存在的RClass的弧线。
+		RClassStruct zeroRClassStruct = 
+				new RClassStruct();
+		zeroRClassStruct.setName("不存在的RClass");
+		vertics[0] = new RCGNode(zeroRClassStruct);
 	}
 
 	/**
@@ -127,8 +134,11 @@ public class LoadRCGraph extends RCGraph{
 		
 		if (index > 0){
 			//如果结点在本图当中，
-			//在目标结点的入度中作记录。
-			getNode(index).linkIn(newArc);
+			//在目标结点的入度中作记录，
+			//如果继承的RClass不存在与本图中，
+			//则需要将这个继承弧线指向零号位的空白RCGNode，
+			//后期删除的时候更方便。
+			vertics[index].linkIn(newArc);
 		}
 		return newArc;
 	}
@@ -147,10 +157,13 @@ public class LoadRCGraph extends RCGraph{
 		int index = searchFor(extendsName);
 		ExtArc newArc = new ExtArc(index);
 		
-		if (index > 0){
+		if (index >= 0){
 			//如果结点在本图当中，
-			//在目标结点的入度中作记录。
-			getNode(index).linkIn(newArc);
+			//在目标结点的入度中作记录，
+			//如果继承的RClass不存在与本图中，
+			//则需要将这个继承弧线指向零号位的空白RCGNode，
+			//后期删除的时候更方便。
+			vertics[index].linkIn(newArc);
 		}
 		return newArc;
 	}
@@ -203,6 +216,9 @@ public class LoadRCGraph extends RCGraph{
 		int deleteLog[] = new int[vCount];
 		StringBuffer deleteReason;
 		
+		//首先将所有指向零号位空白RCGNode的结点全部标记为删除状态。
+		logSubTree(0, deleteLog, deleteReason);
+		
 		//记录应该被删除的结点序号，
 		//被记录为被删除状态的结点应该具有连锁效应，
 		//假如图中的某个节点作为另一个结点的子类，
@@ -238,14 +254,16 @@ public class LoadRCGraph extends RCGraph{
 				//零号弧线的入度序号为0，
 				//表示指向的结点不存在，
 				//记录删除这样的结点。
-				deleteLog[vIndex]--;
+				--deleteLog[vIndex];
 				
 				//记录错误信息
 				deleteReason.append("名为" + vertics[vIndex].getName() + 
-						"的RClass继承某些一下可能不存在的RClass:");
+						"的RClass继承某些可能不存在的RClass:");
+				
+				//输出该结点的所有父类名称。
 				Set fatherSet = vertics[vIndex].getFatherSet();
 				for (int fatherIndex = fatherSet.getNum(); fatherIndex > 0; --fatherIndex){
-					deleteReason.append(fatherSet.getStruct(fatherIndex))
+					deleteReason.append(fatherSet.getStruct(fatherIndex));
 				}
 				
 				//将所有连接（或者间接连接）到这个结点的其他子节点删除。
@@ -268,10 +286,20 @@ public class LoadRCGraph extends RCGraph{
 	 * 		所有被删除的原因。
 	 */
 	private void logSubTree(int vIndex, int[] deleteLog, StringBuffer deleteReason) {
-		int[] subVIndexes = vertics[vIndex].getSubIndexes();
+		if (vIndex <= 0 || vIndex > vCount){
+			//结点序号超出正常范围，直接返回。
+			return;
+		}
 		
+		//获取结点的入度弧线链表
+		RCGArc inArc = vertics[vIndex].getFirstIn();
+		
+		int subVIndex;
 		//循环这个结点的每个子结点
-		for (int subVIndex: subVIndexes){
+		while (inArc != null){
+			//检查每个入度弧线的出度序号
+			//即A <------- B 弧线中 的B端的 序号。
+			subVIndex = inArc.getOutIndex();
 			if (deleteLog[subVIndex] == 0){
 				//子结点还未被记录为删除状态。
 				
@@ -279,11 +307,13 @@ public class LoadRCGraph extends RCGraph{
 				-- deleteLog[subVIndex];
 				deleteReason.append("名为" + vertics[subVIndex].getName()
 						+ "的RClass继承了一个被删除的RClass："
-						+ vertics[vIndex] + "，因而被删除。");
+						+ vertics[vIndex].getName() + "，因而被删除。");
 				
 				//删除这个结点以下的子结点
 				logSubTree(subVIndex, deleteLog, deleteReason);
 			}
+			//切换入度弧线
+			inArc = inArc.getNextIn();
 		}
 	}
 

@@ -46,4 +46,26 @@ public class RCGArc {
 	public void setNextIn(RCGArc inArc) {
 		nextIn = inArc;
 	}
+
+	/**
+	 * 获取相同入度的弧线链表。
+	 * @return
+	 * 		返回的弧线链表中，
+	 * 		所有弧线的入度相同。
+	 */
+	public RCGArc getNextIn() {
+		return nextIn;
+	}
+
+	/**
+	 * @return
+	 * 		弧线的入度部分的序号。
+	 */
+	public int getInIndex() {
+		return in;
+	}
+	
+	public int getOutIndex(){
+		return out;
+	}
 }
