@@ -13,7 +13,7 @@ public class CommentSet extends Set {
 	 * @param commentStruct
 	 * 		一个注释信息。
 	 */
-	public void addComment(CommentStruct commentStruct) {
+	public void appendComment(CommentStruct commentStruct) {
 		append(commentStruct);
 	}
 

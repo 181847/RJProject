@@ -38,7 +38,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 		
 		//提取子链中的详细注释信息到commentStruct对象中
 		pickUpCommentLines(commentStruct);
-		commentSet.addComment(commentStruct);
+		commentSet.appendComment(commentStruct);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class CommentSetInfoSpider extends AbstractBCSpider {
 		subBlock = subBlock.getNext();
 		//执行循环到头结点
 		while( ! subBlock.isHead() ){
-			commentStruct.addCommentLine(
+			commentStruct.appendCommentLine(
 					subBlock
 					.getInformation()
 					.getOriginalString());

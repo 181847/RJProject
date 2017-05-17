@@ -15,7 +15,7 @@ public class ParameterSet extends Set{
 	 * @param parameterInfo
 	 * 		一个Parameter组件的信息。
 	 */
-	public void addParameter(String parameterInfo) {
-		append(new ParameterStruct(parameterInfo));
+	public void appendParameter(ParameterStruct parameterStruct) {
+		append(parameterStruct);
 	}
 }

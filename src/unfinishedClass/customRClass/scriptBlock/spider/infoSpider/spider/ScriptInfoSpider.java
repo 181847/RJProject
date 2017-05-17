@@ -3,6 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.InfoSpider;
+import unfinishedClass.customRClass.struct.RClassRefStruct;
 import unfinishedClass.customRClass.struct.RClassStruct;
 
 /**
@@ -78,7 +79,7 @@ public class ScriptInfoSpider extends AbstractBCSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addAbstractFunStruct(infoSpider.getFunStruct());
+		rClassStruct.appendAbstractFunStruct(infoSpider.getFunStruct());
 	}
 
 	/**
@@ -95,7 +96,7 @@ public class ScriptInfoSpider extends AbstractBCSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addFunStruct(infoSpider.getFunStruct());
+		rClassStruct.appendFunStruct(infoSpider.getFunStruct());
 	}
 	
 	/**
@@ -112,7 +113,7 @@ public class ScriptInfoSpider extends AbstractBCSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的构造Function信息
-		rClassStruct.addStaticFunStruct(infoSpider.getFunStruct());
+		rClassStruct.appendStaticFunStruct(infoSpider.getFunStruct());
 	}
 
 	/**
@@ -138,7 +139,9 @@ public class ScriptInfoSpider extends AbstractBCSpider {
 		infoSpider.workUntilEnd();
 		
 		//添加整理得到的成员信息
-		rClassStruct.setMemberSet(infoSpider.getVarFieldStruct());
+		rClassStruct.setMemberVarSet(infoSpider.getVarSet());
+		//静态成员信息
+		rClassStruct.setStaticMemberVarSet(infoSpider.getStaticVarSet());
 	}
 
 	/**
@@ -164,11 +167,12 @@ public class ScriptInfoSpider extends AbstractBCSpider {
 	 */
 	protected void dealWith_EXTENDS() {
 		rClassStruct.setExtends(
-				targetBlock
-				.getSub()
-				.getNext()
-				.getInformation()
-				.getOriginalString());
+				new RClassRefStruct(
+						targetBlock
+						.getSub()
+						.getNext()
+						.getInformation()
+						.getOriginalString()));
 	}
 
 	/**

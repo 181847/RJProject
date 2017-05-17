@@ -12,7 +12,7 @@ public class CommentStruct extends Struct {
 	 * @param commentText
 	 * 		一行注释信息。
 	 */
-	public void addCommentLine(String commentText) {
+	public void appendCommentLine(String commentText) {
 		// TODO Auto-generated method stub
 		
 	}

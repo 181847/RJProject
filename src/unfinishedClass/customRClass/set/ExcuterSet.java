@@ -14,7 +14,7 @@ public class ExcuterSet extends Set{
 	 * 		一个Excuter组件的信息，
 	 * 		目前而言只需要这个的名字。
 	 */
-	public void addExcuter(String excuterInfo) {
-		append(new ExcuterStruct(excuterInfo));
+	public void appendExcuter(ExcuterStruct excuterStruct) {
+		append(excuterStruct);
 	}
 }

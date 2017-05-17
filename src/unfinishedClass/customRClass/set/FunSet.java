@@ -14,18 +14,8 @@ public class FunSet extends Set{
 	 * @param funStruct
 	 * 		被添加的Function元素。
 	 */
-	public void addFun(FunctionStruct funStruct) {
+	public void appendFun(FunctionStruct funStruct) {
 		append(funStruct);
-	}
-
-	/**
-	 * 在队尾添加FunStruct。
-	 * @param funStruct
-	 * 		被添加的funstruct对象。
-	 */
-	protected void append(FunctionStruct funStruct) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -59,15 +49,5 @@ public class FunSet extends Set{
 	public FunctionStruct getFun(int funNum) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/**
-	 * 获取集合内部Function的数量。
-	 * @return
-	 * 		集合内部包含的Function的数量。
-	 */
-	public int getNum() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

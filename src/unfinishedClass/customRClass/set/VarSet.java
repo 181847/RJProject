@@ -17,18 +17,8 @@ public class VarSet extends Set{
 	 * @param varInfo
 	 * 		变量信息。
 	 */
-	public void addVar(String varInfo) {
+	public void appendVar(String varInfo) {
 		append(new VarStruct(varInfo));
-	}
-
-	/**
-	 * 获取集合内部包含的变量数量。
-	 * @return
-	 * 		包含的变量的数量。
-	 */
-	public int getNum() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	/**

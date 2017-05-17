@@ -4,6 +4,7 @@ import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.set.SubFunSet;
+import unfinishedClass.customRClass.struct.SubFunStruct;
 
 /**
  * 收集Block链上面的SubFun信息，
@@ -22,8 +23,10 @@ public class SubFunSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case SUBFUN:
-			subFunSet
-				.addSubFun(information.getOriginalString());
+			subFunSet.appendSubFun(
+					//创建一个新结构并添加
+					new SubFunStruct(
+							information.getOriginalString()));
 			break;
 		default:
 			break;

@@ -16,7 +16,7 @@ public class VarSetInfoSpider extends AbstractBCSpider {
 	protected void dealWithTargetBlock() {
 		switch(targetBlock.getInformation().getType()){
 		case VAR:
-			varSet.addVar(
+			varSet.appendVar(
 					targetBlock
 					.getInformation()
 					.getOriginalString());

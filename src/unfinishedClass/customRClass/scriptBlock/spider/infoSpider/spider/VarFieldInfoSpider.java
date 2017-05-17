@@ -3,6 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.set.VarSet;
 import unfinishedClass.customRClass.struct.VarFieldStruct;
 
 /**
@@ -11,11 +12,11 @@ import unfinishedClass.customRClass.struct.VarFieldStruct;
  * 静态变量会作为另一个类型存储在MemberStruct当中。
  */
 public class VarFieldInfoSpider extends AbstractBCSpider {
-	protected VarFieldStruct varFieldStruct;
+	protected VarSet staticVarSet;
+	protected VarSet varSet;
 	
 	public VarFieldInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		varFieldStruct = new VarFieldStruct();
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class VarFieldInfoSpider extends AbstractBCSpider {
 	 * 提取targetBlock.information中存储的变量信息到varFieldStruct中。
 	 */
 	protected void dealWith_VAR() {
-		varFieldStruct.addVar(
+		varSet.appendVar(
 				targetBlock
 				.getInformation()
 				.getOriginalString());
@@ -50,13 +51,26 @@ public class VarFieldInfoSpider extends AbstractBCSpider {
 				new VarSetInfoSpider(targetBlock.getSub());
 		infoSpider.workUntilEnd();
 		
-		//添加整理得到的成员信息
-		varFieldStruct.setStaticSet(
-				infoSpider.getVarSet());
+		//添加整理得到的静态成员信息
+		staticVarSet = infoSpider.getVarSet();
 	}
-
-	public VarFieldStruct getVarFieldStruct() {
-		return varFieldStruct;
+	
+	/**
+	 * 获取非静态变量声明集合。
+	 * @return
+	 * 		非静态变量声明集合。	
+	 */
+	public VarSet getVarSet(){
+		return varSet;
+	}
+	
+	/**
+	 * 获取静态变量声明集合。
+	 * @return
+	 * 		静态变量声明集合。	
+	 */
+	public VarSet getStaticVarSet(){
+		return staticVarSet;
 	}
 
 }

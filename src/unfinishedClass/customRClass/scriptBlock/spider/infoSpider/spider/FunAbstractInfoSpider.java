@@ -92,16 +92,12 @@ public abstract class FunAbstractInfoSpider extends AbstractBCSpider {
 		//提取静态变量集合
 		functionStruct
 		.setStaticLocalVarSet(
-				infoSpider
-				.getVarFieldStruct()
-				.getStaticVarSet());
+				infoSpider.getStaticVarSet());
 		
 		//提取非静态变量集合
 		functionStruct
 		.setLocalVarSet(
-				infoSpider
-				.getVarFieldStruct()
-				.getVarSet());
+				infoSpider.getVarSet());
 	}
 
 	/**

@@ -15,9 +15,8 @@ import unfinishedClass.customRClass.set.VarSet;
  * 这个类可以作为各种类型Function的承载类型：
  * ConFun/StaticFun/Fun/AbstractFun。
  */
-public class FunctionStruct {
+public class FunctionStruct extends Struct{
 	protected InformationType funType;
-	protected String funName;
 	protected ExcuteeSet excuteeSet;
 	protected ParameterSet parameterSet;
 	protected ExcuterSet excuterSet;
@@ -37,15 +36,6 @@ public class FunctionStruct {
 	 */
 	public void setType(InformationType type) {
 		funType = type;
-	}
-
-	/**
-	 * 设置Function的名字。
-	 * @param functionName
-	 * 		Function的名字。
-	 */
-	public void setName(String functionName) {
-		funName = functionName;
 	}
 
 	/**
@@ -127,15 +117,6 @@ public class FunctionStruct {
 	 */
 	public void setCommentSet(CommentSet commentSet) {
 		this.commentSet = commentSet;
-	}
-
-	/**
-	 * 获取Function的名字。
-	 * @return
-	 * 		Function的名字。
-	 */
-	public String getName() {
-		return funName;
 	}
 
 	/**

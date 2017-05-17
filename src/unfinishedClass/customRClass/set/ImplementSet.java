@@ -13,18 +13,7 @@ public class ImplementSet extends Set{
 	 * @param interfaceName
 	 * 		接口RClass的名字。
 	 */
-	public void addInterface(String interfaceName) {
-		addRClass(new RClassRefStruct(interfaceName));
+	public void appendInterface(RClassRefStruct interfaceRef) {
+		append(interfaceRef);
 	}
-
-	/**
-	 * 向集合中插入一个RClass引用信息。
-	 * @param rClassRefStruct
-	 * 		一个RClass引用信息。
-	 */
-	public void addRClass(RClassRefStruct rClassRefStruct) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

@@ -13,7 +13,7 @@ public class RClassRefStruct extends Struct{
 	 * 		RClass的名字。
 	 */
 	public RClassRefStruct(String rClassName) {
-		setName(rClassName);
+		super(rClassName);
 	}
 	
 }

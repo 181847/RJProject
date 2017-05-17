@@ -15,7 +15,7 @@ public class ExcuteeSet extends Set{
 	 * 		一个Excutee组件的信息，
 	 * 		目前而言只需要这个的名字。
 	 */
-	public void addExcutee(String excuteeInfo) {
-		append(new ExcuteeStruct(excuteeInfo));
+	public void appendExcutee(ExcuteeStruct excuteeStruct) {
+		append(excuteeStruct);
 	}
 }

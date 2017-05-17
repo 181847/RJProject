@@ -14,7 +14,7 @@ public class ReturnvalSet extends Set{
 	 * @param returnvalInfo
 	 * 		一个Returnval组件的信息。
 	 */
-	public void addReturnval(String returnvalInfo) {
-		append(new ReturnvalStruct(returnvalInfo));
+	public void appendReturnval(ReturnvalStruct returnvalStruct) {
+		append(returnvalStruct);
 	}
 }

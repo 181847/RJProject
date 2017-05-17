@@ -12,7 +12,7 @@ public class ArcSet extends Set {
 	 * @param arcInfo
 	 * 		弧线信息。
 	 */
-	public void addArc(String arcInfo) {
-		append(new ArcStruct(arcInfo));
+	public void appendArc(ArcStruct arcStruct) {
+		append(arcStruct);
 	}
 }

@@ -89,8 +89,8 @@ public class RClassStruct {
 	 * @param superName
 	 * 		父类的名字。
 	 */
-	public void setExtends(String superName) {
-		extend = new RClassRefStruct(superName);
+	public void setExtends(RClassRefStruct extendRClass) {
+		extend = extendRClass;
 	}
 
 	/**
@@ -101,16 +101,23 @@ public class RClassStruct {
 	public void setImplementSet(ImplementSet iSet){
 		implementSet = iSet;
 	}
-
+	
 	/**
-	 * 添加成员变量集合，
-	 * 这个集合中包含静态成员变量。
-	 * @param varFieldStruct
-	 * 		成员变量集合。
+	 * 设置非静态成员变量声明结构。
+	 * @param varSet
+	 * 		非静态变量声明结构集合。
 	 */
-	public void setMemberSet(VarFieldStruct varFieldStruct) {
-		staticMemberVarSet = varFieldStruct.getStaticVarSet();
-		memberVarSet = varFieldStruct.getVarSet();
+	public void setMemberVarSet(VarSet varSet){
+		memberVarSet = varSet;
+	}
+	
+	/**
+	 * 设置静态成员变量声明结构。
+	 * @param varSet
+	 * 		静态变量声明结构集合。
+	 */
+	public void setStaticMemberVarSet(VarSet staticVarSet){
+		staticMemberVarSet = staticVarSet;
 	}
 
 	/**
@@ -129,7 +136,7 @@ public class RClassStruct {
 	 * @param funStruct
 	 * 		静态Function结构信息。
 	 */
-	public void addStaticFunStruct(FunctionStruct staticFunStruct) {
+	public void appendStaticFunStruct(FunctionStruct staticFunStruct) {
 		staticFunSet.addFun(staticFunStruct);
 	}
 
@@ -139,7 +146,7 @@ public class RClassStruct {
 	 * @param funStruct
 	 * 		普通成员Function结构信息。
 	 */
-	public void addFunStruct(FunctionStruct funStruct) {
+	public void appendFunStruct(FunctionStruct funStruct) {
 		funSet.addFun(funStruct);
 	}
 
@@ -149,7 +156,7 @@ public class RClassStruct {
 	 * @param funStruct
 	 * 		抽象Function结构信息。
 	 */
-	public void addAbstractFunStruct(FunctionStruct funStruct) {
+	public void appendAbstractFunStruct(FunctionStruct funStruct) {
 		funSet.addFun(funStruct);
 	}
 

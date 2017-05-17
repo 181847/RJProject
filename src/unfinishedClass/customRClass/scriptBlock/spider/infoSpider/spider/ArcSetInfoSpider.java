@@ -4,6 +4,7 @@ import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.set.ArcSet;
+import unfinishedClass.customRClass.struct.ArcStruct;
 
 /**
  * 收集Block链上面的弧线信息，
@@ -23,8 +24,10 @@ public class ArcSetInfoSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		switch(information.getType()){
 		case ARC:
-			arcSet
-				.addArc(information.getOriginalString());
+			arcSet.appendArc(
+					//创建一个新结构并添加
+					new ArcStruct(
+							information.getOriginalString()));
 			break;
 		default:
 			break;
