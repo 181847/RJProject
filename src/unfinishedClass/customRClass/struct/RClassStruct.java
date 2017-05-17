@@ -137,7 +137,7 @@ public class RClassStruct {
 	 * 		静态Function结构信息。
 	 */
 	public void appendStaticFunStruct(FunctionStruct staticFunStruct) {
-		staticFunSet.addFun(staticFunStruct);
+		staticFunSet.appendFun(staticFunStruct);
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class RClassStruct {
 	 * 		普通成员Function结构信息。
 	 */
 	public void appendFunStruct(FunctionStruct funStruct) {
-		funSet.addFun(funStruct);
+		funSet.appendFun(funStruct);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class RClassStruct {
 	 * 		抽象Function结构信息。
 	 */
 	public void appendAbstractFunStruct(FunctionStruct funStruct) {
-		funSet.addFun(funStruct);
+		funSet.appendFun(funStruct);
 	}
 
 	/**
