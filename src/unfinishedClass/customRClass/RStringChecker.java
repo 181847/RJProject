@@ -401,4 +401,31 @@ public class RStringChecker {
 		
 		return result;
 	}
+
+	/**
+	 * 检查Exucter的声明是否正确。
+	 * @param informationString
+	 * 		Excuter的声明，
+	 * 		例如“NE finished”，
+	 * 		或者"EE FILE_NOT_EXSIST"，
+	 * 		前一个必须是“NE”或者“EE”。
+	 * @return
+	 * 		如果符合要求就返回true，
+	 * 		否则返回false。
+	 */
+	public static boolean checkExcuter(String informationString) {
+		String[] infoArray = informationString.split(ScriptDeclaration.fence);
+		//如果分割之后的数组长度不为2
+		//或者长度为2，但是第一个字符串不是
+		//ScriptDeclaration.normalExcuter
+		//或者 ScriptDeclaration.exceptionExcuter，
+		//返回false。
+		if (infoArray.length != 2
+				|| ! ( infoArray[0].equals(ScriptDeclaration.normalExcuter)
+				|| infoArray[1].equals(ScriptDeclaration.exceptionExcuter))){
+			return false;
+		}
+		
+		return true;
+	}
 }
