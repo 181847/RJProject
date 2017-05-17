@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.set;
 
 /**
  * 本类专门执行一部分字符串到相应的InfoStruct的转换，

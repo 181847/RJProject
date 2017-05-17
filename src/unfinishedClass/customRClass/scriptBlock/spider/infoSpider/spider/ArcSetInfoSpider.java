@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.ArcSet;
+import unfinishedClass.customRClass.set.ArcSet;
 
 /**
  * 收集Block链上面的弧线信息，

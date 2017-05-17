@@ -1,4 +1,6 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.set;
+
+import unfinishedClass.customRClass.struct.ArcStruct;
 
 /**
  * 弧线连接集合。

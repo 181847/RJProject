@@ -1,6 +1,14 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.struct;
 
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.set.ArcSet;
+import unfinishedClass.customRClass.set.CommentSet;
+import unfinishedClass.customRClass.set.ExcuteeSet;
+import unfinishedClass.customRClass.set.ExcuterSet;
+import unfinishedClass.customRClass.set.ParameterSet;
+import unfinishedClass.customRClass.set.ReturnvalSet;
+import unfinishedClass.customRClass.set.SubFunSet;
+import unfinishedClass.customRClass.set.VarSet;
 
 /**
  * 收集Function信息的类型，

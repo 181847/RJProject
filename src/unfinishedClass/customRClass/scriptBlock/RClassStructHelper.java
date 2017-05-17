@@ -3,12 +3,12 @@ package unfinishedClass.customRClass.scriptBlock;
 import java.util.Hashtable;
 
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.ExcuteeSet;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.FunSet;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.FunctionStruct;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.Set;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.VarSet;
+import unfinishedClass.customRClass.set.ExcuteeSet;
+import unfinishedClass.customRClass.set.FunSet;
+import unfinishedClass.customRClass.set.Set;
+import unfinishedClass.customRClass.set.VarSet;
+import unfinishedClass.customRClass.struct.FunctionStruct;
+import unfinishedClass.customRClass.struct.RClassStruct;
 
 /**
  * 测试RClassStruct相关信息约束的工具类，

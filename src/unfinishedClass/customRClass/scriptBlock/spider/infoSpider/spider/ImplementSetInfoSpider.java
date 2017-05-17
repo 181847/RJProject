@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.ImplementSet;
+import unfinishedClass.customRClass.set.ImplementSet;
 
 /**
  * 提取Block链上的原始信息作为父类接口的名称。

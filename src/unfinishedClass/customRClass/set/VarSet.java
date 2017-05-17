@@ -1,4 +1,6 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.set;
+
+import unfinishedClass.customRClass.struct.VarStruct;
 
 /**
  * 纯粹收集多个变量的集合，

@@ -1,4 +1,6 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.set;
+
+import unfinishedClass.customRClass.struct.CommentStruct;
 
 /**
  * Function内部的注释集合。

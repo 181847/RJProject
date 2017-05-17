@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.struct;
 
 /**
  * Function的Excutee（执行出口）组件信息。

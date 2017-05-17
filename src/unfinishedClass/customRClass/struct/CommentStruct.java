@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.struct;
 
 /**
  * 单个注释方框的对象，

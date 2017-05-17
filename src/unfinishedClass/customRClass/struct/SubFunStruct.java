@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.struct;
 
 public class SubFunStruct extends Struct {
 	public SubFunStruct(String subFunInfo){

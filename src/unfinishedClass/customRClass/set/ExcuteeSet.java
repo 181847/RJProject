@@ -1,4 +1,6 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.set;
+
+import unfinishedClass.customRClass.struct.ExcuteeStruct;
 
 /**
  * 收集Excutee组件的名称集合。

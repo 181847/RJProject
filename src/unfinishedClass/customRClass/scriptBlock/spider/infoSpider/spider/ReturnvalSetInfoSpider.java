@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.ReturnvalSet;
+import unfinishedClass.customRClass.set.ReturnvalSet;
 
 public class ReturnvalSetInfoSpider extends AbstractBCSpider {
 	protected ReturnvalSet returnvalSet;

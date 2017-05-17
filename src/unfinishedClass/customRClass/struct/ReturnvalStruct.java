@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.struct;
 
 /**
  * Function的Returnval（返回值）组件信息。

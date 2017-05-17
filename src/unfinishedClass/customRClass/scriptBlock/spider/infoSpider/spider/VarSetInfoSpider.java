@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.VarSet;
+import unfinishedClass.customRClass.set.VarSet;
 
 public class VarSetInfoSpider extends AbstractBCSpider {
 	protected VarSet varSet;

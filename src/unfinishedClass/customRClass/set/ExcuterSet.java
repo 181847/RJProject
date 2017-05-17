@@ -1,4 +1,6 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.set;
+
+import unfinishedClass.customRClass.struct.ExcuterStruct;
 
 /**
  * 收集Function的Excuter组件信息。

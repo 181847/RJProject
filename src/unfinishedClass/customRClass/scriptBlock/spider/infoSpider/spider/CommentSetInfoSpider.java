@@ -2,8 +2,8 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.CommentSet;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.CommentStruct;
+import unfinishedClass.customRClass.set.CommentSet;
+import unfinishedClass.customRClass.struct.CommentStruct;
 
 /**
  * 收集Block链上面的注释信息，

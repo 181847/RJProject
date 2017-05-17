@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.ParameterSet;
+import unfinishedClass.customRClass.set.ParameterSet;
 
 /**
  * 收集Block链上面的Parameter组件信息，

@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.FunctionStruct;
+import unfinishedClass.customRClass.struct.FunctionStruct;
 
 /**
  * 抽象类实现有关收集Function信息的各种方法。

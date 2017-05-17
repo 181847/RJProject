@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.InfoSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
+import unfinishedClass.customRClass.struct.RClassStruct;
 
 /**
  * 已知Block链为一个脚本信息链，

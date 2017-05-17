@@ -1,6 +1,9 @@
-package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct;
+package unfinishedClass.customRClass.struct;
 
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.set.FunSet;
+import unfinishedClass.customRClass.set.ImplementSet;
+import unfinishedClass.customRClass.set.VarSet;
 
 /**
  * 用于直接存储RClass的结构信息的类型，

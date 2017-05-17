@@ -4,9 +4,9 @@ import java.util.Hashtable;
 
 import basicTool.RLogger;
 import rClass.RClassLoaderManager;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.Set;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.Struct;
+import unfinishedClass.customRClass.set.Set;
+import unfinishedClass.customRClass.struct.RClassStruct;
+import unfinishedClass.customRClass.struct.Struct;
 
 /**
  * 加载时继承图，

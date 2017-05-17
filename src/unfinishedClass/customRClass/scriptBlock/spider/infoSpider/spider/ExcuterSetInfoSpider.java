@@ -3,8 +3,8 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.ExcuterSet;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.InfoStructHelper;
+import unfinishedClass.customRClass.set.ExcuterSet;
+import unfinishedClass.customRClass.set.InfoStructHelper;
 
 /**
  * 收集Block链上面的Excuter组件信息，

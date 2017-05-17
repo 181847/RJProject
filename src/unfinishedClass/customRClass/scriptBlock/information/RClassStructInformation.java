@@ -1,6 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.information;
 
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.infoStruct.struct.RClassStruct;
+import unfinishedClass.customRClass.struct.RClassStruct;
 
 /**
  * 保存RClass结构化信息的类型。
