@@ -17,7 +17,7 @@ public class ExcuterAnalysisSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		String informationString = information.getOriginalString();
 		
-		if (RStringChecker.checkExcutee(informationString)){
+		if (RStringChecker.checkExcuter(informationString)){
 			information.setType(InformationType.EXCUTER);
 		} else {
 			 //包含非法字符的信息

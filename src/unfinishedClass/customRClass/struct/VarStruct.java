@@ -7,6 +7,17 @@ package unfinishedClass.customRClass.struct;
  * 对于基本数据类型（例如整形，Boolean）还会保存初始化值。
  */
 public class VarStruct extends Struct {
+	//注意：变量的名字由Struct中的name成员存储。
+	
+	/**
+	 * 变量类型
+	 */
+	protected RClassRefStruct varRClassType;
+	
+	/**
+	 * 初始化数据信息。
+	 */
+	protected String initData;
 
 	/**
 	 * 按照字符串中的信息来构造变量结构，
@@ -15,26 +26,22 @@ public class VarStruct extends Struct {
 	 * “member3”表示变量的名字，<br>
 	 * “-12”表示变量的初始化值，
 	 * 因为这个变量的类型是整形，
-	 * 所以可以有初始值。
+	 * 所以可以有初始值，
+	 * 初始化过程中假定信息是符合格式规范的，
+	 * （两个或者三个空格）
+	 * 否则可能发生异常。
 	 * @param varInfo
 	 * 		变量信息。
 	 */
 	public VarStruct(String varInfo) {
-		// TODO Auto-generated constructor stub
+		//首先将变量信息按照空格来分段。
+		String[] infoArray = varInfo.split(" ");
+		
+		setName(infoArray[0]);
+		varRClassType = new RClassRefStruct(infoArray[1]);
+		
+		if (infoArray.length >= 3){
+			initData = infoArray[2];
+		}
 	}
-
-	/**
-	 * 获取变量的名字，
-	 * 注意：不是变量的类型的名字，
-	 * 是变量的名字，
-	 * 假如变量信息是“basic.Integer localVar3 = 12”，
-	 * 则返回的字符串就是“localVar3”。
-	 * @return
-	 * 		变量的名字。
-	 */
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

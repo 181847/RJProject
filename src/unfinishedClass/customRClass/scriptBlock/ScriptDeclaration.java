@@ -6,6 +6,7 @@ package unfinishedClass.customRClass.scriptBlock;
 public class ScriptDeclaration {
 	public static char hierarchy = '\t';
 	public static char nameHierarchy = '.';
+	public static String fence = " ";
 	
 	//顶层信息声明
 	public static String type = "Type:";
@@ -24,6 +25,11 @@ public class ScriptDeclaration {
 	public static String excutee = "Excutee:";
 	public static String returnval = "Returnval";
 	public static String excuter = "Excuter:";
+		//两种Excuter的类型声明
+		//普通Exucter，正常线路上的执行出口
+		public static String normalExcuter = "NE";
+		//异常Excuter，发生异常时的执行出口
+		public static String exceptionExcuter = "EE";
 	public static String localVar = "LocalVar:";
 	public static String subFunction = "SubFunction:";
 	public static String arc = "Arc:";

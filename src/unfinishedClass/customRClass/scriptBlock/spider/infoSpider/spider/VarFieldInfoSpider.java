@@ -1,10 +1,8 @@
 package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 import unfinishedClass.customRClass.set.VarSet;
-import unfinishedClass.customRClass.struct.VarFieldStruct;
 
 /**
  * 提取Block链上的信息作为成员变量的信息，
