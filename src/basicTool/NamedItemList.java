@@ -4,6 +4,9 @@ import basicInterface.*;
 
 public class NamedItemList implements INamedItemList{
 	public INameable[] buffer;
+	/**
+	 * 已经存储的元素的数量。
+	 */
 	public int itemNum;
 	
 	/**
@@ -19,7 +22,6 @@ public class NamedItemList implements INamedItemList{
 	 * 		初始化的空间数量。
 	 */
 	public NamedItemList(int space){
-		this();
 		init(space);
 	}
 	
@@ -29,15 +31,12 @@ public class NamedItemList implements INamedItemList{
 	 * @return 如果分配的空间小于等于0，返回0表示失败
 	 */
 	public int init(int space){
-		if (space < 1){
-			return 0;
+		if (space <= 1){
+			space = 5;
 		}
 		buffer = new INameable[space];
 		itemNum = 0;
 		
-		for(int i = 0; i < space; ++i){
-			buffer[i] = null;
-		}
 		return 1;
 	}
 	
