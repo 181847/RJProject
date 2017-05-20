@@ -32,7 +32,7 @@ public class RCGNode {
 	 * @param extOut
 	 * 		非接口父类继承弧线。
 	 */
-	public void linkOut(ExtArc extOut){
+	public void linkExtOut(ExtArc extOut){
 		this.extOut = extOut;
 	}
 	
@@ -43,7 +43,7 @@ public class RCGNode {
 	 * @param impOut
 	 * 		接口继承弧线。
 	 */
-	public void linkOut(ImpArc impOut){
+	public void linkImpOut(ImpArc impOut){
 		if (this.impOut == null){
 			this.impOut = impOut;
 		} else {
@@ -66,6 +66,20 @@ public class RCGNode {
 			inArc.setNextIn(this.firstIn);
 			this.firstIn = inArc;
 		}
+	}
+	
+	/**
+	 * 设置入度弧线链表，
+	 * 这个方法不同于linkIn()的方法是：<br>
+	 * linkIn()用来将一个弧线对象插入入度弧线链表，
+	 * 使得新的弧线在表头，但是整体的弧线链表没有变化；<br>
+	 * setLinkIn()用来设置一个弧线的入度弧线链表，
+	 * 这个方法相当于直接改变了入度弧线链表。
+	 * @param inArc
+	 * 		入度弧线。
+	 */
+	public void setLinkIn(RCGArc inArc){
+		firstIn = inArc;
 	}
 
 	/**
@@ -92,6 +106,8 @@ public class RCGNode {
 	 * 获取RClass的所有父类的名称，
 	 * 包括接口和非接口父类。
 	 */
+	//TODO
+	/*
 	public Set getFatherSet() {
 		Set returnSet = new Set();
 		//如果RClass有非接口父类。
@@ -113,6 +129,7 @@ public class RCGNode {
 		}
 		return returnSet;
 	}
+	*/
 
 	/**
 	 * 检测RCGNode是否存在这样的出度弧线，
@@ -140,6 +157,24 @@ public class RCGNode {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 获取结点的非接口继承弧线。
+	 * @return
+	 * 		ExtArc非接口继承弧线。
+	 */
+	public ExtArc getExtOut() {
+		return extOut;
+	}
+
+	/**
+	 * 获取结点的接口继承弧线。
+	 * @return
+	 * 		ImpArc接口继承弧线。
+	 */
+	public ImpArc getImpOut() {
+		return impOut;
 	}
 
 }

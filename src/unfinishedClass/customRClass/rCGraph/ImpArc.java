@@ -28,4 +28,13 @@ public class ImpArc extends RCGArc {
 	public void setNextOut(ImpArc nextOut) {
 		this.nextOut = nextOut;
 	}
+
+	/**
+	 * 获取下一个相同出度的接口弧线。
+	 */
+	public ImpArc getNextOut() {
+		return nextOut;
+	}
+	
+	
 }

@@ -1,12 +1,14 @@
 package unfinishedClass.customRClass.rCGraph;
 
+import basicInterface.IFree;
+
 /**
  * 统一的RCGraph中的弧线类型，
  * 对于任何一种RCGNode，
  * 它都有可能被多个子类继承，
  * 所以所有的弧线的出度都要求能够连接成一个链表。
  */
-public class RCGArc {
+public class RCGArc implements IFree{
 	/**
 	 * 弧线的出度，
 	 * 例如对于弧线：B -----> A，
@@ -67,5 +69,11 @@ public class RCGArc {
 	
 	public int getOutIndex(){
 		return out;
+	}
+
+	@Override
+	public int free() {
+		nextIn = null;
+		return 0;
 	}
 }
