@@ -1,4 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.information;
+package unfinishedClass.customRClass.struct.enumeration;
 
 public enum ExcuterType {
 	NORMAL_EXCUTER,		//普通的执行出口类型
