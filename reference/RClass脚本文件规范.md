@@ -49,8 +49,8 @@ RClass名字        | 用于唯一定义一个RClass的字符串，类似Java中
 ### 1. RClass类型
 * RClass类型块声明，以**Type:** 为标志
 * 具体类型声明，有且只能是以下三种
-    三种类型声明|
-    -----------
+    三种类型声明|  
+    -----------|
     **Interface**|
     **AbstractClass**|
     **Class**|
@@ -121,6 +121,7 @@ RClass名字        | 用于唯一定义一个RClass的字符串，类似Java中
 
 ###6.Function
   * Function内部具有多个子信息块
+
     Function子信息类型  | 解释  | 构造Function限制  |  静态Function限制  |非静态Function限制 | 抽象Function限制
     -------------------|-------|------------------|----------------|--------------|------------
     执行入口（Excutee）         | 用于发动Function功能的组件 |  不能 | 不能 | 不能 | 不能
