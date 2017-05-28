@@ -21,12 +21,12 @@ Type:
     AbstractClass
 Name:
     com.github.liuyang.RClassDemo1
-Member:
+Members:
     default.myPackage.RClass4 member4
 ```
 在上面这段代码中，每个声明板块下面再用一个*Table*键来将板块声明和板块之下的**子信息**进行区分，各个子信息也可以是另一块信息块，像这样层层包含，我们以 **成员变量（Member:）** 为例子，来看看在成员变量块中声明几个 **静态成员**
 ```
-Member:
+Members:
     Static:
         myPackage.RClass2 staticMember1
         myPackage.RClass3 staticMember2
@@ -57,7 +57,6 @@ Member:
     字符      |   字符描述
     ----------|-----------
     空格      |   空格不能出现在RClass的名字中
-    **.**     |   **.** 或者说**点**只能出现在包名和最底层的类名之间作为分隔符
     **(**、**)**、**{**、**}** |  半角的圆括号、花括号不能出现在名字中
     **@**     | **@** 将作为特殊组件名称的标志，不能出现在RClass的名字中
 
@@ -96,8 +95,7 @@ Static:
 变量类型|  变量名称|  对应基本数据类型的初始化值
 --------|---------|-----------
 basic.Integer|member3|-12
-
-* 各个部分之间用一个空格分开
+* 变量名称必须遵守组件命名规范
 * 初始化值只对应基本数据类型，比如整型、布尔型、字符型……，非基本数据类型的变量声明可以没有初始化值，如果有的话也会被忽略
 * 成员变量声明举例，下面声明了两个静态成员变量和两个普通成员变量
 ```
@@ -135,6 +133,108 @@ Function子信息类型 | 声明标志
 子Function（SubFunction）| **SubFunctions:**
 连接弧线（Arc）  | **Arcs:**
 注释（Comment） | **Comments:**
+
+### 7. Function内部的详细字块声明
+* 在介绍以下内容之前，首先明确一个组件命名规范
+  * 什么是组件命名规范？不同于RClass的命名规范，组件命名一般会用于变量的名字、Function的名字、Function外部的插槽接口的名字（比如说Excutee、Parameter……），组件命名规范用于约束这些组件的名字。
+  * 组件命名规范的内容：一个字符串，不包含空格、**@**、**.**（半角英文点号）、**(**、**)**、**{**、**}**。
+#### 1. Excutee（执行入口）
+* Excutee组件的子项不区分类型，全部为线性执行入口，每一行声明一个Excutee组件的名字，名字要遵守组件命名规范
+* 举例：
+```
+Excutees:
+    fire
+    startLoop
+```
+ 上面这个例子中声明了两个Excutee组件分别名为 **fire** 和 **startLoop** *（注：例子中只是为了展示可声明多个Excutee，目前而言，没有考虑让Function能够实现多个Excutee组件，日后可能会添加这个功能）*
+#### 2. Parameter（参数）
+* Parameter组件子项的声明类似变量声明，但是没有初始化值，例如：
+```
+Parameters:
+    myPackage.RClass2 parameter1
+    basic.Integer parameter2
+```
+注意参数的类型和名字之间有一个空格分开，与变量声明类似，只是没有初始化值，其中第一个参数的结构如下：
+
+参数类型| 参数名称
+-------|------
+myPackage.RClass2 | parameter1
+
+#### 3. Excuter（执行出口）
+* Excuter主要分为两种类型，一种是正常状态下的执行出口（称为*普通执行出口*），一种是发生异常现象时的执行出口（称为*异常执行出口*）
+
+Excuter类型| 声明字段
+----------|-----------
+普通执行出口 | **NormalE:**
+异常执行出口 | **ExcepE:**
+* 用户可以为Function声明任意数目的异常执行出口，但普通执行出口一般只有一个（多个普通执行出口的实现可能放在日后）
+* 举例：
+```
+Excuters:
+    ExcepE: NullPointerException
+    ExcepE: IOException
+    NormlE: end
+```
+注意Excuter类型和组件的名字之间有一个空格，千万不要省略这个空格 *（像这种冒号后面接其他字符的时候，都应该有一个空格）*，第一个Excuter组件的声明结构如下：
+Excuter组件类型| Excuter组件名称
+---------------|------------
+ExcepE:  |  NullPointerException
+
+#### 4. Returnval（返回值）
+* Returnval的声明与Parameter的声明要求一样
+* 举例：
+```
+Returnvals:
+    myPackage.RClass2 parameter1
+    basic.Integer parameter2
+```
+
+#### 5. LocalVar（本地变量）
+* LocalVar的声明与RClass中的Members声明要求一样
+* 举例：
+```
+LocalVars:
+    Static:
+        myPackage.RClass2 staticMember1
+        myPackage.RClass3 staticMember2
+    basic.Integer member3 -12
+    default.myPackage.RClass4 member4
+```
+
+#### 6. SubFun（子Function）
+* SubFun的声明顺序和后面的弧线连接有关，所以声明顺序必须与弧线匹配，不能随便改动
+* 一个完整的SubFun声明包含三个部分：
+
+RClass的名字 | Function的名字 | 修改信息
+------------|----------------|------------
+RClass的名字用来表明SubFun属于哪个RClass，这个部分要求符合RClass命名规范  | 指明SubFun是前面声明的RClass内部的哪个Function，这个部分要符合组件命名规范  | 单行的字符串信息，SubFun在被发动功能之前会先读取这个 *修改信息*，来对SubFun进行自定义，如何自定义？这事由SubFun来决定（或者说由写出这个Function的程序员来决定），程序只是提供一个修改信息的存储和读写方法供给Function使用，目前针对这个修改信息的一个应用，就是多针脚的加法Function，这种Function默认只有两个参数，但是通过 *修改信息*，可以为它增加更多的针脚，来适应不同数量的参数加法。
+* 举例：
+```
+SubFunctions:
+    myPackage.RClass1 fun
+    basic.Integer addInteger {3}
+    basic.Integer divide
+    myPackage.RClass1 RClass1
+```
+注意第二个Function就是一个加法Function，其中 *修改信息* 是 **3**，表示增加三个参数针脚。
+
+
+#### 7. Arc（弧线）
+* 弧线可分为两种类型
+
+弧线类型 | 声明符号 | 解释
+-------|---------|--------
+执行弧线 | **EtoE:** | 执行弧线用于连接Excutee和Excuter，这些是执行功能的顺序弧线
+参数弧线 | **RtoP:** | 参数弧线用于连接Returnval和参数，是传递数据的关系弧线
+* 举例
+  ```
+
+  ```
+
+弧线类型 | 对应SubFun序号 | 连接的SubFun外部组件名字 | 固定部分 | 对应SubFun序号 | 外部组件名字
+--------|----------------|-------------------------|----------|--------------|------------
+ **EtoE** |
+
 -------------------
 ## 声明块声明字符串查找表
 信息块       |   信息块声明字符串     |    描述
@@ -153,3 +253,40 @@ RClass名字   |**Name:**                  |
 子Function（SubFunction）| **SubFunctions:**
 连接弧线（Arc）  | **Arcs:**
 注释（Comment） | **Comments:**
+异常执行出口  | **ExcepE:**
+普通执行出口 | **NormalE:**
+
+## RClass名称规范
+* 一行字符串
+* 不包含以下字符
+  不包含的字符|
+  -----------|
+  空格 |
+  **@** |
+  **(** |
+  **)** |
+  **{** |
+  **}** |
+* 至少包含一个 **.**（英文半角点号），因为要求所有的RClass都至少要属于某个包，每个包之间、以及包和最底层的类名之间都用 **.**（英文半角点号）来分隔，所以要求至少有一个 **.**（英文半角点号）来将唯一的一个包名和最底层的类名进行分隔。
+
+## 组件命名规范
+* 一行字符串
+* 不包含以下字符
+  不包含的字符|
+  -----------|
+  空格 |
+  **.**  *（半角英文点号）* |
+  **@** |
+  **(** |
+  **)** |
+  **{** |
+  **}** |
+* 可以看到组件命名和RClass命名很类似，但是组件命名中不允许包含 **.**（英文半角点号）。
+
+##Function修改信息规范
+* 不包含以下字符
+  不包含的字符|
+  -----------|
+  空格 |
+  **{** |
+  **}** |
