@@ -13,9 +13,11 @@ RClass名字        | 用于唯一定义一个RClass的字符串，类似Java中
 非静态Function    | 普通的Function，可以访问实例中的任何静态成员变量
 抽象Function      | 没有具体内部实现的Function，这种Function类似Java中的抽象方法，只声明了Function对外部的各个组件类型和名字（*比如需要的参数，返回值……*），属于不完全的非静态Function
 
+**注意：RClass没有Function重载的概念，也就是说，一个RClass只能有一个名字的Function实现，不会存在【同名Function，但是参数不同，内部实现不同】**
+
 ## RClass各个信息板块之间的区分
 * 每个信息板块之间用*Table*键来区分
-* 比如在下面这个代码中我们可以看到三个信息声明板块**RClass类型**、**RClass名字** 和 **成员变量**。
+* 比如在下面这个代码中我们可以看到三个信息声明板块 **RClass类型**、**RClass名字** 和 **成员变量**。
 ```
 Type:
     AbstractClass
@@ -33,7 +35,9 @@ Members:
     basic.Integer member3 -12
     default.myPackage.RClass4 member4
 ```
-在上面这个例子当中Member信息块的下面声明了一个Static信息块，这个Static信息块的下面声明了两个静态成员。
+
+在上面这个例子当中，Member信息块的下面声明了一个Static信息块，这个Static信息块的下面声明了两个静态成员。
+
 -----
 ## 具体信息类型的规范
 
@@ -115,11 +119,11 @@ Function子信息类型	|	 解释| 构造Function限制  |  静态Function限制
 执行入口（Excutee）         | 用于发动Function功能的组件 |  不能 | 不能 | 不能 | 不能
 参数组件（Parameter）       | 执行Function功能需要的参数数据 |  可以 | 可以 | 可以 | 可以
 执行出口（Excuter）         | Function功能执行结束后，下一个被发动的Function | 不能 | 不能 | 不能 | 不能
-返回值（Returnval）         | Function执行之后的数据 | 不能 | 不能 | 可以 | 可以
+返回值（Returnval）         | Function执行之后的数据 | 不能 | 可以 | 可以 | 可以
 本地变量（LocalVar）        | 存储临时变量的引用 | 可以 | 可以 | 可以 | 不能
 子Function（SubFunction）  | 内部调用的其他Function | 可以 | 可以 | 可以 | 不能
 连接弧线（Arc）             | 子Function之间相互连接的弧线，包括执行弧线（定义Function之间的执行顺序）、参数弧线（定义Function之间的弧线传输顺序）| 必须 | 必须 | 必须 | 必须
-注释（Comment）  | 与Function的执行功能无关，属于编辑过程中留下的的注释信息，以方块的和文字的形式对某个长方形区域进行注释 | 可以 | 可以 | 可以 | 不能
+注释（Comment）  | 与Function的执行功能无关，属于编辑过程中留下的的注释信息，以方块的和文字的形式对某个长方形区域进行注释 | 可以 | 可以 | 可以 | 可以
 
 * 各个子信息块开始声明的标志
 
@@ -133,6 +137,45 @@ Function子信息类型 | 声明标志
 子Function（SubFunction）| **SubFunctions:**
 连接弧线（Arc）  | **Arcs:**
 注释（Comment） | **Comments:**
+
+* Function的类型分类
+
+Function类型  |  解释  | 声明字段
+--------------|--------|----------
+ConstructFunction| 相当于构造函数 | **ConstructFunction:**
+StaticFunction | 静态Function，执行功能不依赖于RClass的实例 | **StaticFunction:** + 空格 + Function的名字
+Function | 普通Function ，依靠RClass实例才能执行功能 | **Function:** + 空格 + Function的名字
+AbstractFunction | 抽象Function，声明Function的外部插槽接口，内部不提供具体的功能 | **AbstractFunction：** + 空格 + Function的名字
+
+* 举例：
+```
+Function: myDemoFun
+    Parameter:
+        myPackage.RClass2 parameter1
+        basic.Integer parameter2
+    LocalVar:
+        Static:
+            myPackage.RClass2 staticLocalVar1
+            myPackage.RClass2 staticLocalVar2
+        basic.Integer localVar3 = 12
+    SubFunction:
+        (-4,-7) myPackage.RClass1 fun
+        (-5.1,-2.55) basic.Integer addInteger {3}
+        (15.0,458) basic.Integer divide
+        (22,33) myPackage.RClass1 RClass1
+    Arcs:
+        EtoE: 1.funEnd -> 4.construct
+        RtoP: 2.result->3.by
+    Comments:
+        (55.1, 22.1) -> (21.0, 50.1)
+            注释信息二第一行
+            注释信息二第二行
+        (-1, -2) -> (12, 11)
+            另一个注释信息第一行
+            另一个注释信息第二行
+```
+
+
 
 ### 7. Function内部的详细字块声明
 * 在介绍以下内容之前，首先明确一个组件命名规范
@@ -207,7 +250,7 @@ LocalVars:
 
 SubFun在工作区域的二维坐标 | RClass的名字 | Function的名字 | 修改信息
 ----------|--------|----------------|------------
-由于本案件是用来在图形化界面下进行编程，所以这些SubFun在图形界面下都应该具有一个二维的坐标，用于在图形化的工作区域中显示这个SubFun的位置 | RClass的名字用来表明SubFun属于哪个RClass，这个部分要求符合RClass命名规范  | 指明SubFun是前面声明的RClass内部的哪个Function，这个部分要符合组件命名规范  | 单行的字符串信息，SubFun在被发动功能之前会先读取这个 *修改信息*，来对SubFun进行自定义，如何自定义？这事由SubFun来决定（或者说由写出这个Function的程序员来决定），程序只是提供一个修改信息的存储和读写方法供给Function使用，目前针对这个修改信息的一个应用，就是多针脚的加法Function，这种Function默认只有两个参数，但是通过 *修改信息*，可以为它增加更多的针脚，来适应不同数量的参数加法。
+由于本软件是用来在图形化界面下进行编程，所以这些SubFun在图形界面下都应该具有一个二维的坐标，用于在图形化的工作区域中显示这个SubFun的位置 | RClass的名字用来表明SubFun属于哪个RClass，这个部分要求符合RClass命名规范  | 指明SubFun是前面声明的RClass内部的哪个Function，这个部分要符合组件命名规范  | 单行的字符串信息，SubFun在被发动功能之前会先读取这个 *修改信息*，来对SubFun进行自定义，如何自定义？这事由SubFun来决定（或者说由写出这个Function的程序员来决定），程序只是提供一个修改信息的存储和读写方法供给Function使用，目前针对这个修改信息的一个应用，就是多针脚的加法Function，这种Function默认只有两个参数，但是通过 *修改信息*，可以为它增加更多的针脚，来适应不同数量的参数加法。
 * 举例：
 ```
 SubFunctions:
@@ -243,8 +286,9 @@ EtoE:  |1             | funEnd                  | 4             | construct
 * 如果将序号和外部组件名字的 字符串组合 称作弧线的一个端点，那么弧线的两个端点之间要用一个箭头符号分隔开来 **->**，注意这个箭头符号的前后也要有空格。
 
 #### 8. Comment（注释）
-* 每个Comment都是一个方形区域的字符串（可以包括多行），对字符串的内容没有限制
-* 方形区域由两个二维坐标来组成，表示从左上角到右下角的位置，两个坐标之间用一个 *箭头符号* 来分隔
+* 单个Comment表现为一个方形区域的字符串（可以包括多行），对字符串的内容没有限制
+* 方形区域由两个二维坐标（左上角到右下角的位置）来表示在图形化界面下的注释范围，坐标之间用一个 *箭头符号* 来分隔
+* 坐标声明下面的子信息就是详细的注释字符串，可以换行
 * 举例：
 ```
 Comments:
@@ -256,6 +300,116 @@ Comments:
         另一个注释信息第一行
         另一个注释信息第二行
 ```
+
+
+### 8.泛型
+#### 定义
+    在定义RClass的时候定义泛型，即用指定的字符串来代替未知的类型
+1. 定义泛型时，可能需要增加两类信息，一个是在继承其他泛型的时候，将本类定义的泛参通过包装映射到父类的泛型当中
+2. 二是对本类定义的泛参，可能需要对其进行约束，限制它至少应该继承的类型，使得在编程的时候可以通过这个最低限度的类型来调用Function
+3. 允许对Functtion单独定义泛参
+4. 成员变量或者Function的本地变量 的类型 定义为指定的泛参（**注：任何静态变量的类型都不能使用泛参**）
+####使用
+1. 调用RClass（泛型）的ConFun生成实例的时候，需要填充泛参
+2. 某些Function自己声明了泛参，用户调用这些Function的时候需要手动填充这些泛型
+3. 创建泛型的引用时，需要制定泛参的具体类型
+
+#### 在脚本文件下的定义形式
+######1. 首先介绍一下泛型的表示格式，第一行为泛型的全名称（或者称作实类型），此行下面的子信息块（缩进一行），然后用一个泛参名 + **:** 的形式进行泛参的指定，例如：
+```
+default.GenericsClassA
+    M: basic.RObject
+    N: basic.Integer
+```
+其中泛型为 **default.GenericsClassA < M, N >**，指定泛实参的时候不需要按顺序声明，而是为指定的泛参名指定类型，所以上面这段代码与下面这段代码的含义是一样的
+```
+default.GenericsClassA
+    N: basic.Integer
+    M: basic.RObject
+```
+泛实参也可以为另一个泛型，例如：
+```
+default.GenericsClassA
+    N: basic.Integer
+    M: default.GenericsClassB
+        T: basic.String
+```
+上面用到的另一个泛型为 **default.GenericsClassB < T >**
+######2. 在下面这一段代码中，定义了本类当中要用作泛参的泛参名，以及相应的泛型约束，这种部分也可以声明在Function中（但是每个Function不能声明和Class中相同名称的泛参，不同Function之间的泛参名允许重复）
+```
+GenericsParam:
+    T ->
+        default.GenericsClassA
+            M: T
+            N: default.GenericsClassB
+                T: basic.Integer
+    K ->
+        default.GenericsClassB
+        T: V
+    V ->
+        basic.RObject
+    N ->
+        V
+```
+在上面这段代码中，我们定义了三个泛参，他们的名字分别为<T, K, V>。  
+注意其中的 **T ->** 、 **K ->** 、 **V ->** 、 **N ->** 字样就是声明了三个泛参的名字，后面的 **->** 符号表示接下来的 **子** 代码块是对这个泛参的约束。  
+例如其中：
+```
+V ->
+    basic.RObject
+```
+表示泛参 **V** 被约束为RObject类型，即 **V** 继承了RObject类型，可以使用它的所有方法。  
+一个泛参可以被约束到任何一种具体或者不具体的类型（包括泛型）
+例如：
+```
+N ->
+    V
+```
+表示泛参 **N** 被约束到另一个泛参 **V**，所以 **N** 只有在已经被具体实例化的时候才能够检查是否符合约束 **V**。  
+```
+K ->
+    default.GenericsClassB
+    T: V
+```
+这里泛参 **K** 被约束到另一个泛型 **default.GenericsClassB < T >**，这个 **default.GenericsClassB < T >** 声明了一个泛参 **T** ，这段代码中的 **T: V** 的意思是：泛型中的泛参 **T** 用本类中的泛参 **V** 替代，假如在运行过程中，用户指明 **V** 是 **basic.Integer** 类型， 那么 **K** 就应该被约束到 **default.GenericsClassB < basic.Integer >** 。
+
+######3. 成员变量或者本地变量的类型使用泛型时类似泛型的声明
+```
+Member:
+    default.GenericsClassA member1 -12
+        M: basic.Integer
+        N: default.GenericsClassB
+            T: basic.String
+    basic.Integer member2 44
+```
+在一行变量声明的子信息块中声明泛型信息就可以了，具体的格式参照泛型声明。  
+这里声明了两个成员变量，**member2** 的类型是普通的 **basic.Integer**，  
+而 **member1** 的类型是泛型 **GenericsClassA < Integer, GenericsClassB < basic.String > >**。
+另外这些变量同样也可以使用RClass定义的泛参（本地变量还可以使用Function自己定义的泛参）,例如：
+```
+Member:
+    default.GenericsClassA member1 -12
+        M: basic.Integer
+        N: T
+```
+上面的这个变量类型使用了RClass中定义的一个泛参 **T**。
+
+######4. 调用子Function时，填充需要的泛参
+* 有两种子Function需要用户手动指明泛参：
+1. 定义了泛参的RClass的ConFun需要用户手动填充泛参，来指明生成的实例中的泛实参
+2. 调用的子Function自己声明了泛参，这个Function声明的泛参是独立于RClass声明之外的泛参，需要用户手动指定泛实参
+ * 填充的方法与变量使用泛型的方法一致，只需要在子Function声明的下面的子信息块中，指定具体的泛参名以及泛实参就可以了，例如
+ ```
+ SubFunctions:
+     (-4,-7) myPackage.RClass1 fun
+        T: basic.Integer
+        N: default.GenericsClassB
+            T: basic.String
+ ```
+ 这个名为 **fun** 的Function声明了两个独立于RClass的泛参 **T** 和 **N**，我们在下面的子信息块中将 **T** 指定为 **basic.Integer**， **N** 指定为 **default.GenericsClassB < basic.String >**。
+
+
+
 
 -------------------
 ## 声明块声明字符串查找表
@@ -275,8 +429,13 @@ RClass名字   |**Name:**                  |
 子Function（SubFunction）| **SubFunctions:**
 连接弧线（Arc）  | **Arcs:**
 注释（Comment） | **Comments:**
-异常执行出口  | **ExcepE:**
-普通执行出口 | **NormalE:**
+异常执行出口  | **ExcepE:** + 空格
+普通执行出口 | **NormalE:** + 空格
+构造Function（ConstructFunction） | **ConstructFunction:**
+静态Function（StaticFunction） | **StaticFunction:** + 空格
+普通Function（Function） | **Function:** + 空格
+抽象Function（AbstractFunction） | **AbstractFunction:** + 空格
+泛型参数（GenericsParam） | **GenericsParam:** + 空格
 
 ## RClass名称规范
 * 一行字符串
@@ -284,6 +443,7 @@ RClass名字   |**Name:**                  |
   不包含的字符|
   -----------|
   空格 |
+  **:** |
   **@** |
   **(** |
   **)** |
@@ -293,13 +453,13 @@ RClass名字   |**Name:**                  |
 
 ## 组件命名规范
 * 一行字符串
-* 不包含以下字符
 
   不包含的字符|
   -----------|
   空格 |
   **.**  *（半角英文点号）* |
   **@** |
+  **:** |
   **(** |
   **)** |
   **{** |
@@ -307,7 +467,6 @@ RClass名字   |**Name:**                  |
 * 可以看到组件命名和RClass命名很类似，但是组件命名中不允许包含 **.**（英文半角点号）。
 
 ## Function修改信息规范
-* 不包含以下字符
 
   不包含的字符|
   -----------|
