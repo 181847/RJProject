@@ -22,7 +22,7 @@ public class ExcuterAnalysisSpider extends AbstractBCSpider {
 		} else {
 			 //包含非法字符的信息
 			 information.setType(InformationType.VOID);
-			 information.appendDescription("执行入口名包含非法字符");
+			 information.appendDescription("执行出口（Excuter）声明格式非法。");
 		}
 	}
 

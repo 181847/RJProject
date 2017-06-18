@@ -30,8 +30,8 @@ public class TypeAnalysisSpider extends AbstractBCSpider {
 			information.setType(InformationType.VOID);
 			information.appendDescription("类型声明内容不是以下三种中的字符串："
 					+ ScriptDeclaration.interfaceType
-					+ "/" + ScriptDeclaration.abstractType
-					+ "/" + ScriptDeclaration.classType);
+					+ "、" + ScriptDeclaration.abstractType
+					+ "、" + ScriptDeclaration.classType);
 		}
 	}
 

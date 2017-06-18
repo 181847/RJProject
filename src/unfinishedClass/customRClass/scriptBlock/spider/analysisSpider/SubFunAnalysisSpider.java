@@ -22,8 +22,7 @@ public class SubFunAnalysisSpider extends AbstractBCSpider {
 			information.setType(InformationType.SUBFUN);
 		} else {
 			information.setType(InformationType.VOID);
-			information.appendDescription("子Fun的名称声明不符合规范，"
-					+ "请检查格式是否正确（例如：(-4,-7)basic.Integer.addInteger{3}），或者是否包含非法字符。");
+			information.appendDescription("子Function（SubFun）声明格式非法。");
 		}
 	}
 

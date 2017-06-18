@@ -21,11 +21,11 @@ public class NameAnalysisSpider extends AbstractBCSpider {
 		String informationString = information.getOriginalString();
 		
 		//检查是否包含非法字符
-		if (RStringChecker.check(informationString)){
+		if (RStringChecker.checkRClassName(informationString)){
 			information.setType(InformationType.CLASSNAME);
 		} else {
 			information.setType(InformationType.VOID);
-			information.appendDescription("信息中包含非法字符：" + RStringChecker.getIllegalStrings());
+			information.appendDescription("RClass名字格式非法。" );
 		}
 	}
 

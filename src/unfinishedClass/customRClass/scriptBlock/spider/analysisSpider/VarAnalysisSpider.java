@@ -41,9 +41,7 @@ public class VarAnalysisSpider extends AbstractBCSpider {
 		} else {
 			 //包含非法字符的信息，或者不符合变量声明格式
 			 information.setType(InformationType.VOID);
-			 information.appendDescription("变量声明包含非法字符"
-			 + RStringChecker.getIllegalStrings()
-			 + "或者不符合变量定义的格式。");
+			 information.appendDescription("变量声明格式非法。");
 		}
 	}
 

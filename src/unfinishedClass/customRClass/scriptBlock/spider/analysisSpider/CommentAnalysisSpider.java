@@ -29,8 +29,7 @@ public class CommentAnalysisSpider extends AbstractBCSpider {
 			}
 		} else {
 			information.setType(InformationType.VOID);
-			information.appendDescription("AnalysisSpider解析"
-					+ "Comment注释的方形区域检查时发现非法的区域声明。");
+			information.appendDescription("Comment注释的方形区域检查时发现非法的区域声明。");
 		}
 	}
 
