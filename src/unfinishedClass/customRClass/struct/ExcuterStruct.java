@@ -1,7 +1,7 @@
 package unfinishedClass.customRClass.struct;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
-import unfinishedClass.customRClass.scriptBlock.information.ExcuterType;
+import unfinishedClass.customRClass.struct.enumeration.ExcuterType;
 
 /**
  * Function的Excutee（执行出口）组件信息，
