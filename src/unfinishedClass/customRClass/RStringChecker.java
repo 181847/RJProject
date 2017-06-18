@@ -74,10 +74,69 @@ public class RStringChecker {
 	 * 		否则返回false。
 	 */
 	public static boolean checkRClassName(String informationString){
-		if (-1 == informationString.indexOf(ScriptDeclaration.nameHierarchy)){
-			return false;
-		}
-		return check(informationString);
+		return
+				! (hasNewLine(informationString)					//不能有换行符
+						|| hasGeneralSplit(informationString)		//不能有普通分割符
+						|| hasLocationBrackets(informationString)	//不能有二维坐标的括号()
+						|| hasModifyBrackets(informationString));	//不能有Function修改信息的括号{}
+	}
+
+	/**
+	 * 检查字符串是否包含Functio特有的Modifier信息标识符，
+	 * 这种标识符有
+	 * @param informationString
+	 * @return
+	 */
+	private static boolean hasModifyBrackets(String informationString) {
+		return 
+			(
+				-1 != informationString.indexOf		//找到Modifier信息开始符
+				(ScriptDeclaration.modifyStart)
+			) || (
+				-1 != informationString.indexOf		//找到Modifier信息结束符
+				(ScriptDeclaration.modifyEnd)
+			);
+	}
+
+	/**
+	 * 检查字符串是否包含代表二维坐标的括号，
+	 * 无论是前括号还是后括号
+	 * @param informationString
+	 * @return
+	 */
+	private static boolean hasLocationBrackets(String informationString) {
+		return 
+			(
+				-1 != informationString.indexOf		//找到位置开始符
+				(ScriptDeclaration.locationStart)
+			) || (
+				-1 != informationString.indexOf		//找到位置结束符
+				(ScriptDeclaration.locationEnd)
+			);
+	}
+
+	/**
+	 * 检查字符串是否包含普通分割符，
+	 * 在本脚本中指ScriptDeclaration.generalSplit所代表的字符串，
+	 * 一般为一个空格。
+	 * @param informationString
+	 * @return
+	 * 		如果包含普通分割符就返回true，
+	 * 		否则返回false。
+	 */
+	private static boolean hasGeneralSplit(String informationString) {
+		return -1 != informationString.indexOf(ScriptDeclaration.generalSplit);
+	}
+
+	/**
+	 * 检查字符串是否有换行符
+	 * @param informationString
+	 * @return
+	 * 		如果有"\n"，就返回true，
+	 * 		否则返回false。
+	 */
+	private static boolean hasNewLine(String informationString) {
+		return -1 != informationString.indexOf("\n");
 	}
 
 	/**
