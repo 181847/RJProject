@@ -11,29 +11,29 @@ public class ScriptDeclaration {
 	//顶层信息声明
 	public static String type = "Type:";
 	public static String name = "Name:";
-	public static String extendsD = "Extends:";
-	public static String implementsD = "Implements:";
-	public static String member = "Member:";
-	public static String staticD = "Static:";
+	public static String extendsDec = "Extends:";
+	public static String implementsDec = "Implements:";
+	public static String members = "Members:";
+	public static String staticDec = "Static:";
 	public static String conFun = "ConstructFunction:";
-	public static String staticFun = "StaticFunction:";
+	public static String staticFun = "StaticFunction: ";
 	public static String function = "Function: ";
-	public static String abstractFun = "AbstractFunction:";
+	public static String abstractFun = "AbstractFunction: ";
 	
 	//Function内部可能的信息声明
-	public static String parameter = "Parameter:";
-	public static String excutee = "Excutee:";
-	public static String returnval = "Returnval";
-	public static String excuter = "Excuter:";
+	public static String parameters = "Parameters:";
+	public static String excutees = "Excutees:";
+	public static String returnvals = "Returnvals:";
+	public static String excuters = "Excuters:";
 		//两种Excuter的类型声明
 		//普通Exucter，正常线路上的执行出口
-		public static String normalExcuter = "NE";
+		public static String normalExcuter = "NormalE:";
 		//异常Excuter，发生异常时的执行出口
-		public static String exceptionExcuter = "EE";
-	public static String localVar = "LocalVar:";
-	public static String subFunction = "SubFunction:";
-	public static String arc = "Arc:";
-	public static String comment = "Comment:";
+		public static String exceptionExcuter = "ExcepE:";
+	public static String localVars = "LocalVars:";
+	public static String subFunctions = "SubFunctions:";
+	public static String arcs = "Arcs:";
+	public static String comments = "Comments:";
 	
 	//三种RClass类型的声明
 	public static String interfaceType = "Interface";
@@ -47,6 +47,8 @@ public class ScriptDeclaration {
 	//子Fun的Modify声明的开始和结束的标志符
 	public static String modifyStart = "{";
 	public static String modifyEnd = "}";
+	
+	public static String Type
 	
 	//子Fun中的弧线声明字段
 	public static String EArc = "EtoE: ";
@@ -64,6 +66,9 @@ public class ScriptDeclaration {
 	//数字序号和声明部分的分割符
 	public static String indexSplit = ".";
 	//数字之间的分割符
-	public static String numberSplit = ", ";
+	public static String numberSplit = ",";
+	//普通的分割符，用于分割声明的各个部分，
+	//比如说变量信息的类型和变量名之间用分割符分割开来
+	public static String generalSplit = " ";
 	
 }

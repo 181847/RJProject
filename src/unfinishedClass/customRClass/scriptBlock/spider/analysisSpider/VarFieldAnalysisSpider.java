@@ -23,7 +23,7 @@ public class VarFieldAnalysisSpider extends VarAnalysisSpider {
 		String informationString = information.getOriginalString();
 		
 		if (informationString.equals(
-				ScriptDeclaration.staticD)){
+				ScriptDeclaration.staticDec)){
 			information.setType(InformationType.STATIC);
 			
 			if (subBlock != null){

@@ -41,7 +41,7 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.extendsD)){
+		} else if (informationString.equals(ScriptDeclaration.extendsDec)){
 			//父类声明
 			information.setType(InformationType.EXTENDS);
 			//为父类声明下面的信息赋予InformationType
@@ -50,7 +50,7 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 				
-		} else if (informationString.equals(ScriptDeclaration.implementsD)){
+		} else if (informationString.equals(ScriptDeclaration.implementsDec)){
 			//父类接口声明
 			information.setType(InformationType.IMPLEMENTS);
 			//为父类接口声明下面的信息赋予InformationType
@@ -59,7 +59,7 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 				
-		} else if (informationString.equals(ScriptDeclaration.member)){
+		} else if (informationString.equals(ScriptDeclaration.members)){
 			//成员声明
 			information.setType(InformationType.MEMBER);
 			//为成员声明下面的信息赋予InformationType
@@ -69,7 +69,11 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 			}
 					
 		} else if (informationString.equals(ScriptDeclaration.conFun)){
-			//构造Function声明
+			//构造Function声明，注意构造Function没有Function的名字，
+			//所以这里查看是否是构造Function信息块声明需要看这个声明字符串是不是
+			//equal(ScriptDeclaration.conFun)，
+			//而不是像下面的其他类型的Function检查声明字符串是不是以相应的声明开头
+			//startsWith(……)。
 			information.setType(InformationType.CONFUN);
 			//为构造Function声明下面的信息赋予InformationType
 			if (subBlock != null){

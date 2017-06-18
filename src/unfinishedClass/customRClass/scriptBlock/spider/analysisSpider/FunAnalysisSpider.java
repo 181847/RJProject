@@ -22,7 +22,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		String informationString = information.getOriginalString();
 		
-		if (informationString.equals(ScriptDeclaration.excutee)){
+		if (informationString.equals(ScriptDeclaration.excutees)){
 			//Function的执行入口组件分析
 			information.setType(InformationType.EXCUTEE);
 			if (subBlock != null){
@@ -30,7 +30,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.parameter)){
+		} else if (informationString.equals(ScriptDeclaration.parameters)){
 			//Function的参数组件分析
 			information.setType(InformationType.PARAMETER);
 			if (subBlock != null){
@@ -38,7 +38,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.excuter)){
+		} else if (informationString.equals(ScriptDeclaration.excuters)){
 			//Function的执行出口组件分析
 			information.setType(InformationType.EXCUTER);
 			if (subBlock != null){
@@ -46,7 +46,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.returnval)){
+		} else if (informationString.equals(ScriptDeclaration.returnvals)){
 			//Function的返回值组件分析
 			information.setType(InformationType.RETURNVAL);
 			if (subBlock != null){
@@ -54,7 +54,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.localVar)){
+		} else if (informationString.equals(ScriptDeclaration.localVars)){
 			//Function的本地变量组件分析
 			information.setType(InformationType.LOCALVAR);
 			if (subBlock != null){
@@ -62,7 +62,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.subFunction)){
+		} else if (informationString.equals(ScriptDeclaration.subFunctions)){
 			//Function的子Fun分析
 			information.setType(InformationType.SUBFUN);
 			if (subBlock != null){
@@ -70,7 +70,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.arc)){
+		} else if (informationString.equals(ScriptDeclaration.arcs)){
 			//Function的内部弧线分析
 			information.setType(InformationType.ARC);
 			if (subBlock != null){
@@ -78,7 +78,7 @@ public class FunAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
-		} else if (informationString.equals(ScriptDeclaration.comment)){
+		} else if (informationString.equals(ScriptDeclaration.comments)){
 			//Function的内部注释分析
 			information.setType(InformationType.COMMENT);
 			if (subBlock != null){
