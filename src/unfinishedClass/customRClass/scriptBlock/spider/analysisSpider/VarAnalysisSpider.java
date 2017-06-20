@@ -54,8 +54,10 @@ public class VarAnalysisSpider extends AbstractBCSpider {
 				if (RStringChecker.isVarType_a_GenericParam(informationString)){
 					//记录错误信息
 					information.setType(InformationType.VOID);
-					information.appendDescription("变量声明格式非法，变量直接使用了RClass或者Function定义的泛参作为类型（比如T），"
-							+ "它下面的子信息不能对这个未知泛参的泛参进行指定（不能有T<int, String>这样的声明，因为T本来就是未知的）。");
+					information.appendDescription("变量声明格式非法，"
+							+ "变量直接使用了RClass或者Function定义的泛参作为类型（比如T），"
+							+ "它下面的子信息不能对这个未知泛参的泛参进行指定"
+							+ "（不能有T<int, String>这样的声明，因为T本来就是未知的）。");
 				} else {
 					new GenericsAssignAnalysisSpider(subBlock)
 						.workUntilEnd();

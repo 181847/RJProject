@@ -26,25 +26,24 @@ public class GenericParameterAnalysisSpider extends AbstractBCSpider {
 		//检查泛参声明是否正确声明了一个泛参的名字，
 		//泛参的命名规范和RClass的命名规范不同，
 		//需要注意区分。
-		if (RStringChecker.checkGenParamDeclar(information.getOriginalString())){
+		if (RStringChecker
+				.checkGenParamDeclar(
+						information.getOriginalString())){
 			subBlock = targetBlock.getSub();
 			
+			//泛参声明必须包含泛型约束，
+			//即subBlock 不能为null。
 			if (subBlock != null){
-				//如果当前为泛参指定的是另一个泛参，
-				//则这个泛参下面不应该有其他的泛参指定，
-				//即不存在T<int, String>这样子的情况，
-				//其中T是一个泛参，具体类型位置。
-				if (RStringChecker
-						.isGenParam_assigned_to_GenParam(
-								information.getOriginalString())){
-					information.setType(InformationType.VOID);
-					information.appendDescription("泛参指定非法，当前已经将一个泛参传递给某个泛型中，"
-							+ "这个泛参本身不能被指定其他的泛参，即不存在T<int, String>这样子的情况。" );
-				} else {
-					//分析作为泛型约束的泛型定义
-					new RClassRefAnalysisSpider(subBlock)
+				//设置InformattionType
+				information.setType(InformationType.GEN_PARAM);
+				
+				//分析作为泛型约束的泛型定义
+				new RClassRefAnalysisSpider(subBlock)
 						.workUntilEnd();
-				}
+			} else {
+				//泛参声明缺乏泛型约束。
+				information.setType(InformationType.VOID);
+				information.appendDescription("泛参声明非法，缺少泛型约束。" );
 			}
 		} else {
 			information.setType(InformationType.VOID);

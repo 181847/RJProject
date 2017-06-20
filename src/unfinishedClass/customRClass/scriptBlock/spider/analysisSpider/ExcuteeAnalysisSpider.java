@@ -6,6 +6,9 @@ import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
+/**
+ * 分析执行入口的命名规范。
+ */
 public class ExcuteeAnalysisSpider extends AbstractBCSpider {
 
 	public ExcuteeAnalysisSpider(ScriptBlock targetBlock) {
@@ -17,7 +20,7 @@ public class ExcuteeAnalysisSpider extends AbstractBCSpider {
 		Information information = targetBlock.getInformation();
 		String informationString = information.getOriginalString();
 		
-		if (RStringChecker.checkExcutee(informationString)){
+		if (RStringChecker.checkComponentName(informationString)){
 			information.setType(InformationType.EXCUTEE);
 		} else {
 			 //包含非法字符的信息

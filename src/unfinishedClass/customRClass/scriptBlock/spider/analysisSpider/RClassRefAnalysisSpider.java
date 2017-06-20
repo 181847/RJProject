@@ -1,6 +1,9 @@
 package unfinishedClass.customRClass.scriptBlock.spider.analysisSpider;
 
+import unfinishedClass.customRClass.RStringChecker;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
+import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
 /**
@@ -21,7 +24,47 @@ public class RClassRefAnalysisSpider extends AbstractBCSpider {
 
 	@Override
 	protected void dealWithTargetBlock() {
-		//TODO 对注释中声明的几种情况分别进行分析处理。
+		Information information = 
+				targetBlock.getInformation();
+		ScriptBlock subBlock = 
+				targetBlock.getSub();
+		
+		//检查是否符合RClass命名规范。
+		if (RStringChecker
+				.checkRClassName(		
+						information.getOriginalString())){
+			//设置信息类型
+			information.setType(InformationType.CLASSREF);
+			
+			if (subBlock != null){
+				//检查泛参指配
+				new GenericsAssignAnalysisSpider(subBlock)
+					.workUntilEnd();
+			}
+			
+		//检查是否符合泛参命名规范
+		} else if (RStringChecker
+				.checkComponentName(	
+						information.getOriginalString())){
+			//如果是引用一个泛参，
+			//就不能包含子信息块（子信息款用来配置类型之下的泛参）,
+			//泛参是未知类型，它没有泛参可供指配。
+			if (subBlock != null){
+				//泛参之下不允许指配泛参。
+				information.setType(InformationType.VOID);
+				information.appendDescription("RClassRef指代的是一个泛参，"
+						+ "泛参之下不允许指配泛参。");
+			} else {
+				//正确，设置信息类型.
+				information.setType(InformationType.CLASSREF);
+			}
+		
+		//两种命名规范都不符合。
+		} else {
+			information.setType(InformationType.VOID);
+			information.appendDescription("RClassRef声明不符合RClass命名规范，"
+					+ "也不符合泛参命名规范。");
+		}
 	}
 
 }

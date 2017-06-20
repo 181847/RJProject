@@ -25,10 +25,13 @@ public class GenericsAssignAnalysisSpider extends AbstractBCSpider {
 		ScriptBlock subBlock;
 		Information information = 
 				targetBlock.getInformation();
-		//检查泛参声明是否正确声明了一个泛参的名字，
-		//泛参的命名规范和RClass的命名规范不同，
-		//需要注意区分。
-		if (RStringChecker.checkGenParamAssign(information.getOriginalString())){
+		String inforamtionString = 
+				information.getOriginalString();
+		
+		//检查泛参指配的前后是否符合命名要求，
+		//前一个必须是一个泛参名，
+		//后一个是一个泛参名或者一个类型名。
+		if (RStringChecker.checkGenParamAssign(inforamtionString)){
 			subBlock = targetBlock.getSub();
 			
 			if (subBlock != null){
@@ -37,13 +40,12 @@ public class GenericsAssignAnalysisSpider extends AbstractBCSpider {
 				//即不存在T<int, String>这样子的情况，
 				//其中T是一个泛参，具体类型位置。
 				if (RStringChecker
-						.isGenParam_assigned_to_GenParam(
-								information.getOriginalString())){
+						.isGenParam_assigned_to_GenParam(inforamtionString)){
 					information.setType(InformationType.VOID);
 					information.appendDescription("泛参指定非法，当前已经将一个泛参传递给某个泛型中，"
 							+ "这个泛参本身不能被指定其他的泛参，即不存在T<int, String>这样子的情况。" );
 				} else {
-					//分析作为泛型约束的泛型定义
+					//分析当前指定类型的泛参指配.
 					new GenericsAssignAnalysisSpider(subBlock)
 						.workUntilEnd();
 				}
