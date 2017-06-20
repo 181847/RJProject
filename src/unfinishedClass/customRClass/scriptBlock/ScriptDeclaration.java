@@ -11,6 +11,7 @@ public class ScriptDeclaration {
 	//顶层信息声明
 	public static String type = "Type:";
 	public static String name = "Name:";
+	public static String genericParams = "GenericsParams:";		//泛参声明
 	public static String extendsDec = "Extends:";
 	public static String implementsDec = "Implements:";
 	public static String members = "Members:";
@@ -47,8 +48,6 @@ public class ScriptDeclaration {
 	//子Fun的Modify声明的开始和结束的标志符
 	public static String modifyStart = "{";
 	public static String modifyEnd = "}";
-	
-	public static String Type
 	
 	//子Fun中的弧线声明字段
 	public static String EArc = "EtoE: ";
