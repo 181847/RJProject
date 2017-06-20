@@ -15,11 +15,14 @@ import unfinishedClass.customRClass.struct.RClassStruct;
  * 删除掉任何重名的targetBlock。
  */
 public class SequenceNameFilterSpider extends DeleteSpider {
-	Hashtable<String, Object> nameTable;
+	public static int loadCapacity = 20;
+	
+	//哈希表存储RClass的名字，用于检查命名冲突。
+	protected Hashtable<String, Object> nameTable;
 
 	public SequenceNameFilterSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		nameTable = new Hashtable<String, Object>(20);
+		nameTable = new Hashtable<String, Object>(loadCapacity);
 	}
 
 	@Override
