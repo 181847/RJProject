@@ -373,7 +373,23 @@ K ->
 ```
 这里泛参 **K** 被约束到另一个泛型 **default.GenericsClassB < T >**，这个 **default.GenericsClassB < T >** 声明了一个泛参 **T** ，这段代码中的 **T: V** 的意思是：泛型中的泛参 **T** 用本类中的泛参 **V** 替代，假如在运行过程中，用户指明 **V** 是 **basic.Integer** 类型， 那么 **K** 就应该被约束到 **default.GenericsClassB < basic.Integer >** 。
 
-######3. 成员变量或者本地变量的类型使用泛型时类似泛型的声明
+######3. 继承泛型
+只需要把相应的类型转变为泛型的声明结构就可以了，例如
+```
+Extends:
+    default.GenericsClassB
+        T: V
+Implements:
+    default.GenericsInterfaceA
+        T: basic.Integer
+    default.GenericsInterfaceB
+        K: basic.String
+```
+上面这段代码表明，当前的RClass继承 **default.GenericsclassB < V >**，实现两个接口  
+**default.GenericsInterfaceA < basic.Integer >** 和  
+**default.GenericsInterfaceB < basic.String >**。
+
+######4. 成员变量或者本地变量的类型使用泛型时的声明
 ```
 Member:
     default.GenericsClassA member1 -12
@@ -394,19 +410,20 @@ Member:
 ```
 上面的这个变量类型使用了RClass中定义的一个泛参 **T**。
 
-######4. 调用子Function时，填充需要的泛参
+######5. 调用子Function时，填充需要的泛参
 * 有两种子Function需要用户手动指明泛参：
 1. 定义了泛参的RClass的ConFun需要用户手动填充泛参，来指明生成的实例中的泛实参
 2. 调用的子Function自己声明了泛参，这个Function声明的泛参是独立于RClass声明之外的泛参，需要用户手动指定泛实参
- * 填充的方法与变量使用泛型的方法一致，只需要在子Function声明的下面的子信息块中，指定具体的泛参名以及泛实参就可以了，例如
- ```
- SubFunctions:
+* 填充的方法与变量使用泛型的方法一致，只需要在子Function声明的下面的子信息块中，指定具体的泛参名以及泛实参就可以了，例如
+```
+SubFunctions:
      (-4,-7) myPackage.RClass1 fun
         T: basic.Integer
         N: default.GenericsClassB
             T: basic.String
- ```
- 这个名为 **fun** 的Function声明了两个独立于RClass的泛参 **T** 和 **N**，我们在下面的子信息块中将 **T** 指定为 **basic.Integer**， **N** 指定为 **default.GenericsClassB < basic.String >**。
+```
+这个名为 **fun** 的Function声明了两个独立于RClass的泛参 **T** 和 **N**，我们在下面的子信息块中将 **T** 指定为 **basic.Integer**， **N** 指定为 **default.GenericsClassB < basic.String >**。
+
 
 
 
@@ -435,7 +452,7 @@ RClass名字   |**Name:**                  |
 静态Function（StaticFunction） | **StaticFunction:** + 空格
 普通Function（Function） | **Function:** + 空格
 抽象Function（AbstractFunction） | **AbstractFunction:** + 空格
-泛型参数（GenericsParam） | **GenericsParam:** + 空格
+泛型参数（GenericsParam） | **GenericsParam:**
 
 ## RClass名称规范
 * 一行字符串
