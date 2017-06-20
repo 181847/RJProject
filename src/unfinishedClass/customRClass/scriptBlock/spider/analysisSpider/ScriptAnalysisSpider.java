@@ -41,21 +41,31 @@ public class ScriptAnalysisSpider extends AbstractBCSpider {
 					.workUntilEnd();
 			}
 			
+		} else if (informationString.equals(ScriptDeclaration.genericParams)){
+			//泛参声明部分
+			information.setType(InformationType.GENERIC_PARAMS);
+			if (subBlock != null){
+				new GenericParameterAnalysisSpider(subBlock)
+					.workUntilEnd();
+			}
+			
 		} else if (informationString.equals(ScriptDeclaration.extendsDec)){
 			//父类声明
 			information.setType(InformationType.EXTENDS);
-			//为父类声明下面的信息赋予InformationType
+			//为父类声明下面的信息赋予InformationType，
+			//同时会检查泛型信息。
 			if (subBlock != null){
-				new NameAnalysisSpider(subBlock)
+				new RClassRefAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 				
 		} else if (informationString.equals(ScriptDeclaration.implementsDec)){
 			//父类接口声明
 			information.setType(InformationType.IMPLEMENTS);
-			//为父类接口声明下面的信息赋予InformationType
+			//为父类接口声明下面的信息赋予InformationType，
+			//同时会检查泛型信息。
 			if (subBlock != null){
-				new NameAnalysisSpider(subBlock)
+				new RClassRefAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 				
