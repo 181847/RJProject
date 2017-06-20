@@ -24,6 +24,13 @@ public class SubFunAnalysisSpider extends AbstractBCSpider {
 			information.setType(InformationType.VOID);
 			information.appendDescription("子Function（SubFun）声明格式非法。");
 		}
+		
+		//检查是否使用了泛型
+		ScriptBlock subBlock = targetBlock.getSub();
+		if (subBlock != null){
+			new GenericsAssignAnalysisSpider(subBlock)
+				.workUntilEnd();
+		}
 	}
 
 }
