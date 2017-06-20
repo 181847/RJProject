@@ -5,7 +5,7 @@ package unfinishedClass.customRClass.scriptBlock;
  */
 public class ScriptDeclaration {
 	public static char hierarchy = '\t';
-	public static char nameHierarchy = '.';
+	public static String nameHierarchy = ".";
 	public static String fence = " ";
 	
 	//顶层信息声明
@@ -70,4 +70,9 @@ public class ScriptDeclaration {
 	//比如说变量信息的类型和变量名之间用分割符分割开来
 	public static String generalSplit = " ";
 	
+	//暂时的尖括号，还没有任何作用
+	public static String angleBracketStart = "<";
+	public static String angleBracketEnd = ">";
+	public static String colon = ":";
+	public static String at = "@";
 }
