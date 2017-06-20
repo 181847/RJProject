@@ -23,6 +23,10 @@ import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceNameF
 import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.forSequence.SequenceGrammarSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.forSequence.SequenceInfoSpider;
 
+/**
+ * 帮助从工程文件中生成脚本序列，
+ * 以及从脚本序列生成加载时继承图。
+ */
 public class ScriptBlockHelper {
 	
 	/**
@@ -259,6 +263,7 @@ public class ScriptBlockHelper {
 		//以及是否存在无关信息，
 		//哪怕是包含一个最微小的语法错误，
 		//这个脚本都将整个地从加载序列中删除。
+		//前面对于符号分析检查出来的VOID信息也会在这里剔除。
 		ReasonedErrorSpider sequenceSpider = new SequenceGrammarSpider(scriptSequenceHead);
 		sequenceSpider.workUntilEnd();
 		
@@ -272,18 +277,17 @@ public class ScriptBlockHelper {
 			.workUntilEnd();
 		
 		//信息收集，
-		//将脚本中的信息提升到上层的Information当中，
-		//最终由Information类型来存储RClass的信息，
-		//比如原来一行的成员信息，
-		//在这里就要把它按照类型、名字、初始化值 三个部分进行分割，
-		//方便后续的实例化操作。
+		//将所有的信息提取出来，放到一个RClassStruct结构当中，
+		//这个结构将会存储所有RClass的定义信息。
 		new SequenceInfoSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
 		//RClass冲突类名剔除，
 		//这一步保证加载序列中的类名不能与现有的RClassLoader中的类名冲突，
 		//并且加载序列内部也不能有重名，
-		//删除掉任何重名的targetBlock。
+		//删除掉任何重名的targetBlock，
+		//与已加载的RClass冲突的直接被删除，
+		//只在序列内部冲突的只保留第一个检查到的RClass。
 		new SequenceNameFilterSpider(scriptSequenceHead)
 			.workUntilEnd();
 
