@@ -30,10 +30,16 @@ Members:
 ```
 Members:
     Static:
-        myPackage.RClass2 staticMember1
-        myPackage.RClass3 staticMember2
-    basic.Integer member3 -12
-    default.myPackage.RClass4 member4
+        staticMember1
+            myPackage.RClass2
+        staticMember2
+            myPackage.RClass3
+    member3
+        basic.Integer
+        Init:
+            -12
+    member4
+        default.myPackage.RClass4
 ```
 
 在上面这个例子当中，Member信息块的下面声明了一个Static信息块，这个Static信息块的下面声明了两个静态成员。
@@ -51,17 +57,18 @@ Members:
 **Class** |
 
 * 举例
-    ```
-    Type:
-        AbstractRClass
-    ```
+```
+Type:
+    AbstractRClass
+```
+---
 ### 2.RClass的名字
 * RClass的名字采用和**Java**类似的包层次管理方法，任何一个类都应该在一个包当中
 * 脚本命名规范 *注：此命名规范适用于所有脚本中的可命名部分*
     字符      |   字符描述
     ----------|-----------
     空格      |   空格不能出现在RClass的名字中
-    **(**、**)**、**{**、**}** |  半角的圆括号、花括号不能出现在名字中
+    **(**、**)**、**{**、**}**、**<**、**>**  |  半角的圆括号、花括号不能出现在名字中
     **@**     | **@** 将作为特殊组件名称的标志，不能出现在RClass的名字中
 
 * 举例
@@ -69,6 +76,7 @@ Members:
 Name:
     com.github.liuyang.RClassDemo2
 ```
+---
 ### 3.非接口父类
 * 非接口父类的子类信息中只能存储一行RClass的名字
 * 举例
@@ -76,6 +84,7 @@ Name:
 Extends:
     com.github.liuyang.RClassDemo
 ```
+---
 ### 4.接口父类
 * 接口父类中可以存储多行RClass的名字，注意保证这些RClass的类型是接口
 * 举例
@@ -84,33 +93,55 @@ Implements:
     myPackage.Interface1
     myPackage.Interface2
 ```
+---
 ### 5.成员变量
+* 单个变量声明结构
+```
+变量名
+    变量类性
+    Init:
+        变量初始化信息
+```
+变量名下面第一个子信息必须是类型信息，最后一个是初始化信息，*类型信息必须有，初始化信息可以没有*。  
+举例：
+```
+member3
+    basic.Integer
+    Init:
+        -12
+```
+主信息声明了变量的名字 **member3** 。  
+第一个子信息表明类型是 **basic.Integer**。  
+第三个子信息用 **Init:** 来表明一个初始化信息，初始化值为 **-12**。
+
+
 * 成员变量声明块用**Member:** 开始
 * 非静态变量普通陈列就可以了，而静态变量部分需要声明一个新的**Static**信息块，比如下面这个单独的Static块
 ```
 Static:
-    myPackage.RClass2 staticMember1
-    myPackage.RClass3 staticMember2
+    staticMember1
+        myPackage.RClass2
+    staticMember2
+        myPackage.RClass3
 ```
-* 脚本中变量的声明规则 *此规则同样适用于Function中的本地变量声明*
-* basic.Integer member3 -12
-* 变量声明的内部结构
-
-变量类型|  变量名称|  对应基本数据类型的初始化值
---------|---------|-----------
-basic.Integer|member3|-12
 * 变量名称必须遵守组件命名规范
 * 初始化值只对应基本数据类型，比如整型、布尔型、字符型……，非基本数据类型的变量声明可以没有初始化值，如果有的话也会被忽略
 * 成员变量声明举例，下面声明了两个静态成员变量和两个普通成员变量
 ```
 Member:
     Static:
-        myPackage.RClass2 staticMember1
-        myPackage.RClass3 staticMember2
-    basic.Integer member3 -12
-    default.myPackage.RClass4 member4
+        staticMember1
+            myPackage.RClass2
+        staticMember2
+            myPackage.RClass3
+    member3
+        basic.Integer
+        Init:
+            -12
+    member4
+        default.myPackage.RClass4
 ```
-
+----
 ### 6.Function
 * Function内部具有多个子信息块
 
@@ -149,38 +180,74 @@ AbstractFunction | 抽象Function，声明Function的外部插槽接口，内部
 
 * 举例：
 ```
-Function: myDemoFun
-    Parameter:
-        myPackage.RClass2 parameter1
-        basic.Integer parameter2
-    LocalVar:
-        Static:
-            myPackage.RClass2 staticLocalVar1
-            myPackage.RClass2 staticLocalVar2
-        basic.Integer localVar3 = 12
-    SubFunction:
-        (-4,-7) myPackage.RClass1 fun
-        (-5.1,-2.55) basic.Integer addInteger {3}
-        (15.0,458) basic.Integer divide
-        (22,33) myPackage.RClass1 RClass1
-    Arcs:
-        EtoE: 1.funEnd -> 4.construct
-        RtoP: 2.result->3.by
-    Comments:
-        (55.1, 22.1) -> (21.0, 50.1)
-            注释信息二第一行
-            注释信息二第二行
-        (-1, -2) -> (12, 11)
-            另一个注释信息第一行
-            另一个注释信息第二行
+Function: functionName
+    Excutee:
+        fire
+        doWork
+	Parameter:
+        parameter1
+            myPackage.RClass2
+		parameter2
+            basic.Integer
+    Excuter:
+        ExcepE:
+            NULL_POINTER
+            IO_EXCPETION
+        NormalE:
+            end
+	LocalVar:
+		Static:
+            staticLocalVar1
+                myPackage.RClass2
+			staticLocalVar2
+                myPackage.RClass2
+		localVar3
+            basic.Integer
+            12
+	SubFunction:
+        fun
+            myPackage.RClass1
+            (-4,-7)
+            GPAssign:
+                T: basic.Integer
+        addInteger
+             basic.Integer
+            (-5.1,-2.55)
+            Modify:
+                3
+        divide
+            basic.Integer
+            (15.0,458)
+        RClass1
+            myPackage.RClass1
+            (22,33)
+	Arcs:
+		EtoE:
+             ->
+                1.funEnd
+                4.construct
+             ->
+                3.end
+                1.fire
+		RtoP:
+             ->
+                2.result
+                3.by
+	Comments:
+		(55.1,22.1) -> (21.0,50.1)
+			注释信息二第一行
+			注释信息二第二行
+		(-1,-2) -> (12,11)
+			另一个注释信息第一行
+			另一个注释信息第二行
 ```
 
-
+----
 
 ### 7. Function内部的详细字块声明
 * 在介绍以下内容之前，首先明确一个组件命名规范
   * 什么是组件命名规范？不同于RClass的命名规范，组件命名一般会用于变量的名字、Function的名字、Function外部的插槽接口的名字（比如说Excutee、Parameter……），组件命名规范用于约束这些组件的名字。
-  * 组件命名规范的内容：一个字符串，不包含空格、**@**、**.**（半角英文点号）、**(**、**)**、**{**、**}**。
+  * 组件命名规范的内容：一个字符串，不包含空格、**@**、**.**（半角英文点号）、**:**、**(**、**)**、**{**、**}**、**<**、**>**。
 #### 1. Excutee（执行入口）
 * Excutee组件的子项不区分类型，全部为线性执行入口，每一行声明一个Excutee组件的名字，名字要遵守组件命名规范
 * 举例：
@@ -191,17 +258,14 @@ Excutees:
 ```
  上面这个例子中声明了两个Excutee组件分别名为 **fire** 和 **startLoop** *（注：例子中只是为了展示可声明多个Excutee，目前而言，没有考虑让Function能够实现多个Excutee组件，日后可能会添加这个功能）*
 #### 2. Parameter（参数）
-* Parameter组件子项的声明类似变量声明，但是没有初始化值，例如：
+* Parameter组件子项的声明类似变量声明，但是没有初始化值，主信息声明组件名字，第一个子信息声明组件类型，例如：
 ```
 Parameters:
-    myPackage.RClass2 parameter1
-    basic.Integer parameter2
+    parameter1
+        myPackage.RClass2
+    parameter2
+        basic.Integer
 ```
-注意参数的类型和名字之间有一个空格分开，与变量声明类似，只是没有初始化值，其中第一个参数的结构如下：
-
-参数类型| 参数名称
--------|------
-myPackage.RClass2 | parameter1
 
 #### 3. Excuter（执行出口）
 * Excuter主要分为两种类型，一种是正常状态下的执行出口（称为*普通执行出口*），一种是发生异常现象时的执行出口（称为*异常执行出口*）
@@ -210,26 +274,27 @@ Excuter类型| 声明字段
 ----------|-----------
 普通执行出口 | **NormalE:**
 异常执行出口 | **ExcepE:**
-* 用户可以为Function声明任意数目的异常执行出口，但普通执行出口一般只有一个（多个普通执行出口的实现可能放在日后）
-* 举例：
+* 同一个类型的Excuter声明放在一起，例如：
 ```
 Excuters:
-    ExcepE: NullPointerException
-    ExcepE: IOException
-    NormlE: end
+    ExcepE:
+        NULL_POINTER
+        IO_EXCPETION
+    NormalE:
+        end
 ```
-注意Excuter类型和组件的名字之间有一个空格，千万不要省略这个空格 *（像这种冒号后面接其他字符的时候，都应该有一个空格）*，第一个Excuter组件的声明结构如下：
-Excuter组件类型| Excuter组件名称
----------------|------------
-ExcepE:  |  NullPointerException
+* 用户可以为Function声明任意数目的异常执行出口，但普通执行出口一般只有一个（多个普通执行出口的实现可能放在日后）
+* 一个 **Excuters:** 信息块下面最多只有两个不同类型的子信息块，不允许重复声明信息块
 
 #### 4. Returnval（返回值）
 * Returnval的声明与Parameter的声明要求一样
 * 举例：
 ```
 Returnvals:
-    myPackage.RClass2 parameter1
-    basic.Integer parameter2
+    parameter1
+        myPackage.RClass2
+    parameter2
+        basic.Integer
 ```
 
 #### 5. LocalVar（本地变量）
@@ -238,10 +303,16 @@ Returnvals:
 ```
 LocalVars:
     Static:
-        myPackage.RClass2 staticMember1
-        myPackage.RClass3 staticMember2
-    basic.Integer member3 -12
-    default.myPackage.RClass4 member4
+        staticMember1
+            myPackage.RClass2
+        staticMember2
+            myPackage.RClass3
+    member3
+        basic.Integer
+        Init:
+            -12
+    member4
+        default.myPackage.RClass4
 ```
 
 #### 6. SubFun（子Function）
@@ -252,12 +323,34 @@ SubFun在工作区域的二维坐标 | RClass的名字 | Function的名字 | 修
 ----------|--------|----------------|------------
 由于本软件是用来在图形化界面下进行编程，所以这些SubFun在图形界面下都应该具有一个二维的坐标，用于在图形化的工作区域中显示这个SubFun的位置 | RClass的名字用来表明SubFun属于哪个RClass，这个部分要求符合RClass命名规范  | 指明SubFun是前面声明的RClass内部的哪个Function，这个部分要符合组件命名规范  | 单行的字符串信息，SubFun在被发动功能之前会先读取这个 *修改信息*，来对SubFun进行自定义，如何自定义？这事由SubFun来决定（或者说由写出这个Function的程序员来决定），程序只是提供一个修改信息的存储和读写方法供给Function使用，目前针对这个修改信息的一个应用，就是多针脚的加法Function，这种Function默认只有两个参数，但是通过 *修改信息*，可以为它增加更多的针脚，来适应不同数量的参数加法。
 * 举例：
+单个SubFun的结构：
+```
+Function名称
+    Function所属RClass
+    坐标信息
+    GPAssign:
+        泛参指定信息
+    Modify:
+        修改信息
+```
 ```
 SubFunctions:
-    (-4,-7) myPackage.RClass1 fun
-    (-5.1,-2.55) basic.Integer addInteger {3}
-    (15.0,458) basic.Integer divide
-    (22,33) myPackage.RClass1 RClass1
+    fun
+        myPackage.RClass1
+        (-4,-7)
+        GPAssign:
+            T: basic.Integer
+    addInteger
+        basic.Integer
+        (-5.1,-2.55)
+        Modify:
+            3
+    divide
+        basic.Integer
+        (15.0,458)
+    RClass1
+        myPackage.RClass1
+        (22,33)
 ```
 * 注意第二个Function就是一个加法Function，其中 *修改信息* 是 **3**，表示增加三个参数针脚。
 * 二维坐标中的数字是Double类型。
@@ -273,9 +366,19 @@ SubFunctions:
 * 举例
 ```
 Arcs:
-    EtoE: 1.funEnd -> 4.construct
-    RtoP: 2.result -> 3.by
+    EtoE:
+         ->
+            1.funEnd
+            4.construct
+         ->
+            3.end
+            1.fire
+    RtoP:
+         ->
+            2.result
+            3.by
 ```
+* 每个弧线用一个箭头符号 **->** (注意箭头的两端都有空格)，来表示一个弧线，
 * 针对上面的例子，Arc声明的具体结构：
 
 弧线类型 | 对应SubFun序号 | 连接的SubFun外部组件名字 | 被连接SubFun序号 | 被连接的外部组件名字
@@ -301,7 +404,7 @@ Comments:
         另一个注释信息第二行
 ```
 
-
+----
 ### 8.泛型
 #### 定义
     在定义RClass的时候定义泛型，即用指定的字符串来代替未知的类型
@@ -315,7 +418,8 @@ Comments:
 3. 创建泛型的引用时，需要制定泛参的具体类型
 
 #### 在脚本文件下的定义形式
-######1. 首先介绍一下泛型的表示格式，第一行为泛型的全名称（或者称作实类型），此行下面的子信息块（缩进一行），然后用一个泛参名 + **:** 的形式进行泛参的指定，例如：
+######1. 首先介绍一下泛型的表示格式
+第一行为泛型的全名称（或者称作实类型），此行下面的子信息块（缩进一行），然后用一个泛参名 + **:** 的形式进行泛参的指定，例如：
 ```
 default.GenericsClassA
     M: basic.RObject
@@ -338,36 +442,36 @@ default.GenericsClassA
 ######2. 在下面这一段代码中，定义了本类当中要用作泛参的泛参名，以及相应的泛型约束，这种部分也可以声明在Function中（但是每个Function不能声明和Class中相同名称的泛参，不同Function之间的泛参名允许重复）
 ```
 GenericsParam:
-    T ->
+    T
         default.GenericsClassA
             M: T
             N: default.GenericsClassB
                 T: basic.Integer
-    K ->
+    K
         default.GenericsClassB
         T: V
-    V ->
+    V
         basic.RObject
-    N ->
+    N
         V
 ```
 在上面这段代码中，我们定义了三个泛参，他们的名字分别为<T, K, V>。  
-注意其中的 **T ->** 、 **K ->** 、 **V ->** 、 **N ->** 字样就是声明了三个泛参的名字，后面的 **->** 符号表示接下来的 **子** 代码块是对这个泛参的约束。  
+四个信息块分别声明了四个泛参，**T**、**K**、**V**、**N**，这四个信息块下方各有一个信息块来声明一个泛型约束。
 例如其中：
 ```
-V ->
+V
     basic.RObject
 ```
 表示泛参 **V** 被约束为RObject类型，即 **V** 继承了RObject类型，可以使用它的所有方法。  
 一个泛参可以被约束到任何一种具体或者不具体的类型（包括泛型）
 例如：
 ```
-N ->
+N
     V
 ```
 表示泛参 **N** 被约束到另一个泛参 **V**，所以 **N** 只有在已经被具体实例化的时候才能够检查是否符合约束 **V**。  
 ```
-K ->
+K
     default.GenericsClassB
     T: V
 ```
@@ -389,14 +493,16 @@ Implements:
 **default.GenericsInterfaceA < basic.Integer >** 和  
 **default.GenericsInterfaceB < basic.String >**。
 
-######4. 成员变量或者本地变量的类型使用泛型时的声明
+######4. 变量的类型使用泛型时的声明
+只需要把相应的类型改为泛型的声明格式就可以了
 ```
-Member:
-    default.GenericsClassA member1 -12
+member1
+    default.GenericsClassA
         M: basic.Integer
         N: default.GenericsClassB
             T: basic.String
-    basic.Integer member2 44
+    Init:
+        -12
 ```
 在一行变量声明的子信息块中声明泛型信息就可以了，具体的格式参照泛型声明。  
 这里声明了两个成员变量，**member2** 的类型是普通的 **basic.Integer**，  
@@ -453,6 +559,9 @@ RClass名字   |**Name:**                  |
 普通Function（Function） | **Function:** + 空格
 抽象Function（AbstractFunction） | **AbstractFunction:** + 空格
 泛型参数（GenericsParam） | **GenericsParam:**
+变量初始化信息声明（Init） | **Init:**
+Function泛参指定信息（GPAssign）| **GPAssign:**
+Function修改信息（Modify） | **Modify:**
 
 ## RClass名称规范
 * 一行字符串
