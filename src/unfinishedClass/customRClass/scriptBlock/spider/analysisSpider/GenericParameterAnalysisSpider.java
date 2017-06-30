@@ -5,6 +5,7 @@ import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 
 /**
  * 分析一连串的泛参声明，
@@ -12,42 +13,28 @@ import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
  * 指的是在RClass或者Function中声明泛参
  * 泛参声明的时候必然包含一个泛型约束。
  */
-public class GenericParameterAnalysisSpider extends AbstractBCSpider {
+public class GenericParameterAnalysisSpider extends CountableSpider {
 
 	public GenericParameterAnalysisSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
 	@Override
-	protected void dealWithTargetBlock() {
-		ScriptBlock subBlock;
-		Information information = 
-				targetBlock.getInformation();
-		//检查泛参声明是否正确声明了一个泛参的名字，
-		//泛参的命名规范和RClass的命名规范不同，
-		//需要注意区分。
-		if (RStringChecker
-				.checkGenParamDeclar(
-						information.getOriginalString())){
-			subBlock = targetBlock.getSub();
+	public void countWork() {
+		//检查泛参名字是否符合组件命名规范。
+		if (RStringChecker.checkComponentName(targetInfoString)){
 			
-			//泛参声明必须包含泛型约束，
-			//即subBlock 不能为null。
-			if (subBlock != null){
-				//设置InformattionType
-				information.setType(InformationType.GEN_PARAM);
-				
-				//分析作为泛型约束的泛型定义
-				new RClassRefAnalysisSpider(subBlock)
-						.workUntilEnd();
+			if (hasSubBlock){
+				setInfo(InformationType.DECLAR_GEN_PARAMS);
+				//对子Block检查是否是一个类型或者泛参
+				new RClassRefAnalysisSpider(subBlock, 1).workUntilEnd();
 			} else {
-				//泛参声明缺乏泛型约束。
-				information.setType(InformationType.VOID);
-				information.appendDescription("泛参声明非法，缺少泛型约束。" );
+				setInfo_VOID();
+				descriptInfo("泛参没有泛参约束。");
 			}
 		} else {
-			information.setType(InformationType.VOID);
-			information.appendDescription("泛参名声明非法。" );
+			setInfo_VOID();
+			descriptInfo("泛参名字不符合组件规范。");
 		}
 	}
 

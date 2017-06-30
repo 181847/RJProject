@@ -1,37 +1,30 @@
 package unfinishedClass.customRClass.scriptBlock.spider.analysisSpider;
 
-import unfinishedClass.customRClass.RStringChecker;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
-import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
-import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
 
 /**
  * 检查成员声明的Spider。
  */
-public class VarFieldAnalysisSpider extends VarAnalysisSpider {
+public class VarFieldAnalysisSpider extends VarsAnalysisSpider {
 
 	public VarFieldAnalysisSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
-
+	
 	@Override
-	protected void dealWithTargetBlock() {
-		ScriptBlock subBlock = targetBlock.getSub();
-		Information information = targetBlock.getInformation();
-		String informationString = information.getOriginalString();
-		
-		if (informationString.equals(
-				ScriptDeclaration.staticDec)){
-			information.setType(InformationType.STATIC);
+	public void countWork() {
+		if (targetInfoString.equals(ScriptDeclaration.declar_static)){
+			setInfo(InformationType.DECLAR_STATIC);
 			
-			if (subBlock != null){
-				new VarAnalysisSpider(subBlock)
+			//对静态变量声明部分进行变量分析。
+			if (hasSubBlock){
+				new VarsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 		} else {
-			super.dealWithTargetBlock();
+			super.countWork();
 		}
 	}
 

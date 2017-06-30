@@ -5,89 +5,101 @@ import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 
 /**
  * 分析Function内部声明字段的信息，
  * 不区分ConFun、StaticFun、Fun、AbstractFun。
  */
-public class FunAnalysisSpider extends AbstractBCSpider {
+public class FunAnalysisSpider extends CountableSpider {
 
 	public FunAnalysisSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
-
+	
 	@Override
-	protected void dealWithTargetBlock() {
-		ScriptBlock subBlock = targetBlock.getSub();
-		Information information = targetBlock.getInformation();
-		String informationString = information.getOriginalString();
-		
-		if (informationString.equals(ScriptDeclaration.excutees)){
-			//Function的执行入口组件分析
-			information.setType(InformationType.EXCUTEE);
-			if (subBlock != null){
-				new ExcuteeAnalysisSpider(subBlock)
+	public void countWork() {
+		if (targetInfoString.equals(ScriptDeclaration.declar_excutees)){
+			//执行入口组件声明。
+			setInfo(InformationType.DECLAR_EXCUTEES);
+
+			if (hasSubBlock) {
+				//由于执行入口的声明只有单独的一个名字，
+				//也没有什么分类，
+				//所以只用一个组件分析去检查所有的字符串是否符合组件命名规范。
+				new ComponentAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
-			
-		} else if (informationString.equals(ScriptDeclaration.parameters)){
-			//Function的参数组件分析
-			information.setType(InformationType.PARAMETER);
-			if (subBlock != null){
-				new VarAnalysisSpider(subBlock, InformationType.PARAMETER)
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_parameters)) {
+			//参数组件声明。
+			setInfo(InformationType.DECLAR_PARAMETERS);
+
+			if (hasSubBlock) {
+				new VarsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
-			
-		} else if (informationString.equals(ScriptDeclaration.excuters)){
-			//Function的执行出口组件分析
-			information.setType(InformationType.EXCUTER);
-			if (subBlock != null){
-				new ExcuterAnalysisSpider(subBlock)
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_excuters)) {
+			//执行出口组件声明。
+            setInfo(InformationType.DECLAR_PARAMETERS);
+
+			if (hasSubBlock) {
+				//执行出口分为正常和异常执行chukou ,
+				//需要进行进一步的分类检查。
+				new ExcuterAnalysisSpier(subBlock)
 					.workUntilEnd();
 			}
-			
-		} else if (informationString.equals(ScriptDeclaration.returnvals)){
-			//Function的返回值组件分析
-			information.setType(InformationType.RETURNVAL);
-			if (subBlock != null){
-				new VarAnalysisSpider(subBlock, InformationType.RETURNVAL)
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_returnvals)) {
+			//返回值组件声明。
+            setInfo(InformationType.DECLAR_RETURNVALS);
+
+			if (hasSubBlock) {
+				new VarsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_local_vars)) {
+			//本地变量组件声明。
+            setInfo(InformationType.DECLAR_LOCALVARS);
 			
-		} else if (informationString.equals(ScriptDeclaration.localVars)){
-			//Function的本地变量组件分析
-			information.setType(InformationType.LOCALVAR);
-			if (subBlock != null){
+			if (hasSubBlock) {
 				new VarFieldAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
-			
-		} else if (informationString.equals(ScriptDeclaration.subFunctions)){
-			//Function的子Fun分析
-			information.setType(InformationType.SUBFUN);
-			if (subBlock != null){
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_subFuns)) {
+			//子Function声明
+            setInfo(InformationType.DECLAR_SUBFUNS);
+
+			if (hasSubBlock) {
 				new SubFunAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
-			
-		} else if (informationString.equals(ScriptDeclaration.arcs)){
-			//Function的内部弧线分析
-			information.setType(InformationType.ARC);
-			if (subBlock != null){
-				new ArcAnalysisSpider(subBlock)
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_arcs)) {
+			//连接弧线声明
+            setInfo(InformationType.DECLAR_ARCS);
+
+			if (hasSubBlock) {
+				new ArcsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
-			
-		} else if (informationString.equals(ScriptDeclaration.comments)){
-			//Function的内部注释分析
-			information.setType(InformationType.COMMENT);
-			if (subBlock != null){
-				new CommentAnalysisSpider(subBlock)
+
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_comments)) {
+			//注释声明
+            setInfo(InformationType.DECLAR_COMMENTS);
+
+			if (hasSubBlock) {
+				new CommentsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
+
 		} else {
-			information.setType(InformationType.VOID);
-			information.appendDescription("FunAnalysis中发现的无用信息。");
+			//非法信息
+			setInfo_VOID();
+			descriptInfo("Function中的无用信息。");
 		}
 	}
 

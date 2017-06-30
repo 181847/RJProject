@@ -22,16 +22,16 @@ public class TypeAnalysisSpider extends AbstractBCSpider {
 		
 		if (informationString.equals(ScriptDeclaration.interfaceType)){
 			information.setType(InformationType.INTERFACE);
-		} else if (informationString.equals(ScriptDeclaration.abstractType)){
-			information.setType(InformationType.ABSTRACT);
-		} else if (informationString.equals(ScriptDeclaration.classType)){
-			information.setType(InformationType.CLASS);
+		} else if (informationString.equals(ScriptDeclaration.abstractRClassType)){
+			information.setType(InformationType.ABSTRACT_RCLASS);
+		} else if (informationString.equals(ScriptDeclaration.rClassType)){
+			information.setType(InformationType.RCLASS);
 		} else {
 			information.setType(InformationType.VOID);
 			information.appendDescription("类型声明内容不是以下三种中的字符串："
 					+ ScriptDeclaration.interfaceType
-					+ "、" + ScriptDeclaration.abstractType
-					+ "、" + ScriptDeclaration.classType);
+					+ "、" + ScriptDeclaration.abstractRClassType
+					+ "、" + ScriptDeclaration.rClassType);
 		}
 	}
 
