@@ -98,7 +98,7 @@ Implements:
 * 单个变量声明结构
 ```
 变量名
-    变量类性
+    变量类型
     Init:
         变量初始化信息
 ```
@@ -203,7 +203,8 @@ Function: functionName
                 myPackage.RClass2
 		localVar3
             basic.Integer
-            12
+            Init:
+                -12
 	SubFunction:
         fun
             myPackage.RClass1
@@ -234,10 +235,10 @@ Function: functionName
                 2.result
                 3.by
 	Comments:
-		(55.1,22.1) -> (21.0,50.1)
+		(55.1, 22.1) -> (21.0, 50.1)
 			注释信息二第一行
 			注释信息二第二行
-		(-1,-2) -> (12,11)
+		(-1, -2) -> (12, 11)
 			另一个注释信息第一行
 			另一个注释信息第二行
 ```
