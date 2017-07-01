@@ -4,54 +4,70 @@ package unfinishedClass.customRClass.scriptBlock;
  * 存储脚本文件中的关键声明字段。
  */
 public class ScriptDeclaration {
-	public static char hierarchy = '\t';
+	public static String hierarchy = "    ";	//四个空格
 	public static String nameHierarchy = ".";
 	public static String fence = " ";
 	
 	//顶层信息声明
-	public static String type = "Type:";
-	public static String name = "Name:";
-	public static String genericParams = "GenericsParams:";		//泛参声明
-	public static String extendsDec = "Extends:";
-	public static String implementsDec = "Implements:";
-	public static String members = "Members:";
-	public static String staticDec = "Static:";
-	public static String conFun = "ConstructFunction:";
-	public static String staticFun = "StaticFunction: ";
-	public static String function = "Function: ";
-	public static String abstractFun = "AbstractFunction: ";
+	public static String declar_type = "Type:";
+	public static String declar_name = "Name:";
+	public static String declar_GPs = "GenericsParams:";		//泛参声明
+	public static String declar_extends = "Extends:";
+	public static String declar_implements = "Implements:";
+	public static String declar_members = "Members:";
+	public static String declar_static = "Static:";
+	public static String declar_fun_confun = "ConstructFunction:";
+	public static String declar_fun_static = "StaticFunction:";
+	public static String declar_fun = "Function:";
+	public static String declar_fun_abstract = "AbstractFunction:";
 	
 	//Function内部可能的信息声明
-	public static String parameters = "Parameters:";
-	public static String excutees = "Excutees:";
-	public static String returnvals = "Returnvals:";
-	public static String excuters = "Excuters:";
+	public static String declar_parameters = "Parameters:";
+	public static String declar_excutees = "Excutees:";
+	public static String declar_returnvals = "Returnvals:";
+	public static String declar_excuters = "Excuters:";
 		//两种Excuter的类型声明
 		//普通Exucter，正常线路上的执行出口
-		public static String normalExcuter = "NormalE:";
+		public static String declar_normal_excuter = "NormalE:";
 		//异常Excuter，发生异常时的执行出口
-		public static String exceptionExcuter = "ExcepE:";
-	public static String localVars = "LocalVars:";
-	public static String subFunctions = "SubFunctions:";
-	public static String arcs = "Arcs:";
-	public static String comments = "Comments:";
+		public static String declar_exception_excuter = "ExcepE:";
+	
+	/**
+	 * 初始化信息声明。
+	 */
+	public static String declar_init = "Init:";
+		
+	public static String declar_local_vars = "LocalVars:";
+	public static String declar_subFuns = "SubFunctions:";
+		/**
+		 * SubFun的泛参指定声明。
+		 */
+		public static String declar_GP_assign = "GPAssign:";
+		
+		/**
+		 * SubFun的修改信息声明。
+		 */
+		public static String declar_modify = "Modify:";
+		
+	public static String declar_arcs = "Arcs:";
+	public static String declar_comments = "Comments:";
 	
 	//三种RClass类型的声明
 	public static String interfaceType = "Interface";
-	public static String abstractType = "AbstractClass";
-	public static String classType = "Class";
+	public static String abstractRClassType = "AbstractRClass";
+	public static String rClassType = "RClass";
 
 	//子Fun的位置声明的开始和结束的标志符
-	public static String locationStart = "(";
-	public static String locationEnd = ")";
+	public static String location_start = "(";
+	public static String location_end = ")";
 
 	//子Fun的Modify声明的开始和结束的标志符
-	public static String modifyStart = "{";
-	public static String modifyEnd = "}";
+	public static String modify_start = "{";
+	public static String modify_end = "}";
 	
 	//子Fun中的弧线声明字段
-	public static String EArc = "EtoE: ";
-	public static String PArc = "RtoP: ";
+	public static String declar_arcs_e_to_e = "EtoE:";
+	public static String declar_arcs_r_to_p = "RtoP:";
 
 	//特殊的Function组件名字，
 	//这些组件名字不允许用户手动声明在他们的自定义Function中，
