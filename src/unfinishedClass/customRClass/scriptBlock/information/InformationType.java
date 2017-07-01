@@ -242,12 +242,12 @@ public enum InformationType {
 	/**
 	 * 开始声明泛参指定信息。
 	 */
-	DECLAR_SUBFUN_GP_ASSIGN,
+	DECLAR_GP_ASSIGN,
 	
 	/**
 	 * 开始声明修改信息。
 	 */
-	DECLAR_SUBFUN_MODIFY,
+	DECLAR_MODIFY,
 	
 	/**
 	 * 真实的修改信息。
@@ -265,12 +265,12 @@ public enum InformationType {
 	/**
 	 * 单一弧线出口端。
 	 */
-	ARC_OUTPORT,
+	ARC_START,
 	
 	/**
 	 * 单一弧线入口端。
 	 */
-	ARC_INPORT,
+	ARC_END,
 
 	
 	/**********************注释字段*******************************/
