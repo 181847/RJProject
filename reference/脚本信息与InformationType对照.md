@@ -132,9 +132,9 @@ SubFun声明的时候可以带有泛参指定块，用来填充Function自身声
 addInteger                          ------ SUBFUN
     basic.Integer                   ------ CLASS_REF_CL/ CLASS_REF_GP
     (-5.1,-2.55)                    ------ LOCATION
-    GPAssign:                       ------ DECLAR_SUBFUN_GP_ASSIGN
+    GPAssign:                       ------ DECLAR_GP_ASSIGN
         T: basic.String             ------ GP_ASSIGN_CL
-    Modify:                         ------ DECLAR_SUBFUN_MODIFY
+    Modify:                         ------ DECLAR_MODIFY
         3                           ------ INFO_MODIFY
 ```
 
@@ -151,8 +151,8 @@ member3                             ------ VAR
 一个弧线包含两个端点
 ```
  ->                                 ------ ARC
-    1.funEnd                        ------ ARC_OUTPORT
-    4.construct                     ------ ARC_INPORT
+    1.funEnd                        ------ ARC_START
+    4.construct                     ------ ARC_END
 ```
 
 ###单一注释声明方块
@@ -199,13 +199,13 @@ Function调用的子Fun声明 |   DECLAR_SUBFUNS
 一个执行出口的名字            |       EXCUTER
 一个子Function              |       SUBFUN
 一个二维坐标                |       LOCATION
-子Fun的泛参指定声明    |       DECLAR_SUBFUN_GP_ASSIGN
-子Fun修改信息声明           |       DECLAR_SUBFUN_MODIFY
+子Fun的泛参指定声明    |       DECLAR_GP_ASSIGN
+子Fun修改信息声明           |       DECLAR_MODIFY
 子Fun的具体修改信息         |       INFO_MODIFY
 变量初始值的声明           |       DECLAR_INIT
 变量初始值信息            |       INFO_INIT
 一个弧线                |       ARC
-一个弧线的出度 (A -> B中的A端)          |       ARC_OUTPORT
-一个弧线的出度 (A -> B中的B端)                |       ARC_INPORT
+一个弧线的出度 (A -> B中的A端)          |       ARC_START
+一个弧线的出度 (A -> B中的B端)                |       ARC_END
 一个方形区域                |       RECT
 注释信息                |       INFO_COMMENT
