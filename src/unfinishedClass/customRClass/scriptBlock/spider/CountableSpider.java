@@ -64,10 +64,10 @@ public abstract class CountableSpider extends AbstractBCSpider {
 		subBlock = targetBlock.getSub();
 		//如果有子Block，就设为true，否则就设为false。
 		hasSubBlock = subBlock == null ? false : true;
-		
+
+		count++;
 		//调用具体的方法。
 		countWork();
-		count++;
 	}
 	
 	/**
