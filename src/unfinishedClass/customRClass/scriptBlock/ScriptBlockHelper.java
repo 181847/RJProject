@@ -190,23 +190,38 @@ public class ScriptBlockHelper {
 	}
 	
 	/**
-	 * 计算scriptLine这一行的层次数。
+	 * 计算scriptLine这一行的层次数，
+	 * 本方法用来查找参数字符串的前面一共出现过多少次
+	 * ScriptDeclaration.hierarchy这个字符串的次数。
 	 * @param scriptLine
 	 * 		脚本的一行信息。
 	 * @return
 	 * 		scriptLine的开头所包含的层次符号的数量，
-	 * 		层次符号为ScriptBlockHelper.hierarchyCharacter。
+	 * 		层次符号为ScriptBlockHelper.hierarchy。
 	 */
 	public static int calculateHierarchy(String scriptLine) {
-		int countHierarchy = 0;
-		for (char pointer: scriptLine.toCharArray()){
-			if (pointer == ScriptDeclaration.hierarchy){
-				++ countHierarchy;
-			} else {
-				break;
-			}
+		return startLoopCount(scriptLine, ScriptDeclaration.hierarchy);
+	}
+
+	/**
+	 * 从指定的位置开始检查scriptLine中有多少个hierarchy字符串在循环。
+	 * @param main
+	 * 		被检查的主要字符串。
+	 * @param match
+	 * 		被计数的字符串，
+	 * 		这个字符串用来匹配计数。
+	 * @return
+	 * 		match 在 main 中第 fromIndex 的序号开始，重复的次数。
+	 */
+	private static int startLoopCount(String main, String match) {
+		if (main.startsWith(match)) {
+			return 1 + 
+					startLoopCount(
+					main.substring(				//递归调用，下一个被计数的字符串从main的头部减去match
+							match.length()),
+					match);						//被计数字符串保持不变
 		}
-		return countHierarchy;
+		return 0;
 	}
 
 	/**
@@ -217,7 +232,10 @@ public class ScriptBlockHelper {
 	 * 		修剪层次声明符号之后的信息。
 	 */
 	public static String trimScriptLine(String scriptLine) {
-		return scriptLine.substring(calculateHierarchy(scriptLine));
+		return scriptLine.substring(
+				calculateHierarchy(scriptLine) 
+				* //乘上
+				ScriptDeclaration.hierarchy.length());
 	}
 
 	/**
@@ -312,25 +330,5 @@ public class ScriptBlockHelper {
 		LoadRCGraph loadRCG = loadRCGSpider.getLoadRCG();
 		
 		return loadRCG;
-		
-		/*
-		//在这一阶段，基本保证了各个RClassStruct除去父类和接口父类的声明部分之外，
-		//其他部分都是正确的，
-		//而本阶段的主要功能就是去实例化各个RClassStruct中父类和接口父类的对象引用。<br>
-		//以一个父类叫做“com.github.liuyang.RClassDemo”的RClassStruct做进一步解释：<br>
-		//这个父类的信息用一个字符串直接存储在RClassRefStruct当中，
-		//当进行父类继承操作的时候必须找到这个名字叫做
-		//“com.github.liuyang.RClassDemo”的RClassStruct对象，
-		new SequenceSuperCheckSpider(scriptSequenceHead)
-			.workUnitlEnd();
-		
-		//检查循环继承是否存在，
-		//对每一个Class进行继承层次检查，
-		//每个ScriptBlock的Information都会存储一个
-		//层次检查状态的标志：
-		//未检查、检查中、已检查、检查失败
-		new SequenceLoopExtendsSpider(scriptSequenceHead)
-			.workUntilEnd();
-		*/
 	}
 }
