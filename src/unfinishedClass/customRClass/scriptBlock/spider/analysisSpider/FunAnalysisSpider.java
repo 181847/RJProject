@@ -36,6 +36,7 @@ public class FunAnalysisSpider extends CountableSpider {
 			setInfo(InformationType.DECLAR_PARAMETERS);
 
 			if (hasSubBlock) {
+				//分析具体的参数组件。
 				new VarsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
@@ -45,9 +46,9 @@ public class FunAnalysisSpider extends CountableSpider {
             setInfo(InformationType.DECLAR_PARAMETERS);
 
 			if (hasSubBlock) {
-				//执行出口分为正常和异常执行chukou ,
+				//执行出口分为正常和异常执行出口 ,
 				//需要进行进一步的分类检查。
-				new ExcuterAnalysisSpier(subBlock)
+				new ExcuterAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 
@@ -56,6 +57,7 @@ public class FunAnalysisSpider extends CountableSpider {
             setInfo(InformationType.DECLAR_RETURNVALS);
 
 			if (hasSubBlock) {
+				//分析具体的返回值组件。
 				new VarsAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
@@ -65,6 +67,7 @@ public class FunAnalysisSpider extends CountableSpider {
             setInfo(InformationType.DECLAR_LOCALVARS);
 			
 			if (hasSubBlock) {
+				//分析具体的本地变量。
 				new VarFieldAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
@@ -74,6 +77,7 @@ public class FunAnalysisSpider extends CountableSpider {
             setInfo(InformationType.DECLAR_SUBFUNS);
 
 			if (hasSubBlock) {
+				//分析具体的子Fun声明。
 				new SubFunAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
@@ -83,7 +87,10 @@ public class FunAnalysisSpider extends CountableSpider {
             setInfo(InformationType.DECLAR_ARCS);
 
 			if (hasSubBlock) {
-				new ArcsAnalysisSpider(subBlock)
+				//分析具体的弧线，
+				//弧线分为执行弧线和参数弧线，
+				//注意区分。
+				new ArcFieldAnalysisSpider(subBlock)
 					.workUntilEnd();
 			}
 

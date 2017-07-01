@@ -18,7 +18,7 @@ public class NameAnalysisSpider extends CountableSpider {
 	@Override
 	public void countWork() {
 		switch(count){
-		case 0:
+		case 1:
 			//检查是否符合RClass命名规范
 			if (RStringChecker.checkRClassName(targetInfoString)){
 				setInfo(InformationType.CLASS_REF_CL);

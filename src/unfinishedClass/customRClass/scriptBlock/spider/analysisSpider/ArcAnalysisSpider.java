@@ -1,28 +1,32 @@
 package unfinishedClass.customRClass.scriptBlock.spider.analysisSpider;
 
-import unfinishedClass.customRClass.RStringChecker;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
-import unfinishedClass.customRClass.scriptBlock.information.Information;
-import unfinishedClass.customRClass.scriptBlock.information.InformationType;
-import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 
-public class ArcAnalysisSpider extends AbstractBCSpider {
+/**
+ * 对一连串的弧线声明进行分析，
+ * ArcAnalysisSpider（本类）不同于ArcFieldAnalysisSpider，
+ * 前者直接对弧线进行分析，
+ * 后者会对弧线进行分类，然后调用前者进行分析。
+ */
+public class ArcAnalysisSpider extends CountableSpider {
 
 	public ArcAnalysisSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
 	@Override
-	protected void dealWithTargetBlock() {
-		Information information = targetBlock.getInformation();
-		String informationString = information.getOriginalString();
-		
-		if (RStringChecker.checkArc(informationString)){
-			information.setType(InformationType.ARC);
+	public void countWork() {
+		//分析单个Block的信息是否是一个用来表示弧线的特殊字符串，
+		//要求必须含有子信息块。
+		if (targetInfoString.equals(ScriptDeclaration.arrow)
+				&& hasSubBlock) {
+			new SingleArcAnalysisSpider(subBlock)
+				.workUntilEnd();
 		} else {
-			information.setType(InformationType.VOID);
-			information.appendDescription("弧线声明格式非法。");
+			setInfo_VOID();
+			descriptInfo("非法的弧线信息。");
 		}
 	}
 

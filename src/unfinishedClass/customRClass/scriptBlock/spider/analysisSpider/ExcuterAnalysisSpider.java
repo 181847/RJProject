@@ -1,28 +1,44 @@
 package unfinishedClass.customRClass.scriptBlock.spider.analysisSpider;
 
-import unfinishedClass.customRClass.RStringChecker;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.information.Information;
+import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
-import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 
-public class ExcuterAnalysisSpider extends AbstractBCSpider {
+/**
+ * 对执行出口进行分析，
+ * 分为异常和普通执行出口。
+ */
+public class ExcuterAnalysisSpider extends CountableSpider {
 
 	public ExcuterAnalysisSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
 	@Override
-	protected void dealWithTargetBlock() {
-		Information information = targetBlock.getInformation();
-		String informationString = information.getOriginalString();
-		
-		if (RStringChecker.checkExcuter(informationString)){
-			information.setType(InformationType.EXCUTER);
+	public void countWork() {
+		//检查异常执行出口。
+		if (targetInfoString
+				.equals(ScriptDeclaration.declar_exception_excuter)) {
+			setInfo(InformationType.DECLAR_EXCUTERS_EXCEPTION);
+			
+			if (hasSubBlock) {
+				new ComponentAnalysisSpider(subBlock)
+					.workUntilEnd();
+			}
+			
+		//检查普通执行出口。
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_normal_excuter)) {
+			
+			setInfo(InformationType.DECLAR_EXCUTERS_NORMAL);
+			
+			if (hasSubBlock) {
+				new ComponentAnalysisSpider(subBlock)
+					.workUntilEnd();
+			}
 		} else {
-			 //包含非法字符的信息
-			 information.setType(InformationType.VOID);
-			 information.appendDescription("执行出口（Excuter）声明格式非法。");
+			setInfo_VOID();
+			descriptInfo("非法的执行出口声明。");
 		}
 	}
 

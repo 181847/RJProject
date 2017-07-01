@@ -20,9 +20,11 @@ public class SingalVarAnalysisSpider extends RClassRefAnalysisSpider {
 		switch(count){
 		//要求单个变量声明的第一个子信息必须是类型信息。
 		case 1:
-			//只对当前Block进行单独的类型分析。
+			//只对当前Block进行单独的类型分析，
+			//这里只对第一个Block进行检查，
+			//要求必须是一个类型引用。
 			new RClassRefAnalysisSpider(targetBlock)
-				.countWork();
+				.work();
 			break;
 			
 		default:
