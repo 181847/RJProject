@@ -110,7 +110,6 @@ public class RStringChecker {
 	 * 		返回true；否则返回false。
 	 */
 	public static boolean isEmpty(String string) {
-		// TODO Auto-generated method stub
 		return string == null
 				|| string.equals("");
 	}
@@ -198,8 +197,12 @@ public class RStringChecker {
 		rClassName = "b." + rClassName + ".b";
 		String[] names = 
 				//由于这里使用的是正则表达式，
-				//而名称分割符是“.”，
-				//要进行转义。
+				//而名称分割符是特殊含义的字符串“.”，
+				//要进行转义，
+				//注意转义只需要在前面加上一个"\"字符，
+				//然而在Java中“\”又是一个特殊字符，
+				//还需要转义，
+				//所以这里加上字符串串“\\”。
 				rClassName.split("\\" + ScriptDeclaration.nameHierarchy);
 		
 		//由于加了边界符，
@@ -270,10 +273,10 @@ public class RStringChecker {
 		return 
 			(
 				-1 != informationString.indexOf		//找到Modifier信息开始符
-				(ScriptDeclaration.modifyStart)
+				(ScriptDeclaration.modify_start)
 			) || (
 				-1 != informationString.indexOf		//找到Modifier信息结束符
-				(ScriptDeclaration.modifyEnd)
+				(ScriptDeclaration.modify_end)
 			);
 	}
 
@@ -289,10 +292,10 @@ public class RStringChecker {
 		return 
 			(
 				-1 != informationString.indexOf		//找到位置开始符
-				(ScriptDeclaration.locationStart)
+				(ScriptDeclaration.location_start)
 			) || (
 				-1 != informationString.indexOf		//找到位置结束符
-				(ScriptDeclaration.locationEnd)
+				(ScriptDeclaration.location_end)
 			);
 	}
 
@@ -476,7 +479,8 @@ public class RStringChecker {
 	/**
 	 * 检查是否正确声明了一个方形区域位置，
 	 * 用两个坐标来表示方形区域的左上角和右下角，
-	 * 形如“(55.1, 22.1) -> (21.0, 50.1)”。
+	 * 形如：<br>
+	 * (55.1, 22.1) -> (21.0, 50.1)”。
 	 * @param informationString
 	 * 		被检查的字符串。
 	 * @return
@@ -501,7 +505,8 @@ public class RStringChecker {
 	 * 检查是否正确声明了一个坐标信息，
 	 * 坐标的XY轴数值要求能够转换成Double类型，
 	 * 前后用括号括起来，
-	 * 形如“(21.0, 50.1)”。
+	 * 形如：<br>
+	 * “(21.0, 50.1)”。
 	 * @param string
 	 * 		被检查的位置声明。
 	 * @return
@@ -510,14 +515,14 @@ public class RStringChecker {
 	 */
 	public static boolean checkLocation(String string) {
 		//检查位置信息是否用相应的位置开始和结束符号包裹
-		if ( ! string.startsWith(ScriptDeclaration.locationStart)
-				|| ! string.endsWith(ScriptDeclaration.locationEnd)){
+		if ( ! string.startsWith(ScriptDeclaration.location_start)
+				|| ! string.endsWith(ScriptDeclaration.location_end)){
 			return false;
 		}
 		
 		//剥去位置声明前后的包裹符号
-		string = string.substring(ScriptDeclaration.locationStart.length(), 
-				string.length() - ScriptDeclaration.locationEnd.length());
+		string = string.substring(ScriptDeclaration.location_start.length(), 
+				string.length() - ScriptDeclaration.location_end.length());
 		
 		//将两个坐标数字从中间分开
 		String[] XYs = string.split(ScriptDeclaration.numberSplit);
@@ -615,9 +620,9 @@ public class RStringChecker {
 		
 		int mStartLoc, mEndLoc;
 		mStartLoc = 	//修改信息开始位置
-				informationString.indexOf(ScriptDeclaration.modifyStart);
+				informationString.indexOf(ScriptDeclaration.modify_start);
 		mEndLoc = 		//修改信息结束位置
-				informationString.indexOf(ScriptDeclaration.modifyEnd);
+				informationString.indexOf(ScriptDeclaration.modify_end);
 		
 		
 		//长度为4的数组，所有元素初始化为null。
@@ -663,6 +668,8 @@ public class RStringChecker {
 	 * 		如果符合要求就返回true，
 	 * 		否则返回false。
 	 */
+	//TODO 被废弃的方法checkExcuter()
+	/*
 	public static boolean checkExcuter(String informationString) {
 		String[] infoArray = informationString.split(ScriptDeclaration.fence);
 		//如果分割之后的数组长度为2，
@@ -679,6 +686,7 @@ public class RStringChecker {
 		
 		return false;
 	}
+	*/
 
 	/**
 	 * 检查一个变量声明的变量类型是否是泛参，
@@ -800,6 +808,81 @@ public class RStringChecker {
 		
 		//检查去除箭头符号的其他部分是否符合组件命名规范。
 		return checkComponentName(genParamDeclar.substring(0, arrowHead));
+	}
+
+	/**
+	 * 检查一个字符串是否能够被解释为一个弧线的端点，
+	 * 形如：<br>
+	 * “1.funEnd”<br>
+	 * 要求满足：正整数（不包括0） + 分割字符 + 组件名称。<br>
+	 * 提醒：
+	 * 分割字符是指ScriptDeclaration.indexSplit定义的一个字符串，
+	 * 通常为一个半角英文点号，进行分割的时候注意点号会与正则表达式冲突，
+	 * 需要转义字符。
+	 * @param targetInfoString
+	 * 		被检查的字符串，
+	 * 		形如“1.funEnd”。
+	 * @return
+	 * 		如果字符串满足弧线端点要求，返回true；
+	 * 		否则返回false。
+	 */
+	public static boolean checkArcPoint(String targetInfoString) {
+		//利用ScriptDeclaration中定义的序号分隔符 分割字符串。
+		String[] pointDefs =		
+				//由于这里使用的是正则表达式，
+				//而名称分割符是特殊含义的字符串“.”，
+				//要进行转义，
+				//注意转义只需要在前面加上一个"\"字符，
+				//然而在Java中“\”又是一个特殊字符，
+				//还需要转义，
+				//所以这里加上字符串串“\\”。
+				targetInfoString.split("\\" + ScriptDeclaration.indexSplit);
+		
+		if (pointDefs.length != 2){
+			//按照分割符分割后的部分不是准确的两个，
+			//说明这个字符串一定不满足弧线端点的声明要求。
+			return false;
+		}
+		
+		return 
+			(	//检查序号部分是否是一个正整数。
+				RStringChecker.checkSignInt(pointDefs[0]) == 2
+				&&	//同时满足。
+				//检查组件名部分是否符合组件命名规范。
+				RStringChecker.checkComponentName(pointDefs[1])
+			);
+	}
+
+	/**
+	 * 检查一个字符串对应整数的属性。
+	 * @param string
+	 * 		被检查的字符串，
+	 * 		期望是一个能够转换为整数的字符串。
+	 * @return
+	 * 		0代表字符串不能转换为整数；<br>
+	 * 		-1代表负数；<br>
+	 * 		1代表0；<br>
+	 * 		2代表大于等于1的正整数；<br>
+	 * 		
+	 */
+	private static int checkSignInt(String string) {
+		int parseResult;
+		try {
+			parseResult = Integer.parseInt(string);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+		
+		if (parseResult < 0){
+			//标志这个数为负数。
+			return -1;
+		} else if (parseResult == 0) {
+			//标志这个数为0。
+			return 0;
+		} else {
+			//标志这个数为大于等于1的正整数。
+			return 2;
+		}
 	}
 }
 
