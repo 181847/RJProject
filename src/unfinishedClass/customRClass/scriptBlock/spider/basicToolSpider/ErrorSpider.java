@@ -1,14 +1,17 @@
 package unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 
-public abstract class ErrorSpider extends AbstractBCSpider {
+/**
+ * 可以存储错误信息的Spider。
+ */
+public abstract class ErrorSpider extends CountableSpider {
 	/**
-	 * 一个用来起标志作用的变量。
+	 * 记录错误信息。
 	 */
-	protected boolean error;
-	
+	protected StringBuffer errorReason;
+
 	/**
 	 * 默认Spider没有发生错误。
 	 * @param targetBlock
@@ -16,24 +19,36 @@ public abstract class ErrorSpider extends AbstractBCSpider {
 	 */
 	public ErrorSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		error = false;
-	}
-	
-	/**
-	 * @param targetBlock
-	 * 		目标Block节点。
-	 * @param initError
-	 * 		手动初始化Spider是否发生错误。
-	 */
-	public ErrorSpider(ScriptBlock targetBlock, boolean initError){
-		super(targetBlock);
-		error = initError;
+		errorReason = new StringBuffer();
 	}
 
 	@Override
 	protected abstract void dealWithTargetBlock();
 	
-	public boolean occurredError(){
-		return error;
+	/**
+	 * 报告错误信息，
+	 * 形如：（注意：下面的引号不出在返回值中）<br>
+	 * “<br>
+	 * {<br>
+	 * 第一个描述；<br>
+	 * 第二个描述；<br>
+	 * }<br>
+	 * ”<br>
+	 * @return
+	 */
+	public String report (){
+		return "{\n" 
+				+ errorReason.toString()
+				+ "}";
+	}
+	
+	/**
+	 * 添加对错误的描述。
+	 * @param addition
+	 * 		单个错误描述，
+	 * 		添加时会在末尾加上一个换行符。
+	 */
+	public void descriptError (String addition){
+		errorReason.append(addition + '\n');
 	}
 }
