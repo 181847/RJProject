@@ -121,8 +121,6 @@ public class ScriptBlockChainGenerator {
 	 * 		上转失败，返回false。
 	 */
 	public boolean turnUp() {
-		// TODO Auto-generated method stub
-		
 		ScriptBlock upBlock = targetBlock.getNext();
 		
 		while( ! upBlock.isHead() && upBlock != targetBlock){

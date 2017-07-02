@@ -2,7 +2,6 @@ package unfinishedClass.customRClass.scriptBlock;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
@@ -16,7 +15,6 @@ import unfinishedClass.customRClass.scriptBlock.spider.analysisSpider.forSequenc
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedErrorSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequenceLineAssignerSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintDescriptionSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceContentMatchSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceLRCGraphSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceNameFilterSpider;
@@ -33,7 +31,8 @@ public class ScriptBlockHelper {
 	 * 从zip文件中读取指定的脚本文件，
 	 * 生成脚本结构，
 	 * 每个脚本都用双重循环链表进行连接，
-	 * 最终结果返回这个双重循环链表的头结点。
+	 * 最终结果返回这个双重循环链表的头结点，
+	 * 通过传入一个cusRClassDeclarations来标记处工程文件中所有脚本的位置。
 	 * @param projectFile
 	 * 		包含脚本文件的Zip文件。
 	 * @param cusRClassDeclarations
@@ -81,19 +80,38 @@ public class ScriptBlockHelper {
 	 * 		一个ScriptBlock，prec/next为null。
 	 */
 	public static ScriptBlock generateScriptBlock(ArrayList<String> script) {
+		//一个单独的脚本用一个Block来代表（即下面用到的scriptBlock），
+		//而脚本的具体内容则放在这个scriptBlock的子Block当中，
+		//scriptBlock中存储着脚本从哪个工程文件的哪一个路径中获取的，
+		//这个路径信息应该在script当中的第一行。
 		ScriptBlock scriptBlock = new ScriptBlock(
 				new RawScriptInformation(script.get(0)), false);
+		
+		//用于引用脚本的内容的头结点，
+		//注意头结点不包含任何脚本信息。
 		ScriptBlock contentScriptBlockHead = getNewContentHead();
 		
+		//将内容头结点包含进scriptBlock中。
 		scriptBlock.include(contentScriptBlockHead);
-		ScriptBlockChainGenerator chainGenerator = 
-				new ScriptBlockChainGenerator(contentScriptBlockHead, script, 1);
 		
+		//创建一个chainGenerator用于生成链表结构。
+		ScriptBlockChainGenerator chainGenerator =
+				new ScriptBlockChainGenerator(
+						contentScriptBlockHead, 	//Generator以内容头结点起始地点，为其添加子链。
+						script, 					//从脚本中读取脚本内容。
+						1);							//script第一个元素（序号0）是脚本的来源路径，
+														//忽略这个来源路径，从第二个元素（序号1）开始读取。
+		
+		//Generator开始工作。
 		chainGenerator.generate();
 		if (chainGenerator.failed()){
+			//如果工作失败，直接返回null。
 			return null;
 		}
 		
+		//工作成功，
+		//Generator的工作成果已经在scriptBlock中，
+		//将scriptBlock返回。
 		return scriptBlock;
 	}
 
