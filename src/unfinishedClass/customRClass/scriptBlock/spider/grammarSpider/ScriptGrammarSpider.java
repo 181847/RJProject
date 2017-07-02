@@ -5,20 +5,10 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedErrorSpider;
 
 /**
- * 假设脚本定义的是AbstractRClass，
- * 检查必要信息是否包含，
- * 例如一个脚本中必须有NAME声明，（ConFun不需要一定存在）
- * NAME下面也必须有且只有一个类名的声明，
- * 如果没有它的话就算是语法错误。
- * 而这个类名由先前的AnalysisSpider进行分析后只会保证这个类名
- * 是一个正确的符合字符规范的类名，不会包含非法字符、
- * 有包的名字，但是这个类名是否和别的类名重复 不属于语法检查的范畴。
- * 语法检查还需要避免无用信息，
- * 即类型为VOID的Information，
- * 如果包含此类信息，
- * 无论VOID是在什么地方出现的，
- * 当前脚本都会被认为发生语法错误，
- * 不允许加载。
+ * 检查必要的信息必须包含：
+ * 顶层必须包含TYPE：
+ * 以及不能包含标记为VOID额Block，
+ * 潍坊
  */
 public class ScriptGrammarSpider extends GrammarSpider {
 	protected ReasonedErrorSpider typeGS;
