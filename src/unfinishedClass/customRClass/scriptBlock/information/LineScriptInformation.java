@@ -1,6 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.information;
 
-public class LineScriptInformation extends RawScriptInformation implements Information {
+public class LineScriptInformation extends RawScriptInformation{
 	protected int line;
 	
 	public LineScriptInformation(Information information, int line){
