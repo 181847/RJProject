@@ -5,9 +5,9 @@
 原始脚本信息  | 脚本含义  |   InformationType
 -------------|----------|---------------------
 **Type:**               |   RClass的类型声明     |     DECLAR_TYPE
-**Interface**           | 接口类型的RClass声明  | Interface
-**AbstractRClass**      | 抽象类型RClass声明      |   AbstractRClass
-**RClass**              |   普通类型RClass声明    |   RClass
+**Interface**           | 接口类型的RClass声明  | INTERFACE
+**AbstractRClass**      | 抽象类型RClass声明      |   ABSTRACT_RCLASS
+**RClass**              |   普通类型RClass声明    |   RCLASS
 **Name:**               |   RClass的名称声明     |     DECLAR_NAME
 **GenericsParams:**     |   RClass的泛参声明     |     DECLAR_GEN_PARAMS
 **Extends:**            |   继承非接口父类声明   |      DECLAR_EXTENDS
@@ -167,6 +167,10 @@ member3                             ------ VAR
 #汇总
 含义         |           InformationType
 ------------------------|------------------
+RClass的类型声明     |     DECLAR_TYPE
+接口类型的RClass  | INTERFACE
+抽象类型RClass      |   ABSTRACT_RCLASS
+普通类型RClass    |   RCLASS
 RClass的名称声明     |     DECLAR_NAME
 RClass的泛参声明     |     DECLAR_GEN_PARAM
 继承非接口父类声明   |      DECLAR_EXTENDS
