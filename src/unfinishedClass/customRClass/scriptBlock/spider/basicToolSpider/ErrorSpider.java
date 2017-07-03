@@ -21,9 +21,6 @@ public abstract class ErrorSpider extends CountableSpider {
 		super(targetBlock);
 		errorReason = new StringBuffer();
 	}
-
-	@Override
-	protected abstract void dealWithTargetBlock();
 	
 	/**
 	 * 报告错误信息，
@@ -48,7 +45,14 @@ public abstract class ErrorSpider extends CountableSpider {
 	 * 		单个错误描述，
 	 * 		添加时会在末尾加上一个换行符。
 	 */
-	public void descriptError (String addition){
+	public void describeError (String addition){
 		errorReason.append(addition + '\n');
 	}
+	
+	/**
+	 * 通过这个方法来查看是否发现了错误，
+	 * 这个方法的具体实现由子类来实现。
+	 * @return
+	 */
+	public abstract boolean occurredError();
 }
