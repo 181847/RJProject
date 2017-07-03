@@ -3,12 +3,12 @@ package unfinishedClass.customRClass.scriptBlock.information;
 public class RawScriptInformation implements Information {
 	protected String scriptSourse;
 	protected InformationType infoType;
-	protected String description;
+	protected StringBuffer description;
 	
 	public RawScriptInformation(String source){
 		scriptSourse = source;
 		infoType = InformationType.VOID;
-		description = "";
+		description = new StringBuffer();
 	}
 	
 	@Override
@@ -31,17 +31,25 @@ public class RawScriptInformation implements Information {
 		return scriptSourse;
 	}
 
+	/**
+	 * 返回信息描述，
+	 * 返回的详细格式如下：<br>
+	 * (<br>
+	 * 第一次添加的描述<br>
+	 * 第二次添加的描述<br>
+	 * )<br>
+	 */
 	@Override
 	public String getDescription() {
-		return description;
+		return description.toString();
 	}
 
+	/**
+	 * 以行为单位添加描述，
+	 * 被添加的字符串的末尾将会自动加上一个换行符。
+	 */
 	@Override
-	public void appendDescription(String anotherDescription) {
-		if (description.isEmpty()){
-			description = anotherDescription;
-		} else {
-			description += "; " + anotherDescription;
-		}
+	public void appendDescription(String addition) {
+		description.append(addition + '\n');
 	}
 }
