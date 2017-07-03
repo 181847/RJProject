@@ -33,8 +33,6 @@ public class NameAnalysisSpider extends CountableSpider {
 			setInfo_VOID();
 			descriptInfo("在RClass声明中多余的信息。");
 		}
-		
-		
 	}
 
 }
