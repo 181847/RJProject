@@ -10,21 +10,6 @@ import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedE
  * 以及不能包含标记为VOID额Block。
  */
 public class ScriptGrammarSpider extends DeclarGSpider {
-	/**
-	 * 本数组用来记录相关block是否存在。
-	 * 初始时所有的记录都是0，
-	 * 其中序号和InformationType对应的关系如下：<br>
-	 * 0 ---- DECLAR_TYPE<br>
-	 * 1 ---- DECLAR_NAME<br>
-	 * 2 ---- DECLAR_EXTENDS<br>
-	 * 3 ---- DECLAR_IMPLEMENTS<br>
-	 * 4 ---- DECLAR_MEMBERS<br>
-	 * 5 ---- DECLAR_FUN_CONFUN<br>
-	 * 6 ---- DECLAR_FUN_STATIC<br>
-	 * 7 ---- DECLAR_FUN<br>
-	 * 8 ---- DECLAR_FUN_ABSTRACT<br>
-	 */
-	protected int[] blockLog = new int[9];
 	
 	/**
 	 * 默认Spider发生错误。
@@ -32,7 +17,8 @@ public class ScriptGrammarSpider extends DeclarGSpider {
 	 * 		目标Block节点。
 	 */
 	public ScriptGrammarSpider(ScriptBlock targetBlock) {
-		super(targetBlock, "RClass脚本检查");
+		//11个记录槽。
+		super(targetBlock, "RClass脚本检查", 11);
 	}
 	
 	/**
@@ -49,6 +35,11 @@ public class ScriptGrammarSpider extends DeclarGSpider {
 		case DECLAR_NAME:
 			//检查名称声明。
 			sendSpider(new NameGSpider(subBlock));
+			break;
+			
+		case DECLAR_GEN_PARAMS:
+			//检查泛参声明。
+			sendSpider(new GenParamGSpider(subBlock));
 			break;
 			
 		case DECLAR_EXTENDS:
@@ -88,7 +79,7 @@ public class ScriptGrammarSpider extends DeclarGSpider {
 			
 		default:
 			//处理不在处理范围之内的InformationType。
-			this.dealWith_Unexpected();
+			dealWith_Unexpected();
 			break;
 		
 		}
@@ -101,7 +92,134 @@ public class ScriptGrammarSpider extends DeclarGSpider {
 		//二是，缺少某些字段，如果没有声明过也就无法检查错误，
 		//注意不要遗漏这种情况但是由于缺少。
 		return super.occurredError()	//检查过程中层经发生错误。
-				|| blockLog[0] == 0		//缺少类型声明。
-				|| blockLog[1] == 0;	//缺少类名声明。
+				//缺少类型声明或者多个类型声明。
+				|| 1 != getRecordOf(InformationType.DECLAR_TYPE)
+				//缺少类名声明或者多个类名声明。
+				|| 1 != getRecordOf(InformationType.DECLAR_NAME)
+				//存在多个泛参声明。
+				|| 1 < getRecordOf(InformationType.DECLAR_GEN_PARAMS) 
+				//存在多个非接口父类。
+				|| 1 < getRecordOf(InformationType.DECLAR_EXTENDS) 
+				//存在多个变量区域声明。
+				|| 1 < getRecordOf(InformationType.DECLAR_MEMBERS) 
+				//存在多个构造Function。
+				|| 1 < getRecordOf(InformationType.DECLAR_FUN_CONFUN);
 	}
+	
+	@Override
+	public String getRawReport() {
+		StringBuffer appendReport = new StringBuffer();
+		
+		//检查类型声明。
+		switch(getRecordOf(InformationType.DECLAR_TYPE)){
+		case 0:
+			//缺少类型声明。
+			appendReport.append("\n缺少类型声明。");
+			break;
+		
+		case 1:
+			//正常情况，跳出switch。
+			break;
+			
+		default:
+			appendReport.append("\n存在多个类型声明。");
+			break;
+		}//end switch
+		
+		//检查类名声明。
+		switch(getRecordOf(InformationType.DECLAR_NAME)){
+		case 0:
+			//缺少名称声明。
+			appendReport.append("\n缺少名称声明。");
+			break;
+		
+		case 1:
+			//正常情况，跳出switch。
+			break;
+			
+		default:
+			appendReport.append("\n存在多个名称声明。");
+			break;
+		}//end switch
+		
+		if (1 < getRecordOf(InformationType.DECLAR_GEN_PARAMS)){
+			appendReport.append("\n存在多个泛参声明。");
+		}
+		
+		if (1 < getRecordOf(InformationType.DECLAR_EXTENDS)){
+			appendReport.append("\n存在多个非接口父类声明。");
+		}
+		
+		if (1 < getRecordOf(InformationType.DECLAR_IMPLEMENTS)){
+			appendReport.append("\n蹲在多个接口声明。");
+		}
+		
+		if (1 < getRecordOf(InformationType.DECLAR_MEMBERS)){
+			appendReport.append("\n存在多个成员变量区域声明。");
+		}
+		
+		if (1 < getRecordOf(InformationType.DECLAR_FUN_CONFUN)){
+			appendReport.append("\n存在多个构造Function区域声明。");
+		}
+		
+		return super.getRawReport()
+				+ appendReport.toString();
+	}
+	
+	/**
+	 * 通过这个方法来建立infoType和blockLog中对应记录的连接，
+	 * 其中序号和InformationType对应的关系如下：<br>
+	 * 0 ---- VOID<br>
+	 * 1 ---- DECLAR_TYPE<br>
+	 * 2 ---- DECLAR_NAME<br>
+	 * 3 ---- DECLAR_GEN_PARAMS<br>
+	 * 4 ---- DECLAR_EXTENDS<br>
+	 * 5 ---- DECLAR_IMPLEMENTS<br>
+	 * 6 ---- DECLAR_MEMBERS<br>
+	 * 7 ---- DECLAR_FUN_CONFUN<br>
+	 * 8 ---- DECLAR_FUN_STATIC<br>
+	 * 9 ---- DECLAR_FUN<br>
+	 * 10 ---- DECLAR_FUN_ABSTRACT<br>。
+	 * @param infoType
+	 * 		infoType信息类型。
+	 * @return
+	 * 		对应记录的序号。
+	 */
+	protected int map_infoType_to_logIndex(InformationType infoType){
+		switch(infoType){
+		case DECLAR_TYPE:
+			return 1;
+			
+		case DECLAR_NAME:
+			return 2;
+			
+		case DECLAR_GEN_PARAMS:
+			return 3;
+			
+		case DECLAR_EXTENDS:
+			return 4;
+			
+		case DECLAR_IMPLEMENTS:
+			return 5;
+			
+		case DECLAR_MEMBERS:
+			return 6;
+			
+		case DECLAR_FUN_CONFUN:
+			return 7;
+			
+		case DECLAR_FUN_STATIC:
+			return 8;
+			
+		case DECLAR_FUN:
+			return 9;
+			
+		case DECLAR_FUN_ABSTRACT:
+			return 10;
+			
+		default:
+			return 0;
+		}
+	}//map_infoType_to_logIndex()
+	
 }
