@@ -26,17 +26,32 @@ public abstract class ErrorSpider extends CountableSpider {
 	 * 报告错误信息，
 	 * 形如：（注意：下面的引号不出在返回值中）<br>
 	 * “<br>
-	 * {<br>
+	 * \n{<br>
 	 * 第一个描述；<br>
 	 * 第二个描述；<br>
-	 * }<br>
+	 * \n}<br>
 	 * ”<br>
 	 * @return
 	 */
 	public String report (){
 		return "{\n" 
-				+ errorReason.toString()
-				+ "}";
+				+ getRawReport()
+				+ "\n}";
+	}
+	
+	/**
+	 * 获取原生错误的信息，
+	 * report()方法通过调用这个来获取将要报告的信息，
+	 * report()会在这个方法返回值的基础上加上两个花括号，
+	 * 起到一定的装饰作用。
+	 * @return
+	 * 		没有装饰的错误信息，例如:<br>
+	 * 		第一个描述；<br>
+	 * 		第二个描述；<br>
+	 * 		
+	 */
+	protected String getRawReport(){
+		return errorReason.toString();
 	}
 	
 	/**
