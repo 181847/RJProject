@@ -150,7 +150,7 @@ Function子信息类型	|	 解释| 构造Function限制  |  静态Function限制
 执行入口（Excutee）         | 用于发动Function功能的组件 |  不能 | 不能 | 不能 | 不能
 参数组件（Parameter）       | 执行Function功能需要的参数数据 |  可以 | 可以 | 可以 | 可以
 执行出口（Excuter）         | Function功能执行结束后，下一个被发动的Function | 不能 | 不能 | 不能 | 不能
-返回值（Returnval）         | Function执行之后的数据 | 不能 | 可以 | 可以 | 可以
+返回值（Returnval）         | Function执行之后的数据 | 可以 | 可以 | 可以 | 可以
 本地变量（LocalVar）        | 存储临时变量的引用 | 可以 | 可以 | 可以 | 不能
 子Function（SubFunction）  | 内部调用的其他Function | 可以 | 可以 | 可以 | 不能
 连接弧线（Arc）             | 子Function之间相互连接的弧线，包括执行弧线（定义Function之间的执行顺序）、参数弧线（定义Function之间的弧线传输顺序）| 必须 | 必须 | 必须 | 必须

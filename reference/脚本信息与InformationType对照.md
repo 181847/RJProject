@@ -172,7 +172,7 @@ RClass的类型声明     |     DECLAR_TYPE
 抽象类型RClass      |   ABSTRACT_RCLASS
 普通类型RClass    |   RCLASS
 RClass的名称声明     |     DECLAR_NAME
-RClass的泛参声明     |     DECLAR_GEN_PARAM
+RClass的泛参声明     |     DECLAR_GEN_PARAMS
 继承非接口父类声明   |      DECLAR_EXTENDS
 继承接口父类声明    |    DECLAR_IMPLEMENTS
 成员变量声明        |   DECLAR_MEMBERS
