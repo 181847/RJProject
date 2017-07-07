@@ -1,7 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.grammarSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
@@ -69,9 +68,9 @@ public class VarFieldGSpider extends DeclarGSpider {
 	@Override
 	public String getRawReport(){
 		StringBuffer appendReport = new StringBuffer();
-		int staticFieldNum = getRecordOf(InformationType.DECLAR_STATIC)
-				, outerVarNum = getRecordOf(InformationType.VAR);
-		
+		int staticFieldNum = getRecordOf(InformationType.DECLAR_STATIC)	//静态变量区域
+				, outerVarNum = getRecordOf(InformationType.VAR);		//非静态变量数量
+			
 		if (1 < staticFieldNum){
 			appendReport.append("过多的静态变量声明区域。");
 		}
