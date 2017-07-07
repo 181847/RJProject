@@ -12,7 +12,7 @@ import unfinishedClass.customRClass.rCGraph.LoadRCGraph;
 import unfinishedClass.customRClass.scriptBlock.information.RawScriptInformation;
 import unfinishedClass.customRClass.scriptBlock.information.ScriptSequenceInformation;
 import unfinishedClass.customRClass.scriptBlock.spider.analysisSpider.forSequence.SequenceAnalysisSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedErrorSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ErrorSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequenceLineAssignerSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.forSequence.SequencePrintDescriptionSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceContentMatchSpider;
@@ -300,12 +300,13 @@ public class ScriptBlockHelper {
 		//哪怕是包含一个最微小的语法错误，
 		//这个脚本都将整个地从加载序列中删除。
 		//前面对于符号分析检查出来的VOID信息也会在这里剔除。
-		ReasonedErrorSpider sequenceSpider = new SequenceGrammarSpider(scriptSequenceHead);
+		ErrorSpider sequenceSpider = 
+				new SequenceGrammarSpider(scriptSequenceHead);
 		sequenceSpider.workUntilEnd();
 		
 		//输出语法检查结果
 		RLogger.log("\n\n\n\n\n脚本序列语法检查结果：");
-		RLogger.log(sequenceSpider.getErrorReason());
+		RLogger.log(sequenceSpider.report());
 		
 		//输出语法检查过后 加载序列 中剩余的脚本
 		RLogger.log("\n\n\n\n\n脚本序列语法检查之后的加载序列中的脚本：");
