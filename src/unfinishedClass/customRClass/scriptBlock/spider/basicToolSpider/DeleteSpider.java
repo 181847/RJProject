@@ -2,20 +2,12 @@ package unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
-public abstract class DeleteSpider extends ReasonedErrorSpider {
+public abstract class DeleteSpider extends ErrorSpider {
 	protected boolean deleteTarget;
 
 	public DeleteSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
-		error = false;
 	}
-
-	/**
-	 * 如果想要删除targetBlock，
-	 * 只需要设置deleteTarget为true就可以了。
-	 */
-	@Override
-	protected abstract void dealWithTargetBlock();
 	
 	@Override
 	public void work(){
