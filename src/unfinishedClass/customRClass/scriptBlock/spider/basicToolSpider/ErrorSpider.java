@@ -61,7 +61,7 @@ public abstract class ErrorSpider extends CountableSpider {
 	 * 		添加时会在末尾加上一个换行符。
 	 */
 	public void describeError (String addition){
-		errorReason.append(addition + '\n');
+		errorReason.append('\n' + addition);
 	}
 	
 	/**
