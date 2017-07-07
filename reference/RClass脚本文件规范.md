@@ -145,7 +145,7 @@ Member:
 ### 6.Function
 * Function内部具有多个子信息块
 
-Function子信息类型	|	 解释| 构造Function限制  |  静态Function限制  |非静态Function限制 | 抽象Function限制
+Function子信息类型	|	 解释| 构造Function自定义  |  静态Function自定义  |非静态Function自定义 | 抽象Function自定义
 -------------------|-------|------------------|----------------|--------------|------------
 执行入口（Excutee）         | 用于发动Function功能的组件 |  不能 | 不能 | 不能 | 不能
 参数组件（Parameter）       | 执行Function功能需要的参数数据 |  可以 | 可以 | 可以 | 可以
@@ -251,6 +251,7 @@ Function: functionName
   * 组件命名规范的内容：一个字符串，不包含空格、**@**、**.**（半角英文点号）、**:**、**(**、**)**、**{**、**}**、**<**、**>**。
 #### 1. Excutee（执行入口）
 * Excutee组件的子项不区分类型，全部为线性执行入口，每一行声明一个Excutee组件的名字，名字要遵守组件命名规范
+* 每个Function至少要拥有一个执行入口。
 * 举例：
 ```
 Excutees:
@@ -269,7 +270,9 @@ Parameters:
 ```
 
 #### 3. Excuter（执行出口）
-* Excuter主要分为两种类型，一种是正常状态下的执行出口（称为*普通执行出口*），一种是发生异常现象时的执行出口（称为*异常执行出口*）
+* Excuter主要分为两种类型，一种是正常状态下的执行出口（称为*普通执行出口*），一种是发生异常现象时的执行出口（称为*异常执行出口*）。
+* 每个Function都至少有一个普通执行出口。
+* 至少要有一个普通执行出口
 
 Excuter类型| 声明字段
 ----------|-----------
@@ -358,6 +361,7 @@ SubFunctions:
 
 
 #### 7. Arc（弧线）
+* 每个Function都至少有一个执行弧线。
 * 弧线可分为两种类型
 
 弧线类型 | 声明符号 | 解释
@@ -393,6 +397,7 @@ EtoE:  |1             | funEnd                  | 4             | construct
 * 单个Comment表现为一个方形区域的字符串（可以包括多行），对字符串的内容没有限制
 * 方形区域由两个二维坐标（左上角到右下角的位置）来表示在图形化界面下的注释范围，坐标之间用一个 *箭头符号* 来分隔
 * 坐标声明下面的子信息就是详细的注释字符串，可以换行
+* 规定注释不能为空，至少要有一个空格。
 * 举例：
 ```
 Comments:
@@ -450,7 +455,7 @@ GenericsParam:
                 T: basic.Integer
     K
         default.GenericsClassB
-        T: V
+            T: V
     V
         basic.RObject
     N
@@ -511,9 +516,12 @@ member1
 另外这些变量同样也可以使用RClass定义的泛参（本地变量还可以使用Function自己定义的泛参）,例如：
 ```
 Member:
-    default.GenericsClassA member1 -12
-        M: basic.Integer
-        N: T
+     member1
+        default.GenericsClassA
+            M: basic.Integer
+            N: T
+        Init:
+            -12
 ```
 上面的这个变量类型使用了RClass中定义的一个泛参 **T**。
 
@@ -524,10 +532,12 @@ Member:
 * 填充的方法与变量使用泛型的方法一致，只需要在子Function声明的下面的子信息块中，指定具体的泛参名以及泛实参就可以了，例如
 ```
 SubFunctions:
-     (-4,-7) myPackage.RClass1 fun
-        T: basic.Integer
-        N: default.GenericsClassB
-            T: basic.String
+     fun
+        myPackage.RClass1
+            T: basic.Integer
+            N: default.GenericsClassB
+                T: basic.String
+        (-4,-7)
 ```
 这个名为 **fun** 的Function声明了两个独立于RClass的泛参 **T** 和 **N**，我们在下面的子信息块中将 **T** 指定为 **basic.Integer**， **N** 指定为 **default.GenericsClassB < basic.String >**。
 
