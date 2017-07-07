@@ -25,7 +25,7 @@ public class GenericParameterAnalysisSpider extends CountableSpider {
 		if (RStringChecker.checkComponentName(targetInfoString)){
 			
 			if (hasSubBlock){
-				setInfo(InformationType.DECLAR_GEN_PARAMS);
+				setInfo(InformationType.GEN_PARAM);
 				//对子Block检查是否是一个类型或者泛参
 				new RClassRefAnalysisSpider(subBlock, 1).workUntilEnd();
 			} else {

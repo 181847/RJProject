@@ -43,7 +43,7 @@ public class FunAnalysisSpider extends CountableSpider {
 
 		} else if (targetInfoString.equals(ScriptDeclaration.declar_excuters)) {
 			//执行出口组件声明。
-            setInfo(InformationType.DECLAR_PARAMETERS);
+            setInfo(InformationType.DECLAR_EXCUTERS);
 
 			if (hasSubBlock) {
 				//执行出口分为正常和异常执行出口 ,

@@ -88,26 +88,38 @@ public class ScriptAnalysisSpider extends CountableSpider {
 					
 		} else if (targetInfoString.startsWith(ScriptDeclaration.declar_fun_static)){
 			//进一步分析静态Function的名字是否符合命名规范。
-			analysisFunDeclar(
+			if (analysisFunDeclar(
 					ScriptDeclaration.declar_fun_static,
-					InformationType.DECLAR_FUN_STATIC);
-			
+					InformationType.DECLAR_FUN_STATIC)){
+				//符合组件命名规范的情况下，
+				//对子链进行Function分析。
+				analysisFun();
+			}
 					
 		} else if (targetInfoString.startsWith(ScriptDeclaration.declar_fun)){
 			//进一步分析Function的名字是否符合命名规范。
-			analysisFunDeclar(
+			if (analysisFunDeclar(
 					ScriptDeclaration.declar_fun,
-					InformationType.DECLAR_FUN);
+					InformationType.DECLAR_FUN)){
+				//符合组件命名规范的情况下，
+				//对子链进行Function分析。
+				analysisFun();
+			}
 					
 		} else if (targetInfoString.startsWith(ScriptDeclaration.declar_fun_abstract)){
 			//进一步分析抽象Function的名字是否符合命名规范。
-			analysisFunDeclar(
+			if (analysisFunDeclar(
 					ScriptDeclaration.declar_fun_abstract,
-					InformationType.DECLAR_FUN_ABSTRACT);
+					InformationType.DECLAR_FUN_ABSTRACT)){
+				//符合组件命名规范的情况下，
+				//对子链进行Function分析。
+				analysisFun();
+			}
 				
 		} else {
 			//非法信息声明
 			setInfo(InformationType.VOID);
+			targetInformation.appendDescription("类定义阶段发现的非法信息。");
 		}
 	}
 	
@@ -126,8 +138,10 @@ public class ScriptAnalysisSpider extends CountableSpider {
 	 * 		形如“StaticFunction:”。
 	 * @param infoType
 	 * 		被设置的标签。
+	 * @return
+	 * 		返回当前对Function的命名是否符合组件命名规范。
 	 */
-	private void analysisFunDeclar(String declar, InformationType infoType) {
+	private boolean analysisFunDeclar(String declar, InformationType infoType) {
 		if (RStringChecker.checkComponentName(	//检查组件命名规范。
 				targetInfoString.substring(
 						//剔除声明字段。
@@ -137,9 +151,11 @@ public class ScriptAnalysisSpider extends CountableSpider {
 			//符合组件命名规范，
 			//设置标签。
 			setInfo(infoType);
+			return true;
 		} else {
 			setInfo_VOID();
 			descriptInfo(declar + "之后的部分不满足组件命名规范。");
+			return false;
 		}
 	}
 
