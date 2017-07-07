@@ -2,7 +2,6 @@ package unfinishedClass.customRClass.scriptBlock.spider.grammarSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
-import unfinishedClass.customRClass.scriptBlock.spider.basicToolSpider.ReasonedErrorSpider;
 
 /**
  * 检查必要的信息必须包含：
@@ -59,22 +58,15 @@ public class ScriptGrammarSpider extends DeclarGSpider {
 			
 		case DECLAR_FUN_CONFUN:
 			//检查构造Function声明。
-			sendSpider(new ConFunGSpider(subBlock));
-			break;
-			
 		case DECLAR_FUN_STATIC:
 			//检查静态Function声明。
-			sendSpider(new StaticFunGSpider(subBlock));
-			break;
-			
 		case DECLAR_FUN:
 			//检查普通Function声明。
-			sendSpider(new FunGSpider(subBlock));
-			break;
-			
 		case DECLAR_FUN_ABSTRACT:
 			//检查抽象Function声明。
-			sendSpider(new AbstractFunGSpider(subBlock));
+			
+			//上面这四种情况均使用FunGSpider进行检查，
+			sendSpider(new FunGSpider(subBlock));
 			break;
 			
 		default:
