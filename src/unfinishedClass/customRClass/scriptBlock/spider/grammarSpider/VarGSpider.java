@@ -4,15 +4,11 @@ import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
- * VarGSpider为DeclarGSpider，
- * 因为其中每一个变量都要有子信息来声明变量的类型，
- * 而对于静态部分，
- * 一旦声明Static:
- * 就一定再静态代码部分声明变量。
- * @author 75309
- *
+ * 连续变量语法检查，
+ * 每个变量block都要包含至少一个subBlock，
+ * 用于声明至少一个类型信息。
  */
-public class VarGSpider extends DeclarGSpider {
+public class VarGSpider extends GrammarSpider {
 	/**
 	 * 默认发生错误。
 	 * @param targetBlock
@@ -28,24 +24,32 @@ public class VarGSpider extends DeclarGSpider {
 	}
 	
 	@Override
-	protected void declarGrammarWork() {
-		switch(infoType)
-		{
-		case VAR:
-			//变量，
-			//由于是DeclarGSpider，
-			//这里一定是有subBlock的，
-			//检查具体的变量内部语法。
-			sendSpider(new SingleVarGSpider(subBlock));
-			break;
+	protected void grammarWork() {
+		if ( ! hasSubBlock) {
+			//记录缺少子信息的信息。
+			dealWith_Lack_SubBlock();
+			//记录无意义Block。
+			recordNonesense();
+		} else {
 			
-		default:
-			//处理意外情况
-			dealWith_Unexpected();
-			break;
+			//对infoType进行检查。
+			switch(infoType)
+			{
+			case VAR:
+				//变量，
+				//由于是DeclarGSpider，
+				//这里一定是有subBlock的，
+				//检查具体的变量内部语法。
+				sendSpider(new SingleVarGSpider(subBlock));
+				break;
+				
+			default:
+				//处理意外情况
+				dealWith_Unexpected();
+				break;
+			}
 		}
 	}
-	
 
 	/**
 	 * 增加警告缺少变量声明。
@@ -54,7 +58,7 @@ public class VarGSpider extends DeclarGSpider {
 	public boolean occurredError(){
 		return super.occurredError()
 				//缺少具体的类型声明或者过多的类型声明。
-				|| 1 != getRecordOf(InformationType.RCLASS);
+				|| 0 == getRecordOf(InformationType.VAR);
 	}
 	
 	/**
@@ -68,8 +72,8 @@ public class VarGSpider extends DeclarGSpider {
 			appendReport = "\n缺少具体的变量声明。";
 		}
 		
-		return super.occurredError()
-				+ appendReport.toString();
+		return super.getRawReport()
+				+ appendReport;
 	}
 	
 	/**
