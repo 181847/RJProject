@@ -52,6 +52,50 @@ public class SingleVarGSpider extends GrammarSpider {
 	}
 
 	/**
+	 * 增加警告缺少或者过多变量类型声明、
+	 * 过多的初始化信息。
+	 */
+	@Override
+	public boolean occurredError(){
+		return super.occurredError()
+				//缺少或者过多变量类型声明。
+				|| 1 != getRecordOf(InformationType.CLASS_REF_CL)
+				//过多的初始化信息
+				|| 1 < getRecordOf(InformationType.DECLAR_INIT);
+	}
+	
+	/**
+	 * 增加警告缺少变量类型声明。
+	 */
+	@Override
+	public String getRawReport(){
+		StringBuffer appendReport = new StringBuffer();
+		
+		//弧线声明区域。
+		switch(getRecordOf(InformationType.CLASS_REF_CL)){
+		case 0:
+			appendReport.append("缺少变量类型声明。");
+			break;
+			
+		case 1:
+			//正确情况。
+			break;
+			
+		default:
+			appendReport.append("过多的变量类型声明。");
+			break;
+		}
+		
+		//初始化信息。
+		if (1 < getRecordOf(InformationType.DECLAR_INIT)){
+			appendReport.append("过多的初始化信息区域。");
+		}
+		
+		return super.getRawReport()
+				+ appendReport.toString();
+	}
+
+	/**
 	 * 只分析CLASS_REF_CL/
 	 * CLASS_REF_GP/
 	 * DECLAR_INIT，
