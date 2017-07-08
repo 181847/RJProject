@@ -54,7 +54,7 @@ public class NameGSpider extends GrammarSpider {
 			appendReport.append("\n过多的具体类名。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 

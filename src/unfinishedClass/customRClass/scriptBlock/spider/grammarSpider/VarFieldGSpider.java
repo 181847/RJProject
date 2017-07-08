@@ -31,6 +31,8 @@ public class VarFieldGSpider extends DeclarGSpider {
 		case DECLAR_STATIC:
 			//静态变量声明部分。
 			sendSpider(new VarGSpider(subBlock));
+			break;
+			
 		case VAR:
 			//变量，
 			//由于是DeclarGSpider，
@@ -79,7 +81,7 @@ public class VarFieldGSpider extends DeclarGSpider {
 			appendReport.append("缺少至少一个静态变量区域或者至少一个非静态变量。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	

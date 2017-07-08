@@ -30,11 +30,6 @@ public abstract class GrammarSpider extends ErrorSpider {
 	protected String spiderDesc;
 	
 	/**
-	 * 当前Block对应的InformationType。
-	 */
-	protected InformationType infoType;
-	
-	/**
 	 * 
 	 * @param targetBlock
 	 * 		目标Block节点。
@@ -71,7 +66,7 @@ public abstract class GrammarSpider extends ErrorSpider {
 	 * 这个方法由子类调用。
 	 */
 	protected void dealWith_Unexpected(){
-		describeError("发现不属于本定义阶段的信，对此信息的描述是：" 
+		describeError("发现不属于本定义阶段的信息，对此信息的描述是：" 
 				+ targetInformation.getDescription());
 	}
 	
@@ -108,7 +103,6 @@ public abstract class GrammarSpider extends ErrorSpider {
 	 */
 	@Override
 	public void countWork() {
-		infoType = targetInformation.getType();
 		//对InfoType进行记录，
 		//注意这个方法中涉及的blockLog长度和对应的序号都是由子类来决定的
 		//记得在子类中建立对应的InfoType到序号的映射。

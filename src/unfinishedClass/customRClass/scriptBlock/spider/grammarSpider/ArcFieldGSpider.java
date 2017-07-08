@@ -23,6 +23,7 @@ public class ArcFieldGSpider extends DeclarGSpider {
 			
 			//两种情况都使用下面这个方法来检查具体的弧线声明。
 			sendSpider(new ArcGSpider(subBlock));
+			break;
 			
 		default:
 			dealWith_Unexpected();

@@ -106,7 +106,7 @@ public class RClassRefGSpider extends GrammarSpider {
 			appendReport.append("\n过多的类引用。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	

@@ -48,7 +48,7 @@ public class GenParamGSpider extends DeclarGSpider {
 			appendReport = "缺少泛参声明。";
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	

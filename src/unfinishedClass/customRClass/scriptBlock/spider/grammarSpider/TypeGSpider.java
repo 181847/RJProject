@@ -71,7 +71,7 @@ public class TypeGSpider extends GrammarSpider {
 			appendReport.append("\n过多的具体类型声明。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	

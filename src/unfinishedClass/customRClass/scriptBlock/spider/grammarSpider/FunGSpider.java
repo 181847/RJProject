@@ -21,6 +21,8 @@ public class FunGSpider extends DeclarGSpider {
 					new SingleTypeGSpider(
 							subBlock, 
 							InformationType.EXCUTEE));
+			break;
+			
 		case DECLAR_PARAMETERS:
 		case DECLAR_RETURNVALS:
 			//返回值和参数使用同样的逻辑进行组件判断，
@@ -46,6 +48,7 @@ public class FunGSpider extends DeclarGSpider {
 			//子Fun声明。
 			sendSpider(
 					new SubFunGSpider(subBlock));
+			break;
 			
 		case DECLAR_ARCS:
 			//弧线声明。
@@ -177,7 +180,7 @@ public class FunGSpider extends DeclarGSpider {
 			appendReport.append("过多的注释区域。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	

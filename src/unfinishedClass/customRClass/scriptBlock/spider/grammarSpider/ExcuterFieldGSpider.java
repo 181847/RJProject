@@ -73,7 +73,7 @@ public class ExcuterFieldGSpider extends DeclarGSpider {
 			appendReport.append("过多的异常执行出口区域。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	
