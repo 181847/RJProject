@@ -2,6 +2,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.analysisSpider;
 
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
+import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 
 /**
@@ -22,6 +23,8 @@ public class ArcAnalysisSpider extends CountableSpider {
 		//要求必须含有子信息块。
 		if (targetInfoString.equals(ScriptDeclaration.arrow)
 				&& hasSubBlock) {
+			//设置弧线标签。
+			setInfo(InformationType.ARC);
 			new SingleArcAnalysisSpider(subBlock)
 				.workUntilEnd();
 		} else {

@@ -23,7 +23,7 @@ public class ExcuterAnalysisSpider extends CountableSpider {
 			setInfo(InformationType.DECLAR_EXCUTERS_EXCEPTION);
 			
 			if (hasSubBlock) {
-				new ComponentAnalysisSpider(subBlock)
+				new ComponentAnalysisSpider(subBlock, InformationType.EXCUTER)
 					.workUntilEnd();
 			}
 			
@@ -33,7 +33,7 @@ public class ExcuterAnalysisSpider extends CountableSpider {
 			setInfo(InformationType.DECLAR_EXCUTERS_NORMAL);
 			
 			if (hasSubBlock) {
-				new ComponentAnalysisSpider(subBlock)
+				new ComponentAnalysisSpider(subBlock, InformationType.EXCUTER)
 					.workUntilEnd();
 			}
 		} else {

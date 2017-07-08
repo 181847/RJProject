@@ -29,7 +29,7 @@ public class Single_SF_AnalysisSpider extends CountableSpider {
 			//第二个要求必须是一个二维坐标信息
 			if (RStringChecker.checkLocation(targetInfoString)) {
 				//坐标信息正确，设置标签。
-				setInfo(InformationType.RECT);
+				setInfo(InformationType.LOCATION);
 			} else {
 				//不是一个二维坐标。
 				setInfo_VOID();

@@ -27,7 +27,7 @@ public class FunAnalysisSpider extends CountableSpider {
 				//由于执行入口的声明只有单独的一个名字，
 				//也没有什么分类，
 				//所以只用一个组件分析去检查所有的字符串是否符合组件命名规范。
-				new ComponentAnalysisSpider(subBlock)
+				new ComponentAnalysisSpider(subBlock, InformationType.EXCUTEE)
 					.workUntilEnd();
 			}
 
