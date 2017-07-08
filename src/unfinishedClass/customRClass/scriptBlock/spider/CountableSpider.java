@@ -21,6 +21,11 @@ public abstract class CountableSpider extends AbstractBCSpider {
 	protected Information targetInformation;
 	
 	/**
+	 * 当前Block对应的InformationType。
+	 */
+	protected InformationType infoType;
+	
+	/**
 	 * targetBlock.information.originalString，
 	 * 每次执行countWork之前，这个值都会被更新。
 	 */
@@ -59,6 +64,7 @@ public abstract class CountableSpider extends AbstractBCSpider {
 	protected void dealWithTargetBlock() {
 		//事先获取Information对象和对象中存储的原始脚本信息。
 		targetInformation = targetBlock.getInformation();
+		infoType = targetInformation.getType();
 		targetInfoString = targetInformation.getOriginalString();
 		//获取子Block
 		subBlock = targetBlock.getSub();
