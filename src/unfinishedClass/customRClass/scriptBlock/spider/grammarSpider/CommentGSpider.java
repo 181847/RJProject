@@ -52,7 +52,7 @@ public class CommentGSpider extends DeclarGSpider {
 		String appendReport = "";
 
 		if (1 < getRecordOf(InformationType.RECT)){
-			appendReport = "缺少注释方形区域";
+			appendReport = "\n缺少注释方形区域";
 		}
 		
 		return super.occurredError()

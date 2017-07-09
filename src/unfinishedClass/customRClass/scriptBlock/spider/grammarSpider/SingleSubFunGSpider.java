@@ -92,7 +92,7 @@ public class SingleSubFunGSpider extends GrammarSpider {
 		
 		switch(getRecordOf(InformationType.CLASS_REF_CL)){
 		case 0:
-			appendReport.append("缺少类型引用。");
+			appendReport.append("\n缺少类型引用。");
 			break;
 			
 		case 1:
@@ -100,13 +100,13 @@ public class SingleSubFunGSpider extends GrammarSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的类型引用。");
+			appendReport.append("\n过多的类型引用。");
 			break;
 		}
 		
 		switch(getRecordOf(InformationType.LOCATION)){
 		case 0:
-			appendReport.append("缺少坐标信息。");
+			appendReport.append("\n缺少坐标信息。");
 			break;
 			
 		case 1:
@@ -114,16 +114,16 @@ public class SingleSubFunGSpider extends GrammarSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的坐标信息。");
+			appendReport.append("\n过多的坐标信息。");
 			break;
 		}
 
 		if (1 < getRecordOf(InformationType.DECLAR_GP_ASSIGN)){
-			appendReport.append("过多的泛参指定区域。");
+			appendReport.append("\n过多的泛参指定区域。");
 		}
 		
 		if (1 < getRecordOf(InformationType.DECLAR_MODIFY)){
-			appendReport.append("过多的修改信息区域。");
+			appendReport.append("\n过多的修改信息区域。");
 		}
 		
 		return super.occurredError()

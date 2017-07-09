@@ -74,7 +74,7 @@ public class SingleVarGSpider extends GrammarSpider {
 		//弧线声明区域。
 		switch(getRecordOf(InformationType.CLASS_REF_CL)){
 		case 0:
-			appendReport.append("缺少变量类型声明。");
+			appendReport.append("\n缺少变量类型声明。");
 			break;
 			
 		case 1:
@@ -82,13 +82,13 @@ public class SingleVarGSpider extends GrammarSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的变量类型声明。");
+			appendReport.append("\n过多的变量类型声明。");
 			break;
 		}
 		
 		//初始化信息。
 		if (1 < getRecordOf(InformationType.DECLAR_INIT)){
-			appendReport.append("过多的初始化信息区域。");
+			appendReport.append("\n过多的初始化信息区域。");
 		}
 		
 		return super.getRawReport()

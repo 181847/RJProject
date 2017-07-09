@@ -56,7 +56,7 @@ public class ExcuterFieldGSpider extends DeclarGSpider {
 		//普通执行出口。
 		switch(getRecordOf(InformationType.DECLAR_EXCUTERS_NORMAL)){
 		case 0:
-			appendReport.append("缺少普通执行出口区域。");
+			appendReport.append("\n缺少普通执行出口区域。");
 			break;
 			
 		case 1:
@@ -64,13 +64,13 @@ public class ExcuterFieldGSpider extends DeclarGSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的普通执行出口区域。");
+			appendReport.append("\n过多的普通执行出口区域。");
 			break;
 		}
 		
 		//异常执行出口。
 		if (1 < getRecordOf(InformationType.DECLAR_EXCUTERS_EXCEPTION)){
-			appendReport.append("过多的异常执行出口区域。");
+			appendReport.append("\n过多的异常执行出口区域。");
 		}
 		
 		return super.getRawReport()

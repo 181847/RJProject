@@ -7,7 +7,7 @@ public class ArcGSpider extends DeclarGSpider {
 
 	public ArcGSpider(ScriptBlock targetBlock) {
 		//两个记录槽。
-		super(targetBlock, "弧线区域语法检查", 2);
+		super(targetBlock, "单一类型弧线区域语法检查", 2);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class ArcGSpider extends DeclarGSpider {
 		String appendReport = "";
 		
 		if (0 == getRecordOf(InformationType.ARC)){
-			appendReport = "缺少弧线声明。";
+			appendReport = "\n缺少弧线声明。";
 		}
 		
 		return super.occurredError()

@@ -60,7 +60,7 @@ public class ArcFieldGSpider extends DeclarGSpider {
 		//普通执行出口。
 		switch(getRecordOf(InformationType.DECLAR_ARCS_E_TO_E)){
 		case 0:
-			appendReport.append("缺少执行弧线区域。");
+			appendReport.append("\n缺少执行弧线区域。");
 			break;
 			
 		case 1:
@@ -68,13 +68,13 @@ public class ArcFieldGSpider extends DeclarGSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的执行弧线区域。");
+			appendReport.append("\n过多的执行弧线区域。");
 			break;
 		}
 		
 		//异常执行出口。
 		if (1 < getRecordOf(InformationType.DECLAR_ARCS_R_TO_P)){
-			appendReport.append("过多的参数弧线区域。");
+			appendReport.append("\n过多的参数弧线区域。");
 		}
 		
 		return super.occurredError()

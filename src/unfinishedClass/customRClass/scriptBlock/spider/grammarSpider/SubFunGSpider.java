@@ -41,7 +41,7 @@ public class SubFunGSpider extends DeclarGSpider {
 		String appendReport = "";
 		
 		if ( 0 ==  getRecordOf(InformationType.SUBFUN)){
-			appendReport = "缺少SubFun声明。";
+			appendReport = "\n缺少SubFun声明。";
 		}
 		
 		return super.occurredError()

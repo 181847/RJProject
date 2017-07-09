@@ -74,11 +74,11 @@ public class VarFieldGSpider extends DeclarGSpider {
 				, outerVarNum = getRecordOf(InformationType.VAR);		//非静态变量数量
 			
 		if (1 < staticFieldNum){
-			appendReport.append("过多的静态变量声明区域。");
+			appendReport.append("\n过多的静态变量声明区域。");
 		}
 		
 		if (0 == (staticFieldNum + outerVarNum)){
-			appendReport.append("缺少至少一个静态变量区域或者至少一个非静态变量。");
+			appendReport.append("\n缺少至少一个静态变量区域或者至少一个非静态变量。");
 		}
 		
 		return super.getRawReport()

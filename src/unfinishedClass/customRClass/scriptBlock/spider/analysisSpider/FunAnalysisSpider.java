@@ -19,7 +19,15 @@ public class FunAnalysisSpider extends CountableSpider {
 	
 	@Override
 	public void countWork() {
-		if (targetInfoString.equals(ScriptDeclaration.declar_excutees)){
+		if (targetInfoString.equals(ScriptDeclaration.declar_GPs)){
+			//泛参声明部分
+			setInfo(InformationType.DECLAR_GEN_PARAMS);
+			if (hasSubBlock){
+				new GenericParameterAnalysisSpider(subBlock)
+					.workUntilEnd();
+			}
+			
+		} else if (targetInfoString.equals(ScriptDeclaration.declar_excutees)){
 			//执行入口组件声明。
 			setInfo(InformationType.DECLAR_EXCUTEES);
 

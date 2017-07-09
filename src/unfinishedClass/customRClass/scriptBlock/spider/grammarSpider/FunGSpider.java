@@ -9,13 +9,18 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 public class FunGSpider extends DeclarGSpider {
 
 	public FunGSpider(ScriptBlock targetBlock) {
-		//九个记录槽。
-		super(targetBlock, "Function语法检查", 9);
+		//10个记录槽。
+		super(targetBlock, "Function语法检查", 10);
 	}
 
 	@Override
 	protected void declarGrammarWork() {
 		switch(infoType){
+		case DECLAR_GEN_PARAMS:
+			//检查泛参声明。
+			sendSpider(new GenParamGSpider(subBlock));
+			break;
+			
 		case DECLAR_EXCUTEES:
 			sendSpider(
 					new SingleTypeGSpider(
@@ -76,6 +81,8 @@ public class FunGSpider extends DeclarGSpider {
 	@Override
 	public boolean occurredError(){
 		return super.occurredError()
+				//存在多个泛参声明。
+				|| 1 < getRecordOf(InformationType.DECLAR_GEN_PARAMS) 
 				//缺少执行入口区域或者执行入口区域过多。
 				|| 1 != getRecordOf(InformationType.DECLAR_EXCUTEES)
 				//参数组件声明过多。
@@ -108,12 +115,16 @@ public class FunGSpider extends DeclarGSpider {
 	@Override
 	public String getRawReport(){
 		StringBuffer appendReport = new StringBuffer();
-		
+
+		//泛参声明检查。
+		if (1 < getRecordOf(InformationType.DECLAR_GEN_PARAMS)){
+			appendReport.append("\n存在多个泛参声明。");
+		}
 
 		//执行入口。
 		switch(getRecordOf(InformationType.DECLAR_EXCUTEES)){
 		case 0:
-			appendReport.append("缺少执行入口区域。");
+			appendReport.append("\n缺少执行入口区域。");
 			break;
 			
 		case 1:
@@ -121,19 +132,19 @@ public class FunGSpider extends DeclarGSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的执行入口区域。");
+			appendReport.append("\n过多的执行入口区域。");
 			break;
 		}
 		
 		//参数组件。
 		if (1 < getRecordOf(InformationType.DECLAR_PARAMETERS)){
-			appendReport.append("过多的参数组件区域。");
+			appendReport.append("\n过多的参数组件区域。");
 		}
 
 		//执行出口。
 		switch(getRecordOf(InformationType.DECLAR_EXCUTERS)){
 		case 0:
-			appendReport.append("缺少执行出口区域。");
+			appendReport.append("\n缺少执行出口区域。");
 			break;
 			
 		case 1:
@@ -141,29 +152,29 @@ public class FunGSpider extends DeclarGSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的执行出口区域。");
+			appendReport.append("\n过多的执行出口区域。");
 			break;
 		}
 		
 		//返回值组件。
 		if (1 < getRecordOf(InformationType.DECLAR_RETURNVALS)){
-			appendReport.append("过多的返回值组件区域。");
+			appendReport.append("\n过多的返回值组件区域。");
 		}
 		
 		//本地变量声明区域。
 		if (1 < getRecordOf(InformationType.DECLAR_LOCALVARS)){
-			appendReport.append("过多的本地变量区域。");
+			appendReport.append("\n过多的本地变量区域。");
 		}
 		
 		//子Fun声明区域。
 		if (1 < getRecordOf(InformationType.DECLAR_SUBFUNS)){
-			appendReport.append("过多的子Fun区域。");
+			appendReport.append("\n过多的子Fun区域。");
 		}
 		
 		//弧线声明区域。
 		switch(getRecordOf(InformationType.DECLAR_ARCS)){
 		case 0:
-			appendReport.append("缺少弧线区域。");
+			appendReport.append("\n缺少弧线区域。");
 			break;
 			
 		case 1:
@@ -171,13 +182,13 @@ public class FunGSpider extends DeclarGSpider {
 			break;
 			
 		default:
-			appendReport.append("过多的弧线区域。");
+			appendReport.append("\n过多的弧线区域。");
 			break;
 		}
 		
 		//注释声明区域。
 		if (1 < getRecordOf(InformationType.DECLAR_COMMENTS)){
-			appendReport.append("过多的注释区域。");
+			appendReport.append("\n过多的注释区域。");
 		}
 		
 		return super.getRawReport()
@@ -220,6 +231,9 @@ public class FunGSpider extends DeclarGSpider {
 			
 		case DECLAR_COMMENTS:
 			return 8;
+			
+		case DECLAR_GEN_PARAMS:
+			return 9;
 			
 		default:
 			return 0;

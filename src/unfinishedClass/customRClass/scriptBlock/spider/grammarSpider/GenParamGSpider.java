@@ -45,7 +45,7 @@ public class GenParamGSpider extends DeclarGSpider {
 		String appendReport = "";
 		
 		if ( 0 ==  getRecordOf(InformationType.GEN_PARAM)){
-			appendReport = "缺少泛参声明。";
+			appendReport = "\n缺少泛参声明。";
 		}
 		
 		return super.getRawReport()
