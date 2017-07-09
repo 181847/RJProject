@@ -88,10 +88,11 @@ public abstract class GrammarSpider extends ErrorSpider {
 	 * 		对错误的描述。
 	 */
 	public void describeError(String error){
-		super.describeError("错误行数：" 
-				+ ((LineScriptInformation) targetInformation)
+		super.describeError(
+				"错误行数：" + ((LineScriptInformation) targetInformation)
 					.getLine()
-				+ "描述：" + error);
+				+ "\t检查阶段：" + spiderDesc		//对语法检查的阶段继续描述。
+				+ "\t语法错误：" + error);			//增加语法错误的详细信息。
 	}
 	
 	/**
