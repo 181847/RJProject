@@ -77,7 +77,7 @@ public class ArcFieldGSpider extends DeclarGSpider {
 			appendReport.append("\n过多的参数弧线区域。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	
