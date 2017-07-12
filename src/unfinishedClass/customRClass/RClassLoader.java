@@ -409,7 +409,7 @@ public class RClassLoader implements IRClassLoader{
 		
 		//加载继承图中的RClass，
 		//并为其分配RClassId。
-		idField.loadGraph(loadRCG);
+		//idField.loadGraph(loadRCG);
 		
 		//为每个加载时继承图中的结点记录类名到RClassID的记录。
 		logNameToID(loadRCG);
@@ -429,7 +429,8 @@ public class RClassLoader implements IRClassLoader{
 			//获取结点
 			RCGNode node = loadRCG.getNode(i);
 			//放置记录
-			nameToID.put(node.getName(), node.getID());
+			//TODO 获取结点的ID
+			//nameToID.put(node.getName(), node.getID());
 			
 			RLogger.log("");
 		}

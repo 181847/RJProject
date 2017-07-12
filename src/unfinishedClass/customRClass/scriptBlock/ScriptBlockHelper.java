@@ -291,7 +291,6 @@ public class ScriptBlockHelper {
 		new SequencePrintDescriptionSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
-		
 		//检查语法错误，
 		//此阶段假定所有脚本定义的都是AbstractRClass，
 		//这里检查的所谓语法错误指的是：

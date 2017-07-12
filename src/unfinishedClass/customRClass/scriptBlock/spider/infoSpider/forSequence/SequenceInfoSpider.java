@@ -3,7 +3,7 @@ package unfinishedClass.customRClass.scriptBlock.spider.infoSpider.forSequence;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.information.Information;
 import unfinishedClass.customRClass.scriptBlock.information.RClassStructInformation;
-import unfinishedClass.customRClass.scriptBlock.spider.AbstractBCSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.spider.ScriptInfoSpider;
 import unfinishedClass.customRClass.struct.RClassStruct;
 
@@ -14,14 +14,14 @@ import unfinishedClass.customRClass.struct.RClassStruct;
  * 在这里的Block链必须保证其正确性，
  * 收集信息的过程不会检查任何语法错误。
  */
-public class SequenceInfoSpider extends AbstractBCSpider {
+public class SequenceInfoSpider extends CountableSpider {
 
 	public SequenceInfoSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
-
+	
 	@Override
-	protected void dealWithTargetBlock() {
+	public void countWork() {
 		Information information = targetBlock.getInformation();
 		ScriptInfoSpider infoSpider = 
 				new ScriptInfoSpider(targetBlock.getSub());
