@@ -8,6 +8,6 @@ package unfinishedClass.customRClass.rStruct;
  * @param <T>
  * 		这里的T被限制为RStruct的子类。
  */
-public interface RStruct {
-
+public interface IRStruct {
+	
 }
