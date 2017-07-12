@@ -5,7 +5,9 @@ import unfinishedClass.customRClass.rStruct.FunStruct;
 import unfinishedClass.customRClass.rStruct.GenParamStruct;
 import unfinishedClass.customRClass.rStruct.RClassRefStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
+import unfinishedClass.customRClass.rStruct.RStruct;
 import unfinishedClass.customRClass.rStruct.VarFieldStruct;
+import unfinishedClass.customRClass.rStruct.VarStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
@@ -19,10 +21,17 @@ import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
  * 所有这些可用的方法都会在此类中作为内部工具方法提供出来，
  * 子类通过继承此类，然后在countWork()中按照意愿来组合使用这些方法，
  * 就可以实现各种结构的定义。<br>
- * 所有操作的对象都是targetBlock.subBlock。
+ * 方法中末尾带有“_fromSub”意味着从子链中获取信息
  */
 public abstract class UtilsRStructSpider extends CountableSpider {
 
+	/**
+	 * 空的构造方法。
+	 */
+	public UtilsRStructSpider() {
+		//什么也不做。
+	}
+	
 	public UtilsRStructSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
@@ -43,47 +52,6 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	}
 	
 	/**
-	 * 已知infoType是类名声明，
-	 * 获取子链中的具体类名定义。
-	 * @return
-	 * 		如果infoType是DECLAR_NAME，
-	 * 		返回subBlock.next.information.originalString()，
-	 * 		否则返回"WRONG_DECLAR_NAME_INFO_TYPE".
-	 */
-	protected String getRClassName() {
-		//检查当前targetBlock是否是类名声明。
-		if (infoType != InformationType.DECLAR_NAME){
-			//防止获取非法信息。
-			return "WRONG_DECLAR_NAME_INFO_TYPE";
-		} else {
-			return subBlock
-					.getNext()
-					.getInformation()
-					.getOriginalString();
-		}
-	}
-	
-	/**
-	 * 获取子链中的泛参定义集合。
-	 * @return
-	 * 		如果targetBlock的类型是DECLAR_GEN_PARAMS，返回子链中的泛参定义集合。
-	 * 		否则返回null。
-	 */
-	protected RSet<GenParamStruct> getGenParamRSet(){
-		if (infoType != InformationType.DECLAR_GEN_PARAMS){
-			//防止获取非法信息。
-			return null;
-		}
-		
-		GenParamSetSpider gpss = 
-				new GenParamSetSpider(subBlock);
-		
-		gpss.workUntilEnd();
-		
-		return gpss.getRSet();
-	}
-	
-	/**
 	 * 已知当前targetBlock的类型是GEN_PARAM，
 	 * 连同targetBlock和其子链，
 	 * 一同生成一个泛参定义结构。
@@ -91,7 +59,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * 		如果infoType不是GEN_PARAM，返回null。
 	 * 		否则返回一个泛参定义结构。
 	 */
-	protected GenParamStruct getTargetGenParamStruct(){
+	protected GenParamStruct getGenParamStruct(){
 		if (infoType != InformationType.GEN_PARAM){
 			//防止获取非法信息。
 			return null;
@@ -104,60 +72,12 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		
 		//定义泛型约束。
 		gps.defineGPConstraint(
-				getRClassRefRSet()		//获取子链中的类引用集合。
-				.getRStruct(0));		//获取类引用集合中的第一个类引用作为泛型约束。
+				getRClassRefSet_fromSub()		//获取子链中的类引用集合。
+				.getRStruct(0));				//获取类引用集合中的第一个类引用作为泛型约束。
 		
-		return gps;
-		
+		return gps.getRStruct();
 	}
 	
-	/**
-	 * 获取父类引用合集，
-	 * 费接口父类或者接口父类都可以使用这个方法，
-	 * 来获取子链中的连续类引用声明。
-	 * @return
-	 * 		如果infoType即不是DECLAR_EXTENDS、DECLAR_GEN_PARAMS、又不是DECLAR_IMPLEMENTS，
-	 * 		则返回null。
-	 * 		否则返回子链中的类引用集合。
-	 */
-	protected RSet<RClassRefStruct> getRClassRefRSet(){
-		if (infoType != InformationType.DECLAR_EXTENDS
-				&& infoType != InformationType.DECLAR_IMPLEMENTS
-				&& infoType != InformationType.DECLAR_GEN_PARAMS){
-			//防止获取非法信息，
-			//不是是父类声明的时候不允许从子链中获取类引用合集。
-			return null;
-		}
-		
-		RClassRefSetSpider rrss =
-				new RClassRefSetSpider(subBlock);
-		
-		rrss.workUntilEnd();
-		
-		return rrss.getRSet();
-	}
-	
-	/**
-	 * 获取子链中的变量区域，
-	 * 变量区域中包括静态变量和非静态变量。
-	 * @return
-	 * 		如果infoType不是
-	 */
-	protected VarFieldStruct getVarFieldStruct() {
-		if (infoType != InformationType.DECLAR_MEMBERS
-				&& infoType != InformationType.DECLAR_LOCALVARS) {
-			//防止获取非法信息。
-			return null;
-		}
-		
-		VarFieldStructSpider vfss = 
-				new VarFieldStructSpider(subBlock);
-		
-		vfss.workUntilEnd();
-		
-		return vfss.getRStruct();
-	}
-
 	/**
 	 * 已知子链上存储着一个Function的定义，
 	 * 适用于所有四种类型的Function，
@@ -171,21 +91,124 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		
 		if (funName.isEmpty()){
 			//function的名字为空表示当前targetBlock的类型不是
-			//四种function声明，不能获取FunStruct。
+			//四种function声明中的一种，不能获取FunStruct。
+			//防止读取非法信息。
 			return null;
 		}
 		
-		FunStructSpider fss = 
-				new FunStructSpider(subBlock);
-		
-		fss.workUntilEnd();
+		FunStruct fs = 
+				getRStruct_fromSub_use(
+						new FunStructSpider());
 		
 		//定义Function的名字。
-		fss.defineName(funName);
+		fs.defineName(funName);
 		
-		return fss.getRStruct();
+		return fs;
+	}
+		
+	/**
+	 * 从targetBlock及其子链中获取变量定义。
+	 * @return
+	 * 		一个完整的变量定义结构。
+	 */
+	protected VarStruct getVarStruct(){
+		VarStruct vs = null;
+		switch(infoType){
+		case VAR:
+			//从子链中获取一个变量定义的信息，
+			//这个获取的变量定义没有名字。
+			vs = getRStruct_fromSub_use(
+					//收集除了名字之外的变量定义 。
+					new VarStructSpider());
+			//定义变量名。
+			vs.defineName(targetInfoString);
+			break;
+			
+		default:
+			break;
+		}
+		
+		return vs;
 	}
 	
+	/**
+	 * 从当前targetBlock及其子链上获取一个类型引用定义。
+	 * @return
+	 * 		一个完整的类型引用定义。
+	 */
+	protected RClassRefStruct getRClassRefStruct(){
+		RClassRef rf = new RClassRef();
+		switch(infoType){
+		case CLASS_REF_CL:
+			//设置类型名称。
+			rf.defineName(targetInfoString);
+			//定义引用类型。
+			rf.defineRefType(infoType);
+			if (hasSubBlock) {
+				//如果有子链。
+				//定义泛参指定。
+				rf.defineGPAssign_by_RSet(
+						//获取子链中的泛参指定。
+						getGPAssignSet_fromSub());
+			}
+			break;
+			
+		case CLASS_REF_GP:
+			//设置类型名称。
+			rf.defineName(targetInfoString);
+			//定义引用类型。
+			rf.defineRefType(infoType);
+			break;
+			
+		default:
+			//不是类型引用的标签，
+			//防止获取非法信息，
+			//返回null。
+			return null;
+			break;
+		}
+	}
+	
+	/**
+	 * 从当前targetBlock及其子链上获取一个完整的泛参指定定义。
+	 * @return
+	 * 		一个泛参指定结构。
+	 */
+	protected GPAssignStruct getGPAssigStruct() {
+		GPAssigStruct gpass = 
+				new GPAssigStruct();
+		switch(infoType){
+		case GP_ASSIGN_CL:
+			//泛参被指定为实类型。
+			//targetInfoString 形如“T: basic.Integer”，
+			//其中包含了被指定的泛参名，
+			//以及用于填充泛参的另一个类型引用名，
+			//一次性将这两个信息补充到RStruct中。
+			gpass.defineAssign(targetInfoString);
+			//标明泛参指定是指定为实类型。
+			gpass.defineType(infoType);
+			if (hasSubBlock){
+				//如果有子链。
+				//为参数类型指定泛参指定。
+				gpass.defineGPAssign_forArgument_by_RSet(
+						//从子链中获取泛参指定集合。
+						getGPAssignSet_fromSub());
+			}
+			break;
+			
+		case GP_ASSIGN_GP:
+			//泛参被指定为另一个泛参。
+			gpass.defineAssign(targetInfoString);
+			//标明泛参指定是指定为实类型。
+			gpass.defineType(infoType);
+			break;
+			
+		default:
+			//防止获取非法信息。
+			return null;
+		}
+	}
+
 	/**
 	 * 已知targetBlock为Function类型（除了ConFun的另外三种），
 	 * 提取其中的Function名字。
@@ -199,7 +222,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * 		如果当前infoType是DECLAR_FUN_CONFUN的话，
 	 * 		就返回"@SELF"。
 	 */
-	private String extractFunName() {
+	protected String extractFunName() {
 		switch(infoType){
 		case DECLAR_FUN_CONFUN:
 			//对于构造Function，返回这个特殊的名字，
@@ -244,5 +267,136 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			return "NO_MATCH_FUN_NAME";
 		}
 	}
+	
+	/**
+	 * 获取当前targetBlock所定义的一个执行入口组件。
+	 * @return
+	 * 		执行入口定义集合。
+	 */
+	protected ExcuteeStruct getExcuteeStruct(){
+		ExcuteeStruct es = new ExcuteeStruct();
+		
+		es.defineName(targetInfoString);
+		
+		return es;
+	}
 
+	/**
+	 * 获取当前targetBlock定义的ExcuterStruct。
+	 * @return
+	 */
+	protected ExcuterStruct getExcuterStruct() {
+		ExcuterStruct es = new ExcuterStruct();
+		
+		es.defineName(targetInfoString);
+		
+		return es;
+	}
+	
+	/**
+	 * 获取当前Block及其子链所定义的一个SubFunStruct。
+	 * @return
+	 * 		当前Block及其子链所定义的一个SubFunStruct。
+	 */
+	protected SubFunStruct getSubFunStruct() {
+		if (infoType != InformationType.SUBFUN) {
+			return null;
+		}
+		
+		//放置Spider。
+		SubFunStructSpier sfss = new SubFunStructSpider(subBlock);
+		
+		//收集SubFun的详细信息，除了名字。
+		sfss.workUntilEnd();
+		
+		//获取SubFunStruct。
+		SubFunStruct sfs = sfss.getRStruct();
+		
+		//定义SubFun的名字。
+		sfs.defineName(targetInfoString);
+		
+		return sfs;
+	}
+	
+
+	/**
+	 * 从当前targetBlock及其子链中整理得到一个弧线结构。
+	 * @return
+	 */
+	protected ArcStruct getArcStruct() {
+		//TODO
+	}
+	
+	/**
+	 * 从当前targetBlock及其子链中整理得到一个注释结构。
+	 * @return
+	 */
+	protected CommentStruct getCommentStruct() {
+		//TODO 
+	}
+	
+	/**
+	 * 从当前infoStruct获取一个ArcPointStruct，
+	 * 即弧线一个端点的定义。
+	 * @return
+	 */
+	protected ArcPointStruct getArcPointStruct() {
+		//TODO
+	}
+	
+	/**
+	 * 从子链中获取相同类型RSet通用方法，
+	 * spiderForSub是一个调用无惨构造方法生成的Spider，
+	 * 本方法将会把这个SpiderForSub放到子链上，
+	 * 执行功能，然后返回收集到的结果。
+	 * @param spiderForSub
+	 * 		用无惨构造方法生成的RSetSpider。
+	 * @return
+	 * 		spiderForSub收集到的信息的合集。
+	 */
+	protected 
+	<RSTRUCT_RETURN extends RStruct> 
+	RSet<RSTRUCT_RETURN> 						//返回值类型。
+	getRSet_fromSub_use 						//方法名。
+	(UtilsRSetSpider_with_RSet<RSTRUCT_RETURN> 	//参数类型
+	spiderForSub)								//参数名
+	{
+		
+		//放置Spider。
+		spiderForSub.placeSpider(subBlock);
+		
+		//收集信息。
+		spiderForSub.workUntilEnd();
+		
+		//返回信息集合。
+		return spiderForSub.getRSet();
+	}
+
+	/**
+	 * 从子链的信息中获取一个RStruct的通用方法，
+	 * spiderForSub是一个调用无惨构造方法生成的Spider，
+	 * 本方法将会把这个SpiderForSub放到子链上，
+	 * 执行功能，然后返回收集到的结果。
+	 * @param spiderForSub
+	 * 		将要被放置到子链上的Spider，
+	 * 		这个Spider应该用无惨构造方法构造。
+	 * @return
+	 * 		spiderForSub的工作结果。
+	 */
+	protected
+	<RSTRUCT_RETURN extends RStruct> 
+	RSTRUCT_RETURN 										//返回值类型。
+	getRStruct_fromSub_use 								//方法名。
+	(UtilsRStructSpider_with_RStruct<RSTRUCT_RETURN> 	//参数类型
+	spiderForSub)										//参数名
+	{
+		//在子链上放置Spier。
+		spiderForSub.placeSpider(subBlock);
+		
+		//Spider工作。
+		spiderForSub.workUntilEnd();
+		
+		//返回Spider工作的结果。
+		return spiderForSub.getRStruct();
+	}
 }
