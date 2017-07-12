@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * 相同类型的RStruc的集合，
  * 内部可以存储多个同类型的RStruct对象。
  */
-public class RSet<T extends RStruct> extends ArrayList<T> {
+public class RSet<T extends IRStruct> extends ArrayList<T> {
 	/**
 	 * 存储RStruct结构的数组列表。
 	 */
