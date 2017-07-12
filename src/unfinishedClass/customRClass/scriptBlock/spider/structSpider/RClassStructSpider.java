@@ -9,7 +9,6 @@ import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.FunGSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.structSpider.RStructSpider;
 
 /**
  * 此Spider读取一串包含有脚本信息的Block，
@@ -17,13 +16,13 @@ import unfinishedClass.customRClass.scriptBlock.spider.structSpider.RStructSpide
  */
 public class RClassStructSpider 
 extends UtilsRStructSpider_with_RStruct<RClassStruct>{
-	protected RClassStruct finalRStruct;
 	
 	public RClassStructSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 		finalRStruct = new RClassStruct();
 	}
 
+	
 	@Override
 	public void countWork() {
 		//用于存储子链中的信息的字符串，
@@ -35,28 +34,30 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 		case DECLAR_TYPE:
 			//定义RClass类型。
 			finalRStruct
-			.defineType(getRClassType());		//获取infoType。
+			.defineType(infoType);		//获取infoType。
 			break;
 			
 			//对类名的提取。
 		case DECLAR_NAME:
 			//定义类名。
 			finalRStruct
-			.defineName(getRClassName());	//获取直接的类名定义。
+			.defineName(getRClassName_fromSub());	//获取直接的类名定义。
 			break;
 			
 		case DECLAR_GEN_PARAMS:
 			//定义泛参。
 			finalRStruct
 			.defineGenParam_by_RSet(
-					getGenParamRSet());
+					getRSet_fromSub_use(
+							new GenParamSetSpider()));
 			break;
 			
 		case DECLAR_EXTENDS:
 			//定义非接口父类。
 			finalRStruct
 			.defineExtends(
-					getRClassRefRSet()
+					getRSet_fromSub_use(
+							new RClassRefSetSpider())
 					.getRStruct(0));
 			break;
 			
@@ -64,14 +65,15 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 			//定义接口父类。
 			finalRStruct
 			.defineImplements_by_RSet(
-					getRClassRefRSet());
+					getRSet_fromSub_use(
+							new RClassRefSetSpider()));
 			break;
 			
 		case DECLAR_MEMBERS:
 			//定义成员变量。
 			finalRStruct
-			.defineMembers_by_RSet(
-					getVarFieldStruct());
+			.defineMembers_by_RStruct(
+					getVarFieldStruct_fromSub());
 			break;
 			
 		case DECLAR_FUN_CONFUN:

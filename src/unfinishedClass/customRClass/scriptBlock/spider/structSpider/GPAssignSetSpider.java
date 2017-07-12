@@ -1,34 +1,33 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
-import unfinishedClass.customRClass.rStruct.GenParamStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 /**
- * 收集泛参定义的Spider。
+ * 用于获取多个泛参指定的RSetSpider。
  */
-public class GenParamSetSpider extends UtilsRSetSpider_with_RSet<GenParamStruct>{
+public class GPAssignSetSpider extends UtilsRSetSpider_with_RSet<GPAssignStruct> {
 
 	/**
 	 * 用这个来构造的Spider请一定要调用placeSpider()方法，
 	 * 来将Spider放置到准确的位置。
 	 */
-	public GenParamSetSpider() {
+	public GPAssignSetSpider() {
 		//什么也不做。
 	}
-	
-	public GenParamSetSpider(ScriptBlock targetBlock) {
+
+	public GPAssignSetSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 	}
 
 	@Override
 	public void countWork() {
 		switch(infoType){
-		case GEN_PARAM:
-			finalRSet.add(
-					//获取当前targetBlock以及其子链所形成的
-					//完整的泛参定义结构。
-					getGenParamStruct());
+		case GP_ASSIGN_CL:
+			//泛参被指定为另一个泛参。
+		case GP_ASSIGN_GP:
+			//泛参被指定为另一个泛参。
+			finalRSet.append(getGPAssignStruct());
 			break;
 			
 		default:
