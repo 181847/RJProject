@@ -36,10 +36,27 @@ public abstract class AbstractBCSpider implements IBlockChainSpider {
 	protected boolean hitButtom;
 	
 	/**
+	 * 空的构造方法。
+	 */
+	public AbstractBCSpider() {
+		originalBlock = targetBlock = null;
+		//防止Spider未经初始化就移动。
+		hitTop = hitButtom = true;
+	}
+	
+	/**
 	 * @param targetBlock
 	 * 		Spider第一次所在的Block。
 	 */
 	public AbstractBCSpider(ScriptBlock targetBlock){
+		placeSpider(targetBlock);
+	}
+	
+	/**
+	 * 用于代替带参构造方法的初始化方法。
+	 * @param targetBlock
+	 */
+	public void placeSpider(ScriptBlock targetBlock) {
 		originalBlock = 
 				this.targetBlock = targetBlock;
 		

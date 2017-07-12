@@ -44,6 +44,16 @@ public abstract class CountableSpider extends AbstractBCSpider {
 	 * 则这个值为null。
 	 */
 	protected ScriptBlock subBlock;
+	
+	/**
+	 * 什么也不做的构造方法，
+	 * 这样子构造出来的Spider不能移动。
+	 */
+	public CountableSpider() {
+		count = 0;
+		targetInformation = null;
+		targetInfoString = null;
+	}
 
 	public CountableSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
