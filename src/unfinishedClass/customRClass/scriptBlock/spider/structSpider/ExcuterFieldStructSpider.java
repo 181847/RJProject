@@ -3,12 +3,13 @@ package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 import unfinishedClass.customRClass.rStruct.ExcuterFieldStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
-/**
- * 收集两种执行出口，
- * 组成一个执行出口区域结构。
- */
-public class ExcuterFieldStructSpider extends UtilsRStructSpider_with_RStruct<ExcuterFieldStruct> {
+public class ExcuterFieldStructSpider 
+extends UtilsRStructSpider_with_RStruct<ExcuterFieldStruct> {
 
+	public ExcuterFieldStructSpider() {
+		finalRStruct = new ExcuterFieldStruct();
+	}
+	
 	public ExcuterFieldStructSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
 		finalRStruct = new ExcuterFieldStruct();
@@ -16,21 +17,26 @@ public class ExcuterFieldStructSpider extends UtilsRStructSpider_with_RStruct<Ex
 
 	@Override
 	public void countWork() {
-		switch(infoType){
+		switch(infoType) {
 		case DECLAR_EXCUTERS_EXCEPTION:
-			//异常执行入口收集。
+			//异常执行出口。
 			finalRStruct
-			.defineExcepExcuter_by_RSet(
-					getExcuterSet());
+			.defineExcepExcuters_by_RSet(
+					getRSet_fromSub_use(
+							new ExcuterSetSpider()));
 			break;
 			
 		case DECLAR_EXCUTERS_NORMAL:
-			//普通执行入口收集。
+			//普通执行出口。
 			finalRStruct
-			.defineNormlExcuter_by_RSet(
-					getExcuterSet());
+			.defineNormlExcuters_by_RSet(
+					getRSet_fromSub_use(
+							new ExcuterSetSpider()));
+			break;
+			
+		default:
 			break;
 		}
+		
 	}
-
 }

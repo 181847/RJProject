@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
+import unfinishedClass.customRClass.rStruct.ExcuterStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 /**
@@ -24,7 +25,7 @@ public class ExcuterSetSpider extends UtilsRSetSpider_with_RSet<ExcuterStruct> {
 		switch(infoType){
 		case EXCUTER:
 			//添加执行出口。
-			finalRSet.append(
+			finalRSet.add(
 					getExcuterStruct());
 			break;
 		

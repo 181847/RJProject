@@ -34,14 +34,14 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 		case DECLAR_TYPE:
 			//定义RClass类型。
 			finalRStruct
-			.defineType(infoType);		//获取infoType。
+			.defineType(getFistInfoType_fromSub());		//获取infoType。
 			break;
 			
 			//对类名的提取。
 		case DECLAR_NAME:
 			//定义类名。
 			finalRStruct
-			.defineName(getRClassName_fromSub());	//获取直接的类名定义。
+			.defineName(getFistInfoString_fromSub());	//获取直接的类名定义。
 			break;
 			
 		case DECLAR_GEN_PARAMS:
@@ -73,7 +73,8 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 			//定义成员变量。
 			finalRStruct
 			.defineMembers_by_RStruct(
-					getVarFieldStruct_fromSub());
+					getRStruct_fromSub_use(
+							new VarFieldStructSpider()));
 			break;
 			
 		case DECLAR_FUN_CONFUN:

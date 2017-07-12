@@ -19,16 +19,16 @@ extends UtilsRStructSpider_with_RStruct<ArcStruct> {
 	public void countWork() {
 		switch(infoType) {
 		case ARC_START:
-			finalStruct
+			finalRStruct
 			.defineArcStart(
 					//获取弧线的一个端点结构。
 					getArcPointStruct());
 			break;
 			
 
-		case ARC_START:
-			finalStruct
-			.defineArcStart(
+		case ARC_END:
+			finalRStruct
+			.defineArcEnd(
 					//获取弧线的一个端点结构。
 					getArcPointStruct());
 			break;

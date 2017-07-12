@@ -24,7 +24,7 @@ public class CommentSetSpider extends UtilsRSetSpider_with_RSet<CommentStruct> {
 		switch(infoType) {
 		case RECT:
 			//方形区域注释。
-			finalRSet.append(
+			finalRSet.add(
 					getCommentStruct());
 			break;
 			

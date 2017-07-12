@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
+import unfinishedClass.customRClass.rStruct.ArcStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 public class ArcSetSpider extends UtilsRSetSpider_with_RSet<ArcStruct> {
@@ -21,7 +22,7 @@ public class ArcSetSpider extends UtilsRSetSpider_with_RSet<ArcStruct> {
 		switch(infoType) {
 		case ARC:
 			//收集弧线定义。
-			finalRSet.append(
+			finalRSet.add(
 					getRStruct_fromSub_use(
 							new ArcStructSpider()));
 			break;

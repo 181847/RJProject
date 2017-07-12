@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
+import unfinishedClass.customRClass.rStruct.GPAssignStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
@@ -27,7 +28,7 @@ public class GPAssignSetSpider extends UtilsRSetSpider_with_RSet<GPAssignStruct>
 			//泛参被指定为另一个泛参。
 		case GP_ASSIGN_GP:
 			//泛参被指定为另一个泛参。
-			finalRSet.append(getGPAssignStruct());
+			finalRSet.add(getGPAssignStruct());
 			break;
 			
 		default:

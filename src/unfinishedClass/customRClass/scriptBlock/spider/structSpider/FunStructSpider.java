@@ -52,7 +52,7 @@ extends UtilsRStructSpider_with_RStruct<FunStruct> {
 			finalRStruct
 			.defineExcuters_by_RStruct(
 					getRStruct_fromSub_use(
-							new ExucterFieldStructSpider()));
+							new ExcuterFieldStructSpider()));
 			break;
 			
 		case DECLAR_RETURNVALS:

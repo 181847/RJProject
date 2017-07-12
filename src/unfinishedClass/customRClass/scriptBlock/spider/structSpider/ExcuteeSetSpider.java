@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
+import unfinishedClass.customRClass.rStruct.ExcuteeStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 /**
@@ -25,7 +26,7 @@ public class ExcuteeSetSpider extends UtilsRSetSpider_with_RSet<ExcuteeStruct> {
 	public void countWork() {
 		switch(infoType) {
 		case EXCUTEE:
-			finalRSet.append(getExcuteeStruct());
+			finalRSet.add(getExcuteeStruct());
 			break;
 			
 		default:

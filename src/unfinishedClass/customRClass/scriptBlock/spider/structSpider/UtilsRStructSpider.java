@@ -1,12 +1,16 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
-import unfinishedClass.customRClass.RStringChecker;
+import unfinishedClass.customRClass.rStruct.ArcPointStruct;
+import unfinishedClass.customRClass.rStruct.ExcuteeStruct;
+import unfinishedClass.customRClass.rStruct.ExcuterStruct;
 import unfinishedClass.customRClass.rStruct.FunStruct;
+import unfinishedClass.customRClass.rStruct.GPAssignStruct;
 import unfinishedClass.customRClass.rStruct.GenParamStruct;
+import unfinishedClass.customRClass.rStruct.IRStruct;
+import unfinishedClass.customRClass.rStruct.LocationStruct;
 import unfinishedClass.customRClass.rStruct.RClassRefStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
-import unfinishedClass.customRClass.rStruct.RStruct;
-import unfinishedClass.customRClass.rStruct.VarFieldStruct;
+import unfinishedClass.customRClass.rStruct.SubFunStruct;
 import unfinishedClass.customRClass.rStruct.VarStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
@@ -36,19 +40,24 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		super(targetBlock);
 	}
 	
-	protected InformationType getRClassType(){
-		//检查当前targetBlock是否是类型声明。
-		if (infoType != InformationType.DECLAR_TYPE){
-			//防止获取非法信息。
-			return InformationType.VOID;
-		} else {
-			
-			//从子链中第一个非头部节点中获取infoType。
-			return subBlock
-					.getNext()
-					.getInformation()
-					.getType();
-		}
+	protected InformationType getFistInfoType_fromSub(){
+		//从子链中第一个非头部节点中获取infoType。
+		return subBlock
+				.getNext()
+				.getInformation()
+				.getType();
+	}
+	
+	/**
+	 * 获取子链上第一个Block的字符串。
+	 * @return
+	 * 		子链上第一个Block的字符串。
+	 */
+	protected String getFistInfoString_fromSub() {
+		return subBlock
+				.getNext()
+				.getInformation()
+				.getOriginalString();
 	}
 	
 	/**
@@ -72,10 +81,13 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		
 		//定义泛型约束。
 		gps.defineGPConstraint(
-				getRClassRefSet_fromSub()		//获取子链中的类引用集合。
-				.getRStruct(0));				//获取类引用集合中的第一个类引用作为泛型约束。
+				//获取子链中的类引用集合。
+				getRSet_fromSub_use(
+						new RClassRefSetSpider())
+				//获取类引用集合中的第一个类引用作为泛型约束。
+				.getRStruct(0));						
 		
-		return gps.getRStruct();
+		return gps;
 	}
 	
 	/**
@@ -137,27 +149,28 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * 		一个完整的类型引用定义。
 	 */
 	protected RClassRefStruct getRClassRefStruct(){
-		RClassRef rf = new RClassRef();
+		RClassRefStruct rfs = new RClassRefStruct();
 		switch(infoType){
 		case CLASS_REF_CL:
 			//设置类型名称。
-			rf.defineName(targetInfoString);
+			rfs.defineName(targetInfoString);
 			//定义引用类型。
-			rf.defineRefType(infoType);
+			rfs.defineRefType(infoType);
 			if (hasSubBlock) {
 				//如果有子链。
 				//定义泛参指定。
-				rf.defineGPAssign_by_RSet(
+				rfs.defineGPAssign_by_RSet(
 						//获取子链中的泛参指定。
-						getGPAssignSet_fromSub());
+						getRSet_fromSub_use(
+								new GPAssignSetSpider()));
 			}
 			break;
 			
 		case CLASS_REF_GP:
 			//设置类型名称。
-			rf.defineName(targetInfoString);
+			rfs.defineName(targetInfoString);
 			//定义引用类型。
-			rf.defineRefType(infoType);
+			rfs.defineRefType(infoType);
 			break;
 			
 		default:
@@ -165,8 +178,9 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			//防止获取非法信息，
 			//返回null。
 			return null;
-			break;
 		}
+
+		return rfs;
 	}
 	
 	/**
@@ -174,9 +188,9 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * @return
 	 * 		一个泛参指定结构。
 	 */
-	protected GPAssignStruct getGPAssigStruct() {
-		GPAssigStruct gpass = 
-				new GPAssigStruct();
+	protected GPAssignStruct getGPAssignStruct() {
+		GPAssignStruct gpas = 
+				new GPAssignStruct();
 		switch(infoType){
 		case GP_ASSIGN_CL:
 			//泛参被指定为实类型。
@@ -184,29 +198,32 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			//其中包含了被指定的泛参名，
 			//以及用于填充泛参的另一个类型引用名，
 			//一次性将这两个信息补充到RStruct中。
-			gpass.defineAssign(targetInfoString);
+			gpas.defineAssign(targetInfoString);
 			//标明泛参指定是指定为实类型。
-			gpass.defineType(infoType);
+			gpas.defineType(infoType);
 			if (hasSubBlock){
 				//如果有子链。
 				//为参数类型指定泛参指定。
-				gpass.defineGPAssign_forArgument_by_RSet(
+				gpas.defineGPAssign_forArgument_by_RSet(
 						//从子链中获取泛参指定集合。
-						getGPAssignSet_fromSub());
+						getRSet_fromSub_use(
+								new GPAssignSetSpider()));
 			}
 			break;
 			
 		case GP_ASSIGN_GP:
 			//泛参被指定为另一个泛参。
-			gpass.defineAssign(targetInfoString);
+			gpas.defineAssign(targetInfoString);
 			//标明泛参指定是指定为实类型。
-			gpass.defineType(infoType);
+			gpas.defineType(infoType);
 			break;
 			
 		default:
 			//防止获取非法信息。
 			return null;
 		}
+		
+		return gpas;
 	}
 
 	/**
@@ -303,14 +320,10 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			return null;
 		}
 		
-		//放置Spider。
-		SubFunStructSpier sfss = new SubFunStructSpider(subBlock);
-		
-		//收集SubFun的详细信息，除了名字。
-		sfss.workUntilEnd();
-		
 		//获取SubFunStruct。
-		SubFunStruct sfs = sfss.getRStruct();
+		SubFunStruct sfs = 
+				getRStruct_fromSub_use(
+						new SubFunStructSpider());
 		
 		//定义SubFun的名字。
 		sfs.defineName(targetInfoString);
@@ -318,21 +331,22 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		return sfs;
 	}
 	
-
-	/**
-	 * 从当前targetBlock及其子链中整理得到一个弧线结构。
-	 * @return
-	 */
-	protected ArcStruct getArcStruct() {
-		//TODO
-	}
-	
 	/**
 	 * 从当前targetBlock及其子链中整理得到一个注释结构。
 	 * @return
 	 */
 	protected CommentStruct getCommentStruct() {
-		//TODO 
+		CommentStruct cs = new CommentStruct();
+		
+		//设置方形区域。
+		cs.defineRect(targetInfoString);
+		
+		cs
+		.defineCommentText_by_RStruct(
+				getRStruct_fromSub_use(
+						new TextStructSpider()));
+		
+		return cs;
 	}
 	
 	/**
@@ -341,7 +355,16 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * @return
 	 */
 	protected ArcPointStruct getArcPointStruct() {
-		//TODO
+		return new ArcPointStruct(targetInfoString);
+	}
+	
+	/**
+	 * 获取坐标结构。
+	 * @return
+	 */
+	protected LocationStruct getLocationStruct() {
+		//返回二维坐标的结构。
+		return new LocationStruct(targetInfoString);
 	}
 	
 	/**
@@ -355,7 +378,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * 		spiderForSub收集到的信息的合集。
 	 */
 	protected 
-	<RSTRUCT_RETURN extends RStruct> 
+	<RSTRUCT_RETURN extends IRStruct> 
 	RSet<RSTRUCT_RETURN> 						//返回值类型。
 	getRSet_fromSub_use 						//方法名。
 	(UtilsRSetSpider_with_RSet<RSTRUCT_RETURN> 	//参数类型
@@ -384,7 +407,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * 		spiderForSub的工作结果。
 	 */
 	protected
-	<RSTRUCT_RETURN extends RStruct> 
+	<RSTRUCT_RETURN extends IRStruct> 
 	RSTRUCT_RETURN 										//返回值类型。
 	getRStruct_fromSub_use 								//方法名。
 	(UtilsRStructSpider_with_RStruct<RSTRUCT_RETURN> 	//参数类型
