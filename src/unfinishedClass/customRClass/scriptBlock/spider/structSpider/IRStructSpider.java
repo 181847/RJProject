@@ -1,8 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
-import unfinishedClass.customRClass.rStruct.RStruct;
-import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
+import unfinishedClass.customRClass.rStruct.IRStruct;
 
 /**
  * 所有提取信息之后为返回类型为Rtruct的Spider的接口，
@@ -13,7 +11,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
  * 使用一个泛参来定义返回类型，
  * 并且将返回类型限制为RStruct的子类。
  */
-public interface IRStructSpider<R_STRUCT_RETURN extends RStruct> {
+public interface IRStructSpider<R_STRUCT_RETURN extends IRStruct> {
 	
 	/**
 	 * @return

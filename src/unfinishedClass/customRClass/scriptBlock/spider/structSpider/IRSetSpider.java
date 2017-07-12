@@ -1,7 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
 import unfinishedClass.customRClass.rStruct.RSet;
-import unfinishedClass.customRClass.rStruct.RStruct;
+import unfinishedClass.customRClass.rStruct.IRStruct;
 
 /**
  * 所有工作结果是RSet类型的Spider的接口，
@@ -12,7 +12,7 @@ import unfinishedClass.customRClass.rStruct.RStruct;
  * @param <R_STRUCT_IN_SET>
  * 		用于指定集合中RStruct的类型。
  */
-public interface IRSetSpider<R_STRUCT_IN_SET extends RStruct> {
+public interface IRSetSpider<R_STRUCT_IN_SET extends IRStruct> {
 	public RSet<R_STRUCT_IN_SET> getRSet();
 
 }
