@@ -6,7 +6,8 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  * 包含一个RClass定义的结构。
  */
 public class RClassStruct
-implements IRStruct, RStruct_contain_genParams{
+implements IRStruct, 	
+			RStruct_contain_genParams{
 
 	@Override
 	public int defineGenParam_by_RSet(RSet<GenParamStruct> fd) {
@@ -101,6 +102,17 @@ implements IRStruct, RStruct_contain_genParams{
 	 * 		抽象Function结构。
 	 */
 	public void defineAbstractFun(FunStruct funStruct) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 记录当前RClass所来自的路径，
+	 * 包括工程名和脚本路径。
+	 * @param path
+	 * 		工程名和脚本路径。
+	 */
+	public void logSourcePath(String path) {
 		// TODO Auto-generated method stub
 		
 	}
