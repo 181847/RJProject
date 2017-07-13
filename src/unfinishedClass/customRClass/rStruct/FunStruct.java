@@ -1,7 +1,5 @@
 package unfinishedClass.customRClass.rStruct;
 
-import unfinishedClass.customRClass.scriptBlock.spider.structSpider.CommentStruct;
-
 /**
  * 存储了一个Function定义的结构体。
  */

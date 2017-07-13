@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
+import unfinishedClass.customRClass.rStruct.CommentStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 
 /**

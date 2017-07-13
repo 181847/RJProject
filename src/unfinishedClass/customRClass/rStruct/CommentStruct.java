@@ -1,7 +1,4 @@
-package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
-
-import unfinishedClass.customRClass.rStruct.IRStruct;
-import unfinishedClass.customRClass.rStruct.TextStruct;
+package unfinishedClass.customRClass.rStruct;
 
 /**
  * 存储了一个注释的结构，

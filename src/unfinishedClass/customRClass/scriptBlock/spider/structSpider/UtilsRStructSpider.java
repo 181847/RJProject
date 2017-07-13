@@ -1,6 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
 import unfinishedClass.customRClass.rStruct.ArcPointStruct;
+import unfinishedClass.customRClass.rStruct.CommentStruct;
 import unfinishedClass.customRClass.rStruct.ExcuteeStruct;
 import unfinishedClass.customRClass.rStruct.ExcuterStruct;
 import unfinishedClass.customRClass.rStruct.FunStruct;
