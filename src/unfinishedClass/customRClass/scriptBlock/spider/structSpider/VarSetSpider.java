@@ -26,7 +26,7 @@ public class VarSetSpider extends UtilsRSetSpider_with_RSet<VarStruct> {
 		switch(infoType){
 		case VAR:
 			//收集的那个变量信息。
-			finalRSet.append(getVarStruct());
+			finalRSet.add(getVarStruct());
 			break;
 			
 		default:
