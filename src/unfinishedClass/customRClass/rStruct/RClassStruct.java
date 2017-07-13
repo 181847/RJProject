@@ -8,10 +8,7 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 public class RClassStruct
 implements IRStruct, 	
 			RStruct_contain_genParams{
-
 	
-
-
 	/**
 	 * 定义泛型参数。
 	 * @param fd
