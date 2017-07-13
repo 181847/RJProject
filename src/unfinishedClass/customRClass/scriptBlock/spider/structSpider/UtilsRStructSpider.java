@@ -156,7 +156,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			//设置类型名称。
 			rfs.defineName(targetInfoString);
 			//定义引用类型。
-			rfs.defineRefType(infoType);
+			rfs.defineType(infoType);
 			if (hasSubBlock) {
 				//如果有子链。
 				//定义泛参指定。
@@ -171,7 +171,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			//设置类型名称。
 			rfs.defineName(targetInfoString);
 			//定义引用类型。
-			rfs.defineRefType(infoType);
+			rfs.defineType(infoType);
 			break;
 			
 		default:

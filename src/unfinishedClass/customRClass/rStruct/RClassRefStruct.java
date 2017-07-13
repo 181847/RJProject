@@ -26,7 +26,7 @@ public class RClassRefStruct implements IRStruct {
 	 * @param infoType
 	 * 		CLASS_REF_CL或者CLASS_REF_GP。
 	 */
-	public void defineRefType(InformationType infoType) {
+	public void defineType(InformationType infoType) {
 		// TODO Auto-generated method stub
 		
 	}
