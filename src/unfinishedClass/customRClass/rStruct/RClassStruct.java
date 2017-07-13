@@ -9,6 +9,14 @@ public class RClassStruct
 implements IRStruct, 	
 			RStruct_contain_genParams{
 
+	
+
+
+	/**
+	 * 定义泛型参数。
+	 * @param fd
+	 * 		泛参定义集合。
+	 */
 	@Override
 	public int defineGenParam_by_RSet(RSet<GenParamStruct> fd) {
 		// TODO Auto-generated method stub
