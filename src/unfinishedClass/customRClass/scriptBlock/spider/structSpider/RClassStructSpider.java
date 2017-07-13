@@ -1,14 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
-import basicTool.RLogger;
-import unfinishedClass.customRClass.RStringChecker;
-import unfinishedClass.customRClass.rStruct.FunStruct;
 import unfinishedClass.customRClass.rStruct.RClassStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
-import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
-import unfinishedClass.customRClass.scriptBlock.information.InformationType;
-import unfinishedClass.customRClass.scriptBlock.spider.CountableSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.FunGSpider;
 
 /**
  * 此Spider读取一串包含有脚本信息的Block，
@@ -16,6 +9,10 @@ import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.FunGSpider;
  */
 public class RClassStructSpider 
 extends UtilsRStructSpider_with_RStruct<RClassStruct>{
+
+	public RClassStructSpider() {
+		finalRStruct = new RClassStruct();
+	}
 	
 	public RClassStructSpider(ScriptBlock targetBlock) {
 		super(targetBlock);
@@ -25,10 +22,6 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 	
 	@Override
 	public void countWork() {
-		//用于存储子链中的信息的字符串，
-		//有的子链中固定为一个简单的信息，
-		//无需复杂的遍历方法，所以这里可以直接用一个
-		String subSingleString;
 		switch(infoType){
 		//对RClass类型的提取。
 		case DECLAR_TYPE:
