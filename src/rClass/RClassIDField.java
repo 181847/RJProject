@@ -153,7 +153,8 @@ public class RClassIDField {
 	 * 		加载时继承图。
 	 */
 	public void loadGraph(LoadRCGraph loadRCG) {
-		negativeField.loadMerge(loadRCG, negativeUseableID);
+		//TODO
+		//negativeField.loadMerge(loadRCG, negativeUseableID);
 		//更新最大可用负ID
 		negativeUseableID = -negativeField.getNum();
 	}
