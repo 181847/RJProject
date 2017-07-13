@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+
 /**
  * 存储Excuter定义的结构。
  */

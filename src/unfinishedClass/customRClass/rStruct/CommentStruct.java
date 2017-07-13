@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+
 /**
  * 存储了一个注释的结构，
  * 包括一个方形的区域（两个二维坐标），

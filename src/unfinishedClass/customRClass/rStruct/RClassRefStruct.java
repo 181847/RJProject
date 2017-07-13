@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**

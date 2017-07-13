@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_genParams;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
@@ -7,15 +9,15 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
  */
 public class RClassStruct
 implements IRStruct, 	
-			RStruct_contain_genParams{
+			IRStruct_contain_genParams{
 	
 	/**
 	 * 定义泛型参数。
-	 * @param fd
+	 * @param gpSet
 	 * 		泛参定义集合。
 	 */
 	@Override
-	public int defineGenParam_by_RSet(RSet<GenParamStruct> fd) {
+	public int defineGenParams_by_RSet(RSet<GenParamStruct> gpSet) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -23,10 +25,10 @@ implements IRStruct,
 	/**
 	 * 定义RClass的类型，
 	 * 接口、普通、抽象。
-	 * @param infoType
+	 * @param type
 	 * 		INTERFACE、ABSTRACT_RCLASS、RCLASS。
 	 */
-	public void defineType(InformationType infoType) {
+	public void defineType(InformationType type) {
 		// TODO Auto-generated method stub
 		
 	}

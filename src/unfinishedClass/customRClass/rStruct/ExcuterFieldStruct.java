@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+
 public class ExcuterFieldStruct implements IRStruct {
 
 	/**

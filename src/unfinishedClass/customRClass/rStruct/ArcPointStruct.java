@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+
 /**
  * 弧线端点定义，
  * 包含一个序号和一个组件符号。

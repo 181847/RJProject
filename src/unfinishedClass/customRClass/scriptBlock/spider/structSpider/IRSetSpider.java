@@ -1,7 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
 import unfinishedClass.customRClass.rStruct.RSet;
-import unfinishedClass.customRClass.rStruct.IRStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 
 /**
  * 所有工作结果是RSet类型的Spider的接口，

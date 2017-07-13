@@ -1,6 +1,6 @@
 package unfinishedClass.customRClass.scriptBlock.spider.structSpider;
 
-import unfinishedClass.customRClass.rStruct.IRStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 
 /**
  * 所有提取信息之后为返回类型为Rtruct的Spider的接口，

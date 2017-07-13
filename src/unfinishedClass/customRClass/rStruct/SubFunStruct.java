@@ -1,5 +1,7 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+
 public class SubFunStruct implements IRStruct {
 
 	/**
@@ -14,7 +16,7 @@ public class SubFunStruct implements IRStruct {
 	}
 
 	/**
-	 * 设置SubFun的名字。
+	 * 设置SubFun的名字。 
 	 * @param name
 	 * 		SubFun的名字。
 	 */

@@ -1,9 +1,14 @@
 package unfinishedClass.customRClass.rStruct;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_genParams;
+
 /**
  * 存储了一个Function定义的结构体。
  */
-public class FunStruct implements IRStruct {
+public class FunStruct 
+implements IRStruct ,
+IRStruct_contain_genParams{
 
 	/**
 	 * 设置Function的名字。
@@ -21,10 +26,11 @@ public class FunStruct implements IRStruct {
 	 * 定义Function的泛参。
 	 * @param gpSet
 	 * 		泛参结构集合。
+	 * @return 
 	 */
-	public void defineGenParams_by_RSet(RSet<GenParamStruct> gpSet) {
-		// TODO Auto-generated method stub
-		
+	public int defineGenParams_by_RSet(RSet<GenParamStruct> gpSet) {
+		//TODO
+		return 0;
 	}
 
 	/**

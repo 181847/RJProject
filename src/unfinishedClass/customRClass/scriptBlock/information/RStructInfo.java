@@ -1,7 +1,7 @@
 package unfinishedClass.customRClass.scriptBlock.information;
 
-import unfinishedClass.customRClass.rStruct.IRStruct;
 import unfinishedClass.customRClass.rStruct.RClassStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 
 /**
  * 可以存储RStruct的Information，

@@ -2,6 +2,8 @@ package unfinishedClass.customRClass.rStruct;
 
 import java.util.ArrayList;
 
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
+
 /**
  * 相同类型的RStruc的集合，
  * 内部可以存储多个同类型的RStruct对象。
