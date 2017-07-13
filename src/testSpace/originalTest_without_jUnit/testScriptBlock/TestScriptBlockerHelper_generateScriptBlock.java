@@ -1,4 +1,4 @@
-package testSpace.testScriptBlock;
+package testSpace.originalTest_without_jUnit.testScriptBlock;
 
 import java.util.ArrayList;
 

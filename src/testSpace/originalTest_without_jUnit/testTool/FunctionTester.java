@@ -1,4 +1,4 @@
-package testSpace.testTool;
+package testSpace.originalTest_without_jUnit.testTool;
 import functionInterface.*;
 
 public class FunctionTester{

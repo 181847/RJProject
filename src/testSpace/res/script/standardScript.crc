@@ -1,0 +1,85 @@
+Type:
+    AbstractRClass
+Name:
+    com.github.liuyang.RClassDemo1
+GenericsParams:
+    T
+        basic.RObject
+Extends:
+    default.myPackage.RClass4
+Implements:
+    myPackage.Interface1
+    myPackage.Interface2
+Members:
+    Static:
+        staticMember1
+            myPackage.RClass2
+        staticMember2
+            myPackage.RClass3
+    member3
+        basic.Integer
+        Init:
+            -12
+    member4
+        default.myPackage.RClass4
+Function: functionName
+    Excutees:
+        fire
+        doWork
+    Parameters:
+        parameter1
+            myPackage.RClass2
+        parameter2
+            basic.Integer
+    Excuters:
+        ExcepE:
+            NULL_POINTER
+            IO_EXCPETION
+        NormalE:
+            end
+    LocalVars:
+        Static:
+            staticLocalVar1
+                myPackage.RClass2
+            staticLocalVar2
+                myPackage.RClass2
+        localVar3
+            basic.Integer
+            Init:
+                -12
+    SubFunctions:
+        fun
+            myPackage.RClass1
+            (-4,-7)
+            GPAssign:
+                T: basic.Integer
+        addInteger
+            basic.Integer
+            (-5.1,-2.55)
+            Modify:
+                3
+        divide
+            basic.Integer
+            (15.0,458)
+        RClass1
+            myPackage.RClass1
+            (22,33)
+    Arcs:
+        EtoE:
+             -> 
+                1.funEnd
+                4.construct
+             -> 
+                3.end
+                1.fire
+        RtoP:
+             -> 
+                2.result
+                3.by
+    Comments:
+        (55.1, 22.1) -> (21.0, 50.1)
+            注释信息二第一行
+            注释信息二第二行
+        (-1, -2) -> (12, 11)
+            另一个注释信息第一行
+            另一个注释信息第二行

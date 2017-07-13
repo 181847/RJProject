@@ -1,7 +1,7 @@
-package testSpace.testScriptBlock;
+package testSpace.originalTest_without_jUnit.testScriptBlock;
 
 import basicTool.RLogger;
-import testSpace.Test;
+import testSpace.originalTest_without_jUnit.unordered.Test;
 
 public class TestScriptInProject extends Test {
 	public static void main(String[] args){

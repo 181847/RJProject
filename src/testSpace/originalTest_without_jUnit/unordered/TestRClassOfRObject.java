@@ -1,10 +1,10 @@
-package testSpace;
+package testSpace.originalTest_without_jUnit.unordered;
 
 import functionInterface.IFunction;
 import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
-import testSpace.testRClass.RObjectSecond;
-import testSpace.testTool.FunctionTester;
+import testSpace.originalTest_without_jUnit.testRClass.RObjectSecond;
+import testSpace.originalTest_without_jUnit.testTool.FunctionTester;
 
 public class TestRClassOfRObject {
 	public static void main(String[] args){

@@ -1,25 +1,25 @@
-package testSpace;
+package testSpace.originalTest_without_jUnit.unordered;
 
 import basicInterface.IModifier;
 import functionInterface.IFunction;
 import rClass.RClassLoaderManager;
 import rClassInterface.IRClass;
 import rClassInterface.IRClassLoader;
-import testSpace.testTool.FunctionTester;
+import testSpace.originalTest_without_jUnit.testTool.FunctionTester;
 
-public class TestRInteger {
+public class TestBasicIntegerAddFunction {
 
 	public static void main(String[] args) {
 		RClassLoaderManager.prepareRClassLoader();
 		IRClassLoader rClassLoader = RClassLoaderManager.getRClassLoader();
 		IRClass rClass = rClassLoader.getRClass("Integer");
 		
-		IFunction testFunctionObject = rClass.Function("IntegerAddFunction");
+		IFunction testFunctionObject = rClass.Function("BasicIntegerAddFunction");
 		
 		IModifier modifier = (IModifier) testFunctionObject;
 		modifier.modify("3");
 		
-		testFunctionObject.getParameter(0).writeObject(new Integer(75), "Integer");
+		testFunctionObject.getParameter(0).writeObject(new Integer(12), "Integer");
 		testFunctionObject.getParameter(2).writeObject(new Integer(-8), "Integer");
 		
 		FunctionTester functionTester = new FunctionTester(testFunctionObject);
@@ -27,5 +27,8 @@ public class TestRInteger {
 		
 		modifier.modify("4");
 		functionTester.test();
+		
+		testFunctionObject.Returnval("result").getExcutee().fire();
 	}
+
 }

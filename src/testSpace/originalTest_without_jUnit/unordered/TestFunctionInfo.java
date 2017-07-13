@@ -1,7 +1,7 @@
-package testSpace;
+package testSpace.originalTest_without_jUnit.unordered;
 
-import testSpace.testRClass.RObjectSecond;
-import testSpace.testTool.FunctionTester;
+import testSpace.originalTest_without_jUnit.testRClass.RObjectSecond;
+import testSpace.originalTest_without_jUnit.testTool.FunctionTester;
 import unfinishedClass.FunctionInfo;
 
 public class TestFunctionInfo extends Test {
