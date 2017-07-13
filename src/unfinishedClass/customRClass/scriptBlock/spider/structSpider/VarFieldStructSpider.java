@@ -26,7 +26,7 @@ public class VarFieldStructSpider extends UtilsRStructSpider_with_RStruct<VarFie
 			.defineStaticVar_by_RSet(
 					//获取 子链中的变量定义集合。
 					getRSet_fromSub_use(
-							new VarSetSpider())));
+							new VarSetSpider()));
 			break;
 			
 		case VAR:
@@ -35,6 +35,10 @@ public class VarFieldStructSpider extends UtilsRStructSpider_with_RStruct<VarFie
 			.defineVar(
 					//获取当前targetBlock以及其子链所共同定义的变量结构。
 					getVarStruct());
+			break;
+			
+		default:
+			//什么也不做。
 			break;
 		}
 	}
