@@ -19,7 +19,7 @@ import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceConte
 import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceLRCGraphSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.forSequence.SequenceNameFilterSpider;
 import unfinishedClass.customRClass.scriptBlock.spider.grammarSpider.forSequence.SequenceGrammarSpider;
-import unfinishedClass.customRClass.scriptBlock.spider.infoSpider.forSequence.SequenceInfoSpider;
+import unfinishedClass.customRClass.scriptBlock.spider.structSpider.SequenceStructSpider;
 
 /**
  * 帮助从工程文件中生成脚本序列，
@@ -72,12 +72,15 @@ public class ScriptBlockHelper {
 
 	/**
 	 * 从指定的脚本文件中生成一个ScriptBlock对象，
-	 * 用来保存脚本的结构化信息。
+	 * 用来保存脚本的结构化信息，
+	 * 第一行默认是文本的路径信息。
 	 * @param script
 	 * 		脚本文件中的每一行文件，
-	 * 		script的size必须保证至少两行信息。
+	 * 		script的size必须保证至少两行信息，
+	 * 		第一行必须是脚本的路径信息。。
 	 * @return
-	 * 		一个ScriptBlock，prec/next为null。
+	 * 		一个ScriptBlock，prec/next为null，
+	 * 		其子链上存储着一个RClass的具体信息。
 	 */
 	public static ScriptBlock generateScriptBlock(ArrayList<String> script) {
 		//一个单独的脚本用一个Block来代表（即下面用到的scriptBlock），
@@ -191,7 +194,7 @@ public class ScriptBlockHelper {
 	 * @return
 	 * 		一个脚本加载序列的头结点。
 	 */
-	private static ScriptBlock getNewSequenceHead() {
+	public static ScriptBlock getNewSequenceHead() {
 		ScriptBlock head = new ScriptBlock(new ScriptSequenceInformation(), true);
 		head.follow(head);
 		return head;
@@ -315,7 +318,7 @@ public class ScriptBlockHelper {
 		//信息收集，
 		//将所有的信息提取出来，放到一个RClassStruct结构当中，
 		//这个结构将会存储所有RClass的定义信息。
-		new SequenceInfoSpider(scriptSequenceHead)
+		new SequenceStructSpider(scriptSequenceHead)
 			.workUntilEnd();
 		
 		//RClass冲突类名剔除，
