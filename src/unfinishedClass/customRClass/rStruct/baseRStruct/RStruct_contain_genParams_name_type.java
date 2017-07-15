@@ -4,27 +4,23 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_type;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
- * 包含名称和类型的RStruct父类。
+ * 包含泛参定义、名称、类型的RStruct父类。
  */
-public class RStruct_contain_name_type 
-extends RStruct_contain_name 
+public class RStruct_contain_genParams_name_type
+extends RStruct_contain_genParams_name
 implements IRStruct_contain_type {
 	
 	/**
-	 * 类型标签，
-	 * 一般用于RClassStruct、RClassRefStruct、GPAssignStruct。
+	 * RStruct的类型标签。
 	 */
 	protected InformationType type;
-	
-	/**
-	 * 设置类型标签，
-	 * 一般用于RClassStruct、RClassRefStruct、GPAssignStruct。
-	 * @param type
-	 * 		被设置的类型标签。
-	 */
+
 	@Override
 	public void defineType(InformationType type) {
+		if (type == null || type == InformationType.VOID) {
+			throw new IllegalArgumentException("InformationType为null或者VOID。");
+		}
+		
 		this.type = type;
 	}
-
 }
