@@ -15,5 +15,15 @@ public interface IRStruct_contain_genParams {
 	 * 		0 - 失败；
 	 * 		1 - 成功。
 	 */
-	public int defineGenParams_by_RSet(RSet<GenParamStruct> gpSet);
+	public void defineGenParams_by_RSet(RSet<GenParamStruct> gpSet);
+	
+	/**
+	 * 定义一个泛参，
+	 * 防止定义同样名称的泛参。
+	 * @param gpStruct
+	 * 		指定的泛参结构。
+	 * @exception NameConfliction_Exception
+	 * 		泛参定义名冲突。
+	 */
+	public void defineGenParam(GenParamStruct gpStruct);
 }
