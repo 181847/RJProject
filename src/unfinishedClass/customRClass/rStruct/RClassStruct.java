@@ -1,127 +1,163 @@
 package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_genParams;
-import unfinishedClass.customRClass.scriptBlock.information.InformationType;
+import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_genParams_varField_type;
+import unfinishedClass.customRClass.rStruct.detailInterface.IRClassStruct;
 
 /**
  * 包含一个RClass定义的结构。
  */
 public class RClassStruct
-implements IRStruct, 	
-			IRStruct_contain_genParams{
+extends RStruct_contain_name_genParams_varField_type
+implements IRClassStruct, IRStruct{
 	
 	/**
-	 * 定义泛型参数。
-	 * @param gpSet
-	 * 		泛参定义集合。
+	 * 原始来源路径，包括工程路径及内部脚本路径。
 	 */
+	protected String sourcePath;
+	
+	/**
+	 * 非接口父类继承。
+	 */
+	protected RClassRefStruct extendsRef;
+	
+	/**
+	 * 接口实现集合。
+	 */
+	protected RSet<RClassRefStruct> implementsRefSet;
+	
+	/**
+	 * 成员变量集合，包括静态和非静态。
+	 */
+	protected VarFieldStruct memberVarFieldStruct;
+	
+	/**
+	 * 构造Function。
+	 */
+	protected FunStruct conFun;
+	
+	/**
+	 * 静态Function集合。
+	 */
+	protected RSet<FunStruct> staticFunSet;
+
+	/**
+	 * 普通Function集合。
+	 */
+	protected RSet<FunStruct> funSet;
+
+	/**
+	 * 抽象Function集合。
+	 */
+	protected RSet<FunStruct> abstractFunSet;
+
 	@Override
-	public int defineGenParams_by_RSet(RSet<GenParamStruct> gpSet) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * 定义RClass的类型，
-	 * 接口、普通、抽象。
-	 * @param type
-	 * 		INTERFACE、ABSTRACT_RCLASS、RCLASS。
-	 */
-	public void defineType(InformationType type) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * 定义RClass的类名。
-	 * @param name
-	 * 		RClass的类名。
-	 */
 	public void defineName(String name) {
-		// TODO Auto-generated method stub
-		
+		//要求名字符合类名命名规范。
+		this.defineNameAsRClassName(name);
 	}
 
-	/**
-	 * 定义父类。
-	 * @param rStruct
-	 * 		类型引用结构。
-	 */
-	public void defineExtends(RClassRefStruct rStruct) {
-		// TODO Auto-generated method stub
+	@Override
+	public void defineExtends(RClassRefStruct classRefStruct) {
+		if (classRefStruct == null) {
+			throw new IllegalArgumentException("RClass定义非接口父类时传入了参数null。");
+		}
 		
+		//定义非接口父类。
+		extendsRef = classRefStruct;
 	}
 
-	/**
-	 * 定义接口。
-	 * @param interfaceSet
-	 * 		类型引用集合。
-	 */
+	@Override
 	public void defineImplements_by_RSet(RSet<RClassRefStruct> interfaceSet) {
-		// TODO Auto-generated method stub
+		if (interfaceSet == null) {
+			throw new IllegalArgumentException(
+					"通过集合定义RClass的实现接口时，传入了参数null。");
+		}
 		
+		for (RClassRefStruct singleInterface : interfaceSet) {
+			//单独定义实现接口。
+			defineImplement(singleInterface);
+		}
 	}
 
-	/**
-	 * 定义变量成员。
-	 * @param varField
-	 * 		静态和非静态变量定义区域。
-	 */
+	@Override
+	public void defineImplement(RClassRefStruct classRefStruct) {
+		if (classRefStruct == null) {
+			throw new IllegalArgumentException(
+					"单独向RClassStruct中添加接口实现时，传入了参数null。");
+		}
+		
+		//TODO 在这里添加对接口的冲突名检测，
+		//发现同名冲突的话就要抛出异常NameConflictionException。
+		
+		implementsRefSet.add(classRefStruct);
+	}
+
+	@Override
 	public void defineMembers_by_RStruct(VarFieldStruct varField) {
-		// TODO Auto-generated method stub
+		if (varField == null) {
+			throw new IllegalArgumentException(
+					"通过VarFieldStruct定义RClassStruct的成员变量时，传入参数为null。");
+		}
 		
+		memberVarFieldStruct = varField;
 	}
 
-	/**
-	 * 定义构造Function。
-	 * @param funStruct
-	 * 		构造Function结构。
-	 */
+	@Override
 	public void defineConFun(FunStruct funStruct) {
-		// TODO Auto-generated method stub
+		if (funStruct == null) {
+			throw new IllegalArgumentException(
+					"不能使用null来定义RClassStruct的构造Function。");
+		}
 		
+		conFun = funStruct;
 	}
 
-	/**
-	 * 定义静态Function。
-	 * @param funStruct
-	 * 		静态Function结构。
-	 */
+	@Override
 	public void defineStaticFun(FunStruct funStruct) {
-		// TODO Auto-generated method stub
+		if (funStruct == null) {
+			throw new IllegalArgumentException(
+					"不能使用null来定义RClassStruct的静态Function。");
+		}
 		
+		//TODO 在这里添加对静态Function的冲突名检测，
+		//发现同名冲突的话就要抛出异常NameConflictionException。
+		
+		staticFunSet.add(funStruct);
 	}
 
-	/**
-	 * 定义普通Function。
-	 * @param funStruct
-	 * 		普通Function结构。
-	 */
+	@Override
 	public void defineFun(FunStruct funStruct) {
-		// TODO Auto-generated method stub
+		if (funStruct == null) {
+			throw new IllegalArgumentException(
+					"不能使用null来定义RClassStruct的普通Function。");
+		}
 		
+		//TODO 在这里添加对普通Function的冲突名检测，
+		//发现同名冲突的话就要抛出异常NameConflictionException。
+		
+		funSet.add(funStruct);
 	}
 
-	/**
-	 * 定义抽象Function。
-	 * @param funStruct
-	 * 		抽象Function结构。
-	 */
+	@Override
 	public void defineAbstractFun(FunStruct funStruct) {
-		// TODO Auto-generated method stub
+		if (funStruct == null) {
+			throw new IllegalArgumentException(
+					"不能使用null来定义RClassStruct的抽象Function。");
+		}
 		
+		//TODO 在这里添加对抽象Function的冲突名检测，
+		//发现同名冲突的话就要抛出异常NameConflictionException。
+		
+		abstractFunSet.add(funStruct);
 	}
 
-	/**
-	 * 记录当前RClass所来自的路径，
-	 * 包括工程名和脚本路径。
-	 * @param path
-	 * 		工程名和脚本路径。
-	 */
+	@Override
 	public void logSourcePath(String path) {
-		// TODO Auto-generated method stub
+		if (path == null || path.isEmpty()) {
+			throw new IllegalArgumentException("不能用null或者空串来设定RClassStruct的来源路径。");
+		}
 		
+		sourcePath = path;
 	}
-
 }

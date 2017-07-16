@@ -1,36 +1,25 @@
 package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_genParams;
+import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_genParams_vars;
 
 /**
  * 存储了一个Function定义的结构体。
  */
-public class FunStruct 
-implements IRStruct ,
-IRStruct_contain_genParams{
+public class FunStruct
+extends RStruct_contain_name_genParams_vars
+implements IRStruct{
 
 	/**
-	 * 设置Function的名字。
-	 * @param funName
-	 * 		如果Function是ConFun类型，传入的字符串
-	 * 		固定是一个不符合组件命名规范的字符串；
-	 * 		其他情况传入的都是符合组件命名规范的字符串。
+	 * @param name
+	 * 		要求符合组件命名规范。
+	 * @throws IllegalArgumentException
+	 * 		如果不符合组件命名规范就会抛出异常。
 	 */
-	public void defineName(String funName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * 定义Function的泛参。
-	 * @param gpSet
-	 * 		泛参结构集合。
-	 * @return 
-	 */
-	public int defineGenParams_by_RSet(RSet<GenParamStruct> gpSet) {
-		//TODO
-		return 0;
+	@Override
+	public void defineName(String name) {
+		//以组件命名规范进行命名。
+		this.defineNameAsComponentName(name);
 	}
 
 	/**
@@ -39,7 +28,6 @@ IRStruct_contain_genParams{
 	 * 		执行入口结构集合。
 	 */
 	public void defineExcutees_by_RSet(RSet<ExcuteeStruct> excuteeSet) {
-		// TODO Auto-generated method stub
 		
 	}
 
