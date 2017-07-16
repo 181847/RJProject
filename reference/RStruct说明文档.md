@@ -21,12 +21,12 @@ CommentStruct   |   一个注释区域的定义，内部包括一个方形区域
 TextStruct  |   一个纯粹的文本结构，简单用StringBuffer进行存储。
 
 #相关RStruct可以共用的方法
-RStruct |   defineName()    |   defineType()    |    defineClassRef()   |   defineGenParams_by_RSet |   defineGPAssign_by_RSet()
---------|-------------------|-------------------|-----------------------|---------------------------|----------------------------
-RClassStruct    |   V       |   V               |                       |   V
+RStruct |   name    |   type    |    classRef   |   GenParam |   GPAssign   |   Var
+--------|-----------|-----------|---------------|------------|--------------|-----------
+RClassStruct    |   V       |   V   |   |   V   |   |   V
 RClassRefStruct |   V   |   V   |   |   |   V
 GPAssignStruct  |   V   |   V   |   V   |       |   V
-FunStruct       |   V   |       |       |   V
+FunStruct       |   V   |       |       |   V   |   |   V
 SubFunStruct    |   V   |   |   V   |   |   V
 VarStruct       |   V   |   |   V
 ExcuteeStruct   |   V   |
