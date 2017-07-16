@@ -6,7 +6,7 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_class
 /**
  * 包含名字和类型引用的RStruct父类。
  */
-public class RStruct_contain_name_classRef 
+public abstract class RStruct_contain_name_classRef 
 extends RStruct_contain_name
 implements IRStruct_contain_classRef{
 	
@@ -24,5 +24,4 @@ implements IRStruct_contain_classRef{
 	public void defineClassRef(RClassRefStruct rClassRefStruct) {
 		classRef = rClassRefStruct;
 	}
-
 }

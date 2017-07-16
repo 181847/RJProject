@@ -1,5 +1,6 @@
 package unfinishedClass.customRClass.rStruct.baseRStruct;
 
+import unfinishedClass.Exception.RStructException.NameConflictException;
 import unfinishedClass.customRClass.rStruct.GPAssignStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_GPAssigns;
@@ -9,16 +10,17 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_GPAss
  */
 public class RStruct_contain_GPAssigns 
 implements IRStruct_contain_GPAssigns {
-
-	/**
-	 * 泛参指配集合。
-	 */
-	protected RSet<GPAssignStruct> gpaSet;
 	
+	/**
+	 * 泛参指定集合。
+	 */
+	public RSet<GPAssignStruct> gpaSet;
+
 	@Override
 	public void defineGPAssigns_by_RSet(RSet<GPAssignStruct> gpaSet) {
 		if (gpaSet == null) {
-			throw new IllegalArgumentException("通过集合来指配泛参具体类型时，传入的参数为null。");
+			throw new IllegalArgumentException(
+					"通过集合定义泛参指定时，传入的参数为null。");
 		}
 		
 		for (GPAssignStruct gpaStruct : gpaSet) {
@@ -29,11 +31,12 @@ implements IRStruct_contain_GPAssigns {
 	@Override
 	public void defineGPAssign(GPAssignStruct gpaStruct) {
 		if (gpaStruct == null) {
-			throw new IllegalArgumentException("不能使用null来指配泛参具体类型。");
+			throw new IllegalArgumentException(
+					"不能用null来定义泛参指配。");
 		}
 		
-		//TODO 在这里对泛参指配的目标泛参名进行检查，
-		//如果发生冲突，就要抛出NameConflictionException。
+		//TODO 在这里要添加对泛参指配名称冲突的检查，
+		//一旦发生名称冲突就要抛出NameConflictException。
 		
 		gpaSet.add(gpaStruct);
 	}

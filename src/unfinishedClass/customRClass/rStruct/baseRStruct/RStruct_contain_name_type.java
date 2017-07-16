@@ -6,9 +6,9 @@ import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 /**
  * 包含名称和类型的RStruct父类。
  */
-public class RStruct_contain_name_type 
-extends RStruct_contain_name 
-implements IRStruct_contain_type {
+public abstract class RStruct_contain_name_type 
+	extends RStruct_contain_name 
+	implements IRStruct_contain_type {
 	
 	/**
 	 * 类型标签，
@@ -26,5 +26,4 @@ implements IRStruct_contain_type {
 	public void defineType(InformationType type) {
 		this.type = type;
 	}
-
 }
