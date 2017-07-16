@@ -1,21 +1,23 @@
 package unfinishedClass.customRClass.rStruct.detailInterface;
 
-import unfinishedClass.customRClass.rStruct.ArcFieldStruct;
 import unfinishedClass.customRClass.rStruct.CommentStruct;
 import unfinishedClass.customRClass.rStruct.ExcuteeStruct;
 import unfinishedClass.customRClass.rStruct.ExcuterFieldStruct;
 import unfinishedClass.customRClass.rStruct.ExcuterStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
 import unfinishedClass.customRClass.rStruct.SubFunStruct;
-import unfinishedClass.customRClass.rStruct.VarFieldStruct;
 import unfinishedClass.customRClass.rStruct.VarStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_arcs;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_genParams;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_name;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_vars;
 
 public interface IFunStruct 
 		extends 
 		IRStruct_contain_name, 
-		IRStruct_contain_genParams {
+		IRStruct_contain_genParams,
+		IRStruct_contain_vars,
+		IRStruct_contain_arcs{
 
 	/**
 	 * 定义执行入口。
@@ -46,25 +48,11 @@ public interface IFunStruct
 	public void defineReturnvals_by_RSet(RSet<VarStruct> returnvalSet);
 
 	/**
-	 * 定义本地变量。
-	 * @param varField
-	 * 		变量区域，内部包括静态变量和非静态变量。
-	 */
-	public void defineLocalVars_by_RStruct(VarFieldStruct varField);
-
-	/**
 	 * 定义subFun。
 	 * @param subFunSet
 	 * 		subFun结构集合。
 	 */
 	public void defineSubFuns_by_RSet(RSet<SubFunStruct> subFunSet);
-
-	/**
-	 * 定义弧线。
-	 * @param arcField
-	 * 		弧线区域，包括执行弧线和参数弧线。
-	 */
-	public void defineArcs_by_RStruct(ArcFieldStruct arcField);
 
 	/**
 	 * 定义注释。
@@ -119,4 +107,22 @@ public interface IFunStruct
 	 * 		如果发生返回值组件命名冲突就要抛出这个异常。
 	 */
 	public void defineReturnval(VarStruct vStruct);
+	
+	/**
+	 * 单独定义子Fun。
+	 * @param sfStruct
+	 * 		子Fun结构。
+	 * @throws NameConflictException
+	 * 		如果发生 子Fun 命名冲突就要抛出这个异常。
+	 */
+	public void defineSubFun(SubFunStruct sfStruct);
+
+	/**
+	 * 单独定义注释区域。
+	 * @param cStruct
+	 * 		注释区域结构。
+	 */
+	public void defineComment(CommentStruct cStruct);
+	
+	
 }
