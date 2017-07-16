@@ -6,9 +6,9 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_class
 /**
  * 包含泛参指配、名字、类型引用的RStruct父类。
  */
-public class RStruct_contain_GPAssigns_name_classRef 
-extends RStruct_contain_GPAssigns_name 
-implements IRStruct_contain_classRef{
+public abstract class RStruct_contain_name_GPAssigns_classRef 
+		extends RStruct_contain_name_GPAssigns
+		implements IRStruct_contain_classRef{
 	
 	/**
 	 * 类型引用。
