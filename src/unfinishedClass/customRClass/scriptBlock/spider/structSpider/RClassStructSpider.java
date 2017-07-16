@@ -40,7 +40,7 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 		case DECLAR_GEN_PARAMS:
 			//定义泛参。
 			finalRStruct
-			.defineGenParam_by_RSet(
+			.defineGenParams_by_RSet(
 					getRSet_fromSub_use(
 							new GenParamSetSpider()));
 			break;

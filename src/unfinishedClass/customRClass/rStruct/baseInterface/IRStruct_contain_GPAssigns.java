@@ -8,7 +8,7 @@ import unfinishedClass.customRClass.rStruct.RSet;
  */
 public interface IRStruct_contain_GPAssigns {
 	/**
-	 * 定义subFun的泛参指配。
+	 * 定义泛参指配。
 	 * @param gpaSet
 	 * 		泛参指配结构集合。
 	 */
@@ -19,8 +19,6 @@ public interface IRStruct_contain_GPAssigns {
 	 * 防止对同名的泛参进行指配。
 	 * @param gpaStruct
 	 * 		包含泛参名和及被指配的RClassRefStruct。
-	 * @exception NameConfliction_Exception
-	 * 		定义冲突的泛参名泛参指配时，抛出此异常。
 	 */
 	public void defineGPAssign(GPAssignStruct gpaStruct);
 }

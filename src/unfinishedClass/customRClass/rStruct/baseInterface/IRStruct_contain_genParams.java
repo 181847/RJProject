@@ -22,7 +22,7 @@ public interface IRStruct_contain_genParams {
 	 * 防止定义同样名称的泛参。
 	 * @param gpStruct
 	 * 		指定的泛参结构。
-	 * @exception NameConfliction_Exception
+	 * @throws NameConfliction_Exception
 	 * 		泛参定义名冲突。
 	 */
 	public void defineGenParam(GenParamStruct gpStruct);
