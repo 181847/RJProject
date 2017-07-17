@@ -1,10 +1,10 @@
 package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_GPAssigns;
+import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_GPAssigns_classRef;
 
 public class SubFunStruct 
-extends RStruct_contain_name_GPAssigns
+extends RStruct_contain_name_GPAssigns_classRef
 implements IRStruct {
 	/**
 	 * 在工作空间中的一个二维坐标。

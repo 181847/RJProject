@@ -16,6 +16,10 @@ public abstract class RStruct_contain_name_GPAssigns
 	 */
 	protected RSet<GPAssignStruct> gpaSet;
 	
+	public RStruct_contain_name_GPAssigns() {
+		gpaSet = null;
+	}
+	
 	/**
 	 * @throws NameConflictionException
 	 * 		定义冲突的泛参名泛参指配时，抛出此异常。
@@ -41,9 +45,29 @@ public abstract class RStruct_contain_name_GPAssigns
 			throw new IllegalArgumentException("不能使用null来指配泛参具体类型。");
 		}
 		
+		//准备存储泛参指配的集合。
+		initGPAssignSet();
+		
 		//TODO 在这里对泛参指配的目标泛参名进行检查，
 		//如果发生冲突，就要抛出NameConflictionException。
 		
 		gpaSet.add(gpaStruct);
+	}
+	
+	/**
+	 * 如果内部存储泛参指配的gpaSet为null，
+	 * 就要为其分配一个集合对象。
+	 * 如果gpaSet不为null，
+	 * 就跳过。
+	 */
+	private void initGPAssignSet() {
+		if (gpaSet == null) {
+			gpaSet = new RSet<GPAssignStruct>();
+		}
+	}
+
+	@Override
+	public RSet<GPAssignStruct> getGPAssignSet(){
+		return gpaSet;
 	}
 }

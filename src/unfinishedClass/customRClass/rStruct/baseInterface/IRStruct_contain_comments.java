@@ -17,4 +17,12 @@ public interface IRStruct_contain_comments {
 	 * 		注释定义结构。
 	 */
 	public void defineComment(CommentStruct cStruct);
+	
+	/**
+	 * 获取包含的所有注释结构。
+	 * @return
+	 * 		注释结构集合，如果没有定义注释的话，
+	 * 		返回的对象长度为0（RSet以ArrayList实现）。
+	 */
+	public RSet<CommentStruct> getCommentSet();
 }

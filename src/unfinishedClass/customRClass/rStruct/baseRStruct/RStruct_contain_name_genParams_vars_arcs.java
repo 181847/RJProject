@@ -5,13 +5,18 @@ import unfinishedClass.customRClass.rStruct.ArcStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_arcs;
 
-public abstract class RStruct_contain_name_genParams_vars_arcs extends RStruct_contain_name_genParams_vars
+public abstract class RStruct_contain_name_genParams_vars_arcs 
+		extends RStruct_contain_name_genParams_vars
 		implements IRStruct_contain_arcs {
 	
 	/**
 	 * 弧线定义区域。
 	 */
 	protected ArcFieldStruct arcField;
+	
+	public RStruct_contain_name_genParams_vars_arcs() {
+		arcField = new ArcFieldStruct();
+	}
 	
 	public void defineArcs_by_RStruct(ArcFieldStruct arcField) {
 		if (arcField == null) {

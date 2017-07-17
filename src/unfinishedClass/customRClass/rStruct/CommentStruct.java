@@ -26,6 +26,11 @@ public class CommentStruct implements IRStruct, ICommentStruct {
 	 */
 	protected TextStruct commentContent;
 	
+	public CommentStruct() {
+		lf_up_location = new LocationStruct();
+		rt_lo_location = new LocationStruct();
+	}
+	
 
 	/**
 	 * 定义注释的方形区域信息，

@@ -24,4 +24,7 @@ public abstract class RStruct_contain_name_GPAssigns_type
 		this.type = type;
 	}
 
+	public InformationType getType() {
+		return type;
+	}
 }

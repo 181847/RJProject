@@ -16,4 +16,11 @@ public interface IRStruct_contain_type {
 	 * 		传入参数为null或者InformationType.VOID。
 	 */
 	public void defineType(InformationType type);
+	
+	/**
+	 * 获取RStruct的类型。
+	 * @return
+	 * 		内部包含的RStruct类型。
+	 */
+	public InformationType getType();
 }

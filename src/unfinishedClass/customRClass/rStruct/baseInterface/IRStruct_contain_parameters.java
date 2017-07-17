@@ -20,4 +20,12 @@ public interface IRStruct_contain_parameters {
 	 * 		参数组件定义结构。
 	 */
 	public void defineParameter(VarStruct vStruct);
+	
+	/**
+	 * 获取参数定义集合。
+	 * @return
+	 * 		参数定义集合，如果没有定义参数，
+	 * 		返回对象长度就为0（RSet以ArrayList实现）。
+	 */
+	public RSet<VarStruct> getParameterSet();
 }

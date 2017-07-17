@@ -14,6 +14,10 @@ implements IRStruct_contain_classRef{
 	 * 类型引用。
 	 */
 	protected RClassRefStruct classRef;
+	
+	public RStruct_contain_name_classRef() {
+		classRef = new RClassRefStruct();
+	}
 
 	/**
 	 * 定义类型引用。
@@ -23,5 +27,9 @@ implements IRStruct_contain_classRef{
 	@Override
 	public void defineClassRef(RClassRefStruct rClassRefStruct) {
 		classRef = rClassRefStruct;
+	}
+	
+	public RClassRefStruct getClassRef(){
+		return classRef;
 	}
 }

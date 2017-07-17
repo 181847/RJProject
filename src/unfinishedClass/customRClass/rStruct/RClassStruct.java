@@ -27,11 +27,6 @@ implements IRClassStruct, IRStruct{
 	protected RSet<RClassRefStruct> implementsRefSet;
 	
 	/**
-	 * 成员变量集合，包括静态和非静态。
-	 */
-	protected VarFieldStruct memberVarFieldStruct;
-	
-	/**
 	 * 构造Function。
 	 */
 	protected FunStruct conFun;
@@ -50,6 +45,13 @@ implements IRClassStruct, IRStruct{
 	 * 抽象Function集合。
 	 */
 	protected RSet<FunStruct> abstractFunSet;
+	
+	public RClassStruct() {
+		implementsRefSet = new RSet<RClassRefStruct>();
+		staticFunSet = new RSet<FunStruct>();
+		funSet = new RSet<FunStruct>();
+		abstractFunSet = new RSet<FunStruct>();
+	}
 
 	@Override
 	public void defineName(String name) {
@@ -91,16 +93,6 @@ implements IRClassStruct, IRStruct{
 		//发现同名冲突的话就要抛出异常NameConflictionException。
 		
 		implementsRefSet.add(classRefStruct);
-	}
-
-	@Override
-	public void defineMembers_by_RStruct(VarFieldStruct varField) {
-		if (varField == null) {
-			throw new IllegalArgumentException(
-					"通过VarFieldStruct定义RClassStruct的成员变量时，传入参数为null。");
-		}
-		
-		memberVarFieldStruct = varField;
 	}
 
 	@Override
@@ -159,5 +151,25 @@ implements IRClassStruct, IRStruct{
 		}
 		
 		sourcePath = path;
+	}
+
+	@Override
+	public FunStruct getConstructFunction() {
+		return conFun;
+	}
+
+	@Override
+	public RSet<FunStruct> getStaticFunSet() {
+		return staticFunSet;
+	}
+
+	@Override
+	public RSet<FunStruct> getFunSet() {
+		return funSet;
+	}
+
+	@Override
+	public RSet<FunStruct> getAbstractFunSet() {
+		return abstractFunSet;
 	}
 }

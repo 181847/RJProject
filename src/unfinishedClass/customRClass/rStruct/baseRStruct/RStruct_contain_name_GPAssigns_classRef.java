@@ -23,5 +23,10 @@ public abstract class RStruct_contain_name_GPAssigns_classRef
 		
 		classRefStruct = rClassRefStruct;
 	}
+	
+	@Override
+	public RClassRefStruct getClassRef() {
+		return classRefStruct;
+	}
 
 }

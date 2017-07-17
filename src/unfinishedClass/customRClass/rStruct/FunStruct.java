@@ -36,6 +36,13 @@ implements IRStruct, IFunStruct{
 	 */
 	protected RSet<CommentStruct> commentSet;
 	
+	public FunStruct() {
+		excuteeSet = new RSet<ExcuteeStruct>();
+		paramSet = new RSet<VarStruct>();
+		returnSet = new RSet<VarStruct>();
+		subFunSet = new RSet<SubFunStruct>();
+		commentSet = new RSet<CommentStruct>();
+	}
 	
 	/**
 	 * @param name
@@ -162,6 +169,30 @@ implements IRStruct, IFunStruct{
 	
 	// *************************属性获取*******************************
 
+	@Override
+	public RSet<ExcuteeStruct> getExcuteeSet(){
+		return excuteeSet;
+	}
+
+	@Override
+	public RSet<CommentStruct> getCommentSet(){
+		return commentSet;
+	}
+
+	@Override
+	public RSet<VarStruct> getParameterSet() {
+		return paramSet;
+	}
+
+	@Override
+	public RSet<VarStruct> getReturnvalSet() {
+		return returnSet;
+	}
+
+	@Override
+	public RSet<SubFunStruct> getSubFunSet() {
+		return subFunSet;
+	}
 	
 
 }

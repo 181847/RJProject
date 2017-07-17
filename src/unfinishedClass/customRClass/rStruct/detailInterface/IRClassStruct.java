@@ -37,13 +37,6 @@ IRStruct_contain_genParams{
 	public void defineImplement(RClassRefStruct classRefStruct);
 
 	/**
-	 * 定义变量成员。
-	 * @param varField
-	 * 		静态和非静态变量定义区域。
-	 */
-	public void defineMembers_by_RStruct(VarFieldStruct varField);
-
-	/**
 	 * 定义构造Function。
 	 * @param funStruct
 	 * 		构造Function结构。
@@ -78,4 +71,35 @@ IRStruct_contain_genParams{
 	 * 		工程名和脚本路径。
 	 */
 	public void logSourcePath(String path);
+	
+	/**
+	 * 获取构造Function。
+	 * @return
+	 * 		构造Function，如果没有定义的话就返回null。
+	 */
+	public FunStruct getConstructFunction();
+	
+	/**
+	 * 获取静态Function集合。
+	 * @return
+	 * 		静态Function集合，如果没有静态Function，
+	 * 		返回对象长度为0（RSet以ArrayList实现）。
+	 */
+	public RSet<FunStruct> getStaticFunSet();
+	
+	/**
+	 * 获取非静态Function集合。
+	 * @return
+	 * 		非静态Function集合，如果没有非静态Function，
+	 * 		返回对象长度为0（RSet以ArrayList实现）。
+	 */
+	public RSet<FunStruct> getFunSet();
+	
+	/**
+	 * 获取抽象Function集合。
+	 * @return
+	 * 		抽象Function集合，如果没有抽象Function，
+	 * 		返回对象长度为0（RSet以ArrayList实现）。
+	 */
+	public RSet<FunStruct> getAbstractFunSet();
 }

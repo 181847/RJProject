@@ -20,4 +20,11 @@ public interface IRStruct_contain_returnvals {
 	 * 		返回值组件定义结构。
 	 */
 	public void defineReturnval(VarStruct vStruct);
+	
+	/**
+	 * 获取返回值组件集合。
+	 * @return
+	 * 		返回值定义集合。
+	 */
+	public RSet<VarStruct> getReturnvalSet();
 }

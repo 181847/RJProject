@@ -17,6 +17,10 @@ public abstract class RStruct_contain_name_genParams_vars_arcs_excuters
 	 */
 	public ExcuterFieldStruct efStruct;
 	
+	public RStruct_contain_name_genParams_vars_arcs_excuters() {
+		efStruct = new ExcuterFieldStruct();
+	}
+	
 	/**
 	 * @throws NameConflicException
 	 * 		如果执行出口的名称发生了冲突，

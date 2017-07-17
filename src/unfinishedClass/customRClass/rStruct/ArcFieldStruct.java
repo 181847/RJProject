@@ -20,6 +20,11 @@ public class ArcFieldStruct
 	 */
 	protected RSet<ArcStruct> pArcSet;
 	
+	public ArcFieldStruct() {
+		eArcSet = new RSet<ArcStruct>();
+		pArcSet = new RSet<ArcStruct>();
+	}
+	
 	@Override
 	public void defineArcs_by_RStruct(ArcFieldStruct afStruct) {
 		if (afStruct == null) {

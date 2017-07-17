@@ -10,9 +10,9 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
  */
 public class RSet<T extends IRStruct> extends ArrayList<T> {
 	/**
-	 * 存储RStruct结构的数组列表。
+	 * 
 	 */
-	protected ArrayList<T> rSetList;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 获取指定序号的RStruct对象。
@@ -22,7 +22,7 @@ public class RSet<T extends IRStruct> extends ArrayList<T> {
 	 * 		如果序号超出范围就返回null。
 	 */
 	public T getRStruct(int index) {
-		return rSetList.get(index);
+		return get(index);
 	}
 
 }

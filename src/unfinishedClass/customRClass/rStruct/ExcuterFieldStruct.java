@@ -16,6 +16,11 @@ public class ExcuterFieldStruct
 	 */
 	protected RSet<ExcuterStruct> normalESet;
 	
+	public ExcuterFieldStruct() {
+		exceptionESet = new RSet<ExcuterStruct>();
+		normalESet = new RSet<ExcuterStruct>();
+	}
+	
 	/**
 	 * @throws NameConflicException
 	 * 		如果执行出口的名称发生了冲突，

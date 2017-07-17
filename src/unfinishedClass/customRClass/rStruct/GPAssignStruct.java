@@ -92,4 +92,18 @@ implements IGPAssignStruct, IRStruct {
 				+ "它的类型有内部的引用类型classRef决定。");
 	}
 
+	@Override
+	public RSet<GPAssignStruct> getGPAssignSet() {
+		return classRef.getGPAssignSet();
+	}
+
+	/**
+	 * 获取RStruct类型，
+	 * 实际上获取的就是内部引用的classRef的类型。
+	 */
+	@Override
+	public InformationType getType() {
+		return classRef.getType();
+	}
+
 }

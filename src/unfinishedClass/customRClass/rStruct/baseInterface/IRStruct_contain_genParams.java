@@ -26,4 +26,12 @@ public interface IRStruct_contain_genParams {
 	 * 		泛参定义名冲突。
 	 */
 	public void defineGenParam(GenParamStruct gpStruct);
+	
+	/**
+	 * 获取泛参定义集合。
+	 * @return
+	 * 		泛参定义集合，即使没有定义泛参，返回的对象也不是null，
+	 * 		只不过内部没有包含泛参定义。
+	 */
+	public RSet<GenParamStruct> getGenParamSet();
 }

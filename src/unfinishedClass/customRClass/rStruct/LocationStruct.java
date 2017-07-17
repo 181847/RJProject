@@ -18,6 +18,10 @@ public class LocationStruct implements IRStruct, ILocationStruct {
 	 * Y坐标。
 	 */
 	protected double Y;
+	
+	public LocationStruct() {
+		X = Y = 0;
+	}
 
 	public LocationStruct(String locationString) {
 		defineLocation(locationString);

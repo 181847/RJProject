@@ -21,4 +21,11 @@ public interface IRStruct_contain_GPAssigns {
 	 * 		包含泛参名和及被指配的RClassRefStruct。
 	 */
 	public void defineGPAssign(GPAssignStruct gpaStruct);
+	
+	/**
+	 * 返回所有泛参指配结构的集合。
+	 * @return
+	 * 		如果没有泛参指配，就返回null。
+	 */
+	public RSet<GPAssignStruct> getGPAssignSet();
 }

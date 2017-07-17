@@ -16,6 +16,10 @@ public abstract class RStruct_contain_name_genParams_vars
 	 * 变量定义区域。
 	 */
 	protected VarFieldStruct varField;
+	
+	public RStruct_contain_name_genParams_vars() {
+		varField = new VarFieldStruct();
+	}
 
 	@Override
 	public void defineVars_by_RStruct(VarFieldStruct vfStruct) {

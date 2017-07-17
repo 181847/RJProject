@@ -27,5 +27,4 @@ public interface IFunStruct
 		IRStruct_contain_subFuns,
 		IRStruct_contain_comments{
 	
-	
 }

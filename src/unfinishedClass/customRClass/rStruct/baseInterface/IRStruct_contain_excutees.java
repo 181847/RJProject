@@ -20,4 +20,11 @@ public interface IRStruct_contain_excutees {
 	 * 		执行入口结构。
 	 */
 	public void defineExcutee(ExcuteeStruct eStruct);
+	
+	/**
+	 * 获取执行入口定义集合。
+	 * @return
+	 * 		执行入口定义集合。
+	 */
+	public RSet<ExcuteeStruct> getExcuteeSet();
 }

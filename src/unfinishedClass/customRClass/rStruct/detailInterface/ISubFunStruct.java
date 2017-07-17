@@ -3,12 +3,14 @@ package unfinishedClass.customRClass.rStruct.detailInterface;
 import unfinishedClass.customRClass.rStruct.LocationStruct;
 import unfinishedClass.customRClass.rStruct.TextStruct;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_GPAssigns;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_classRef;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_name;
 
 public interface ISubFunStruct 
 		extends
 		IRStruct_contain_name,
-		IRStruct_contain_GPAssigns{
+		IRStruct_contain_GPAssigns,
+		IRStruct_contain_classRef{
 	
 	/**
 	 * 设定子Function在工作空间中的位置。

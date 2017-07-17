@@ -23,4 +23,8 @@ implements IRStruct_contain_type {
 		
 		this.type = type;
 	}
+
+	public InformationType getType() {
+		return type;
+	}
 }

@@ -15,6 +15,10 @@ public abstract class RStruct_contain_name_genParams
 	 */
 	protected RSet<GenParamStruct> gpSet;
 	
+	public RStruct_contain_name_genParams() {
+		gpSet = new RSet<GenParamStruct>();
+	}
+	
 	/**
 	 * 定义泛参定义集合，通过一个泛参结构数组。
 	 * @param gpSet
@@ -34,10 +38,6 @@ public abstract class RStruct_contain_name_genParams
 	}
 	
 	/**
-	 * 定义一个泛参，
-	 * 防止定义同样名称的泛参。
-	 * @param gpStruct
-	 * 		指定的泛参结构。
 	 * @exception NameConflictionException
 	 * 		泛参定义名冲突。
 	 */
@@ -51,5 +51,9 @@ public abstract class RStruct_contain_name_genParams
 		
 		//添加泛参集合。
 		gpSet.add(gpStruct);
+	}
+	
+	public RSet<GenParamStruct> getGenParamSet() {
+		return gpSet;
 	}
 }

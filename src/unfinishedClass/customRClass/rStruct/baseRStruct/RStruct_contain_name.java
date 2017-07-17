@@ -106,10 +106,23 @@ public abstract class RStruct_contain_name implements IRStruct_contain_name {
 					"定义RStrut的名字是null或者空串。");
 		}
 		
-		if (this.name == null) {
+		if (this.name != null) {
 			throw new CodeRefuseException(
 					"不能对已命名的对象重命名。");
 		}
 	}
 
+
+	/**
+	 * @throws CodeRefuseException
+	 * 		如果name还是null，即还未设置名字之前，就会抛出这个异常，
+	 * 		防止获取非法的名字。
+	 */
+	public String getName() {
+		if (name == null) {
+			throw new CodeRefuseException("名称还未设置，不能获取名字。");
+		}
+		
+		return name;
+	}
 }
