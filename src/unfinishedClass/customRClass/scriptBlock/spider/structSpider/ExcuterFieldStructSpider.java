@@ -21,7 +21,7 @@ extends UtilsRStructSpider_with_RStruct<ExcuterFieldStruct> {
 		case DECLAR_EXCUTERS_EXCEPTION:
 			//异常执行出口。
 			finalRStruct
-			.defineExcepExcuters_by_RSet(
+			.defineEExcuters_by_RSet(
 					getRSet_fromSub_use(
 							new ExcuterSetSpider()));
 			break;
@@ -29,7 +29,7 @@ extends UtilsRStructSpider_with_RStruct<ExcuterFieldStruct> {
 		case DECLAR_EXCUTERS_NORMAL:
 			//普通执行出口。
 			finalRStruct
-			.defineNormlExcuters_by_RSet(
+			.defineNExcuters_by_RSet(
 					getRSet_fromSub_use(
 							new ExcuterSetSpider()));
 			break;

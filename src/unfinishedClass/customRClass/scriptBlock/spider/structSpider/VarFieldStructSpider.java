@@ -23,7 +23,7 @@ public class VarFieldStructSpider extends UtilsRStructSpider_with_RStruct<VarFie
 		case DECLAR_STATIC:
 			//静态变量部分。
 			finalRStruct
-			.defineStaticVar_by_RSet(
+			.defineStaticVars_by_RSet(
 					//获取 子链中的变量定义集合。
 					getRSet_fromSub_use(
 							new VarSetSpider()));

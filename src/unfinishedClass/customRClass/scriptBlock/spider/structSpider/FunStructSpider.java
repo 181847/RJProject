@@ -66,7 +66,7 @@ extends UtilsRStructSpider_with_RStruct<FunStruct> {
 		case DECLAR_LOCALVARS:
 			//定义本地变量。
 			finalRStruct
-			.defineLocalVars_by_RStruct(
+			.defineVars_by_RStruct(
 					getRStruct_fromSub_use(
 							new VarFieldStructSpider()));
 			break;

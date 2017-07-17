@@ -65,7 +65,7 @@ extends UtilsRStructSpider_with_RStruct<RClassStruct>{
 		case DECLAR_MEMBERS:
 			//定义成员变量。
 			finalRStruct
-			.defineMembers_by_RStruct(
+			.defineVars_by_RStruct(
 					getRStruct_fromSub_use(
 							new VarFieldStructSpider()));
 			break;
