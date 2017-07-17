@@ -2,7 +2,7 @@ package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.Exception.RStructException.ArcPointFormatException;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_classRef;
+import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name;
 import unfinishedClass.customRClass.rStruct.detailInterface.IArcPointStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
 
@@ -11,7 +11,7 @@ import unfinishedClass.customRClass.scriptBlock.ScriptDeclaration;
  * 包含一个序号和一个组件符号。
  */
 public class ArcPointStruct 
-		extends RStruct_contain_name_classRef
+		extends RStruct_contain_name
 		implements IRStruct, IArcPointStruct {
 	/**
 	 * 弧线连接的子Function的序号。
