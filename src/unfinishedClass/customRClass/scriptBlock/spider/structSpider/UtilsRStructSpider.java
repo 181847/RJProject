@@ -196,8 +196,6 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			//以及用于填充泛参的另一个类型引用名，
 			//一次性将这两个信息补充到RStruct中。
 			gpas.defineAssign(targetInfoString);
-			//标明泛参指定是指定为实类型。
-			gpas.defineType(infoType);
 			if (hasSubBlock){
 				//如果有子链。
 				//为参数类型指定泛参指定。
@@ -211,8 +209,6 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		case GP_ASSIGN_GP:
 			//泛参被指定为另一个泛参。
 			gpas.defineAssign(targetInfoString);
-			//标明泛参指定是指定为实类型。
-			gpas.defineType(infoType);
 			break;
 			
 		default:
@@ -253,7 +249,8 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 					.substring(
 							ScriptDeclaration
 							.declar_fun_static
-							.length());
+							//长度要加一，因为声明的冒号后面有一个空格要去掉。
+							.length() + 1);
 			
 		case DECLAR_FUN:
 			//普通Function，
@@ -264,7 +261,8 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 					.substring(
 							ScriptDeclaration
 							.declar_fun
-							.length());
+							//长度要加一，因为声明的冒号后面有一个空格要去掉。
+							.length() + 1);
 			
 		case DECLAR_FUN_ABSTRACT:
 			//抽象Function，
@@ -275,7 +273,8 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 					.substring(
 							ScriptDeclaration
 							.declar_fun_abstract
-							.length());
+							//长度要加一，因为声明的冒号后面有一个空格要去掉。
+							.length() + 1);
 			
 		default:
 			return "NO_MATCH_FUN_NAME";
