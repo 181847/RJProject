@@ -4,9 +4,9 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_type;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
 
 /**
- * 包含泛参定义、名称、类型的RStruct父类。
+ * 包含泛参定义、名称、变量定义、类型的RStruct父类。
  */
-public abstract class RStruct_contain_name_genParams_varField_type
+public abstract class RStruct_contain_name_genParams_vars_type
 extends RStruct_contain_name_genParams_vars
 implements IRStruct_contain_type {
 	

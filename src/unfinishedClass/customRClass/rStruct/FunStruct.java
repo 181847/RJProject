@@ -1,21 +1,42 @@
 package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_genParams_vars;
+import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_genParams_vars_arcs_excuters;
 import unfinishedClass.customRClass.rStruct.detailInterface.IFunStruct;
 
 /**
  * 存储了一个Function定义的结构体。
  */
 public class FunStruct
-extends RStruct_contain_name_genParams_vars
+extends RStruct_contain_name_genParams_vars_arcs_excuters
 implements IRStruct, IFunStruct{
 	
 	/**
-	 * 弧线定义区域。
+	 * 执行入口集合。
 	 */
-	protected ArcFieldStruct arcField;
-
+	protected RSet<ExcuteeStruct> excuteeSet;
+	
+	/**
+	 * 参数组件集合。
+	 */
+	protected RSet<VarStruct> paramSet;
+	
+	/**
+	 * 返回值组件集合。
+	 */
+	protected RSet<VarStruct> returnSet;
+	
+	/**
+	 * 子Function集合。
+	 */
+	protected RSet<SubFunStruct> subFunSet;
+	
+	/**
+	 * 注释集合。
+	 */
+	protected RSet<CommentStruct> commentSet;
+	
+	
 	/**
 	 * @param name
 	 * 		要求符合组件命名规范。
@@ -29,53 +50,50 @@ implements IRStruct, IFunStruct{
 	}
 
 	// *************************集合定义*******************************
-	/**
-	 * 定义执行入口。
-	 * @param excuteeSet
-	 * 		执行入口结构集合。
-	 */
-	public void defineExcutees_by_RSet(RSet<ExcuteeStruct> excuteeSet) {
+
+	public void defineExcutees_by_RSet(RSet<ExcuteeStruct> eSet) {
+		if (excuteeSet == null) {
+			throw new IllegalArgumentException("通过集合定义FunStruct中的执行入口时，"
+					+ "传入参数为null。");
+		}
 		
+		for (ExcuteeStruct eStruct : excuteeSet) {
+			defineExcutee(eStruct);
+		}
 	}
 
-	/**
-	 * 定义参数组件。
-	 * @param parameterSet
-	 * 		参数结构结合。
-	 */
-	public void defineParameters_by_RSet(RSet<VarStruct> parameterSet) {
-		// TODO Auto-generated method stub
+	public void defineParameters_by_RSet(RSet<VarStruct> pSet) {
+		if (pSet == null) {
+			throw new IllegalArgumentException("通过集合定义FunStruct中的参数组件时，"
+					+ "传入参数为null。");
+		}
 		
+		for (VarStruct vStruct : pSet) {
+			defineParameter(vStruct);
+		}
 	}
 
-	/**
-	 * 定义执行出口。
-	 * @param excuterSet
-	 * 		执行出口结构集合。
-	 */
-	public void defineExcuters_by_RStruct(ExcuterFieldStruct excuterSet) {
-		// TODO Auto-generated method stub
+	public void defineReturnvals_by_RSet(RSet<VarStruct> rSet) {
+		if (rSet == null) {
+			throw new IllegalArgumentException("通过集合定义FunStruct中的返回值组件时，"
+					+ "传入参数为null。");
+		}
 		
+		for (VarStruct vStruct : rSet) {
+			defineReturnval(vStruct);
+		}
 	}
 
-	/**
-	 * 定义返回值组件。
-	 * @param returnvalSet
-	 * 		返回值结构集合。
-	 */
-	public void defineReturnvals_by_RSet(RSet<VarStruct> returnvalSet) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void defineSubFuns_by_RSet(RSet<SubFunStruct> sSet) {
 
-	/**
-	 * 定义subFun。
-	 * @param subFunSet
-	 * 		subFun结构集合。
-	 */
-	public void defineSubFuns_by_RSet(RSet<SubFunStruct> subFunSet) {
-		// TODO Auto-generated method stub
+		if (sSet == null) {
+			throw new IllegalArgumentException("通过集合定义FunStruct中的子Function时，"
+					+ "传入参数为null。");
+		}
 		
+		for (SubFunStruct sfStruct : sSet) {
+			defineSubFun(sfStruct);
+		}
 	}
 
 	/**
@@ -84,121 +102,66 @@ implements IRStruct, IFunStruct{
 	 * 		注释结构集合。
 	 */
 	public void defineComments_by_RSet(RSet<CommentStruct> commentSet) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * 定义弧线。
-	 * @param arcField
-	 * 		弧线区域，包括执行弧线和参数弧线。
-	 */
-	public void defineArcs_by_RStruct(ArcFieldStruct arcField) {
-		if (arcField == null) {
-			throw new IllegalArgumentException(
-					"通过ArcFieldStruct定义SubFun的弧线区域时，"
-					+ "传入的参数为null。");
+		if (commentSet == null) {
+			throw new IllegalArgumentException("通过集合定义FunStruct中的注释时，"
+					+ "传入参数为null。");
 		}
 		
-		this.arcField.defineArcs_by_RStruct(arcField);
-	}
-
-	@Override
-	public void defineEArcs_by_RSet(RSet<ArcStruct> arcSet) {
-		if (arcSet == null) {
-			throw new IllegalArgumentException(
-					"通过弧线集合定义SubFun的执行弧线部分时，"
-					+ "传入的参数为null。");
+		for (CommentStruct cStruct : commentSet) {
+			defineComment(cStruct);
 		}
-		
-		arcField.defineEArcs_by_RSet(arcSet);
 	}
-
-	@Override
-	public void definePArcs_by_RSet(RSet<ArcStruct> arcSet) {
-		if (arcSet == null) {
-			throw new IllegalArgumentException(
-					"通过弧线集合定义SubFun的参数弧线部分时，"
-					+ "传入的参数为null。");
-		}
-		
-		arcField.definePArcs_by_RSet(arcSet);
-	}
+	
 
 	// ********************单体定义*********************************
-	
-	@Override
-	public void defineEArc(ArcStruct arcStruct) {
-		if (arcStruct == null) {
-			throw new IllegalArgumentException(
-					"不能用null来定义执行弧线。");
-		}
-		
-		arcField.defineEArc(arcStruct);
-	}
-
-	@Override
-	public void definePArc(ArcStruct arcStruct) {
-		if (arcStruct == null) {
-			throw new IllegalArgumentException(
-					"不能用null来定义参数弧线。");
-		}
-		
-		arcField.definePArc(arcStruct);
-	}
 
 	@Override
 	public void defineExcutee(ExcuteeStruct eStruct) {
-		// TODO Auto-generated method stub
+		if (eStruct == null) {
+			throw new IllegalArgumentException("不能用null来定义执行入口。");
+		}
 		
+		excuteeSet.add(eStruct);
 	}
 
 	@Override
 	public void defineParameter(VarStruct vStruct) {
-		// TODO Auto-generated method stub
+		if (vStruct == null) {
+			throw new IllegalArgumentException("不能用null来定义参数组件。");
+		}
 		
-	}
-
-	@Override
-	public void defineExceptionExcuter(ExcuterStruct eStruct) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void defineNormalExcuter(ExcuterStruct eStruct) {
-		// TODO Auto-generated method stub
-		
+		paramSet.add(vStruct);
 	}
 
 	@Override
 	public void defineReturnval(VarStruct vStruct) {
-		// TODO Auto-generated method stub
+		if (vStruct == null) {
+			throw new IllegalArgumentException("不能用null来定义返回值组件。");
+		}
 		
+		returnSet.add(vStruct);
 	}
 
 	@Override
 	public void defineSubFun(SubFunStruct sfStruct) {
-		// TODO Auto-generated method stub
+		if (sfStruct == null) {
+			throw new IllegalArgumentException("不能用null来定义子Function。");
+		}
 		
+		subFunSet.add(sfStruct);
 	}
 
 	@Override
 	public void defineComment(CommentStruct cStruct) {
-		// TODO Auto-generated method stub
+		if (cStruct == null) {
+			throw new IllegalArgumentException("不能用null来定义注释。");
+		}
 		
+		commentSet.add(cStruct);
 	}
 	
 	// *************************属性获取*******************************
 
-	@Override
-	public RSet<ArcStruct> getEArcSet() {
-		return arcField.getEArcSet();
-	}
-
-	@Override
-	public RSet<ArcStruct> getPArcSet() {
-		return arcField.getPArcSet();
-	}
+	
 
 }

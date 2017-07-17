@@ -44,8 +44,18 @@ public interface IRStruct_contain_arcs {
 	 */
 	public void definePArc(ArcStruct arcStruct);
 	
+	/**
+	 * 获取执行弧线定义集合。
+	 * @return
+	 * 		执行弧线定义集合。
+	 */
 	public RSet<ArcStruct> getEArcSet();
 	
+	/**
+	 * 获取参数弧线定义集合。
+	 * @return
+	 * 		参数弧线定义集合。
+	 */
 	public RSet<ArcStruct> getPArcSet();
 
 }

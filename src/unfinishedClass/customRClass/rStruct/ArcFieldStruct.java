@@ -3,7 +3,12 @@ package unfinishedClass.customRClass.rStruct;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_arcs;
 
-public class ArcFieldStruct implements IRStruct, IRStruct_contain_arcs {
+/**
+ * 包含弧线定义的区域，
+ * 内部包括执行弧线和参数弧线。
+ */
+public class ArcFieldStruct 
+		implements IRStruct, IRStruct_contain_arcs {
 	
 	/**
 	 * 执行弧线集合。

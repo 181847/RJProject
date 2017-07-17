@@ -1,6 +1,8 @@
 package unfinishedClass.customRClass.rStruct.baseRStruct;
 
 import unfinishedClass.Exception.RStructException.CodeRefuseException;
+import unfinishedClass.Exception.RStructException.ComponentNameException;
+import unfinishedClass.Exception.RStructException.RClassNameException;
 import unfinishedClass.customRClass.RStringChecker;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_name;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
@@ -24,7 +26,7 @@ public abstract class RStruct_contain_name implements IRStruct_contain_name {
 	 * 如果不符合将会抛出IllegalArgumentException。
 	 * @param name
 	 * 		期望符合组件命名规范的方法。
-	 * @throws IllegalArgumentException
+	 * @throws ComponentNameException
 	 * 		如果name不符合组件命名规范，就会抛出此异常。
 	 */
 	public void defineNameAsComponentName(String name) {
@@ -35,8 +37,7 @@ public abstract class RStruct_contain_name implements IRStruct_contain_name {
 			this.name = name;
 		} else {
 			//不符合组件命名规范。
-			throw new IllegalArgumentException(
-					"不符合组件命名规范的名字。");
+			throw new ComponentNameException();
 		}
 	}
 	
@@ -45,7 +46,7 @@ public abstract class RStruct_contain_name implements IRStruct_contain_name {
 	 * 如果不符合将会抛出IllegalArgumentException。
 	 * @param name
 	 * 		期望符合类命名规范的方法。
-	 * @throws IllegalArgumentException
+	 * @throws RClassNameException
 	 * 		如果name不符合类命名规范，就会抛出此异常。
 	 */
 	public void defineNameAsRClassName(String name) {
@@ -56,8 +57,7 @@ public abstract class RStruct_contain_name implements IRStruct_contain_name {
 			this.name = name;
 		} else {
 			//不符合组件命名规范。
-			throw new IllegalArgumentException(
-					"不符合组件类名命名规范的名字。");
+			throw new RClassNameException();
 		}
 	}
 	

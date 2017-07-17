@@ -1,14 +1,14 @@
 package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_genParams_varField_type;
+import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_genParams_vars_type;
 import unfinishedClass.customRClass.rStruct.detailInterface.IRClassStruct;
 
 /**
  * 包含一个RClass定义的结构。
  */
 public class RClassStruct
-extends RStruct_contain_name_genParams_varField_type
+extends RStruct_contain_name_genParams_vars_type
 implements IRClassStruct, IRStruct{
 	
 	/**

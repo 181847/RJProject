@@ -1,13 +1,13 @@
 package unfinishedClass.customRClass.rStruct;
 
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
-import unfinishedClass.customRClass.rStruct.detailInterface.IVarFieldStruct;
+import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_vars;
 
 /**
  * 包括静态变量和非静态变量的定义集合。
  */
 public class VarFieldStruct 
-		implements IVarFieldStruct, IRStruct {
+		implements IRStruct, IRStruct_contain_vars {
 	
 	/**
 	 * 静态变量集合。

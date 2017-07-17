@@ -70,10 +70,6 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	 * 		否则返回一个泛参定义结构。
 	 */
 	protected GenParamStruct getGenParamStruct(){
-		if (infoType != InformationType.GEN_PARAM){
-			//防止获取非法信息。
-			return null;
-		}
 		
 		GenParamStruct gps = new GenParamStruct();
 		
@@ -153,14 +149,14 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 		RClassRefStruct rfs = new RClassRefStruct();
 		switch(infoType){
 		case CLASS_REF_CL:
-			//设置类型名称。
+			//设置类型名称，
+			//方法内部自动根据类名设置类引用类型是泛参引用，
+			//还是实类型引用。
 			rfs.defineName(targetInfoString);
-			//定义引用类型。
-			rfs.defineType(infoType);
 			if (hasSubBlock) {
 				//如果有子链。
 				//定义泛参指定。
-				rfs.defineGPAssign_by_RSet(
+				rfs.defineGPAssigns_by_RSet(
 						//获取子链中的泛参指定。
 						getRSet_fromSub_use(
 								new GPAssignSetSpider()));
@@ -168,10 +164,10 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			break;
 			
 		case CLASS_REF_GP:
-			//设置类型名称。
+			//设置类型名称，
+			//方法内部自动根据类名设置类引用类型是泛参引用，
+			//还是实类型引用。
 			rfs.defineName(targetInfoString);
-			//定义引用类型。
-			rfs.defineType(infoType);
 			break;
 			
 		default:
@@ -205,7 +201,7 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 			if (hasSubBlock){
 				//如果有子链。
 				//为参数类型指定泛参指定。
-				gpas.defineGPAssign_forArgument_by_RSet(
+				gpas.defineGPAssigns_by_RSet(
 						//从子链中获取泛参指定集合。
 						getRSet_fromSub_use(
 								new GPAssignSetSpider()));
