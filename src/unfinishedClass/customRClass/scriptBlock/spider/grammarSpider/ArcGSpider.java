@@ -46,7 +46,7 @@ public class ArcGSpider extends DeclarGSpider {
 			appendReport = "\n缺少弧线声明。";
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	
