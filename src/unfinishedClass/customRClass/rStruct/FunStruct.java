@@ -64,7 +64,7 @@ implements IRStruct, IFunStruct{
 					+ "传入参数为null。");
 		}
 		
-		for (ExcuteeStruct eStruct : excuteeSet) {
+		for (ExcuteeStruct eStruct : eSet) {
 			defineExcutee(eStruct);
 		}
 	}
