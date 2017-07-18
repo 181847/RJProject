@@ -25,13 +25,19 @@ public class GrammarSpiderTest {
 	 */
 	private String scriptPath = "src\\testSpace\\res\\script\\standardScript.crc";
 	
+	/**
+	 * 改进后的标准脚本文件路径，
+	 * 增加了多个Function，包括构造、静态、非静态、抽象Function，各一个。
+	 */
+	private String scriptPath_for_multiFunction = "src\\testSpace\\res\\script\\standardScript_1_1.crc";
+	
 	@Before
 	public void setupSequence() {
 		scriptBlock = 
 				ScriptBlockHelper
 				.generateScriptBlock(
 						ScriptPicker
-						.pickScriptFrom(scriptPath));
+						.pickScriptFrom(scriptPath_for_multiFunction));
 
 		//赋予行数信息。
 		new ScriptLineAssignerSpider(scriptBlock.getSub())
