@@ -235,10 +235,8 @@ public abstract class UtilsRStructSpider extends CountableSpider {
 	protected String extractFunName() {
 		switch(infoType){
 		case DECLAR_FUN_CONFUN:
-			//对于构造Function，返回这个特殊的名字，
-			//这个名字不符合组件命名规范，
-			//只能在程序中这样赋予。
-			return "@SELF";
+			//对于构造Function，返回这个特殊的名字。
+			return "SELF";
 			
 		case DECLAR_FUN_STATIC:
 			//静态Function，
