@@ -9,10 +9,10 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_name;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_type;
 
 public interface IRClassStruct 
-extends 
-IRStruct_contain_type, 
-IRStruct_contain_name, 
-IRStruct_contain_genParams{
+		extends 
+			IRStruct_contain_type, 
+			IRStruct_contain_name,
+			IRStruct_contain_genParams{
 	/**
 	 * 定义父类。
 	 * @param rStruct
@@ -71,6 +71,22 @@ IRStruct_contain_genParams{
 	 * 		工程名和脚本路径。
 	 */
 	public void logSourcePath(String path);
+	
+	/**
+	 * 获取非接口父类。
+	 * @return
+	 * 		非接口父类的类引用，
+	 * 		如果没有非接口父类就返回null。
+	 */
+	public RClassRefStruct getExtends();
+	
+	/**
+	 * 获取接口父类集合。
+	 * @return
+	 * 		接口父类集合，如果没有定义接口父类，
+	 * 		返回的对象长度为0（RSet以ArrayList实现）。
+	 */
+	public RSet<RClassRefStruct> getImplementSet();
 	
 	/**
 	 * 获取构造Function。
