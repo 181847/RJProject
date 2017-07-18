@@ -66,6 +66,10 @@ public abstract class RStruct_contain_name_GPAssigns
 		}
 	}
 
+	/**
+	 * @return
+	 * 		如果没有实现定义泛参指配的话，返回null。
+	 */
 	@Override
 	public RSet<GPAssignStruct> getGPAssignSet(){
 		return gpaSet;

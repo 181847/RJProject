@@ -5,7 +5,10 @@ package unfinishedClass.customRClass.rStruct.detailInterface;
  */
 public interface ITextStruct {
 	/**
-	 * 添加一行信息，添加的时候回强制在末尾增加一个换行符。
+	 * 如果当前文本中没有信息，
+	 * 就只是将当前信息添加到对象中，
+	 * 如果文本中已有信息，就要先添加一个换行符，
+	 * 然后再添加上参数中的字符串。
 	 * @param lineSting
 	 * 		一行文本信息。
 	 */
