@@ -54,7 +54,7 @@ public class ArcFieldStruct
 		}
 		
 		for (ArcStruct aStruct : pArcSet) {
-			defineEArc(aStruct);
+			definePArc(aStruct);
 		}
 	}
 

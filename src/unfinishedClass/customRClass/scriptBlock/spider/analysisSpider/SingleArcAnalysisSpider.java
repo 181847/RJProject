@@ -26,14 +26,14 @@ public class SingleArcAnalysisSpider extends CountableSpider {
 			//弧线的出度， A -> B 中的A端。
 			if (passTheCheck()){
 				//设置出度标签。
-				setInfo(InformationType.ARC_END);
+				setInfo(InformationType.ARC_START);
 			}
 			break;
 		case 2:
 			//弧线的入度， A -> B 中的B端。
 			if (passTheCheck()){
 				//设置出度标签。
-				setInfo(InformationType.ARC_START);
+				setInfo(InformationType.ARC_END);
 			}
 			break;
 		default:

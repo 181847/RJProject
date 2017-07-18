@@ -78,10 +78,10 @@ public abstract class RStruct_contain_name implements IRStruct_contain_name {
 		
 		if (RStringChecker.checkComponentName(name)) {
 			this.name = name;
-			return InformationType.CLASS_REF_CL;
+			return InformationType.CLASS_REF_GP;
 		} else if (RStringChecker.checkRClassName(name)) {
 			this.name = name;
-			return InformationType.CLASS_REF_GP;
+			return InformationType.CLASS_REF_CL;
 		} else {
 			throw new IllegalArgumentException(
 					"不符合组件命名规范、"
