@@ -44,7 +44,7 @@ public class SubFunGSpider extends DeclarGSpider {
 			appendReport = "\n缺少SubFun声明。";
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 

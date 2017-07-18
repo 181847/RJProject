@@ -29,9 +29,6 @@ public abstract class DeclarGSpider extends GrammarSpider {
 			dealWith_Lack_SubBlock();
 			//记录无意义Block。
 			recordNonesense();
-		} else if ( 1 < getRecordOf(infoType)){
-			//发现重复声明的Block信息类型。
-			dealWith_Unexpected();
 		} else {
 			declarGrammarWork();
 		}

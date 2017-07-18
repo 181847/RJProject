@@ -126,7 +126,7 @@ public class SingleSubFunGSpider extends GrammarSpider {
 			appendReport.append("\n过多的修改信息区域。");
 		}
 		
-		return super.occurredError()
+		return super.getRawReport()
 				+ appendReport.toString();
 	}
 	

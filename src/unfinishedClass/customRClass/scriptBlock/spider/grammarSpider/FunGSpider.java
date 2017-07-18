@@ -95,8 +95,8 @@ public class FunGSpider extends DeclarGSpider {
 				|| 1 < getRecordOf(InformationType.DECLAR_LOCALVARS)
 				//子Fun区域声明过多。
 				|| 1 < getRecordOf(InformationType.DECLAR_SUBFUNS)
-				//缺少弧线区域或者弧线区域过多.
-				|| 1 != getRecordOf(InformationType.DECLAR_ARCS)
+				//弧线区域过多.
+				|| 1 < getRecordOf(InformationType.DECLAR_ARCS)
 				//注释声明区域过多。
 				|| 1 < getRecordOf(InformationType.DECLAR_COMMENTS);
 	}
@@ -172,18 +172,8 @@ public class FunGSpider extends DeclarGSpider {
 		}
 		
 		//弧线声明区域。
-		switch(getRecordOf(InformationType.DECLAR_ARCS)){
-		case 0:
-			appendReport.append("\n缺少弧线区域。");
-			break;
-			
-		case 1:
-			//正确情况。
-			break;
-			
-		default:
+		if (1 < getRecordOf(InformationType.DECLAR_ARCS)){
 			appendReport.append("\n过多的弧线区域。");
-			break;
 		}
 		
 		//注释声明区域。
