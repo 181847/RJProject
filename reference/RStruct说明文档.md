@@ -20,7 +20,7 @@ ArcPointStruct  |   一个弧线端点定义，包括一个序号、一个组件
 CommentStruct   |   一个注释区域的定义，内部包括一个方形区域的定义，以及一个个纯粹的文本区域（TextStruct）。
 TextStruct  |   一个纯粹的文本结构，简单用StringBuffer进行存储。
 
-#相关RStruct可以共用的方法
+#相关RStruct共同包含的成员信息
 RStruct |   name    |   type    |    classRef   |   GenParam |   GPAssign   |   Var
 --------|-----------|-----------|---------------|------------|--------------|-----------
 RClassStruct    |   V       |   V   |   |   V   |   |   V
@@ -31,4 +31,4 @@ SubFunStruct    |   V   |   |   V   |   |   V
 VarStruct       |   V   |   |   V
 ExcuteeStruct   |   V   |
 ExcuterStruct   |   V   |
-GenParamStruct  |   V   |
+GenParamStruct  |   V   |   |   V
