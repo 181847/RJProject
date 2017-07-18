@@ -10,7 +10,7 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_name;
  */
 public interface IGenParamStruct 
 		extends 
-		IRStruct_contain_name, 
+		IRStruct_contain_name,
 		IRStruct_contain_classRef {
 	
 	/**

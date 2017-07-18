@@ -11,7 +11,7 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_type;
 public interface IGPAssignStruct
 		extends 
 		IRStruct_contain_GPAssigns, 
-		IRStruct_contain_name, 
+		IRStruct_contain_name,
 		IRStruct_contain_type, 
 		IRStruct_contain_classRef {
 

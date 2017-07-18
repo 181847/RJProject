@@ -16,7 +16,7 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_vars;
  */
 public interface IFunStruct 
 		extends 
-		IRStruct_contain_name, 
+		IRStruct_contain_name,
 		IRStruct_contain_genParams,
 		IRStruct_contain_vars,
 		IRStruct_contain_arcs,
