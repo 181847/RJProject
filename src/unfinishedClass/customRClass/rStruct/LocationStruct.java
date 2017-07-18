@@ -79,4 +79,14 @@ public class LocationStruct implements IRStruct, ILocationStruct {
 		this.Y = Y;
 	}
 
+	@Override
+	public double getX() {
+		return X;
+	}
+
+	@Override
+	public double getY() {
+		return Y;
+	}
+
 }

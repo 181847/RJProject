@@ -41,5 +41,23 @@ public class ArcStruct implements IRStruct, IArcStruct {
 		
 		endPoint = endPointStruct;
 	}
+	
+	/**
+	 * @return
+	 * 		如果没有事先定义，返回值为null。
+	 */
+	@Override
+	public ArcPointStruct getArcStart() {
+		return startPoint;
+	}
+	
+	/**
+	 * @return
+	 * 		如果没有事先定义，返回值为null。
+	 */
+	@Override
+	public ArcPointStruct getArcEnd() {
+		return endPoint;
+	}
 
 }

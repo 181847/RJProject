@@ -93,4 +93,13 @@ public class ArcPointStruct
 		index = subFunIndex;
 	}
 
+	/**
+	 * @return
+	 * 		如果没有事先定义就返回0。
+	 */
+	@Override
+	public int getIndex() {
+		return index;
+	}
+
 }

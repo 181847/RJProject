@@ -23,5 +23,12 @@ public interface IArcPointStruct
 	 * @param subFunIndex
 	 */
 	public void defineIndex(int subFunIndex);
+	
+	/**
+	 * 获取弧线端点对应子Function的序号。
+	 * @return
+	 * 		对应子Function的序号。
+	 */
+	public int getIndex();
 
 }

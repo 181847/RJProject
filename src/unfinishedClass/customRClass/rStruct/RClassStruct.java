@@ -24,7 +24,7 @@ implements IRClassStruct, IRStruct{
 	/**
 	 * 接口实现集合。
 	 */
-	protected RSet<RClassRefStruct> implementsRefSet;
+	protected RSet<RClassRefStruct> implementRefSet;
 	
 	/**
 	 * 构造Function。
@@ -47,7 +47,9 @@ implements IRClassStruct, IRStruct{
 	protected RSet<FunStruct> abstractFunSet;
 	
 	public RClassStruct() {
-		implementsRefSet = new RSet<RClassRefStruct>();
+		extendsRef = null;
+		conFun = null;
+		implementRefSet = new RSet<RClassRefStruct>();
 		staticFunSet = new RSet<FunStruct>();
 		funSet = new RSet<FunStruct>();
 		abstractFunSet = new RSet<FunStruct>();
@@ -92,7 +94,7 @@ implements IRClassStruct, IRStruct{
 		//TODO 在这里添加对接口的冲突名检测，
 		//发现同名冲突的话就要抛出异常NameConflictionException。
 		
-		implementsRefSet.add(classRefStruct);
+		implementRefSet.add(classRefStruct);
 	}
 
 	@Override
@@ -171,5 +173,15 @@ implements IRClassStruct, IRStruct{
 	@Override
 	public RSet<FunStruct> getAbstractFunSet() {
 		return abstractFunSet;
+	}
+
+	@Override
+	public RClassRefStruct getExtends() {
+		return extendsRef;
+	}
+
+	@Override
+	public RSet<RClassRefStruct> getImplementSet() {
+		return implementRefSet;
 	}
 }

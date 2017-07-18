@@ -25,4 +25,16 @@ public interface ILocationStruct {
 	 * 		Y坐标。
 	 */
 	public void defineY(double Y);
+	
+	/**
+	 * @return
+	 * 		X轴坐标。
+	 */
+	public double getX();
+	
+	/**
+	 * @return
+	 * 		Y轴坐标。
+	 */
+	public double getY();
 }

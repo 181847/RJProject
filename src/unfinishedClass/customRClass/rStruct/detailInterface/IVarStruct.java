@@ -18,4 +18,12 @@ public interface IVarStruct
 	 * 		初始化信息。
 	 */
 	public void defineInitInfo(TextStruct initStruct);
+	
+	/**
+	 * 获取初始化信息。
+	 * @return
+	 * 		包含初始化信息的TextStruct，
+	 * 		如果本变量没有定义初始化信息的话就返回null。
+	 */
+	public TextStruct getInitInfo();
 }

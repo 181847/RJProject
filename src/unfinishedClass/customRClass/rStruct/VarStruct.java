@@ -4,6 +4,14 @@ import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 import unfinishedClass.customRClass.rStruct.baseRStruct.RStruct_contain_name_classRef;
 import unfinishedClass.customRClass.rStruct.detailInterface.IVarStruct;
 
+/**
+ * 变量结构，包括变量名、类型引用、初始化信息。
+ * 其中初始化信息用TextStruct（initInfo）进行存储，
+ * 但是由于变量的定义很多，为了不浪费空间，
+ * 只有通过外部来为内部的initInfo创建对象，
+ * 所以如果一个变量没有定义初始化信息，
+ * initInfo就为null。
+ */
 public class VarStruct
 		extends RStruct_contain_name_classRef
 		implements IRStruct, IVarStruct {
@@ -37,6 +45,11 @@ public class VarStruct
 		}
 		
 		initInfo = initStruct;
+	}
+
+	@Override
+	public TextStruct getInitInfo() {
+		return initInfo;
 	}
 
 }
