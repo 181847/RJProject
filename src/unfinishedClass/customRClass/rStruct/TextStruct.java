@@ -19,8 +19,12 @@ public class TextStruct implements IRStruct, ITextStruct {
 	}
 	
 	@Override
-	public void appendText(String lineSting) {
-		textBuffer.append(lineSting + '\n');
+	public void appendText(String lineString) {
+		if (textBuffer.length() == 0) {
+			textBuffer.append(lineString);
+		} else {
+			textBuffer.append(lineString + '\n');
+		}
 	}
 
 	@Override
