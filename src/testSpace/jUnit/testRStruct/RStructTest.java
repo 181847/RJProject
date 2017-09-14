@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import testSpace.testTool.ScriptPicker;
 import unfinishedClass.customRClass.rStruct.ArcStruct;
-import unfinishedClass.customRClass.rStruct.ExcuteeStruct;
 import unfinishedClass.customRClass.rStruct.FunStruct;
 import unfinishedClass.customRClass.rStruct.GPAssignStruct;
 import unfinishedClass.customRClass.rStruct.GenParamStruct;
@@ -17,9 +16,7 @@ import unfinishedClass.customRClass.rStruct.RClassStruct;
 import unfinishedClass.customRClass.rStruct.RSet;
 import unfinishedClass.customRClass.rStruct.SubFunStruct;
 import unfinishedClass.customRClass.rStruct.VarStruct;
-import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct;
 import unfinishedClass.customRClass.rStruct.baseInterface.IRStruct_contain_name;
-import unfinishedClass.customRClass.rStruct.detailInterface.IRStruct_contain_name_as_RStruct;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlock;
 import unfinishedClass.customRClass.scriptBlock.ScriptBlockHelper;
 import unfinishedClass.customRClass.scriptBlock.information.InformationType;
