@@ -22,12 +22,29 @@ public interface IRClassLoader{
 	public int checkRClassMatchType(String rClassA, String rClassB);
 	
 	/**
+	 * 通过RClassID的情况检查两个RClass类型的关系，
+	 * 目前只有在都是正数，且相等的情况下返回1，其他情况下返回0。
+	 * @param rClassAID RClassID
+	 * @param rClassBID 另一个RClassID
+	 * @return 检查结果，相同且都为Java包装类，返回1；
+	 * 否则返回0。
+	 */
+	public int checkRClassMatchType(int rClassAID, int rClassBID);
+	
+	/**
 	 * 获得一个RClass类型实例。
 	 * @param rClass 要获取的RClas的名字。
 	 * @return RClass的类型实例引用。
 	 * 
 	 */
 	public IRClass getRClass(String rClass);
+	
+	/**
+	 * 获得一个RClass类型实例。
+	 * @param rClassID RClassID。
+	 * @return RClass的类型实例引用。
+	 */
+	public IRClass getRClass(int rClassID);
 	
 	/**
 	 * 查看这个RClass的粗略类型标识，1至9代表基本数据类型。

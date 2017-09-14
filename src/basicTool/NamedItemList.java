@@ -1,19 +1,27 @@
 package basicTool;
 import basicInterface.*;
-/**
- * 无参构造方法自动申请五个元素空间
- * 这种列表会在空间不够时自动重新申请两倍的空间
- */
+
+
 public class NamedItemList implements INamedItemList{
 	public INameable[] buffer;
+	/**
+	 * 已经存储的元素的数量。
+	 */
 	public int itemNum;
 	
+	/**
+	 * 无参构造方法自动申请五个元素空间
+	 * 这种列表会在空间不够时自动重新申请两倍的空间
+	 */
 	public NamedItemList(){
 		init(5);
 	}
 	
+	/**
+	 * @param space
+	 * 		初始化的空间数量。
+	 */
 	public NamedItemList(int space){
-		this();
 		init(space);
 	}
 	
@@ -23,15 +31,12 @@ public class NamedItemList implements INamedItemList{
 	 * @return 如果分配的空间小于等于0，返回0表示失败
 	 */
 	public int init(int space){
-		if (space < 1){
-			return 0;
+		if (space <= 1){
+			space = 5;
 		}
 		buffer = new INameable[space];
 		itemNum = 0;
 		
-		for(int i = 0; i < space; ++i){
-			buffer[i] = null;
-		}
 		return 1;
 	}
 	

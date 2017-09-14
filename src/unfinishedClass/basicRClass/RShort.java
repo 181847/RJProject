@@ -1,10 +1,12 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import basicTool.RLogger;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RShort extends AbstractRClassWithFunctionList {
+public class RShort extends AbstractRClassForJava implements IRClass {
 
 	public RShort(){
 		super("Short");
@@ -16,6 +18,12 @@ public class RShort extends AbstractRClassWithFunctionList {
 		newInstance.mallocSpace(1);
 		newInstance.writeObject(new Short((short)0), "Short");
 		return newInstance;
+	}
+	
+	@Override
+	public int loadFunction() {
+		RLogger.log(this.getName() + " 加载成员Function。");
+		return 0;
 	}
 
 }

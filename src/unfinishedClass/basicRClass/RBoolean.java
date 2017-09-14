@@ -1,10 +1,12 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import basicTool.RLogger;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RBoolean extends AbstractRClassWithFunctionList {
+public class RBoolean extends AbstractRClassForJava implements IRClass {
 
 	public RBoolean(){
 		super("Boolean");
@@ -16,6 +18,12 @@ public class RBoolean extends AbstractRClassWithFunctionList {
 		newInstance.mallocSpace(1);
 		newInstance.writeObject(new Boolean(false), "Boolean");
 		return newInstance;
+	}
+	
+	@Override
+	public int loadFunction() {
+		RLogger.log(this.getName() + " 加载成员Function。");
+		return 0;
 	}
 
 }

@@ -1,10 +1,12 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import basicTool.RLogger;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RFloat extends AbstractRClassWithFunctionList {
+public class RFloat extends AbstractRClassForJava implements IRClass {
 
 	public RFloat(){
 		super("Float");
@@ -16,6 +18,12 @@ public class RFloat extends AbstractRClassWithFunctionList {
 		newInstance.mallocSpace(1);
 		newInstance.writeObject(new Float(0), "Float");
 		return newInstance;
+	}
+	
+	@Override
+	public int loadFunction() {
+		RLogger.log(this.getName() + " 加载成员Function。");
+		return 0;
 	}
 
 }

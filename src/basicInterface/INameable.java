@@ -1,5 +1,12 @@
 package basicInterface;
 
+/**
+ * 所有可命名对象的接口，
+ * 例如RClass的名字，Function的名字，
+ * Excutee的名字，Parameter的名字，
+ * Excuter的名字，Returnval的名字，
+ * Reference的名字。
+ */
 public interface INameable {
 	/**
 	 * 重载Object的String toString()函数，

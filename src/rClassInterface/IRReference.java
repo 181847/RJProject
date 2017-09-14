@@ -1,9 +1,10 @@
 package rClassInterface;
 import basicInterface.INameable;
+import basicInterface.IRClassIDHolder;
 
 
 
-public interface IRReference extends INameable{
+public interface IRReference extends INameable,IRClassIDHolder{
 	/**
 	 * 将source引用的对象赋给调用者，
 	 * 这个方法主要用于Parameter和Returnval相互赋值时使用
@@ -13,25 +14,6 @@ public interface IRReference extends INameable{
 	 * 类型不匹配返回-1。
 	 */
 	public int set(IRReference source);
-	
-	/**
-	 * 返回引用所属的RClass的粗略类型标识，
-	 * 粗略类型标识，
-	 * 1至9代表基本数据类型：
-	 * 1-Byte；
-	 * 2-Boolean；
-	 * 3-Short；
-	 * 4-Integer；
-	 * 5-Long；
-	 * 6-Float；
-	 * 7-Double；
-	 * 8-Character；
-	 * 9-String；
-	 * 10以及10以上代表Java包装的RClass；
-	 * 负无穷到-1代表完全自定义的RClass；
-	 * @return 一个表示粗略类型的数字。
-	 */
-	public int getReferenceClassID();
 	
 	/**
 	 * 返回成员数量
@@ -49,13 +31,13 @@ public interface IRReference extends INameable{
 	 * 返回引用的引用类型名称
 	 * @return 引用所属的RClass的类型名称
 	 */
-	public String getReferenceClass();
+	public String getReferenceRClass();
 	
 	/**
-	 * 返回引用的具体的数据的类型
-	 * @return 数据所属的RClass的类型名称
+	 * 返回引用的具体的数据的类型RClassID
+	 * @return 数据所属的RClass的RClassID
 	 */
-	public String getDataClass();
+	public int getDataRClassID();
 	
 	/**
 	 * 以Object形式返回第0号单元的引用
@@ -70,7 +52,8 @@ public interface IRReference extends INameable{
 	 * 用整型值返回写入的结果，
 	 * 这个方法主要是在构造函数，或者创建一个新的RClass实例的时候使用，
 	 * 注意这个方法的使用者一定是一个基本数据类型，或者Java包装类，
-	 * 将传入的参数data放进新数组的第0号单元，dataClass变为指定的参数。
+	 * 将传入的参数data放进新数组的第0号单元，dataClass变为指定的参数，
+	 * 在这个方法中会对RReference中的dataRClassID进行设置。
 	 * @param data 要写入RReference的数据
 	 * @param dataClass 指定数据的dataClass，
 	 * 要求dataClass必须和referenceClass相同，
@@ -83,12 +66,13 @@ public interface IRReference extends INameable{
 	 * 本方法专门用于向完全自定义RClass的RReference中写入数据，
 	 * 完全自定义RClass的RReference的datas数组存储的都是RReference类，
 	 * 调用此方法前需保证调用者当中的datas所指向的数组长度与传入Object数组的长度相同，
-	 * 然后依次复制参数数组的值到datas数组当中。
+	 * 然后依次复制参数数组的值到datas数组当中，
+	 * 在这个方法中会对RReference中的dataRClassID进行设置。
 	 * @param rReferenceList RReference列表。
 	 * @param dataClass 指定的dataClass名字。
 	 * @return 写入成功返回1，失败返回0。
 	 */
-	public int writeRReference(Object[] rReferenceList, String dataClass);
+	public int writeRReference(Object[] rReferenceList, String dataRClass);
 	
 	/**
 	 * 专门用于完全自定义RClass的方法，

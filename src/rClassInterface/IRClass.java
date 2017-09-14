@@ -1,10 +1,11 @@
 package rClassInterface;
 import basicInterface.INameable;
+import basicInterface.IRClassIDHolder;
 import functionInterface.IFunction;
 import functionInterface.IFunctionHeadSlot;
 import functionInterface.IFunctionRearSlot;
 
-public interface IRClass extends INameable{
+public interface IRClass extends INameable,IRClassIDHolder{
 	/**
 	 * 从RClass中创建一个RReference，
 	 * 这个RReference的datas数组一定是有实例对象的，
@@ -21,11 +22,20 @@ public interface IRClass extends INameable{
 	public IRReference getNewInstance();
 	
 	/**
-	 * 得到指定名字Function的序号。
-	 * @param 想要获取的Function的名字。
-	 * @return 一个指定名字的function在RClass当中的序号。
+	 * 向RClass中插入Function的方法，
+	 * RClass的加载成员Function的时候是在分配RClassID之后才进行的，
+	 * 在RClass被分配RClassID之后，
+	 * 系统统一调用一次这个方法用来加载RClass的成员Function。
+	 * @return 插入成功返回1，如果有失败返回0。
 	 */
-	public int getFunctionIndexOf(String functionName);
+	public int loadFunction();
+	
+	/**
+	 * 获得IRClass的唯一的一个构造Function，
+	 * 这个Function用来创建一个RClass的对象实例。
+	 * @return 构造Function
+	 */
+	public IFunction ConstructFunction();
 	
 	/**
 	 * 通过名字获取一个RClass当中指定的Function实例。
@@ -34,8 +44,7 @@ public interface IRClass extends INameable{
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public IFunction Function(String functionName)
-			throws InstantiationException, IllegalAccessException;
+	public IFunction Function(String functionName);
 	
 	/**
 	 * 通过数组下标获取一个RClass当中指定的Function的新实例，
@@ -45,31 +54,47 @@ public interface IRClass extends INameable{
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public IFunction getFunction(int functionNumber)
-			throws InstantiationException, IllegalAccessException;
+	public IFunction getFunction(int functionIndex);
+	
+	/**
+	 * 得到指定名字Function的序号。
+	 * @param 想要获取的Function的名字。
+	 * @return 一个指定名字的function在RClass当中的序号。
+	 */
+	public int getFunctionIndexOf(String functionName);
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过名字读取相应的function描述文件，
-	 * 对CustomFunction的内部进行填充。
-	 * @param functionIndex 指定的Function的序号；
-	 * @param rearSlot 某个CustomFunction的内部裸露出来的Returnval和Excuter；
-	 * @param headSlot 某个CustomFunction的内部裸露出来的Excutee和Parameter；
-	 * @return 成功填充返回1，失败返回0。
+	 * 通过customFunction的名字，
+	 * 来填充自定义customFunction的内容图表。
+	 * @param funcitonName
+	 * 		customFunction的名字。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return
+	 * 		成功返回1。
 	 */
 	public int fillFunctionGraphOf(String functionName,
-									IFunctionRearSlot rearSlot,
-									IFunctionHeadSlot headSlot);
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 	
 	/**
 	 * 专门适用于完全自定义型RClass的方法，通过序号读取相应的function描述文件，
-	 * 对CustomFunction的内部进行填充。
-	 * @param functionIndex 指定的Function的序号；
-	 * @param rearSlot 某个CustomFunction的内部裸露出来的Returnval和Excuter；
-	 * @param headSlot 某个CustomFunction的内部裸露出来的Excutee和Parameter；
-	 * @return 成功填充返回1，失败返回0。
+	 * 通过customFunction的序号，
+	 * 来填充自定义customFunction的内容图表。
+	 * @param funcitonName
+	 * 		customFunction的名字。
+	 * @param headSentryFunction
+	 * 		customFunction的headSentryFunction。
+	 * @param rearSentryFunction
+	 * 		customFunction的rearSentryFunction。
+	 * @return
+	 * 		成功返回1。
 	 */
 	public int fillFunctionGraphOf(int functionIndex,
-									IFunctionRearSlot rearSlot,
-									IFunctionHeadSlot headSlot);
+			IFunction headSentryFunction,
+			IFunction rearSentryFunction);
 	
 }

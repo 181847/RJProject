@@ -1,7 +1,16 @@
 package functionInterface;
 import basicInterface.INameable;
+import basicInterface.IRClassIDHolder;
 
-public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable{
+public interface IFunction extends IFunctionHeadSlot,IFunctionRearSlot,INameable,IRClassIDHolder{
+	/**
+	 * 为当前这个Function指定，当它发生异常时，
+	 * 哪个function来接受异常，注意接受异常的Function一定是一个带有ExceptionExcutee的function，
+	 * @param catchExceptionFunction
+	 * @return 成功指定异常的接受者就返回1，失败返回0。
+	 */
+	public abstract int assignExceptionHandler(IFunction catchExceptionFunction);
+	
 	/**
 	 * 开始function的参数处理，以及发动run方法。
 	 * @param paragraph 用于区分不同运算功能的数字。

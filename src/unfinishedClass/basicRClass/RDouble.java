@@ -1,10 +1,12 @@
 package unfinishedClass.basicRClass;
 
-import rClass.AbstractRClassWithFunctionList;
+import basicTool.RLogger;
+import rClass.AbstractRClassForJava;
 import rClass.RReference;
+import rClassInterface.IRClass;
 import rClassInterface.IRReference;
 
-public class RDouble extends AbstractRClassWithFunctionList {
+public class RDouble extends AbstractRClassForJava implements IRClass {
 
 	public RDouble(){
 		super("Double");
@@ -16,6 +18,12 @@ public class RDouble extends AbstractRClassWithFunctionList {
 		newInstance.mallocSpace(1);
 		newInstance.writeObject(new Double(0), "Double");
 		return newInstance;
+	}
+	
+	@Override
+	public int loadFunction() {
+		RLogger.log(this.getName() + " 加载成员Function。");
+		return 0;
 	}
 
 }

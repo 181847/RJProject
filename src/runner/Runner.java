@@ -55,7 +55,7 @@ public class Runner extends NameableWithString implements IRunner,INameable{
 	public void retraverseParameters(IParameterList parameterList)
 	{
 		IReturnval tempReturnval;
-		for (int i = parameterList.getNum() - 1; i > 0; --i){
+		for (int i = parameterList.getNum() - 1; i >= 0; --i){
 			tempReturnval = parameterList.getParameter(i).getReturnval();
 			
 			if (tempReturnval != null){
